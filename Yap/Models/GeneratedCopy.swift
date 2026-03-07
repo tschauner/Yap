@@ -3,10 +3,10 @@
 
 import Foundation
 
-/// Alle vorgenerierten Notification-Texte für ein Goal.
+/// Alle vorgenerierten Notification-Texte für eine Mission.
 /// Wird einmalig per GPT generiert und lokal gespeichert.
 struct GeneratedCopy: Codable, Equatable {
-    let goalId: UUID
+    let missionId: UUID
     let messages: [Message]
     let generatedAt: Date
     

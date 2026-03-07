@@ -4,7 +4,7 @@
 import Foundation
 
 /// Template-System für dynamische Notification-Texte.
-/// Jede Kombination aus NagTone × EscalationLevel hat mehrere Varianten.
+/// Jede Kombination aus Agent × EscalationLevel hat mehrere Varianten.
 /// `{goal}` wird beim Scheduling durch den echten Goal-Titel ersetzt.
 enum NagCopy {
     
@@ -23,14 +23,14 @@ enum NagCopy {
     // MARK: - Lookup
     
     /// Gibt ein zufälliges Template für die gegebene Kombination zurück.
-    static func random(tone: NagTone, level: EscalationLevel) -> Template {
-        let templates = all[tone]?[level] ?? fallback
+    static func random(agent: Agent, level: EscalationLevel) -> Template {
+        let templates = all[agent]?[level] ?? fallback
         return templates.randomElement() ?? fallback[0]
     }
     
     /// Gibt ein bestimmtes Template zurück (deterministisch für Index).
-    static func template(tone: NagTone, level: EscalationLevel, index: Int) -> Template {
-        let templates = all[tone]?[level] ?? fallback
+    static func template(agent: Agent, level: EscalationLevel, index: Int) -> Template {
+        let templates = all[agent]?[level] ?? fallback
         return templates[index % templates.count]
     }
     
@@ -42,7 +42,7 @@ enum NagCopy {
     
     // MARK: - All Templates
     
-    static let all: [NagTone: [EscalationLevel: [Template]]] = [
+    static let all: [Agent: [EscalationLevel: [Template]]] = [
         
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
         // MARK: 🫶 Best Friend
@@ -81,7 +81,7 @@ enum NagCopy {
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
         // MARK: 👩‍🍳 Mama
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-        .mama: [
+        .mom: [
             .gentle: [
                 Template(title: "Schatz 💛", body: "Hast du schon angefangen mit {goal}? Nur so ne Frage."),
                 Template(title: "Mama hier", body: "Wollte nur sagen: vergiss {goal} nicht, ja?"),
@@ -217,7 +217,7 @@ enum NagCopy {
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
         // MARK: 👵 Oma
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-        .oma: [
+        .grandma: [
             .gentle: [
                 Template(title: "Schätzchen 💕", body: "Vergiss nicht: {goal}. Oma denkt an dich!"),
                 Template(title: "Oma hier", body: "Ich wollte nur sagen — {goal} wäre doch schön heute, oder?"),

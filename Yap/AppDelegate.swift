@@ -43,7 +43,7 @@ class AppDelegate: NSObject, UIApplicationDelegate, UNUserNotificationCenterDele
         switch response.actionIdentifier {
         case "DONE_ACTION":
             // Goal als erledigt markieren → stoppt weitere Notifications
-            _ = await GoalService.shared.completeGoal(goalId)
+            _ = try? await MissionService.shared.completeMission(goalId)
             
         case "SNOOZE_ACTION":
             // 30 Minuten Ruhe, dann geht's weiter

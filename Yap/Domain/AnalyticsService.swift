@@ -6,7 +6,7 @@ import UIKit
 
 /// Trackt Goal-Lifecycle-Events in der yap_goals-Tabelle auf Supabase.
 /// Rein asynchron, fire-and-forget — Fehler werden geloggt, blockieren aber nichts.
-actor AnalyticsService {
+final class AnalyticsService {
     
     static let shared = AnalyticsService()
     private init() {}
@@ -23,12 +23,12 @@ actor AnalyticsService {
     
     // MARK: - Track Goal Created
     
-    func trackGoalCreated(_ goal: Goal, notificationsScheduled: Int, usedAICopy: Bool, isPro: Bool) {
+    func trackGoalCreated(_ mission: Mission, notificationsScheduled: Int, usedAICopy: Bool, isPro: Bool) {
         let body: [String: Any] = [
-            "id": goal.id.uuidString,
+            "id": mission.id.uuidString,
             "device_id": deviceId,
-            "title": goal.title,
-            "tone": goal.tone.rawValue,
+            "title": mission.title,
+            "agent": mission.agent.rawValue,
             "language": Locale.current.language.languageCode?.identifier ?? "en",
             "notifications_scheduled": notificationsScheduled,
             "is_pro": isPro,
@@ -39,9 +39,9 @@ actor AnalyticsService {
     
     // MARK: - Track Goal Completed
     
-    func trackGoalCompleted(_ goal: Goal, escalationLevel: Int) {
-        let minutesToComplete: Int? = goal.completedAt.map { completed in
-            Int(completed.timeIntervalSince(goal.createdAt) / 60)
+    func trackGoalCompleted(_ mission: Mission, escalationLevel: Int) {
+        let minutesToComplete: Int? = mission.completedAt.map { completed in
+            Int(completed.timeIntervalSince(mission.createdAt) / 60)
         }
         
         let body: [String: Any?] = [
@@ -51,7 +51,7 @@ actor AnalyticsService {
         ]
         
         // PATCH via filter
-        fire("yap_goals?id=eq.\(goal.id.uuidString)", method: "PATCH", body: body as [String: Any])
+        fire("yap_goals?id=eq.\(mission.id.uuidString)", method: "PATCH", body: body as [String: Any])
     }
     
     // MARK: - Track Goal Given Up

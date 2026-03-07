@@ -10,10 +10,24 @@ import SwiftUI
 @main
 struct YapApp: App {
     @UIApplicationDelegateAdaptor(AppDelegate.self) private var appDelegate
+    @AppStorage("appearance") var appearance: Appearance = .light
+    @AppStorage("completedOnboarding") var completedOnboarding = false
+    @StateObject private var viewModel = HomeViewModel()
+    @StateObject private var store = StoreManager()
     
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            if completedOnboarding {
+                MissionView()
+                    .environmentObject(viewModel)
+                    .environmentObject(store)
+                    .preferredColorScheme(appearance.scheme)
+                    .task {
+                        store.prepare()
+                    }
+            } else {
+                OnboardingView()
+            }
         }
     }
 }

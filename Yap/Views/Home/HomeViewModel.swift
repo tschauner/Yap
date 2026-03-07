@@ -3,142 +3,279 @@
 
 import Foundation
 import Combine
+import SwiftUI
 
-@MainActor
+enum Appearance: String {
+    case light
+    case dark
+    
+    var scheme: ColorScheme {
+        switch self {
+        case .light:
+            return .light
+        case .dark:
+            return .dark
+        }
+    }
+}
+
 final class HomeViewModel: ObservableObject {
     
     enum Phase: Equatable {
-        case onboarding      // Erster Start
-        case activeGoal(Goal) // Laufendes Goal — Notifications aktiv
-        case input           // Textfeld sichtbar
-        case pickAgent       // Agent/Tone auswählen
-        case generating      // Copy wird generiert
-        case completed(Goal) // Gerade erledigt — Celebration
-        case gaveUp(Goal)    // Aufgegeben — Loser Screen
+        case loading
+        case selection
+        case activeMission(Mission)
+        case completed(Mission)  // Stats nach Erfolg
+        case gaveUp(Mission)     // Stats nach Aufgeben
     }
     
-    @Published var goalText: String = ""
-    @Published var selectedTone: NagTone? = nil
-    @Published var phase: Phase = .input
+    @Published var missionText: String = ""
+    @Published var selectedAgent: Agent? = nil
+    @Published var phase: Phase = .loading
     @Published var error: String? = nil
     @Published var showPaywall: Bool = false
+    @Published var selectedMission: MissionItem?
+    @Published var showGiveApAlert = false
+    @Published var isFocused = false
+    @Published var selectedDeadline: Date = Calendar.current.date(bySettingHour: 23, minute: 59, second: 0, of: Date()) ?? Date()
+    @AppStorage("appearance") var appearance: Appearance = .light
+    @AppStorage(QuietHours.startKey) var quietHoursStart: Int = QuietHours.defaultStart
+    @AppStorage(QuietHours.endKey) var quietHoursEnd: Int = QuietHours.defaultEnd
+    
+    // Queue
+    @Published var queuedMissions: [MissionItem] = []
+    
+    // Stats (Gesamtübersicht)
+    @Published var stats: DeviceStats?
+    @Published var missionHistory: [Mission] = []
+    
+    /// Agent performance stats calculated from history.
+    var agentStats: [AgentStats] {
+        missionHistory.agentStats()
+    }
+    
+    /// Leaderboard sorted by success rate.
+    var agentLeaderboard: [AgentStats] {
+        missionHistory.agentLeaderboard()
+    }
+    
+    /// Get stats for a specific agent.
+    func stats(for agent: Agent) -> AgentStats {
+        agentStats.first { $0.agent == agent } ?? AgentStats(agent: agent, completed: 0, givenUp: 0)
+    }
+    
+    /// Get all finished missions for a specific agent.
+    func missions(for agent: Agent) -> [Mission] {
+        missionHistory.filter { $0.agent == agent }
+    }
+    
+    /// How many missions were created today (for daily limit check).
+    var missionsCreatedToday: Int {
+        let calendar = Calendar.current
+        let today = calendar.startOfDay(for: Date())
+        return missionHistory.filter { calendar.startOfDay(for: $0.createdAt) == today }.count
+    }
+    
+    func orderAgentList() -> [Agent] {
+        let indexByAgent = Dictionary(uniqueKeysWithValues: Agent.allCases.enumerated().map { ($1, $0) })
+
+        return Agent.allCases.sorted { lhs, rhs in
+            let lhsStats = stats(for: lhs)
+            let rhsStats = stats(for: rhs)
+
+            let lhsRate = lhsStats.successRate ?? -1
+            let rhsRate = rhsStats.successRate ?? -1
+            if lhsRate != rhsRate {
+                return lhsRate > rhsRate
+            }
+
+            if lhsStats.total != rhsStats.total {
+                return lhsStats.total > rhsStats.total
+            }
+
+            return (indexByAgent[lhs] ?? 0) < (indexByAgent[rhs] ?? 0)
+        }
+    }
     
     private let onboardingKey = "yap_onboarding_complete"
     
-    var canSubmitGoal: Bool {
-        !goalText.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
+    // MARK: - UseCases
+    
+    private let fetchActiveMission: FetchActiveMissionUseCase
+    private let fetchQueue: FetchQueueUseCase
+    private let createMission: CreateMissionUseCase
+    private let completeMission: CompleteMissionUseCase
+    private let giveUpMission: GiveUpMissionUseCase
+    private let removeFromQueue: RemoveFromQueueUseCase
+    private let extendMission: ExtendMissionUseCase
+    private let activateMission: ActivateMissionUseCase
+    private let fetchStats: FetchStatsUseCase
+    private let fetchMissionHistory: FetchMissionHistoryUseCase
+    private let addToQueue: AddToQueueUseCase
+    
+    init(fetchActiveMission: FetchActiveMissionUseCase = .init(),
+         fetchQueue: FetchQueueUseCase = .init(),
+         createMission: CreateMissionUseCase = .init(),
+         completeMission: CompleteMissionUseCase = .init(),
+         giveUpMission: GiveUpMissionUseCase = .init(),
+         removeFromQueue: RemoveFromQueueUseCase = .init(),
+         extendMission: ExtendMissionUseCase = .init(),
+         activateMission: ActivateMissionUseCase = .init(),
+         fetchStats: FetchStatsUseCase = .init(),
+         fetchMissionHistory: FetchMissionHistoryUseCase = .init(),
+         addToQueue: AddToQueueUseCase = .init()) {
+        self.fetchActiveMission = fetchActiveMission
+        self.fetchQueue = fetchQueue
+        self.createMission = createMission
+        self.completeMission = completeMission
+        self.giveUpMission = giveUpMission
+        self.removeFromQueue = removeFromQueue
+        self.extendMission = extendMission
+        self.activateMission = activateMission
+        self.fetchStats = fetchStats
+        self.fetchMissionHistory = fetchMissionHistory
+        self.addToQueue = addToQueue
+    }
+    
+    var canSubmitMission: Bool {
+        !missionText.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
     }
     
     // MARK: - Lifecycle
     
-    /// Beim App-Start: Onboarding nötig? Aktives Goal vorhanden?
+    @MainActor
     func onAppear() async {
-        // Onboarding Check
-        if !UserDefaults.standard.bool(forKey: onboardingKey) {
-            phase = .onboarding
-            return
+        if let active = await fetchActiveMission.execute(()) {
+            phase = .activeMission(active)
+        } else {
+            phase = .selection
         }
         
-        // Aktives Goal laden
-        if let activeGoal = await GoalService.shared.activeGoals().first {
-            phase = .activeGoal(activeGoal)
-        } else {
-            phase = .input
-        }
+        // Queue im Hintergrund laden
+        queuedMissions = await fetchQueue.execute(())
+        
+        // History für Agent Stats laden
+        await refreshMissionHistory()
+    }
+
+    @MainActor
+    private func refreshMissionHistory() async {
+        missionHistory = await fetchMissionHistory.execute(())
     }
     
     // MARK: - Onboarding
     
     func completeOnboarding() {
         UserDefaults.standard.set(true, forKey: onboardingKey)
-        phase = .input
+        phase = .selection
     }
     
-    // MARK: - Goal Flow
-    
-    /// User hat Goal-Text bestätigt → weiter zur Agent-Auswahl.
-    func submitGoalText() {
-        guard canSubmitGoal else { return }
-        phase = .pickAgent
+    @MainActor
+    func toggleAppearance() {
+        if appearance == .light {
+            appearance = .dark
+        } else {
+            appearance = .light
+        }
     }
     
-    /// User hat Agent gewählt → Pro-Check → Goal speichern + Copy generieren.
-    func selectAgent(_ tone: NagTone) {
-        // Pro-Gate: gesperrte Agents brauchen Pro
-        if ProAccess.requiresPro(tone) && !StoreManager.shared.isPro {
+    // MARK: - Mission Flow
+    @MainActor
+    func selectAgent(_ agent: Agent, title: String) async {
+        // Agent check: Only Mom is free
+        if ProAccess.requiresPro(agent) && !ProAccess.isPro {
             showPaywall = true
             return
         }
         
-        selectedTone = tone
-        phase = .generating
-        
-        Task {
-            let title = goalText.trimmingCharacters(in: .whitespacesAndNewlines)
-            
-            // Goal persistieren
-            var goal = await GoalService.shared.createGoal(title: title, tone: tone)
-            
-            // AI Copy nur für Pro, sonst Fallback
-            if ProAccess.canUseAICopy {
-                _ = await CopyService.shared.generateCopy(for: goal)
-            }
-            
-            // Notifications starten
-            let scheduled = await NagService.shared.scheduleEscalation(for: goal)
-            
-            // Scheduled Count speichern
-            await GoalService.shared.updateNotificationsScheduled(goal.id, count: scheduled)
-            goal.notificationsScheduled = scheduled
-            
-            // Direkt in den aktiven Zustand
-            phase = .activeGoal(goal)
-            goalText = ""
-            selectedTone = nil
+        // Daily limit check: Free users get 1 mission/day
+        if !ProAccess.canCreateMissionToday(missionsCreatedToday: missionsCreatedToday) {
+            showPaywall = true
+            return
         }
-    }
-    
-    // MARK: - Active Goal Actions
-    
-    /// Goal erledigt.
-    func markGoalDone(_ goal: Goal) async {
-        _ = await GoalService.shared.completeGoal(goal.id)
-        await NagService.shared.goalCompleted(goal.id)
-        phase = .completed(goal)
-    }
-    
-    /// Goal aufgeben → Loser Screen.
-    func giveUpGoal(_ goal: Goal) async {
-        await NagService.shared.cancelNotifications(for: goal.id)
-        await CopyService.shared.deleteCopy(for: goal.id)
-        // Goal nicht sofort löschen — wir brauchen die Stats für den Loser Screen
-        phase = .gaveUp(goal)
-    }
-    
-    /// Loser Screen bestätigt → Goal löschen + zurück zum Input.
-    func confirmGaveUp(_ goal: Goal) async {
-        await GoalService.shared.deleteGoal(goal.id)
-        phase = .input
-    }
-    
-    /// 24h Verlängerung (nur 1× pro Goal).
-    func extendGoal(_ goal: Goal) async {
-        guard !goal.extended else { return }
         
-        // Goal als extended markieren
-        guard let updated = await GoalService.shared.extendGoal(goal.id) else { return }
+        try? await Task.sleep(for: .seconds(2))
+        guard let mission = await createMission.execute(.init(
+            title: title,
+            agent: agent,
+            deadline: selectedDeadline
+        )) else {
+            error = "Mission konnte nicht erstellt werden."
+            phase = .selection
+            await refreshMissionHistory()
+            return
+        }
         
-        // Alte Notifications canceln
-        await NagService.shared.cancelNotifications(for: goal.id)
-        
-        // Neue Notifications planen (Schedule startet wieder von vorne)
-        await NagService.shared.scheduleEscalation(for: updated)
-        
-        phase = .activeGoal(updated)
+        phase = .activeMission(mission)
+        await refreshMissionHistory()
     }
     
-    /// Nach Celebration → zurück zum Input.
+    /// MissionItem zur Queue hinzufügen — nur Titel, kein Agent.
+    @MainActor
+    func addMissionToQueue(_ title: String) async {
+        guard let item = await addToQueue.execute(title) else { return }
+        queuedMissions.append(item)
+    }
+    
+    /// MissionItem aus der Queue löschen.
+    @MainActor
+    func removeMissionFromQueue(_ item: MissionItem) async {
+        await removeFromQueue.execute(item.id)
+        queuedMissions.removeAll { $0.id == item.id }
+    }
+    
+    // MARK: - Active Mission Actions
+    
+    /// Mission erledigt → Stats-Screen.
+    @MainActor
+    func markMissionDone(_ mission: Mission) async {
+        guard let result = await completeMission.execute(mission.id) else { return }
+        phase = .completed(result)
+        await refreshMissionHistory()
+    }
+    
+    /// Mission aufgeben → Loser-Stats-Screen.
+    @MainActor
+    func giveUp(_ mission: Mission) async {
+        guard let result = await giveUpMission.execute(mission.id) else { return }
+        phase = .gaveUp(result)
+        await refreshMissionHistory()
+    }
+    
+    /// 24h Verlängerung (nur 1× pro Mission, Pro-only).
+    @MainActor
+    func extend(_ mission: Mission) async {
+        guard ProAccess.canExtend else {
+            showPaywall = true
+            return
+        }
+        guard !mission.extended else { return }
+        guard let updated = await extendMission.execute(mission.id) else { return }
+        phase = .activeMission(updated)
+    }
+    
+    // MARK: - Post-Result Actions
+    
+    /// Nach Stats-Screen → nächste Mission aus Queue oder zurück zur Auswahl.
+    @MainActor
+    func continueAfterResult() {
+        // Queue hat nur MissionItems — User muss erst Agent wählen.
+        phase = .selection
+    }
+    
+    // MARK: - Stats (Gesamtübersicht)
+    @MainActor
+    func loadStats() async {
+        async let s = fetchStats.execute(())
+        async let h = refreshMissionHistory()
+        stats = await s
+        await h
+    }
+    
+    @MainActor
     func backToInput() {
-        phase = .input
+        phase = .selection
     }
 }
+
+

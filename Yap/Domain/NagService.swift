@@ -4,12 +4,21 @@
 import Foundation
 import UserNotifications
 
+// MARK: - Protocol
+
+protocol NagProviding: Actor {
+    func requestPermission() async -> Bool
+    @discardableResult func scheduleEscalation(for mission: Mission, startDelay: Int) -> Int
+    func missionCompleted(_ missionId: UUID)
+    func cancelNotifications(for goalId: UUID)
+}
+
 /// Schedules escalating local notifications for a goal.
-/// Uses NagCopy templates to generate dynamic, tone-aware messages.
+/// Uses NagCopy templates to generate dynamic, agent-aware messages.
 ///
 /// iOS erlaubt max. 64 pending notifications — unser volles Schedule
 /// hat ~24 Einträge, also genug Platz für mehrere Goals falls nötig.
-actor NagService {
+actor NagService: NagProviding {
     
     static let shared = NagService()
     private init() {}
@@ -30,28 +39,32 @@ actor NagService {
     
     /// Plant die komplette Eskalations-Kette für ein Goal.
     /// - Parameters:
-    ///   - goal: Das Ziel des Users
+    ///   - mission: Das Ziel des Users (enthält deadline)
     ///   - startDelay: Verzögerung in Minuten bis zur ersten Notification (default: 0 = sofort starten)
     /// - Returns: Anzahl der geplanten Notifications
     @discardableResult
-    func scheduleEscalation(for goal: Goal, startDelay: Int = 0) -> Int {
+    func scheduleEscalation(for mission: Mission, startDelay: Int = 0) -> Int {
         let center = UNUserNotificationCenter.current()
         
         // Alte Notifications für dieses Goal entfernen
-        cancelNotifications(for: goal.id)
+        cancelNotifications(for: mission.id)
         
-        let schedule = EscalationLevel.buildSchedule(startOffsetMinutes: startDelay)
+        let schedule = EscalationLevel.buildSchedule(profile: mission.agent.escalationProfile, startOffsetMinutes: startDelay)
+        
+        // Nur Notifications planen die VOR der Deadline liegen
+        let minutesUntilDeadline = Int(mission.deadline.timeIntervalSinceNow / 60)
+        let withinDeadline = schedule.filter { $0.minuteOffset < minutesUntilDeadline }
         
         // Max 64 pending insgesamt, wir nehmen max 24 pro Goal
-        let capped = Array(schedule.prefix(24))
+        let capped = Array(withinDeadline.prefix(24))
         
         for (index, entry) in capped.enumerated() {
             let template = NagCopy.template(
-                tone: goal.tone,
+                agent: mission.agent,
                 level: entry.level,
                 index: index
             )
-            let resolved = template.resolved(with: goal.title)
+            let resolved = template.resolved(with: mission.title)
             
             let content = UNMutableNotificationContent()
             content.title = resolved.title
@@ -59,7 +72,7 @@ actor NagService {
             content.sound = notificationSound(for: entry.level)
             content.categoryIdentifier = "YAP_REMINDER"
             content.userInfo = [
-                "goalId": goal.id.uuidString,
+                "goalId": mission.id.uuidString,
                 "level": entry.level.rawValue
             ]
             // Badge zeigt Eskalations-Level
@@ -71,7 +84,7 @@ actor NagService {
                 repeats: false
             )
             
-            let identifier = notificationId(goalId: goal.id, index: index)
+            let identifier = notificationId(goalId: mission.id, index: index)
             let request = UNNotificationRequest(
                 identifier: identifier,
                 content: content,
@@ -85,15 +98,15 @@ actor NagService {
             }
         }
         
-        print("📬 Scheduled \(capped.count) notifications for '\(goal.title)' (\(goal.tone.displayName))")
+        print("📬 Scheduled \(capped.count) notifications for '\(mission.title)' (\(mission.agent.displayName))")
         return capped.count
     }
     
     // MARK: - Complete / Cancel
     
     /// Goal erledigt → alle pending Notifications canceln + Badge reset.
-    func goalCompleted(_ goalId: UUID) {
-        cancelNotifications(for: goalId)
+    func missionCompleted(_ missionId: UUID) {
+        cancelNotifications(for: missionId)
         clearBadge()
     }
     

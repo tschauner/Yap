@@ -3,213 +3,285 @@
 
 import SwiftUI
 
-/// Multi-Step Onboarding: Welcome → How it works → Notifications → Pick free agent → (Optional: Paywall) → Done
 struct OnboardingView: View {
-    var onComplete: () -> Void
     
-    @State private var page = 0
-    @State private var notificationsGranted = false
+    enum Page: CaseIterable {
+        case welcome
+        case agents
+        case sleepTime
+        case notifiation
+        case store
+        case fisnih
+        
+        var canBeSkipped: Bool {
+            switch self {
+            case .notifiation, .welcome:
+                return false
+            default:
+                return true
+            }
+        }
+    }
     
-    private let totalPages = 4
+    @AppStorage("completedOnboarding") var completedOnboarding = false
+    @AppStorage(QuietHours.startKey) private var quietHoursStart: Int = QuietHours.defaultStart
+    @AppStorage(QuietHours.endKey) private var quietHoursEnd: Int = QuietHours.defaultEnd
+    
+    @State private var currentPage: Page = .welcome
+    @State private var selectedAgent: Agent = .mom
+    @State private var quietStart = Calendar.current.date(bySettingHour: 22, minute: 0, second: 0, of: Date()) ?? Date()
+    @State private var quietEnd = Calendar.current.date(bySettingHour: 8, minute: 0, second: 0, of: Date()) ?? Date()
+    
+    private let totalPages = 5
     
     var body: some View {
         VStack(spacing: 0) {
-            // Progress dots
-            HStack(spacing: 8) {
-                ForEach(0..<totalPages, id: \.self) { i in
-                    Circle()
-                        .fill(i <= page ? Color.primary : Color.primary.opacity(0.15))
-                        .frame(width: 8, height: 8)
-                }
-            }
-            .padding(.top, 16)
-            
-            TabView(selection: $page) {
-                welcomePage.tag(0)
-                howItWorksPage.tag(1)
-                notificationPage.tag(2)
-                readyPage.tag(3)
+            // Content
+            TabView(selection: $currentPage) {
+                valuePropScreen.tag(Page.welcome)
+                agentsScreen.tag(Page.agents)
+                notificationsScreen.tag(Page.notifiation)
+                quietHoursScreen.tag(Page.sleepTime)
+                readyScreen.tag(Page.fisnih)
             }
             .tabViewStyle(.page(indexDisplayMode: .never))
-            .animation(.snappy(duration: 0.4), value: page)
-        }
-    }
-    
-    // MARK: - Page 1: Welcome
-    
-    private var welcomePage: some View {
-        VStack(spacing: 24) {
-            Spacer()
+            .animation(.easeInOut(duration: 0.3), value: currentPage)
             
-            Text("🗣️")
-                .font(.system(size: 80))
-            
-            VStack(spacing: 12) {
-                Text("Welcome to Yap")
-                    .font(.system(size: 32, weight: .bold))
+            // Bottom
+            VStack(spacing: 16) {
+                // Page Indicator
+//                HStack(spacing: 6) {
+//                    ForEach(Page.allCases, id: \.self) { page in
+//                        Circle()
+//                            .fill(currentPage == page ? Color.primary : Color.primary.opacity(0.2))
+//                            .frame(width: 6, height: 6)
+//                    }
+//                }
                 
-                Text("The app that won't shut up\nuntil you get things done.")
-                    .font(.system(size: 18))
-                    .foregroundStyle(.secondary)
-                    .multilineTextAlignment(.center)
+                // Button
+                Button {
+                    handleNext()
+                } label: {
+                    Text(buttonTitle)
+                        .font(.system(size: 17, weight: .semibold))
+                        .foregroundStyle(.white)
+                        .frame(maxWidth: .infinity)
+                        .frame(height: 60)
+                        .background(Color.black)
+                        .clipShape(RoundedRectangle(cornerRadius: 12))
+                }
             }
-            
-            Spacer()
-            
-            onboardingButton("Let's go") {
-                page = 1
-            }
+            .padding(.horizontal, 24)
+            .padding(.bottom, 40)
         }
-        .padding(.horizontal, 24)
-        .padding(.bottom, 24)
     }
     
-    // MARK: - Page 2: How it works
+    private var buttonTitle: String {
+        switch currentPage {
+        case .notifiation: return "Allow Notifications"
+        case .fisnih: return "Let's go"
+        case .store: return "Subscribe"
+        default: return "Next"
+        }
+    }
     
-    private var howItWorksPage: some View {
+    private func handleNext() {
+        switch currentPage {
+        case .welcome:
+            currentPage = .agents
+        case .notifiation:
+            // Request notification permission
+            Task {
+                await NagService.shared.requestPermission()
+                await MainActor.run { currentPage = .fisnih }
+            }
+        case .sleepTime:
+            // Save quiet hours
+            quietHoursStart = Calendar.current.component(.hour, from: quietStart)
+            quietHoursEnd = Calendar.current.component(.hour, from: quietEnd)
+            currentPage = .store
+        case .store:
+            currentPage = .fisnih
+        case .fisnih:
+            completedOnboarding = true
+        case .agents:
+            currentPage = .sleepTime
+        }
+    }
+    
+    // MARK: - Screen 1: Value Prop
+    
+    private var valuePropScreen: some View {
         VStack(spacing: 32) {
             Spacer()
             
-            Text("How it works")
-                .font(.system(size: 28, weight: .bold))
-            
-            VStack(alignment: .leading, spacing: 24) {
-                howItWorksRow(
-                    emoji: "✍️",
-                    title: "Set a goal",
-                    subtitle: "What do you need to get done today?"
-                )
-                howItWorksRow(
-                    emoji: "🤖",
-                    title: "Pick your agent",
-                    subtitle: "Choose who'll remind you — nice or not."
-                )
-                howItWorksRow(
-                    emoji: "📈",
-                    title: "It escalates",
-                    subtitle: "The longer you wait, the more intense it gets."
-                )
-                howItWorksRow(
-                    emoji: "✅",
-                    title: "Mark it done",
-                    subtitle: "The only way to make it stop."
-                )
-            }
-            .padding(.horizontal, 8)
-            
-            Spacer()
-            
-            onboardingButton("Got it") {
-                page = 2
-            }
-        }
-        .padding(.horizontal, 24)
-        .padding(.bottom, 24)
-    }
-    
-    // MARK: - Page 3: Notifications
-    
-    private var notificationPage: some View {
-        VStack(spacing: 24) {
-            Spacer()
-            
-            Text("🔔")
-                .font(.system(size: 80))
-            
-            VStack(spacing: 12) {
-                Text("Notifications are\nkind of the point")
-                    .font(.system(size: 28, weight: .bold))
-                    .multilineTextAlignment(.center)
+            VStack(spacing: 10) {
+                Text("Pick one thing.")
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                    .font(.system(size: 26, weight: .bold))
                 
-                Text("Without them, we're just\na fancy to-do list.")
-                    .font(.system(size: 18))
-                    .foregroundStyle(.secondary)
-                    .multilineTextAlignment(.center)
-            }
-            
-            Spacer()
-            
-            onboardingButton(notificationsGranted ? "Continue" : "Enable notifications") {
-                if notificationsGranted {
-                    page = 3
-                } else {
-                    Task {
-                        let granted = await NagService.shared.requestPermission()
-                        notificationsGranted = granted
-                        // Auch wenn abgelehnt, weitermachen
-                        page = 3
-                    }
-                }
-            }
-            
-            if !notificationsGranted {
-                Button("Maybe later") {
-                    page = 3
-                }
-                .font(.system(size: 16, weight: .medium))
-                .foregroundStyle(.tertiary)
-            }
-        }
-        .padding(.horizontal, 24)
-        .padding(.bottom, 24)
-    }
-    
-    // MARK: - Page 4: Ready
-    
-    private var readyPage: some View {
-        VStack(spacing: 24) {
-            Spacer()
-            
-            Text("😤")
-                .font(.system(size: 80))
-            
-            VStack(spacing: 12) {
-                Text("You're in for it now")
-                    .font(.system(size: 28, weight: .bold))
+                Text("Get nagged until you finish.")
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                    .font(.system(size: 26, weight: .bold))
                 
-                Text("Set your first goal.\nWe dare you to ignore it.")
-                    .font(.system(size: 18))
-                    .foregroundStyle(.secondary)
-                    .multilineTextAlignment(.center)
+                Text("That's it.")
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                    .font(.system(size: 26, weight: .bold))
             }
-            
-            Spacer()
-            
-            onboardingButton("Let's do this") {
-                onComplete()
-            }
+            .padding(.bottom, 50)
         }
         .padding(.horizontal, 24)
-        .padding(.bottom, 24)
     }
     
-    // MARK: - Components
-    
-    private func howItWorksRow(emoji: String, title: String, subtitle: String) -> some View {
-        HStack(spacing: 16) {
-            Text(emoji)
-                .font(.system(size: 32))
-                .frame(width: 48)
-            
-            VStack(alignment: .leading, spacing: 2) {
-                Text(title)
-                    .font(.system(size: 18, weight: .semibold))
-                Text(subtitle)
-                    .font(.system(size: 15))
-                    .foregroundStyle(.secondary)
-            }
-        }
-    }
-    
-    private func onboardingButton(_ label: String, action: @escaping () -> Void) -> some View {
-        Button(action: action) {
-            Text(label)
-                .font(.system(size: 18, weight: .semibold))
+    private func flowStep(number: String, text: String) -> some View {
+        HStack(spacing: 14) {
+            Text(number)
+                .font(.system(size: 15, weight: .bold))
                 .foregroundStyle(.white)
-                .frame(maxWidth: .infinity)
-                .frame(height: 56)
-                .background(.primary)
-                .clipShape(RoundedRectangle(cornerRadius: 16))
+                .frame(width: 28, height: 28)
+                .background(Color.black)
+                .clipShape(Circle())
+            
+            Text(text)
+                .font(.system(size: 17, weight: .medium))
+                .frame(maxWidth: .infinity, alignment: .leading)
         }
     }
+    
+    // MARK: - Screen 2: Agents
+    
+    private var agentsScreen: some View {
+        VStack(spacing: 0) {
+            Spacer()
+        
+            
+            Text(selectedAgent.pitch)
+                .frame(maxWidth: .infinity, alignment: .leading)
+                .font(.system(size: 17))
+                .foregroundStyle(.secondary)
+                .animation(.easeOut(duration: 0.2), value: selectedAgent)
+                .frame(height: 50, alignment: .topLeading)
+                .padding(.bottom, 30)
+            
+            LazyVGrid(columns: [
+                GridItem(.flexible()),
+                GridItem(.flexible()),
+                GridItem(.flexible())
+            ], spacing: 12) {
+                ForEach(Agent.allCases, id: \.self) { agent in
+                    agentCell(agent)
+                }
+            }
+            .padding(.bottom, 100)
+            
+            Text("Meet your agents.")
+                .frame(maxWidth: .infinity, alignment: .leading)
+                .font(.system(size: 26, weight: .bold))
+                .padding(.bottom, 50)
+        }
+        .padding(.horizontal, 24)
+    }
+    
+    private func agentCell(_ agent: Agent) -> some View {
+        VStack(spacing: 8) {
+            Text(agent.emoji)
+                .font(.system(size: 36))
+            Text(agent.displayName)
+                .font(.system(size: 13, weight: .medium))
+                .foregroundStyle(selectedAgent == agent ? .primary : .secondary)
+        }
+        .frame(maxWidth: .infinity)
+        .frame(height: 90)
+        .background(selectedAgent == agent ? Color.primary.opacity(0.05) : Color.clear)
+        .clipShape(RoundedRectangle(cornerRadius: 12))
+        .overlay(
+            RoundedRectangle(cornerRadius: 12)
+                .stroke(selectedAgent == agent ? Color.primary : Color.clear, lineWidth: 1.5)
+        )
+        .onTapGesture {
+            selectedAgent = agent
+        }
+    }
+    
+    // MARK: - Screen 3: Notifications
+    
+    private var notificationsScreen: some View {
+        VStack(spacing: 0) {
+            Spacer()
+            
+            VStack(spacing: 20) {
+                Text("Your agent needs notifications to nag you.")
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                    .font(.system(size: 26, weight: .bold))
+                
+                Text("Without them, we're just a fancy to-do list.")
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                    .font(.system(size: 17))
+                    .foregroundStyle(.secondary)
+            }
+            .padding(.bottom, 50)
+        }
+        .padding(.horizontal, 24)
+    }
+    
+    // MARK: - Screen 4: Quiet Hours
+    
+    private var quietHoursScreen: some View {
+        VStack(spacing: 0) {
+            Spacer()
+            
+            Text("No notifications between these times.")
+                .frame(maxWidth: .infinity, alignment: .leading)
+                .font(.system(size: 26, weight: .bold))
+                .padding(.bottom, 20)
+            
+            VStack(spacing: 10) {
+                HStack {
+                    Text("From")
+                    Spacer()
+                    DatePicker("", selection: $quietStart, displayedComponents: .hourAndMinute)
+                        .labelsHidden()
+                }
+                .padding(20)
+                .background(.quinary)
+                .cornerRadius(20)
+                
+                HStack {
+                    Text("Until")
+                    Spacer()
+                    DatePicker("", selection: $quietEnd, displayedComponents: .hourAndMinute)
+                        .labelsHidden()
+                }
+                .padding(20)
+                .background(.quinary)
+                .cornerRadius(20)
+            }
+            .padding(.bottom, 50)
+        }
+        .padding(.horizontal, 24)
+    }
+    
+    // MARK: - Screen 5: Ready
+    
+    private var readyScreen: some View {
+        VStack(spacing: 0) {
+            Spacer()
+            
+            Text("You're all set.")
+                .frame(maxWidth: .infinity, alignment: .leading)
+                .font(.system(size: 26, weight: .bold))
+                .padding(.bottom, 8)
+            
+            Text("Time for your first mission.")
+                .frame(maxWidth: .infinity, alignment: .leading)
+                .font(.system(size: 17))
+                .foregroundStyle(.secondary)
+                .padding(.bottom, 50)
+        }
+        .padding(.horizontal, 24)
+    }
+}
+
+#Preview {
+    OnboardingView()
 }

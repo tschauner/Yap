@@ -4,14 +4,11 @@
 import Foundation
 import StoreKit
 import Combine
+import SwiftUI
 
 @MainActor
 final class StoreManager: ObservableObject {
-    
-    static let shared = StoreManager()
-    
-    // MARK: - Product IDs
-    
+
     enum ProductID {
         static let lifetime = "com.philipptschauner.yap.lifetime"
     }
@@ -19,13 +16,13 @@ final class StoreManager: ObservableObject {
     // MARK: - Published State
     
     @Published private(set) var product: Product?
-    @Published private(set) var isPro: Bool = false
     @Published private(set) var isLoading: Bool = false
+    @AppStorage("isPro") var isPro = false
     @Published var error: String?
     
     // MARK: - Init
     
-    private init() {
+    func prepare() {
         Task { await loadProducts() }
         Task { await updatePurchaseStatus() }
         Task { await listenForTransactions() }

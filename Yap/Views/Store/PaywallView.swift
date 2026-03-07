@@ -3,110 +3,297 @@
 
 import SwiftUI
 import StoreKit
+import Combine
 
 struct PaywallView: View {
-    @ObservedObject private var store = StoreManager.shared
+    @EnvironmentObject var store: StoreManager
     @Environment(\.dismiss) private var dismiss
+    @Environment(\.colorScheme) private var colorScheme
+    
+    @State private var currentPage: Int = 0
+    
+    private let timer = Timer.publish(every: 5, on: .main, in: .common).autoconnect()
     
     var body: some View {
-        VStack(spacing: 24) {
-            // Close
-            HStack {
-                Spacer()
-                Button { dismiss() } label: {
-                    Image(systemName: "xmark.circle.fill")
-                        .font(.system(size: 28))
-                        .foregroundStyle(.tertiary)
-                }
-            }
-            .padding(.horizontal, 20)
-            .padding(.top, 8)
-            
-            Spacer()
-            
-            // Headline
-            VStack(spacing: 12) {
-                Text("🔓")
-                    .font(.system(size: 64))
-                
-                Text("Unlock all agents")
-                    .font(.system(size: 28, weight: .bold))
-                
-                Text("Get AI-powered reminders that\nactually know what you're doing.")
-                    .font(.system(size: 17))
-                    .foregroundStyle(.secondary)
-                    .multilineTextAlignment(.center)
-            }
-            
-            // Feature list
-            VStack(alignment: .leading, spacing: 16) {
-                featureRow("🤖", "All 5 agents", "Drill Sergeant, Coach, Chaos & more")
-                featureRow("✨", "AI-generated messages", "Unique reminders tailored to your goal")
-                featureRow("♾️", "Unlimited goals", "Set as many as you need")
-            }
-            .padding(24)
-            .background(.ultraThinMaterial)
-            .clipShape(RoundedRectangle(cornerRadius: 20))
-            .padding(.horizontal, 24)
-            
-            Spacer()
-            
-            // Purchase button
-            VStack(spacing: 12) {
-                Button {
-                    Task { await store.purchase() }
-                } label: {
-                    Group {
-                        if store.isLoading {
-                            ProgressView()
-                                .tint(.white)
-                        } else if let product = store.product {
-                            Text("Get Yap Pro — \(product.displayPrice)")
-                                .font(.system(size: 18, weight: .bold))
-                        } else {
-                            Text("Get Yap Pro")
-                                .font(.system(size: 18, weight: .bold))
-                        }
+        NavigationStack {
+            VStack(spacing: 0) {
+                // Scrollable content
+                ScrollView(.vertical, showsIndicators: false) {
+                    VStack(spacing: 0) {
+                        // Header
+                        header
+                        
+                        // Agent quotes carousel
+                        agentQuotes
+                            .padding(.top, 32)
+                        
+                        // Comparison table
+                        comparisonTable
+                            .padding(.top, 40)
+                            .padding(.horizontal, 24)
+                        
+                        // Bottom spacing for sticky button
+                        Spacer()
+                            .frame(height: 160)
                     }
-                    .foregroundStyle(.white)
-                    .frame(maxWidth: .infinity)
-                    .frame(height: 56)
-                    .background(.orange.gradient)
-                    .clipShape(RoundedRectangle(cornerRadius: 16))
                 }
-                .disabled(store.isLoading || store.product == nil)
                 
-                Text("One-time purchase. No subscription.")
-                    .font(.system(size: 13))
-                    .foregroundStyle(.tertiary)
-                
-                Button("Restore purchase") {
-                    Task { await store.restore() }
-                }
-                .font(.system(size: 14, weight: .medium))
-                .foregroundStyle(.secondary)
+                // Sticky bottom purchase area
             }
-            .padding(.horizontal, 24)
-            .padding(.bottom, 24)
-        }
-        .onChange(of: store.isPro) { _, isPro in
-            if isPro { dismiss() }
+            .background(.quinary)
+            .safeAreaInset(edge: .bottom) {
+                purchaseFooter
+            }
+            .toolbar {
+                ToolbarItem(placement: .cancellationAction) {
+                    Image(icon: .close)
+                }
+            }
+            .onChange(of: store.isPro) { _, isPro in
+                if isPro { dismiss() }
+            }
         }
     }
     
-    private func featureRow(_ emoji: String, _ title: String, _ subtitle: String) -> some View {
-        HStack(spacing: 14) {
-            Text(emoji)
-                .font(.system(size: 28))
-                .frame(width: 36)
+    // MARK: - Header
+    
+    private var header: some View {
+        VStack(spacing: 16) {
+            Text("PRO")
+                .font(.system(size: 48, weight: .black, design: .rounded))
             
-            VStack(alignment: .leading, spacing: 2) {
-                Text(title)
-                    .font(.system(size: 16, weight: .semibold))
-                Text(subtitle)
-                    .font(.system(size: 14))
-                    .foregroundStyle(.secondary)
+            Text("Unlock your full motivation squad.")
+                .font(.system(size: 17))
+                .foregroundStyle(.secondary)
+            
+            // Laurel badge
+            laurelBadge
+                .padding(.top, 20)
+        }
+    }
+    
+    private var laurelBadge: some View {
+        HStack(spacing: 15) {
+            Image(icon: .laurelLeading)
+                .font(.system(size: 60))
+            Text("Voted most annoying app\nby our users")
+                .font(.system(size: 21, weight: .semibold))
+                .multilineTextAlignment(.center)
+                .tracking(0.3)
+            Image(icon: .laurelTrailing)
+                .font(.system(size: 60))
+        }
+        .frame(maxWidth: .infinity)
+//        .padding(.horizontal, 20)
+    }
+    
+    // MARK: - Agent Quotes Carousel
+    
+    private var agentQuotes: some View {
+        VStack(spacing: 16) {
+            TabView(selection: $currentPage) {
+                ForEach(Array(Agent.allCases.enumerated()), id: \.offset) { index, agent in
+                    quoteCard(agent)
+                        .tag(index)
+                }
+            }
+            .tabViewStyle(.page(indexDisplayMode: .never))
+            .frame(height: 160)
+            .onReceive(timer) { _ in
+                withAnimation(.easeInOut(duration: 0.4)) {
+                    currentPage = (currentPage + 1) % Agent.allCases.count
+                }
             }
         }
     }
+    
+    private func quoteCard(_ agent: Agent) -> some View {
+        HStack(spacing: 20) {
+            Image(icon: .quoteOpening)
+                .frame(alignment: .leading)
+                .padding(.bottom, 60)
+            VStack(spacing: 16) {
+                Text("\"\(agent.salesPitch)\"")
+                    .font(.system(size: 16, weight: .medium))
+                    .foregroundStyle(.secondary)
+                    .multilineTextAlignment(.center)
+                    .lineLimit(4)
+                    .fixedSize(horizontal: false, vertical: true)
+                
+                HStack(spacing: 6) {
+                    Text(agent.emoji)
+                        .font(.system(size: 18))
+                    Text(agent.displayName)
+                        .font(.system(size: 16, weight: .semibold))
+                        .foregroundStyle(.primary)
+                }
+            }
+            
+            Image(icon: .quoteClosing)
+                .frame(alignment: .trailing)
+                .padding(.bottom, 60)
+        }
+        .padding(.vertical, 15)
+        .padding(.horizontal, 30)
+        .glassEffect(in: .rect(cornerRadius: 20))
+        .frame(maxWidth: .infinity)
+        .padding(.horizontal)
+    }
+    
+    // MARK: - Comparison Table
+    
+    private var comparisonTable: some View {
+        VStack(spacing: 0) {
+            // Table header
+            HStack {
+                Spacer()
+                Text("Free")
+                    .font(.system(size: 13, weight: .semibold))
+                    .foregroundStyle(.secondary)
+                    .frame(width: 56)
+                Text("Pro")
+                    .font(.system(size: 13, weight: .bold))
+                    .frame(width: 56)
+            }
+            .padding(.horizontal, 16)
+            .padding(.bottom, 12)
+            
+            Divider()
+            
+            // Rows
+            comparisonRow("Agent", free: "Mom", pro: "All 6")
+            comparisonRow("Missions / day", free: "1", pro: "∞")
+            comparisonRow("AI-powered messages", free: true, pro: true)
+            comparisonRow("Agent Leaderboard", free: true, pro: true)
+            comparisonRow("Custom quiet hours", free: true, pro: true)
+            comparisonRow("Extend deadline", free: false, pro: true, showDivider: false)
+        }
+        .padding(.vertical, 16)
+        .background(
+            RoundedRectangle(cornerRadius: 16)
+                .fill(colorScheme == .dark
+                      ? Color(.systemGray6)
+                      : Color.white)
+        )
+    }
+    
+    private func comparisonRow(_ label: String, free: Bool, pro: Bool, showDivider: Bool = true) -> some View {
+        comparisonRowContent(label, content: {
+            checkOrDash(free, highlighted: false)
+                .frame(width: 56)
+            checkOrDash(pro, highlighted: true)
+                .frame(width: 56)
+        }, showDivider: showDivider)
+    }
+    
+    private func comparisonRow(_ label: String, free: String, pro: String, showDivider: Bool = true) -> some View {
+        comparisonRowContent(label, content: {
+            Text(free)
+                .font(.system(size: 14, weight: .medium))
+                .foregroundStyle(.secondary)
+                .frame(width: 56)
+            Text(pro)
+                .font(.system(size: 14, weight: .bold))
+                .frame(width: 56)
+                .frame(width: 56)
+        }, showDivider: showDivider)
+    }
+    
+    private func comparisonRowContent<Content: View>(
+        _ label: String,
+        @ViewBuilder content: () -> Content,
+        showDivider: Bool
+    ) -> some View {
+        VStack(spacing: 0) {
+            HStack {
+                Text(label)
+                    .font(.system(size: 15))
+                    .foregroundStyle(.primary)
+                Spacer()
+                content()
+            }
+            .padding(.horizontal, 16)
+            .padding(.top, 14)
+            .padding(.bottom, showDivider ? 14 : 0)
+            
+            if showDivider {
+                Divider()
+                    .padding(.horizontal, 16)
+            }
+        }
+    }
+    
+    @ViewBuilder
+    private func checkOrDash(_ value: Bool, highlighted: Bool) -> some View {
+        if value {
+            Image(systemName: "checkmark")
+                .font(.system(size: 14, weight: .bold))
+                .foregroundStyle(highlighted ? Color.primary : .secondary)
+        } else {
+            Text("–")
+                .font(.system(size: 16, weight: .medium))
+                .foregroundStyle(.quaternary)
+        }
+    }
+    
+    // MARK: - Purchase Footer
+    
+    private var purchaseFooter: some View {
+        VStack(spacing: 10) {
+            Group {
+                if store.isLoading {
+                    ProgressView()
+                        .tint(.white)
+                } else if let product = store.product {
+                    VStack(spacing: 2) {
+                        Text("Unlock Pro — \(product.displayPrice)")
+                            .font(.system(size: 17, weight: .bold))
+                        Text("One-time purchase")
+                            .font(.system(size: 12, weight: .medium))
+                            .opacity(0.8)
+                    }
+                } else {
+                    Text("Unlock Pro")
+                        .font(.system(size: 17, weight: .bold))
+                }
+            }
+            .foregroundStyle(.white)
+            .frame(maxWidth: .infinity)
+            .frame(height: 56)
+            .background(.primary)
+            .clipShape(RoundedRectangle(cornerRadius: 14))
+            .button {
+                Task { await store.purchase() }
+            }
+            .disabled(store.isLoading || store.product == nil)
+            
+            // Restore
+            Button("Restore purchase") {
+                Task { await store.restore() }
+            }
+            .font(.system(size: 13, weight: .medium))
+            .foregroundStyle(.secondary)
+        }
+        .padding(.horizontal, 24)
+        .padding(.top, 12)
+        .padding(.bottom, 28)
+        .background(
+            Rectangle()
+                .fill(.ultraThinMaterial)
+                .ignoresSafeArea(.all, edges: .bottom)
+        )
+    }
+}
+
+#Preview {
+    struct PayWallContainerView: View {
+        @StateObject var viewModel = StoreManager()
+        
+        var body: some View {
+            PaywallView()
+                .environmentObject(viewModel)
+        }
+    }
+    
+    return PayWallContainerView()
 }

@@ -2,39 +2,46 @@
 // Yap
 
 import Foundation
+import SwiftUI
 
 /// Zentrale Stelle die prüft ob ein Feature Pro braucht.
 enum ProAccess {
     
+    @AppStorage("isPro") static var isPro = false
+    
     // MARK: - Free Tier Limits
     
     /// Welcher Agent ist gratis verfügbar.
-    static let freeAgent: NagTone = .bestFriend
+    static let freeAgent: Agent = .mom
     
-    /// Max aktive Goals im Free Tier.
-    static let freeGoalLimit = 1
+    /// Max Missions pro Tag im Free Tier.
+    static let freeDailyLimit = 1
     
-    // MARK: - Checks
+    // MARK: - Quick Pro Check
     
     /// Ist dieser Agent im Free Tier verfügbar?
-    static func isAgentFree(_ tone: NagTone) -> Bool {
-        tone == freeAgent
+    static func isAgentFree(_ agent: Agent) -> Bool {
+        agent == freeAgent
     }
     
     /// Braucht dieser Agent Pro?
-    static func requiresPro(_ tone: NagTone) -> Bool {
-        !isAgentFree(tone)
+    static func requiresPro(_ agent: Agent) -> Bool {
+        !isAgentFree(agent)
     }
     
-    /// Kann der User ein neues Goal erstellen? (Goal-Limit)
-    @MainActor
-    static func canCreateGoal(currentActiveCount: Int) -> Bool {
-        StoreManager.shared.isPro || currentActiveCount < freeGoalLimit
+    /// Kann der User heute noch eine Mission starten?
+    /// Free: 1 pro Tag, Pro: Unlimited
+    static func canCreateMissionToday(missionsCreatedToday: Int) -> Bool {
+        isPro || missionsCreatedToday < freeDailyLimit
     }
     
-    /// Kann der User AI-generierte Copy nutzen?
-    @MainActor
+    /// Deadline verlängern ist Pro-only.
+    static var canExtend: Bool {
+        isPro
+    }
+    
+    /// AI Copy ist für alle verfügbar — das ist der USP!
     static var canUseAICopy: Bool {
-        StoreManager.shared.isPro
+        true
     }
 }
