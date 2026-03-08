@@ -37,6 +37,9 @@ final class HomeViewModel: ObservableObject {
     @Published var selectedMission: MissionItem?
     @Published var showGiveApAlert = false
     @Published var isFocused = false
+    @Published var agentReaction: String? = nil
+    @Published var pickerState: PickerState = .selection
+    @Published var showAgents = true
     @Published var selectedDeadline: Date = Calendar.current.date(bySettingHour: 23, minute: 59, second: 0, of: Date()) ?? Date()
     @AppStorage("appearance") var appearance: Appearance = .light
     @AppStorage(QuietHours.startKey) var quietHoursStart: Int = QuietHours.defaultStart
@@ -101,40 +104,10 @@ final class HomeViewModel: ObservableObject {
     
     // MARK: - UseCases
     
-    private let fetchActiveMission: FetchActiveMissionUseCase
-    private let fetchQueue: FetchQueueUseCase
-    private let createMission: CreateMissionUseCase
-    private let completeMission: CompleteMissionUseCase
-    private let giveUpMission: GiveUpMissionUseCase
-    private let removeFromQueue: RemoveFromQueueUseCase
-    private let extendMission: ExtendMissionUseCase
-    private let activateMission: ActivateMissionUseCase
-    private let fetchStats: FetchStatsUseCase
-    private let fetchMissionHistory: FetchMissionHistoryUseCase
-    private let addToQueue: AddToQueueUseCase
+    private let useCases: MissionUseCaseFacade
     
-    init(fetchActiveMission: FetchActiveMissionUseCase = .init(),
-         fetchQueue: FetchQueueUseCase = .init(),
-         createMission: CreateMissionUseCase = .init(),
-         completeMission: CompleteMissionUseCase = .init(),
-         giveUpMission: GiveUpMissionUseCase = .init(),
-         removeFromQueue: RemoveFromQueueUseCase = .init(),
-         extendMission: ExtendMissionUseCase = .init(),
-         activateMission: ActivateMissionUseCase = .init(),
-         fetchStats: FetchStatsUseCase = .init(),
-         fetchMissionHistory: FetchMissionHistoryUseCase = .init(),
-         addToQueue: AddToQueueUseCase = .init()) {
-        self.fetchActiveMission = fetchActiveMission
-        self.fetchQueue = fetchQueue
-        self.createMission = createMission
-        self.completeMission = completeMission
-        self.giveUpMission = giveUpMission
-        self.removeFromQueue = removeFromQueue
-        self.extendMission = extendMission
-        self.activateMission = activateMission
-        self.fetchStats = fetchStats
-        self.fetchMissionHistory = fetchMissionHistory
-        self.addToQueue = addToQueue
+    init(useCases: MissionUseCaseFacade = .init()) {
+        self.useCases = useCases
     }
     
     var canSubmitMission: Bool {
@@ -145,14 +118,14 @@ final class HomeViewModel: ObservableObject {
     
     @MainActor
     func onAppear() async {
-        if let active = await fetchActiveMission.execute(()) {
+        if let active = await useCases.fetchActiveMission.execute(()) {
             phase = .activeMission(active)
         } else {
             phase = .selection
         }
         
         // Queue im Hintergrund laden
-        queuedMissions = await fetchQueue.execute(())
+        queuedMissions = await useCases.fetchQueue.execute(())
         
         // History für Agent Stats laden
         await refreshMissionHistory()
@@ -160,7 +133,7 @@ final class HomeViewModel: ObservableObject {
 
     @MainActor
     private func refreshMissionHistory() async {
-        missionHistory = await fetchMissionHistory.execute(())
+        missionHistory = await useCases.fetchMissionHistory.execute(())
     }
     
     // MARK: - Onboarding
@@ -194,33 +167,74 @@ final class HomeViewModel: ObservableObject {
             return
         }
         
-        try? await Task.sleep(for: .seconds(2))
-        guard let mission = await createMission.execute(.init(
+        // Phase 1: Lock card, show typing dots
+        withAnimation(.easeInOut(duration: 0.4)) {
+            pickerState = .loading(agent)
+        }
+        
+        let loadingStart = Date()
+        
+        // Step 1: Create mission (fast DB call, ~1s — no copy generation)
+        guard let mission = await useCases.createMission.execute(.init(
             title: title,
             agent: agent,
             deadline: selectedDeadline
         )) else {
             error = "Mission konnte nicht erstellt werden."
+            withAnimation { pickerState = .selection }
             phase = .selection
             await refreshMissionHistory()
             return
         }
         
+        // Step 2: Generate reaction (~2s) — runs while typing dots are showing
+        var reaction: String? = nil
+        if ProAccess.canUseAICopy {
+            reaction = await useCases.generateReaction.execute(mission)
+        }
+        
+        // Ensure at least 3s of loading state for smooth animation
+        let elapsed = Date().timeIntervalSince(loadingStart)
+        if elapsed < 3 {
+            try? await Task.sleep(for: .seconds(3 - elapsed))
+        }
+        
+        // Phase 2: Show agent reaction
+        agentReaction = reaction
+        
+        if let reaction, !reaction.isEmpty {
+            withAnimation(.easeInOut(duration: 0.3)) {
+                pickerState = .reaction(agent, reaction)
+            }
+            try? await Task.sleep(for: .seconds(3))
+        } else {
+            try? await Task.sleep(for: .seconds(1))
+        }
+        
+        // Phase 3: Transition to active mission
         phase = .activeMission(mission)
+        pickerState = .selection
         await refreshMissionHistory()
+        
+        // Fire-and-forget: Generate full notification copy in background
+        if ProAccess.canUseAICopy {
+            Task {
+                await useCases.generateCopy.execute(mission)
+            }
+        }
     }
     
     /// MissionItem zur Queue hinzufügen — nur Titel, kein Agent.
     @MainActor
     func addMissionToQueue(_ title: String) async {
-        guard let item = await addToQueue.execute(title) else { return }
+        guard let item = await useCases.addToQueue.execute(title) else { return }
         queuedMissions.append(item)
     }
     
     /// MissionItem aus der Queue löschen.
     @MainActor
     func removeMissionFromQueue(_ item: MissionItem) async {
-        await removeFromQueue.execute(item.id)
+        await useCases.removeFromQueue.execute(item.id)
         queuedMissions.removeAll { $0.id == item.id }
     }
     
@@ -229,7 +243,7 @@ final class HomeViewModel: ObservableObject {
     /// Mission erledigt → Stats-Screen.
     @MainActor
     func markMissionDone(_ mission: Mission) async {
-        guard let result = await completeMission.execute(mission.id) else { return }
+        guard let result = await useCases.completeMission.execute(mission.id) else { return }
         phase = .completed(result)
         await refreshMissionHistory()
     }
@@ -237,7 +251,7 @@ final class HomeViewModel: ObservableObject {
     /// Mission aufgeben → Loser-Stats-Screen.
     @MainActor
     func giveUp(_ mission: Mission) async {
-        guard let result = await giveUpMission.execute(mission.id) else { return }
+        guard let result = await useCases.giveUpMission.execute(mission.id) else { return }
         phase = .gaveUp(result)
         await refreshMissionHistory()
     }
@@ -250,7 +264,7 @@ final class HomeViewModel: ObservableObject {
             return
         }
         guard !mission.extended else { return }
-        guard let updated = await extendMission.execute(mission.id) else { return }
+        guard let updated = await useCases.extendMission.execute(mission.id) else { return }
         phase = .activeMission(updated)
     }
     
@@ -266,10 +280,10 @@ final class HomeViewModel: ObservableObject {
     // MARK: - Stats (Gesamtübersicht)
     @MainActor
     func loadStats() async {
-        async let s = fetchStats.execute(())
-        async let h = refreshMissionHistory()
-        stats = await s
-        await h
+        async let fetch = useCases.fetchStats.execute(())
+        async let refresh: () = refreshMissionHistory()
+        stats = await fetch
+        await refresh
     }
     
     @MainActor

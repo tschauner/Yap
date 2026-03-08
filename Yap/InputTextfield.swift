@@ -7,6 +7,29 @@
 
 import SwiftUI
 
+enum PickerState: Equatable {
+    case selection
+    case loading(Agent)
+    case reaction(Agent, String)
+    case setup(Agent)
+    
+    var isLoading: Bool {
+        switch self {
+        case .loading, .setup:
+            return true
+        default:
+            return false
+        }
+    }
+    
+    var lockedAgent: Agent? {
+        switch self {
+        case .loading(let a), .reaction(let a, _), .setup(let a): return a
+        default: return nil
+        }
+    }
+}
+
 struct InputTextfield: View {
     @EnvironmentObject var viewModel: HomeViewModel
     @FocusState private var isFocused
@@ -52,7 +75,11 @@ struct InputTextfield: View {
                 }
                 .foregroundStyle(.secondary)
                 .onTapGesture {
-                    viewModel.selectedMission = .init(title: missionText)
+                    withAnimation(.snappy(extraBounce: 0.1)) {
+                        viewModel.showAgents.toggle()
+                    } completion: {
+
+                    }
                 }
                 
                 Spacer()
@@ -74,11 +101,12 @@ struct InputTextfield: View {
 //                    .hidden()
                 
                 
-                if let selectedAgent = viewModel.selectedAgent {
+                if let selectedAgent = viewModel.selectedAgent, addEnabled {
                     Image(icon: .paperplane)
                         .font(.system(size: 20, weight: .semibold))
                         .onTapGesture {
                             Task {
+                                await MainActor.run { isFocused = false }
                                 await viewModel.selectAgent(selectedAgent, title: missionText)
                             }
                         }

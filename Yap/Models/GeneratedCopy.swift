@@ -8,6 +8,7 @@ import Foundation
 struct GeneratedCopy: Codable, Equatable {
     let missionId: UUID
     let messages: [Message]
+    let reaction: String  // Agent's spontaneous first reaction to the goal
     let generatedAt: Date
     
     struct Message: Codable, Equatable {

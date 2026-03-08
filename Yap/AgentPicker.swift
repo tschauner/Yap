@@ -7,20 +7,6 @@
 
 import SwiftUI
 
-enum PickerState: Equatable {
-    case selection
-    case setup(Agent)
-    
-    var isLoading: Bool {
-        switch self {
-        case .setup:
-            return true
-        default:
-            return false
-        }
-    }
-}
-
 struct AgentPicker: View {
     @Environment(\.dismiss) var dismiss
     @EnvironmentObject var viewModel: HomeViewModel
@@ -41,7 +27,7 @@ struct AgentPicker: View {
                 switch pickerState {
                 case .selection:
                     AgentList()
-                case .setup(let agent):
+                case .loading(let agent), .reaction(let agent, _), .setup(let agent):
                     progressView(for: agent)
                 }
             }

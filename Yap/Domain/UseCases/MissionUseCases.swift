@@ -75,14 +75,11 @@ struct FetchActiveMissionUseCase: UseCase {
 /// Neue Mission erstellen (direkt aktiv, nicht aus Queue).
 struct CreateMissionUseCase: UseCase {
     private let service: any MissionProviding
-    private let copyService: any CopyProviding
     private let nagService: any NagProviding
     
     init(service: any MissionProviding = MissionService.shared,
-         copyService: any CopyProviding = CopyService.shared,
          nagService: any NagProviding = NagService.shared) {
         self.service = service
-        self.copyService = copyService
         self.nagService = nagService
     }
     
@@ -95,9 +92,6 @@ struct CreateMissionUseCase: UseCase {
     func execute(_ input: Input) async -> Mission? {
         do {
             var mission = try await service.createMission(title: input.title, agent: input.agent, deadline: input.deadline)
-            if ProAccess.canUseAICopy {
-                _ = await copyService.generateCopy(for: mission)
-            }
             
             let scheduled = await nagService.scheduleEscalation(for: mission, startDelay: 0)
             try? await service.updateNotificationsScheduled(mission.id, count: scheduled)
@@ -114,14 +108,11 @@ struct CreateMissionUseCase: UseCase {
 /// Queue-Item aktivieren → Agent wählen → wird zur Mission.
 struct ActivateMissionUseCase: UseCase {
     private let service: any MissionProviding
-    private let copyService: any CopyProviding
     private let nagService: any NagProviding
     
     init(service: any MissionProviding = MissionService.shared,
-         copyService: any CopyProviding = CopyService.shared,
          nagService: any NagProviding = NagService.shared) {
         self.service = service
-        self.copyService = copyService
         self.nagService = nagService
     }
     
@@ -134,9 +125,6 @@ struct ActivateMissionUseCase: UseCase {
     func execute(_ input: Input) async -> Mission? {
         do {
             guard var mission = try await service.activate(input.id, agent: input.agent, deadline: input.deadline) else { return nil }
-            if ProAccess.canUseAICopy {
-                _ = await copyService.generateCopy(for: mission)
-            }
             
             let scheduled = await nagService.scheduleEscalation(for: mission, startDelay: 0)
             try? await service.updateNotificationsScheduled(mission.id, count: scheduled)
@@ -251,6 +239,47 @@ struct FetchMissionHistoryUseCase: UseCase {
     func execute(_ input: Void) async -> [Mission] {
         let missions = (try? await service.finishedMissions()) ?? []
         return missions
+    }
+}
+
+// MARK: - Reaction & Copy Generation
+
+/// Agent-Reaction für eine Mission laden (aus dem generierten Copy-Cache).
+struct LoadReactionUseCase {
+    private let copyService: any CopyProviding
+    
+    init(copyService: any CopyProviding = CopyService.shared) {
+        self.copyService = copyService
+    }
+    
+    func execute(_ missionId: UUID) -> String? {
+        copyService.loadReaction(for: missionId)
+    }
+}
+
+/// Fast reaction call (~2s) — only generates the agent's spontaneous reaction.
+struct GenerateReactionUseCase {
+    private let copyService: any CopyProviding
+    
+    init(copyService: any CopyProviding = CopyService.shared) {
+        self.copyService = copyService
+    }
+    
+    func execute(_ mission: Mission) async -> String? {
+        await copyService.generateReaction(for: mission)
+    }
+}
+
+/// Full copy generation (messages + reaction) — runs in background after mission creation.
+struct GenerateCopyUseCase {
+    private let copyService: any CopyProviding
+    
+    init(copyService: any CopyProviding = CopyService.shared) {
+        self.copyService = copyService
+    }
+    
+    func execute(_ mission: Mission) async {
+        _ = await copyService.generateCopy(for: mission)
     }
 }
 

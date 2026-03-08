@@ -28,29 +28,47 @@ serve(async (req) => {
       });
     }
 
-    const systemPrompt = `You write push notification messages for a reminder app called Yap.
-The user set a goal and you need to write escalating reminder notifications.
+    const systemPrompt = `You write push notification messages for a motivation app called Yap.
+The user set a goal and an AI agent with a specific personality nags them with push notifications until they finish.
+
+Your job:
+1. UNDERSTAND what the user actually means — infer the real-world context behind their goal.
+   Example: "Clean apartment" → they probably mean dishes, vacuuming, laundry, tidying up.
+   Example: "Finish presentation" → they're likely procrastinating on slides for work/school.
+   Example: "Go to gym" → they've been skipping and need a push.
+2. Write notifications that reference SPECIFIC aspects of the goal, not just the title.
+   BAD: "Have you cleaned the apartment yet?"
+   GOOD: "Those dishes aren't washing themselves. Start there."
+3. Match the agent's personality in how they reference the goal.
 
 Rules:
 - Each message has a "title" (max 40 chars, catchy) and a "body" (max 120 chars)
 - Messages escalate from gentle to absolutely unhinged
-- Reference the user's specific goal naturally — don't just paste it in
 - Be creative, funny, and varied — no two messages should feel the same
-- Match the tone/personality described below
 - Use emoji sparingly but effectively
 - IMPORTANT: Write ALL messages in ${language}
 
-Respond ONLY with a JSON array, no markdown, no explanation.`;
+Also generate a "reaction" — a short, funny one-liner (max 150 chars) where the agent REACTS to the goal when they first hear it.
+This is shown as a speech bubble right after the user creates the mission. It should feel spontaneous and in-character.
+Examples:
+- Mom hearing "Clean apartment": "Oh NOW you want to clean? After I've been saying it for weeks?"
+- Drill Sergeant hearing "Write thesis": "A THESIS?! That's a 200-page war. Let's GO!"
+- Therapist hearing "Go to gym": "Interesting. What's really stopping you from going?"
+
+Respond with a JSON object: { "messages": [...], "reaction": "..." }
+No markdown, no explanation.`;
 
     const userPrompt = `Goal: "${goal}"
-Tone: ${tone} — ${toneDescription}
+Agent: ${tone} — ${toneDescription}
 Language: ${language}
 
 Generate exactly ${messageCount} push notifications that escalate:
 
 ${levels}
 
-JSON format: [{"title": "...", "body": "...", "level": 0}, ...]
+And one "reaction" — the agent's spontaneous first reaction to hearing this goal.
+
+JSON format: { "messages": [{"title": "...", "body": "...", "level": 0}, ...], "reaction": "..." }
 The "level" field is the escalation level number (0=gentle, 1=nudge, 2=push, 3=urgent, 4=meltdown).`;
 
     const openAIResponse = await fetch("https://api.openai.com/v1/chat/completions", {
@@ -85,21 +103,25 @@ The "level" field is the escalation level number (0=gentle, 1=nudge, 2=push, 3=u
     // Clean markdown wrappers
     const cleaned = content.replace(/```json\n?/g, "").replace(/```\n?/g, "").trim();
 
-    // Validate JSON
-    const messages = JSON.parse(cleaned);
+    // Validate JSON — response is now { messages: [...], reaction: "..." }
+    const parsed = JSON.parse(cleaned);
 
-    if (!Array.isArray(messages)) {
-      throw new Error("Response is not an array");
+    // Support both old array format and new object format
+    const rawMessages = Array.isArray(parsed) ? parsed : parsed.messages;
+    const reaction = typeof parsed.reaction === "string" ? parsed.reaction.slice(0, 150) : "";
+
+    if (!Array.isArray(rawMessages)) {
+      throw new Error("Response messages is not an array");
     }
 
     // Enforce limits
-    const sanitized = messages.map((m) => ({
+    const sanitized = rawMessages.map((m) => ({
       title: String(m.title || "").slice(0, 40),
       body: String(m.body || "").slice(0, 120),
       level: Number(m.level) || 0,
     }));
 
-    return new Response(JSON.stringify({ messages: sanitized }), {
+    return new Response(JSON.stringify({ messages: sanitized, reaction }), {
       headers: { "Content-Type": "application/json" },
     });
   } catch (error) {

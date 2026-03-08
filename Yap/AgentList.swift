@@ -18,36 +18,41 @@ struct AgentList: View {
     private var agentList: some View {
         let orderedAgents = viewModel.orderAgentList()
 
-        List {
-            ForEach(orderedAgents, id: \.self) { agent in
-                let stats = viewModel.stats(for: agent)
-                
-                HStack(spacing: 10) {
-                    Text(agent.emoji)
-                        .font(.system(size: 19, weight: .medium))
-                    Text(agent.displayName)
-                        .font(.system(size: 18, weight: .medium))
-                        .frame(maxWidth: .infinity, alignment: .leading)
+        ScrollView {
+            VStack(spacing: 0) {
+                ForEach(orderedAgents, id: \.self) { agent in
+                    let stats = viewModel.stats(for: agent)
                     
-                    // Success rate
-                    Text(stats.successRateFormatted)
-                        .font(.system(size: 14, weight: .medium))
-                        .foregroundStyle(.secondary)
-                    
-                    if isSelected(agent) {
-                        Image(icon: .checkmark)
+                    HStack(spacing: 10) {
+                        Text(agent.emoji)
+                            .font(.system(size: 19, weight: .medium))
+                        Text(agent.displayName)
+                            .font(.system(size: 18, weight: .medium))
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                        
+                        // Success rate
+                        Text(stats.successRateFormatted)
+                            .font(.system(size: 14, weight: .medium))
+                            .foregroundStyle(.secondary)
+                        
+    //                    if isSelected(agent) {
+    //                        Image(icon: .checkmark)
+    //                    }
                     }
-                }
-                .contentShape(Rectangle())
-                .listRowBackground(isSelected(agent) ? Color.blue.opacity(0.05) : .clear)
-                .listRowSeparator(orderedAgents.first == agent ? .hidden : .visible, edges: .top)
-                .listRowSeparator(orderedAgents.last == agent ? .hidden : .visible, edges: .bottom)
-                .onTapGesture {
-                    viewModel.selectedAgent = agent
+                    .frame(height: 45)
+                    .contentShape(Rectangle())
+                    .background(isSelected(agent) ? Color.blue.opacity(0.05) : .clear)
+                    .onTapGesture {
+                        withAnimation(.snappy(extraBounce: 0.1)) {
+                            viewModel.showAgents = false
+                            viewModel.selectedAgent = agent
+                        } completion: {
+                        }
+                    }
                 }
             }
         }
-        .listStyle(.plain)
+        .scrollIndicators(.hidden)
     }
     
     private func isSelected(_ agent: Agent) -> Bool {

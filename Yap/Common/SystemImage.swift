@@ -45,6 +45,7 @@ enum SystemImage: String {
     case sun = "sun.max"
     case archive = "archivebox"
     case bag = "case"
+    case bagFill = "case.fill"
     case lightBulb = "lightbulb.max"
     case popcorn
     case hexagon

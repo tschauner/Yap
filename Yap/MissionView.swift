@@ -9,6 +9,7 @@ import SwiftUI
 
 struct MissionView: View {
     @EnvironmentObject var viewModel: HomeViewModel
+    @Namespace private var cardNamespace
     @State var isActive = false
     @State private var showSettings = false
     @State private var showLeaderboard = false
@@ -61,6 +62,7 @@ struct MissionView: View {
                 }
                 .sharedBackgroundVisibility(.hidden)
             }
+            .navigationBarTitleDisplayMode(.inline)
             .sheet(isPresented: $showSettings) {
                 SettingsView()
             }
@@ -110,48 +112,100 @@ struct MissionView: View {
     
     var selectionView: some View {
         VStack(alignment: .leading, spacing: 0) {
-            Text("At your service")
-                .font(.system(size: 20, weight: .bold))
-                .padding(.bottom, 5)
-                .padding(.leading, 20)
-            
-            ScrollView(.horizontal) {
-                LazyHGrid(rows: rows) {
-                    ForEach(viewModel.orderAgentList(), id: \.self) { agent in
-                        VStack(spacing: 0) {
-                            Text(agent.emoji)
-                                .font(.system(size: 26))
-                            Text(agent.displayName)
-                                .font(.system(size: 14, weight: .medium))
-                                .padding(.bottom, 10)
-                                .padding(.top, 5)
-                            Text(viewModel.stats(for: agent).successRateFormatted)
-                                .font(.caption)
-                                .fontWeight(.medium)
-                                .foregroundStyle(.secondary)
+            if viewModel.showAgents {
+                if let locked = viewModel.pickerState.lockedAgent {
+                    // Locked state: only selected card, centered
+                    lockedCardView(agent: locked)
+                        .transition(.opacity)
+                } else {
+                    // Selection state: all cards in scroll
+                    ScrollView(.horizontal) {
+                        LazyHStack {
+                            ForEach(viewModel.orderAgentList()) { agent in
+                                agentCard(agent: agent)
+                                    .roundedOutline(cornerRadius: 25, color: viewModel.selectedAgent == agent ? .primary : .clear)
+                                    .matchedGeometryEffect(id: agent.id, in: cardNamespace)
+                                    .onTapGesture {
+                                        viewModel.selectedAgent = agent
+                                    }
+                            }
                         }
-                        .frame(width: 100, height: 100)
-                        .background(viewModel.selectedAgent == agent ? selectionBackgroundColor : nil)
-                        .cornerRadius(20)
-                        .roundedOutline(lineWidth: colorScheme == .light && viewModel.selectedAgent == agent ? 1.5 : 1, cornerRadius: 20, color: viewModel.selectedAgent == agent ? selectionBorderColor : Color(.quaternaryLabel))
-                        .onTapGesture {
-                            viewModel.selectedAgent = agent
-                        }
+                        .scrollTargetLayout()
                     }
+                    .scrollIndicators(.hidden)
+                    .scrollTargetBehavior(.viewAligned)
+                    .safeAreaPadding(.horizontal, 40)
+                    .transition(.move(edge: .bottom).combined(with: .opacity))
                 }
-                .padding(.horizontal, 20)
+            } else {
+                Spacer()
             }
-            .scrollIndicators(.hidden)
             
-            Spacer()
-            
-            InputTextfield()
-                .padding(15)
-                .glassEffect(in: .rect(cornerRadius: 20))
-                .padding(.bottom, 20)
-                .transition(.opacity)
-                .padding(.horizontal, 20)
+            if viewModel.pickerState.lockedAgent == nil {
+                InputTextfield()
+                    .padding(15)
+                    .glassEffect(in: .rect(cornerRadius: 20))
+                    .padding(.bottom, 20)
+                    .transition(.opacity)
+                    .padding(.horizontal, 20)
+            }
         }
+        .animation(.easeInOut(duration: 0.4), value: viewModel.pickerState)
+    }
+    
+    // MARK: - Agent Card
+    
+    private func agentCard(agent: Agent) -> some View {
+        VStack(spacing: 0) {
+            Text(agent.emoji)
+                .font(.system(size: 30, weight: .semibold))
+            Text(agent.displayName)
+                .font(.system(size: 17, weight: .semibold))
+                .padding(.top, 5)
+            
+            Text(agent.pitch)
+                .font(.caption)
+                .fontWeight(.medium)
+                .padding(.top, 10)
+        }
+        .padding(15)
+        .frame(width: 300, height: 150)
+        .background(RoundedRectangle(cornerRadius: 25)
+            .fill(Color(.quaternaryLabel).gradient)
+        )
+    }
+    
+    private func lockedCardView(agent: Agent) -> some View {
+        VStack(spacing: 0) {
+            Text(agent.emoji)
+                .font(.system(size: 30, weight: .semibold))
+            Text(agent.displayName)
+                .font(.system(size: 17, weight: .semibold))
+                .padding(.top, 5)
+            
+            // Subtitle: typing dots or reaction
+            Group {
+                switch viewModel.pickerState {
+                case .reaction(_, let reaction):
+                    Text(reaction)
+                        .transition(.opacity)
+                default:
+                    TypingDotsView()
+                        .transition(.opacity)
+                }
+            }
+            .font(.caption)
+            .fontWeight(.medium)
+            .padding(.top, 10)
+            .animation(.easeInOut(duration: 0.3), value: viewModel.pickerState)
+        }
+        .padding(15)
+        .frame(width: 300, height: 150)
+        .background(RoundedRectangle(cornerRadius: 25)
+            .fill(Color(.quaternaryLabel).gradient)
+        )
+        .matchedGeometryEffect(id: agent.id, in: cardNamespace)
+        .frame(maxWidth: .infinity)
     }
     
     var settingsMenu: some View {

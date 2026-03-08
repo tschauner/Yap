@@ -71,6 +71,22 @@ extension View {
     func pinchToZoom() -> some View {
         modifier(MagnifierModifier())
     }
+    
+    func isVisible(_ isVisible: Bool) -> some View {
+        modifier(VisibillityModifier(isVisible: isVisible))
+    }
+}
+
+struct VisibillityModifier: ViewModifier {
+    let isVisible: Bool
+    
+    func body(content: Content) -> some View {
+        if isVisible {
+            content
+        } else {
+            EmptyView()
+        }
+    }
 }
 
 struct MagnifierModifier: ViewModifier {
