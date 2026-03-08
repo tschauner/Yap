@@ -24,6 +24,7 @@ protocol MissionProviding: Actor {
     // History + Stats
     func finishedMissions() async throws -> [Mission]
     func fetchStats() async throws -> DeviceStats
+    func fetchGlobalLeaderboard() async throws -> [GlobalAgentStats]
 }
 
 /// Manages mission persistence via Supabase PostgREST.
@@ -209,6 +210,12 @@ actor MissionService: MissionProviding {
         try await api.rpc(
             function: "get_device_stats",
             params: .json(["p_device_id": deviceId])
+        )
+    }
+    
+    func fetchGlobalLeaderboard() async throws -> [GlobalAgentStats] {
+        try await api.rpc(
+            function: "get_global_agent_leaderboard"
         )
     }
 }

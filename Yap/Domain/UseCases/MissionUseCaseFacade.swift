@@ -20,6 +20,7 @@ struct MissionUseCaseFacade {
     let loadReaction: LoadReactionUseCase
     let generateReaction: GenerateReactionUseCase
     let generateCopy: GenerateCopyUseCase
+    let fetchGlobalLeaderboard: FetchGlobalLeaderboardUseCase
     
     init(
         fetchActiveMission: FetchActiveMissionUseCase = .init(),
@@ -35,7 +36,8 @@ struct MissionUseCaseFacade {
         addToQueue: AddToQueueUseCase = .init(),
         loadReaction: LoadReactionUseCase = .init(),
         generateReaction: GenerateReactionUseCase = .init(),
-        generateCopy: GenerateCopyUseCase = .init()
+        generateCopy: GenerateCopyUseCase = .init(),
+        fetchGlobalLeaderboard: FetchGlobalLeaderboardUseCase = .init()
     ) {
         self.fetchActiveMission = fetchActiveMission
         self.fetchQueue = fetchQueue
@@ -51,5 +53,6 @@ struct MissionUseCaseFacade {
         self.loadReaction = loadReaction
         self.generateReaction = generateReaction
         self.generateCopy = generateCopy
+        self.fetchGlobalLeaderboard = fetchGlobalLeaderboard
     }
 }

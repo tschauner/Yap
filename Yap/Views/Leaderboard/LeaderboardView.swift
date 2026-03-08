@@ -6,14 +6,31 @@ import SwiftUI
 struct LeaderboardView: View {
     @Environment(\.dismiss) var dismiss
     @EnvironmentObject var viewModel: HomeViewModel
+    @State private var selectedTab: LeaderboardTab = .global
+    
+    enum LeaderboardTab: String, CaseIterable {
+        case global = "Global"
+        case you = "You"
+    }
     
     var body: some View {
         NavigationStack {
             VStack(spacing: 0) {
-                if viewModel.agentLeaderboard.isEmpty {
-                    emptyState
-                } else {
-                    leaderboardList
+                // Tab picker
+                Picker("", selection: $selectedTab) {
+                    ForEach(LeaderboardTab.allCases, id: \.self) { tab in
+                        Text(tab.rawValue).tag(tab)
+                    }
+                }
+                .pickerStyle(.segmented)
+                .padding(.horizontal)
+                .padding(.top, 8)
+                
+                switch selectedTab {
+                case .global:
+                    globalLeaderboardContent
+                case .you:
+                    yourLeaderboardContent
                 }
             }
             .navigationTitle("Agent Leaderboard")
@@ -25,67 +42,142 @@ struct LeaderboardView: View {
                     }
                 }
             }
-        }
-    }
-    
-    private var emptyState: some View {
-        VStack(spacing: 16) {
-            Spacer()
-            
-            Text("🏆")
-                .font(.system(size: 48))
-            
-            Text("No missions yet")
-                .font(.system(size: 17, weight: .medium))
-            
-            Text("Complete your first mission to see agent performance.")
-                .font(.system(size: 15))
-                .foregroundStyle(.secondary)
-                .multilineTextAlignment(.center)
-                .padding(.horizontal, 40)
-            
-            Spacer()
-        }
-    }
-    
-    private var leaderboardList: some View {
-        List {
-            ForEach(Array(viewModel.agentLeaderboard.enumerated()), id: \.element.id) { index, stats in
-                NavigationLink {
-                    AgentDetailView(agent: stats.agent)
-                        .environmentObject(viewModel)
-                } label: {
-                    HStack(spacing: 12) {
-                        // Rank
-                        Text(rankEmoji(for: index))
-                            .font(.system(size: 20))
-                            .frame(width: 30)
-                        
-                        // Agent
-                        Text(stats.agent.emoji)
-                            .font(.system(size: 24))
-                        
-                        VStack(alignment: .leading, spacing: 2) {
-                            Text(stats.agent.displayName)
-                                .font(.system(size: 16, weight: .medium))
-                            Text(stats.record)
-                                .font(.system(size: 13))
-                                .foregroundStyle(.secondary)
-                        }
-                        
-                        Spacer()
-                        
-                        // Success rate
-                        Text(stats.successRateFormatted)
-                            .font(.system(size: 18, weight: .bold))
-                            .foregroundStyle(rateColor(for: stats.successRate))
-                    }
-                    .padding(.vertical, 4)
-                }
+            .task {
+                await viewModel.loadGlobalLeaderboard()
             }
         }
-        .listStyle(.plain)
     }
+    
+    // MARK: - Global Tab
+    
+    @ViewBuilder
+    private var globalLeaderboardContent: some View {
+        if viewModel.globalLeaderboard.isEmpty {
+            VStack(spacing: 16) {
+                Spacer()
+                Text("🌍")
+                    .font(.system(size: 48))
+                Text("No global data yet")
+                    .font(.system(size: 17, weight: .medium))
+                Text("Missions from all users will appear here.")
+                    .font(.system(size: 15))
+                    .foregroundStyle(.secondary)
+                    .multilineTextAlignment(.center)
+                    .padding(.horizontal, 40)
+                Spacer()
+            }
+        } else {
+            List {
+                ForEach(Array(viewModel.globalLeaderboard.enumerated()), id: \.element.id) { index, stats in
+                    if let agent = stats.resolvedAgent {
+                        NavigationLink {
+                            AgentDetailView(agent: agent)
+                                .environmentObject(viewModel)
+                        } label: {
+                            globalRow(index: index, stats: stats)
+                        }
+                    } else {
+                        globalRow(index: index, stats: stats)
+                    }
+                }
+            }
+            .listStyle(.plain)
+        }
+    }
+    
+    // MARK: - Your Tab
+    
+    @ViewBuilder
+    private var yourLeaderboardContent: some View {
+        if viewModel.agentLeaderboard.isEmpty {
+            VStack(spacing: 16) {
+                Spacer()
+                Text("🏆")
+                    .font(.system(size: 48))
+                Text("No missions yet")
+                    .font(.system(size: 17, weight: .medium))
+                Text("Complete your first mission to see agent performance.")
+                    .font(.system(size: 15))
+                    .foregroundStyle(.secondary)
+                    .multilineTextAlignment(.center)
+                    .padding(.horizontal, 40)
+                Spacer()
+            }
+        } else {
+            List {
+                ForEach(Array(viewModel.agentLeaderboard.enumerated()), id: \.element.id) { index, stats in
+                    NavigationLink {
+                        AgentDetailView(agent: stats.agent)
+                            .environmentObject(viewModel)
+                    } label: {
+                        HStack(spacing: 12) {
+                            Text(rankEmoji(for: index))
+                                .font(.system(size: 20))
+                                .frame(width: 30)
+                            
+                            Text(stats.agent.emoji)
+                                .font(.system(size: 24))
+                            
+                            VStack(alignment: .leading, spacing: 2) {
+                                Text(stats.agent.displayName)
+                                    .font(.system(size: 16, weight: .medium))
+                                Text(stats.record)
+                                    .font(.system(size: 13))
+                                    .foregroundStyle(.secondary)
+                            }
+                            
+                            Spacer()
+                            
+                            Text(stats.successRateFormatted)
+                                .font(.system(size: 18, weight: .bold))
+                                .foregroundStyle(rateColor(for: stats.successRate))
+                        }
+                        .padding(.vertical, 4)
+                    }
+                }
+            }
+            .listStyle(.plain)
+        }
+    }
+    
+    // MARK: - Global Row
+    
+    private func globalRow(index: Int, stats: GlobalAgentStats) -> some View {
+        HStack(spacing: 12) {
+            Text(rankEmoji(for: index))
+                .font(.system(size: 20))
+                .frame(width: 30)
+            
+            Text(stats.resolvedAgent?.emoji ?? "❓")
+                .font(.system(size: 24))
+            
+            VStack(alignment: .leading, spacing: 2) {
+                Text(stats.resolvedAgent?.displayName ?? stats.agent)
+                    .font(.system(size: 16, weight: .medium))
+                
+                HStack(spacing: 8) {
+                    Text(stats.record)
+                    Text("·")
+                    Text("\(stats.totalUsers) users")
+                    if stats.avgMinutes != nil {
+                        Text("·")
+                        Text("⌀ \(stats.avgTimeFormatted)")
+                    }
+                }
+                .font(.system(size: 13))
+                .foregroundStyle(.secondary)
+            }
+            
+            Spacer()
+            
+            Text(stats.successRateFormatted)
+                .font(.system(size: 18, weight: .bold))
+                .foregroundStyle(rateColor(for: stats.successRate))
+        }
+        .padding(.vertical, 4)
+    }
+    
+    // MARK: - Helpers
     
     private func rankEmoji(for index: Int) -> String {
         switch index {
@@ -99,8 +191,8 @@ struct LeaderboardView: View {
     private func rateColor(for rate: Double?) -> Color {
         guard let rate else { return .secondary }
         switch rate {
-        case 0.8...1.0: return .green
-        case 0.5..<0.8: return .orange
+        case 80...100: return .green
+        case 50..<80: return .orange
         default: return .red
         }
     }

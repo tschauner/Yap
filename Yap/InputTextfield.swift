@@ -93,14 +93,6 @@ struct InputTextfield: View {
                     .frame(maxWidth: .infinity, alignment: .leading)
                     .font(.system(size: 19, weight: .medium))
                 
-//                Image(icon: .clock)
-//                    .font(.system(size: 20, weight: .semibold))
-//                    .onTapGesture {
-//                        showDeadlinePicker = true
-//                    }
-//                    .hidden()
-                
-                
                 if let selectedAgent = viewModel.selectedAgent, addEnabled {
                     Image(icon: .paperplane)
                         .font(.system(size: 20, weight: .semibold))

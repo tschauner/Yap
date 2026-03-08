@@ -179,9 +179,11 @@ struct MissionView: View {
         VStack(spacing: 0) {
             Text(agent.emoji)
                 .font(.system(size: 30, weight: .semibold))
+                .matchedGeometryEffect(id: "agent_emoji", in: cardNamespace)
             Text(agent.displayName)
                 .font(.system(size: 17, weight: .semibold))
                 .padding(.top, 5)
+                .matchedGeometryEffect(id: "agent_name", in: cardNamespace)
             
             // Subtitle: typing dots or reaction
             Group {
@@ -189,6 +191,8 @@ struct MissionView: View {
                 case .reaction(_, let reaction):
                     Text(reaction)
                         .transition(.opacity)
+                        .font(.system(size: 17, weight: .medium))
+                        .multilineTextAlignment(.center)
                 default:
                     TypingDotsView()
                         .transition(.opacity)
@@ -197,15 +201,17 @@ struct MissionView: View {
             .font(.caption)
             .fontWeight(.medium)
             .padding(.top, 10)
+            .matchedGeometryEffect(id: "agent_subtitle", in: cardNamespace)
             .animation(.easeInOut(duration: 0.3), value: viewModel.pickerState)
         }
         .padding(15)
-        .frame(width: 300, height: 150)
-        .background(RoundedRectangle(cornerRadius: 25)
-            .fill(Color(.quaternaryLabel).gradient)
-        )
+//        .frame(width: 300, height: 150)
+//        .background(RoundedRectangle(cornerRadius: 25)
+//            .fill(Color(.quaternaryLabel).gradient)
+//        )
         .matchedGeometryEffect(id: agent.id, in: cardNamespace)
         .frame(maxWidth: .infinity)
+        .padding(.bottom, 100)
     }
     
     var settingsMenu: some View {

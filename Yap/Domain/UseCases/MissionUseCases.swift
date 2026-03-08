@@ -283,3 +283,18 @@ struct GenerateCopyUseCase {
     }
 }
 
+// MARK: - Global Leaderboard
+
+/// Fetch aggregated stats across all users per agent.
+struct FetchGlobalLeaderboardUseCase: UseCase {
+    private let service: any MissionProviding
+    
+    init(service: any MissionProviding = MissionService.shared) {
+        self.service = service
+    }
+    
+    func execute(_ input: Void) async -> [GlobalAgentStats] {
+        (try? await service.fetchGlobalLeaderboard()) ?? []
+    }
+}
+

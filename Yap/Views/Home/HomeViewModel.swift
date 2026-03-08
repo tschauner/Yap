@@ -38,6 +38,7 @@ final class HomeViewModel: ObservableObject {
     @Published var showGiveApAlert = false
     @Published var isFocused = false
     @Published var agentReaction: String? = nil
+    @Published var missionReady = false
     @Published var pickerState: PickerState = .selection
     @Published var showAgents = true
     @Published var selectedDeadline: Date = Calendar.current.date(bySettingHour: 23, minute: 59, second: 0, of: Date()) ?? Date()
@@ -51,6 +52,7 @@ final class HomeViewModel: ObservableObject {
     // Stats (Gesamtübersicht)
     @Published var stats: DeviceStats?
     @Published var missionHistory: [Mission] = []
+    @Published var globalLeaderboard: [GlobalAgentStats] = []
     
     /// Agent performance stats calculated from history.
     var agentStats: [AgentStats] {
@@ -119,6 +121,7 @@ final class HomeViewModel: ObservableObject {
     @MainActor
     func onAppear() async {
         if let active = await useCases.fetchActiveMission.execute(()) {
+            missionReady = true
             phase = .activeMission(active)
         } else {
             phase = .selection
@@ -167,58 +170,35 @@ final class HomeViewModel: ObservableObject {
             return
         }
         
-        // Phase 1: Lock card, show typing dots
-        withAnimation(.easeInOut(duration: 0.4)) {
-            pickerState = .loading(agent)
-        }
-        
-        let loadingStart = Date()
-        
-        // Step 1: Create mission (fast DB call, ~1s — no copy generation)
+        // Step 1: Create mission (fast DB call, ~1s)
         guard let mission = await useCases.createMission.execute(.init(
             title: title,
             agent: agent,
             deadline: selectedDeadline
         )) else {
             error = "Mission konnte nicht erstellt werden."
-            withAnimation { pickerState = .selection }
-            phase = .selection
-            await refreshMissionHistory()
             return
         }
         
-        // Step 2: Generate reaction (~2s) — runs while typing dots are showing
-        var reaction: String? = nil
-        if ProAccess.canUseAICopy {
-            reaction = await useCases.generateReaction.execute(mission)
+        // Step 2: Show ActiveMissionView in loading state
+        missionReady = false
+        withAnimation(.easeInOut(duration: 0.4)) {
+            phase = .activeMission(mission)
         }
         
-        // Ensure at least 3s of loading state for smooth animation
-        let elapsed = Date().timeIntervalSince(loadingStart)
-        if elapsed < 3 {
-            try? await Task.sleep(for: .seconds(3 - elapsed))
+        // Step 3: Short delay for the loading feel, then reveal stats
+        try? await Task.sleep(for: .seconds(2))
+        withAnimation(.easeInOut(duration: 0.4)) {
+            missionReady = true
         }
         
-        // Phase 2: Show agent reaction
-        agentReaction = reaction
-        
-        if let reaction, !reaction.isEmpty {
-            withAnimation(.easeInOut(duration: 0.3)) {
-                pickerState = .reaction(agent, reaction)
-            }
-            try? await Task.sleep(for: .seconds(3))
-        } else {
-            try? await Task.sleep(for: .seconds(1))
-        }
-        
-        // Phase 3: Transition to active mission
-        phase = .activeMission(mission)
-        pickerState = .selection
         await refreshMissionHistory()
         
-        // Fire-and-forget: Generate full notification copy in background
+        // Fire-and-forget: Generate reaction + full notification copy in background
         if ProAccess.canUseAICopy {
             Task {
+                let reaction = await useCases.generateReaction.execute(mission)
+                await MainActor.run { agentReaction = reaction }
                 await useCases.generateCopy.execute(mission)
             }
         }
@@ -284,6 +264,11 @@ final class HomeViewModel: ObservableObject {
         async let refresh: () = refreshMissionHistory()
         stats = await fetch
         await refresh
+    }
+    
+    @MainActor
+    func loadGlobalLeaderboard() async {
+        globalLeaderboard = await useCases.fetchGlobalLeaderboard.execute(())
     }
     
     @MainActor

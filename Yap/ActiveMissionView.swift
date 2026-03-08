@@ -16,20 +16,65 @@ struct ActiveMissionView: View {
         VStack(spacing: 0) {
             Spacer()
             
-            HStack(spacing: 10) {
-                Text(mission.agent.emoji)
-                    .font(.system(size: 24, weight: .bold))
-                Text(mission.agent.displayName)
-                    .font(.system(size: 20, weight: .bold))
-            }
-            .padding(.bottom, 10)
+            // Agent header — always visible
+            Text(mission.agent.emoji)
+                .font(.system(size: 30, weight: .semibold))
+            Text(mission.agent.displayName)
+                .font(.system(size: 17, weight: .semibold))
+                .padding(.top, 5)
+                .padding(.bottom, 10)
             
             Text(mission.tagline)
                 .font(.system(size: 17, weight: .medium))
                 .multilineTextAlignment(.center)
                 .padding(.bottom, 40)
                 .padding(.horizontal, 50)
-  
+            
+            if viewModel.missionReady {
+                // Stats + actions fade in when ready
+                missionContent
+                    .transition(.opacity.combined(with: .move(edge: .bottom)))
+            } else {
+                // Loading dots
+                TypingDotsView()
+                    .padding(.bottom, 40)
+                    .transition(.opacity)
+            }
+            
+            Spacer()
+            
+            if viewModel.missionReady && !mission.isCompleted {
+                Text("Give up")
+                    .font(.system(size: 15, weight: .medium))
+                    .frame(maxWidth: .infinity)
+                    .frame(height: 50)
+                    .foregroundStyle(.red)
+                    .button {
+                        viewModel.showGiveApAlert = true
+                    }
+            } else {
+                Spacer()
+                    .frame(height: 50)
+            }
+        }
+        .padding(.horizontal)
+        .animation(.easeInOut(duration: 0.4), value: viewModel.missionReady)
+        .animation(.spring(), value: mission.isCompleted)
+        .alert(mission.agent.alert, isPresented: $viewModel.showGiveApAlert) {
+            Button("Give up", role: .destructive) {
+                Task {
+                    await viewModel.giveUp(mission)
+                }
+            }
+            
+            Button("Cancel", role: .cancel) { }
+        }
+    }
+    
+    // MARK: - Mission Content (fades in when ready)
+    
+    private var missionContent: some View {
+        VStack(spacing: 0) {
             VStack(alignment: .leading) {
                 Text(mission.title)
                     .strikethrough(mission.isCompleted)
@@ -102,7 +147,7 @@ struct ActiveMissionView: View {
                         }
                     }
                     .buttonStyle(.plain)
-                    .padding(.top, 20)
+                    .frame(height: 60)
             } else {
                 Text("Set another mission")
                     .foregroundStyle(.white)
@@ -116,45 +161,9 @@ struct ActiveMissionView: View {
                     .cornerRadius(5)
                     .padding(.top, 20)
                 
-                if let first = viewModel.queuedMissions.first {
-                    Text("Start \(first.title)")
-                        .foregroundStyle(.white)
-                        .font(.system(size: 17, weight: .semibold))
-                        .frame(height: 50)
-                        .frame(maxWidth: .infinity)
-                        .button {
-                            viewModel.selectedMission = first
-                        }
-                        .background(.tertiary)
-                        .cornerRadius(5)
-                        .padding(.top, 10)
-                }
+                Spacer()
+                    .frame(height: 60)
             }
-            
-            Spacer()
-            
-            
-            if !mission.isCompleted {
-                Text("Give up")
-                    .font(.system(size: 15, weight: .medium))
-                    .frame(maxWidth: .infinity)
-                    .frame(height: 50)
-                    .foregroundStyle(.red)
-                    .button {
-                        viewModel.showGiveApAlert = true
-                    }
-            }
-        }
-        .padding(.horizontal)
-        .animation(.spring(), value: mission.isCompleted)
-        .alert(mission.agent.alert, isPresented: $viewModel.showGiveApAlert) {
-            Button("Give up", role: .destructive) {
-                Task {
-                    await viewModel.giveUp(mission)
-                }
-            }
-            
-            Button("Cancel", role: .cancel) { }
         }
     }
 }
