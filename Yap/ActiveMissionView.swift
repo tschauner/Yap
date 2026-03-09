@@ -119,7 +119,7 @@ struct ActiveMissionView: View {
             if !mission.isCompleted {
                 HStack {
                     Text("Mission completed")
-                        .foregroundStyle(.white)
+                        .foregroundStyle(Color(uiColor: .systemBackground))
                         .font(.system(size: 17, weight: .semibold))
                         .frame(height: 50)
                     if isCompleting {
@@ -134,7 +134,7 @@ struct ActiveMissionView: View {
                         await viewModel.markMissionDone(mission)
                     }
                 }
-                .background(Color.primary)
+                .background(Color(uiColor: .label))
                 .cornerRadius(5)
                 .padding(.top, 20)
                 

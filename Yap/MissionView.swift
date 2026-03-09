@@ -173,6 +173,26 @@ struct MissionView: View {
         .background(RoundedRectangle(cornerRadius: 25)
             .fill(Color(.quaternaryLabel).gradient)
         )
+        .overlay(alignment: .topTrailing) {
+            let state = viewModel.stats(for: agent)
+            Text(state.record)
+                .font(.caption)
+                .padding(15)
+        }
+        
+        .overlay(alignment: .topLeading) {
+            let isFav = viewModel.favoriteAgent == agent
+            Image(icon: .star)
+                .font(.caption)
+                .symbolVariant(isFav ? .fill : .none)
+                .padding(15)
+                .button {
+                    withAnimation(.snappy) {
+                        viewModel.toggleFavorite(agent)
+                    }
+                }
+                .foregroundStyle(isFav ? .yellow : .secondary)
+        }
     }
     
     private func lockedCardView(agent: Agent) -> some View {

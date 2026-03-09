@@ -45,6 +45,20 @@ final class HomeViewModel: ObservableObject {
     @AppStorage("appearance") var appearance: Appearance = .light
     @AppStorage(QuietHours.startKey) var quietHoursStart: Int = QuietHours.defaultStart
     @AppStorage(QuietHours.endKey) var quietHoursEnd: Int = QuietHours.defaultEnd
+    @AppStorage("favorite_agent") var favoriteAgentRaw: String = ""
+    
+    var favoriteAgent: Agent? {
+        get { Agent(rawValue: favoriteAgentRaw) }
+        set { favoriteAgentRaw = newValue?.rawValue ?? "" }
+    }
+    
+    func toggleFavorite(_ agent: Agent) {
+        if favoriteAgent == agent {
+            favoriteAgent = nil
+        } else {
+            favoriteAgent = agent
+        }
+    }
     
     // Queue
     @Published var queuedMissions: [MissionItem] = []
@@ -83,8 +97,13 @@ final class HomeViewModel: ObservableObject {
     
     func orderAgentList() -> [Agent] {
         let indexByAgent = Dictionary(uniqueKeysWithValues: Agent.allCases.enumerated().map { ($1, $0) })
+        let fav = favoriteAgent
 
         return Agent.allCases.sorted { lhs, rhs in
+            // Favorite always first
+            if lhs == fav && rhs != fav { return true }
+            if rhs == fav && lhs != fav { return false }
+            
             let lhsStats = stats(for: lhs)
             let rhsStats = stats(for: rhs)
 

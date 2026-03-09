@@ -36,7 +36,8 @@ enum SystemImage: String {
     // Status
     case info = "info.circle"
     case lock = "lock.fill"
-    case star = "star.fill"
+    case starFilled = "star.fill"
+    case star
     case sparkles
     
     case paperplane
