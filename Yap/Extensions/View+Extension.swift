@@ -44,6 +44,10 @@ extension View {
         modifier(RoundedOutlineModifier(cornerRadius: cornerRadius, lineWidth: lineWidth, color: color))
     }
     
+    func floatingEffect(amplitude: CGFloat = 5, duration: Double = 6, enabled: Bool) -> some View {
+        modifier(FloatingModifier(enabled: enabled, amplitude: amplitude, duration: duration))
+    }
+    
     func outline(lineWidth: CGFloat = 1.5, color: Color = Color.primary) -> some View {
         modifier(BorderModifier(lineWidth: lineWidth, color: color))
     }
@@ -137,6 +141,33 @@ struct RoundedOutlineModifier: ViewModifier {
                 RoundedRectangle(cornerRadius: cornerRadius)
                     .stroke(color, lineWidth: lineWidth)
             )
+    }
+}
+
+struct FloatingModifier: ViewModifier {
+    let enabled: Bool
+    var amplitude: CGFloat
+    var duration: Double
+    @State private var startDate = Date()
+    
+    func body(content: Content) -> some View {
+        if enabled {
+            TimelineView(.animation) { timeline in
+                let t = timeline.date.timeIntervalSince(startDate)
+                let angle = t * (2 * .pi / duration)
+                let dx = amplitude * 0.4 * cos(angle)
+                let dy = amplitude * 0.5 * sin(angle)
+                let scale = 1.0 + 0.05 * sin(angle)
+                let rotation = 1.2 * sin(angle)
+                
+                content
+                    .offset(x: dx, y: dy)
+                    .scaleEffect(scale)
+                    .rotationEffect(.degrees(rotation))
+            }
+        } else {
+            content
+        }
     }
 }
 

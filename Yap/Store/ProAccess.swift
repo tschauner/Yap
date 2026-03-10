@@ -4,44 +4,58 @@
 import Foundation
 import SwiftUI
 
-/// Zentrale Stelle die prüft ob ein Feature Pro braucht.
+/// Central access-control layer.
+/// Combines Free tier, Pro subscription, and Agent Pack purchases.
 enum ProAccess {
-    
+
     @AppStorage("isPro") static var isPro = false
-    
+
     // MARK: - Free Tier Limits
-    
-    /// Welcher Agent ist gratis verfügbar.
+
+    /// The only agent available for free.
     static let freeAgent: Agent = .mom
-    
-    /// Max Missions pro Tag im Free Tier.
+
+    /// Max missions per day on the Free tier.
     static let freeDailyLimit = 1
-    
-    // MARK: - Quick Pro Check
-    
-    /// Ist dieser Agent im Free Tier verfügbar?
+
+    // MARK: - Agent Access
+
+    /// Returns whether the agent is in the Free tier.
     static func isAgentFree(_ agent: Agent) -> Bool {
         agent == freeAgent
     }
-    
-    /// Braucht dieser Agent Pro?
-    static func requiresPro(_ agent: Agent) -> Bool {
-        !isAgentFree(agent)
+
+    /// Returns whether the agent is unlocked for this user.
+    /// Priority: Free → Pro (base agents) → Pack purchase.
+    static func isAgentUnlocked(_ agent: Agent, packStore: AgentPackStore) -> Bool {
+        if isAgentFree(agent) { return true }
+        if !agent.isBaseAgent {
+            // Pack agent: needs the corresponding pack
+            guard let pack = agent.pack else { return false }
+            return packStore.isPurchased(pack)
+        }
+        // Base agent: needs Pro
+        return isPro
     }
-    
-    /// Kann der User heute noch eine Mission starten?
-    /// Free: 1 pro Tag, Pro: Unlimited
+
+    /// Whether showing the paywall is appropriate for this agent.
+    static func requiresPro(_ agent: Agent) -> Bool {
+        agent.isBaseAgent && !isAgentFree(agent)
+    }
+
+    // MARK: - Mission Limits
+
+    /// Can the user start another mission today?
     static func canCreateMissionToday(missionsCreatedToday: Int) -> Bool {
         isPro || missionsCreatedToday < freeDailyLimit
     }
-    
-    /// Deadline verlängern ist Pro-only.
-    static var canExtend: Bool {
-        isPro
-    }
-    
-    /// AI Copy ist für alle verfügbar — das ist der USP!
-    static var canUseAICopy: Bool {
-        true
-    }
+
+    // MARK: - Feature Gates
+
+    /// Deadline extension is Pro-only.
+    static var canExtend: Bool { isPro }
+
+    /// AI copy is always available — it's the core USP.
+    static var canUseAICopy: Bool { true }
 }
+

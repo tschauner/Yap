@@ -17,14 +17,9 @@ struct LeaderboardView: View {
         NavigationStack {
             VStack(spacing: 0) {
                 // Tab picker
-                Picker("", selection: $selectedTab) {
-                    ForEach(LeaderboardTab.allCases, id: \.self) { tab in
-                        Text(tab.rawValue).tag(tab)
-                    }
-                }
-                .pickerStyle(.segmented)
-                .padding(.horizontal)
-                .padding(.top, 8)
+                boardPicker
+                    .padding(.horizontal)
+                    .padding(.top, 8)
                 
                 switch selectedTab {
                 case .global:
@@ -48,41 +43,44 @@ struct LeaderboardView: View {
         }
     }
     
+    private var boardPicker: some View {
+        Picker("", selection: $selectedTab) {
+            ForEach(LeaderboardTab.allCases, id: \.self) { tab in
+                Text(tab.rawValue).tag(tab)
+            }
+        }
+        .pickerStyle(.segmented)
+    }
+    
     // MARK: - Global Tab
     
     @ViewBuilder
     private var globalLeaderboardContent: some View {
         if viewModel.globalLeaderboard.isEmpty {
-            VStack(spacing: 16) {
-                Spacer()
-                Text("🌍")
-                    .font(.system(size: 48))
-                Text("No global data yet")
-                    .font(.system(size: 17, weight: .medium))
+            ContentUnavailableView("No global data yet", image: "", description:
                 Text("Missions from all users will appear here.")
-                    .font(.system(size: 15))
-                    .foregroundStyle(.secondary)
-                    .multilineTextAlignment(.center)
-                    .padding(.horizontal, 40)
-                Spacer()
-            }
+            )
         } else {
-            List {
-                ForEach(Array(viewModel.globalLeaderboard.enumerated()), id: \.element.id) { index, stats in
-                    if let agent = stats.resolvedAgent {
-                        NavigationLink {
-                            AgentDetailView(agent: agent)
-                                .environmentObject(viewModel)
-                        } label: {
-                            globalRow(index: index, stats: stats)
-                        }
-                    } else {
+            globalLeaderboardList
+        }
+    }
+    
+    private var globalLeaderboardList: some View {
+        List {
+            ForEach(Array(viewModel.globalLeaderboard.enumerated()), id: \.element.id) { index, stats in
+                if let agent = stats.resolvedAgent {
+                    NavigationLink {
+                        AgentDetailView(agent: agent)
+                            .environmentObject(viewModel)
+                    } label: {
                         globalRow(index: index, stats: stats)
                     }
+                } else {
+                    globalRow(index: index, stats: stats)
                 }
             }
-            .listStyle(.plain)
         }
+        .listStyle(.plain)
     }
     
     // MARK: - Your Tab
@@ -90,53 +88,51 @@ struct LeaderboardView: View {
     @ViewBuilder
     private var yourLeaderboardContent: some View {
         if viewModel.agentLeaderboard.isEmpty {
-            VStack(spacing: 16) {
-                Spacer()
-                Text("🏆")
-                    .font(.system(size: 48))
-                Text("No missions yet")
-                    .font(.system(size: 17, weight: .medium))
-                Text("Complete your first mission to see agent performance.")
-                    .font(.system(size: 15))
-                    .foregroundStyle(.secondary)
-                    .multilineTextAlignment(.center)
-                    .padding(.horizontal, 40)
-                Spacer()
-            }
+            ContentUnavailableView("No missions yet", image: "", description:
+                 Text("Complete your first mission to see agent performance.")
+            )
         } else {
-            List {
-                ForEach(Array(viewModel.agentLeaderboard.enumerated()), id: \.element.id) { index, stats in
-                    NavigationLink {
-                        AgentDetailView(agent: stats.agent)
-                            .environmentObject(viewModel)
-                    } label: {
-                        HStack(spacing: 12) {
-                            Text(rankEmoji(for: index))
-                                .font(.system(size: 20))
-                                .frame(width: 30)
-                            
-                            Text(stats.agent.emoji)
-                                .font(.system(size: 24))
-                            
-                            VStack(alignment: .leading, spacing: 2) {
-                                Text(stats.agent.displayName)
-                                    .font(.system(size: 16, weight: .medium))
-                                Text(stats.record)
-                                    .font(.system(size: 13))
-                                    .foregroundStyle(.secondary)
-                            }
-                            
-                            Spacer()
-                            
-                            Text(stats.successRateFormatted)
-                                .font(.system(size: 18, weight: .bold))
-                                .foregroundStyle(rateColor(for: stats.successRate))
-                        }
+            userLeaderboardList
+        }
+    }
+    
+    private var userLeaderboardList: some View {
+        List {
+            ForEach(Array(viewModel.agentLeaderboard.enumerated()), id: \.element.id) { index, stats in
+                NavigationLink {
+                    AgentDetailView(agent: stats.agent)
+                        .environmentObject(viewModel)
+                } label: {
+                    agentRow(stats: stats, index: index)
                         .padding(.vertical, 4)
-                    }
                 }
             }
-            .listStyle(.plain)
+        }
+        .listStyle(.plain)
+    }
+    
+    private func agentRow(stats: AgentStats, index: Int) -> some View {
+        HStack(spacing: 12) {
+            Text(rankEmoji(for: index))
+                .font(.system(size: 20))
+                .frame(width: 30)
+            
+            Text(stats.agent.emoji)
+                .font(.system(size: 24))
+            
+            VStack(alignment: .leading, spacing: 2) {
+                Text(stats.agent.displayName)
+                    .font(.system(size: 16, weight: .medium))
+                Text(stats.record)
+                    .font(.system(size: 13))
+                    .foregroundStyle(.secondary)
+            }
+            
+            Spacer()
+            
+            Text(stats.successRateFormatted)
+                .font(.system(size: 18, weight: .bold))
+                .foregroundStyle(rateColor(for: stats.successRate))
         }
     }
     

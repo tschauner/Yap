@@ -74,13 +74,6 @@ struct InputTextfield: View {
                     }
                 }
                 .foregroundStyle(.secondary)
-                .onTapGesture {
-                    withAnimation(.snappy(extraBounce: 0.1)) {
-                        viewModel.showAgents.toggle()
-                    } completion: {
-
-                    }
-                }
                 
                 Spacer()
             }
@@ -94,7 +87,7 @@ struct InputTextfield: View {
                     .font(.system(size: 19, weight: .medium))
                 
                 if let selectedAgent = viewModel.selectedAgent, addEnabled {
-                    Image(icon: .paperplane)
+                    Image(icon: .checkmark)
                         .font(.system(size: 20, weight: .semibold))
                         .onTapGesture {
                             Task {
@@ -105,10 +98,13 @@ struct InputTextfield: View {
                 }
             }
         }
-        .onAppear { isFocused = true }
+        //.onAppear { isFocused = true }
         .animation(.snappy(duration: 0.3), value: missionText.isEmpty)
         .onChange(of: isFocused) { oldValue, newValue in
             viewModel.isFocused = isFocused
+        }
+        .onChange(of: viewModel.isFocused) { oldValue, newValue in
+            isFocused = newValue
         }
         .sheet(isPresented: $showDeadlinePicker) {
             DeadlinePickerSheet(deadline: $viewModel.selectedDeadline)

@@ -19,20 +19,16 @@ struct MissionView: View {
         NavigationStack {
             VStack(spacing: 0) {
                 content
-                    //.animation(.easeOut, value: isActive)
                     .animation(.easeOut, value: viewModel.phase)
             }
             .task {
                 await viewModel.onAppear()
             }
-            .sheet(item: $viewModel.selectedMission) { mission in
-                AgentPicker(mission: mission)
-            }
             .toolbar {
                 ToolbarItem(placement: .topBarLeading) {
-                    Image(icon: viewModel.appearance == .dark ? .sun : .moon)
+                    Image(icon: .share)
                         .contentTransition(.symbolEffect)
-                        .foregroundStyle(.secondary)
+                        .foregroundStyle(.primary)
                         .button {
                             viewModel.toggleAppearance()
                         }
@@ -93,7 +89,7 @@ struct MissionView: View {
         case .activeMission(let mission), .completed(let mission):
             ActiveMissionView(mission: mission)
         case .selection:
-            selectionView
+            MissionSelectionView()
         case .gaveUp(let mission):
             Text("Mission failed")
         }
@@ -110,89 +106,31 @@ struct MissionView: View {
         colorScheme == .light ? Color.blue : Color.orange
     }
     
-    var selectionView: some View {
-        VStack(alignment: .leading, spacing: 0) {
-            if viewModel.showAgents {
-                if let locked = viewModel.pickerState.lockedAgent {
-                    // Locked state: only selected card, centered
-                    lockedCardView(agent: locked)
-                        .transition(.opacity)
-                } else {
-                    // Selection state: all cards in scroll
-                    ScrollView(.horizontal) {
-                        LazyHStack {
-                            ForEach(viewModel.orderAgentList()) { agent in
-                                agentCard(agent: agent)
-                                    .roundedOutline(cornerRadius: 25, color: viewModel.selectedAgent == agent ? .primary : .clear)
-                                    .matchedGeometryEffect(id: agent.id, in: cardNamespace)
-                                    .onTapGesture {
-                                        viewModel.selectedAgent = agent
-                                    }
-                            }
-                        }
-                        .scrollTargetLayout()
-                    }
-                    .scrollIndicators(.hidden)
-                    .scrollTargetBehavior(.viewAligned)
-                    .safeAreaPadding(.horizontal, 40)
-                    .transition(.move(edge: .bottom).combined(with: .opacity))
-                }
-            } else {
-                Spacer()
-            }
-            
-            if viewModel.pickerState.lockedAgent == nil {
-                InputTextfield()
-                    .padding(15)
-                    .glassEffect(in: .rect(cornerRadius: 20))
-                    .padding(.bottom, 20)
-                    .transition(.opacity)
-                    .padding(.horizontal, 20)
-            }
-        }
-        .animation(.easeInOut(duration: 0.4), value: viewModel.pickerState)
-    }
-    
     // MARK: - Agent Card
     
-    private func agentCard(agent: Agent) -> some View {
+    private func agentCard(agent: Agent, isSelected: Bool, floating: Bool = false) -> some View {
         VStack(spacing: 0) {
-            Text(agent.emoji)
-                .font(.system(size: 30, weight: .semibold))
+            Circle()
+                .frame(width: 60, height: 60)
+                .foregroundStyle(agent.accentColor.gradient)
+                .overlay(
+                    Text(agent.emoji)
+                        .font(.system(size: 40, weight: .semibold))
+                )
+                .roundedOutline(cornerRadius: 40, color: isSelected ? .primary : .clear)
+                .floatingEffect(enabled: floating)
+
             Text(agent.displayName)
-                .font(.system(size: 17, weight: .semibold))
-                .padding(.top, 5)
-            
-            Text(agent.pitch)
-                .font(.caption)
-                .fontWeight(.medium)
+                .font(.system(size: 14, weight: .medium))
+                .frame(maxWidth: .infinity)
+                .frame(height: 40, alignment: .top)
+                .fixedSize(horizontal: false, vertical: true)
+                .multilineTextAlignment(.center)
                 .padding(.top, 10)
+            
+            Spacer()
         }
-        .padding(15)
-        .frame(width: 300, height: 150)
-        .background(RoundedRectangle(cornerRadius: 25)
-            .fill(Color(.quaternaryLabel).gradient)
-        )
-        .overlay(alignment: .topTrailing) {
-            let state = viewModel.stats(for: agent)
-            Text(state.record)
-                .font(.caption)
-                .padding(15)
-        }
-        
-        .overlay(alignment: .topLeading) {
-            let isFav = viewModel.favoriteAgent == agent
-            Image(icon: .star)
-                .font(.caption)
-                .symbolVariant(isFav ? .fill : .none)
-                .padding(15)
-                .button {
-                    withAnimation(.snappy) {
-                        viewModel.toggleFavorite(agent)
-                    }
-                }
-                .foregroundStyle(isFav ? .yellow : .secondary)
-        }
+        .frame(width: 70, height: 90)
     }
     
     private func lockedCardView(agent: Agent) -> some View {

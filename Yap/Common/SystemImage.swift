@@ -16,12 +16,15 @@ enum SystemImage: String {
     case personPlus = "person.badge.plus"
     case agent = "person.wave.2"
     case wave = "wave.3.forward"
+    case trophy
     
     // Navigation
     case chevronRight = "chevron.right"
     case chevronLeft = "chevron.backward"
     case close = "xmark"
     case closeFill = "xmark.circle.fill"
+    case minus
+    case share = "square.and.arrow.up"
     
     // Actions
     case checkmark
