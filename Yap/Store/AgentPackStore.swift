@@ -8,6 +8,7 @@
 import Foundation
 import StoreKit
 import SwiftUI
+import Combine
 
 // MARK: - Error
 
@@ -20,7 +21,7 @@ enum AgentPackStoreError: LocalizedError {
     var errorDescription: String? {
         switch self {
         case .productNotFound(let id):
-            return "Product "\(id)" could not be loaded from the App Store."
+            return "Product \"\(id)\" could not be loaded from the App Store."
         case .verificationFailed:
             return "The transaction could not be verified. Please contact support."
         case .purchasePending:
@@ -42,7 +43,6 @@ enum PackPurchaseState: Equatable {
 
 // MARK: - Store
 
-@MainActor
 final class AgentPackStore: ObservableObject {
 
     // MARK: - Published
@@ -75,7 +75,7 @@ final class AgentPackStore: ObservableObject {
     }
 
     // MARK: - Products
-
+    @MainActor
     func loadProducts() async {
         isLoadingProducts = true
         defer { isLoadingProducts = false }
@@ -109,10 +109,10 @@ final class AgentPackStore: ObservableObject {
     }
 
     // MARK: - Purchase
-
+    @MainActor
     func purchase(_ pack: AgentPack) async {
         guard let product = product(for: pack) else {
-            purchaseState = .failed(AgentPackStoreError.productNotFound(pack.productID).localizedDescription ?? "")
+            purchaseState = .failed(AgentPackStoreError.productNotFound(pack.productID).localizedDescription)
             return
         }
 
@@ -130,7 +130,7 @@ final class AgentPackStore: ObservableObject {
                 print("✅ AgentPackStore: purchased \(pack.productID)")
 
             case .pending:
-                purchaseState = .failed(AgentPackStoreError.purchasePending.localizedDescription ?? "")
+                purchaseState = .failed(AgentPackStoreError.purchasePending.localizedDescription)
 
             case .userCancelled:
                 purchaseState = .idle
@@ -140,13 +140,13 @@ final class AgentPackStore: ObservableObject {
             }
 
         } catch {
-            purchaseState = .failed(AgentPackStoreError.unknown(error).localizedDescription ?? "")
+            purchaseState = .failed(AgentPackStoreError.unknown(error).localizedDescription)
             print("⚠️ AgentPackStore: purchase failed: \(error)")
         }
     }
 
     // MARK: - Restore
-
+    @MainActor
     func restore() async {
         purchaseState = .loading
         try? await AppStore.sync()
@@ -155,7 +155,7 @@ final class AgentPackStore: ObservableObject {
     }
 
     // MARK: - Transaction Listener
-
+    @MainActor
     private func listenForTransactions() async {
         for await result in Transaction.updates {
             guard let transaction = try? verify(result) else { continue }
@@ -164,6 +164,7 @@ final class AgentPackStore: ObservableObject {
         }
     }
 
+    @MainActor
     private func restorePurchasedPacks() async {
         for await result in Transaction.currentEntitlements {
             guard let transaction = try? verify(result) else { continue }
@@ -172,7 +173,7 @@ final class AgentPackStore: ObservableObject {
     }
 
     // MARK: - Helpers
-
+    @MainActor
     private func markPurchased(_ productID: String) {
         purchasedPackIDs.insert(productID)
     }

@@ -92,49 +92,43 @@ struct PaywallView: View {
     private var agentQuotes: some View {
         VStack(spacing: 16) {
             TabView(selection: $currentPage) {
-                ForEach(Array(Agent.allCases.enumerated()), id: \.offset) { index, agent in
+                ForEach(Array(Agent.standard.enumerated()), id: \.offset) { index, agent in
                     quoteCard(agent)
                         .tag(index)
                 }
             }
+            .frame(height: 200)
             .tabViewStyle(.page(indexDisplayMode: .never))
-            .frame(height: 160)
             .onReceive(timer) { _ in
                 withAnimation(.easeInOut(duration: 0.4)) {
                     currentPage = (currentPage + 1) % Agent.allCases.count
+                }
+            }
+            
+            HStack {
+                ForEach(Array(Agent.standard.enumerated()), id: \.offset) { index, agent in
+                    Circle()
+                        .frame(width: 7)
+                        .foregroundStyle(currentPage == index ? .white : .secondary)
                 }
             }
         }
     }
     
     private func quoteCard(_ agent: Agent) -> some View {
-        HStack(spacing: 20) {
-            Image(icon: .quoteOpening)
-                .frame(alignment: .leading)
-                .padding(.bottom, 60)
-            VStack(spacing: 16) {
-                Text("\"\(agent.salesPitch)\"")
-                    .font(.system(size: 16, weight: .medium))
-                    .foregroundStyle(.secondary)
-                    .multilineTextAlignment(.center)
-                    .lineLimit(4)
-                    .fixedSize(horizontal: false, vertical: true)
-                
-                HStack(spacing: 6) {
-                    Text(agent.emoji)
-                        .font(.system(size: 18))
-                    Text(agent.displayName)
-                        .font(.system(size: 16, weight: .semibold))
-                        .foregroundStyle(.primary)
-                }
-            }
+        VStack(spacing: 16) {
+            AgentQuoteView(quote: agent.salesPitch)
             
-            Image(icon: .quoteClosing)
-                .frame(alignment: .trailing)
-                .padding(.bottom, 60)
+            VStack(spacing: 6) {
+                AgentCircle(agent: agent)
+                Text(agent.displayName)
+                    .font(.caption)
+            }
         }
+        .frame(height: 160)
+        .frame(maxWidth: .infinity)
         .padding(.vertical, 15)
-        .padding(.horizontal, 30)
+        .padding(.horizontal, 20)
         .glassEffect(in: .rect(cornerRadius: 20))
         .frame(maxWidth: .infinity)
         .padding(.horizontal)

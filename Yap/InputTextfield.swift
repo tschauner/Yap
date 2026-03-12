@@ -48,7 +48,7 @@ struct InputTextfield: View {
     }
     
     var body: some View {
-        VStack(alignment: .leading, spacing: 20) {
+        VStack(alignment: .leading, spacing: 0) {
             // Deadline Anzeige
             HStack(spacing: 15) {
                 HStack(spacing: 4) {
@@ -80,21 +80,32 @@ struct InputTextfield: View {
             
             // Input Row
             HStack(spacing: 15) {
-                TextField("", text: $viewModel.missionText, prompt: Text("What needs to get done?"))
+                TextField("", text: $viewModel.missionText, prompt: Text("What needs to get done?"), axis: .vertical)
                     .focused($isFocused)
                     .foregroundStyle(.secondary)
                     .frame(maxWidth: .infinity, alignment: .leading)
                     .font(.system(size: 19, weight: .medium))
+                    .padding(.top, 15)
+                    .onChange(of: viewModel.missionText) { _, newValue in
+                        if newValue.count > 120 {
+                            viewModel.missionText = String(newValue.prefix(120))
+                        }
+                    }
                 
                 if let selectedAgent = viewModel.selectedAgent, addEnabled {
-                    Image(icon: .checkmark)
-                        .font(.system(size: 20, weight: .semibold))
+                    Image(icon: .checkmarkCircle)
+                        .font(.system(size: 26, weight: .semibold))
+                        .frame(width: 30, height: 40, alignment: .bottom)
+                        .foregroundStyle(.blue)
                         .onTapGesture {
                             Task {
                                 await MainActor.run { isFocused = false }
                                 await viewModel.selectAgent(selectedAgent, title: missionText)
                             }
                         }
+                } else {
+                    Color.clear
+                        .frame(width: 30, height: 40)
                 }
             }
         }

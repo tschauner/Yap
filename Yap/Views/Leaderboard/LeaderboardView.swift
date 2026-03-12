@@ -19,7 +19,7 @@ struct LeaderboardView: View {
                 // Tab picker
                 boardPicker
                     .padding(.horizontal)
-                    .padding(.top, 8)
+                    .padding(.vertical, 8)
                 
                 switch selectedTab {
                 case .global:
@@ -97,34 +97,35 @@ struct LeaderboardView: View {
     }
     
     private var userLeaderboardList: some View {
-        List {
-            ForEach(Array(viewModel.agentLeaderboard.enumerated()), id: \.element.id) { index, stats in
-                NavigationLink {
-                    AgentDetailView(agent: stats.agent)
-                        .environmentObject(viewModel)
-                } label: {
-                    agentRow(stats: stats, index: index)
-                        .padding(.vertical, 4)
+        ScrollView {
+            VStack(spacing: 0) {
+                ForEach(Array(viewModel.agentLeaderboard.enumerated()), id: \.element.id) { index, stats in
+                    NavigationLink {
+                        AgentDetailView(agent: stats.agent)
+                            .environmentObject(viewModel)
+                    } label: {
+                        agentRow(stats: stats, index: index)
+                    }
+                    .buttonStyle(.plain)
                 }
             }
         }
-        .listStyle(.plain)
     }
     
     private func agentRow(stats: AgentStats, index: Int) -> some View {
-        HStack(spacing: 12) {
-            Text(rankEmoji(for: index))
-                .font(.system(size: 20))
-                .frame(width: 30)
+        HStack(spacing: 0) {
+            Text("\(index + 1)")
+                .font(.system(size: 18, weight: .bold))
+                .padding(.trailing, 20)
             
-            Text(stats.agent.emoji)
-                .font(.system(size: 24))
+            AgentCircle(agent: stats.agent)
+                .padding(.trailing, 10)
             
             VStack(alignment: .leading, spacing: 2) {
                 Text(stats.agent.displayName)
-                    .font(.system(size: 16, weight: .medium))
+                    .font(.system(size: 17, weight: .semibold))
                 Text(stats.record)
-                    .font(.system(size: 13))
+                    .font(.system(size: 14))
                     .foregroundStyle(.secondary)
             }
             
@@ -134,18 +135,19 @@ struct LeaderboardView: View {
                 .font(.system(size: 18, weight: .bold))
                 .foregroundStyle(rateColor(for: stats.successRate))
         }
+        .padding()
+        .contentShape(Rectangle())
+//        .background(index == 0 ? Color.black.opacity(0.8) : .clear)
     }
     
     // MARK: - Global Row
     
     private func globalRow(index: Int, stats: GlobalAgentStats) -> some View {
         HStack(spacing: 12) {
-            Text(rankEmoji(for: index))
-                .font(.system(size: 20))
-                .frame(width: 30)
+            Text("\(index + 1)")
+                .font(.system(size: 18, weight: .bold))
             
-            Text(stats.resolvedAgent?.emoji ?? "❓")
-                .font(.system(size: 24))
+            AgentCircle(agent: stats.resolvedAgent ?? .mom)
             
             VStack(alignment: .leading, spacing: 2) {
                 Text(stats.resolvedAgent?.displayName ?? stats.agent)
@@ -175,21 +177,15 @@ struct LeaderboardView: View {
     
     // MARK: - Helpers
     
-    private func rankEmoji(for index: Int) -> String {
-        switch index {
-        case 0: return "🥇"
-        case 1: return "🥈"
-        case 2: return "🥉"
-        default: return "\(index + 1)."
-        }
-    }
-    
     private func rateColor(for rate: Double?) -> Color {
         guard let rate else { return .secondary }
         switch rate {
-        case 80...100: return .green
-        case 50..<80: return .orange
-        default: return .red
+        case 0.8...1:
+            return .green
+        case 0.5..<0.8:
+            return .orange
+        default:
+            return .red
         }
     }
 }

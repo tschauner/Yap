@@ -20,11 +20,7 @@ struct AgentDetailView: View {
             // Header with stats
             Section {
                 VStack(spacing: 16) {
-                    Text(agent.emoji)
-                        .font(.system(size: 64))
-                    
-                    Text(agent.displayName)
-                        .font(.system(size: 24, weight: .bold))
+                    AgentCard(agent: agent)
                     
                     HStack(spacing: 32) {
                         statBadge(value: "\(stats.completed)", label: "Completed", color: .green)

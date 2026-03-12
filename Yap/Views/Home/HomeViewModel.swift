@@ -39,13 +39,22 @@ final class HomeViewModel: ObservableObject {
     @Published var isFocused = false
     @Published var agentReaction: String? = nil
     @Published var missionReady = false
+    @Published var currentNagMessage: String? = nil
     @Published var pickerState: PickerState = .selection
     @Published var showAgents = true
+    @Published var showAgentPacks = false
+    @Published var missionIsCompleting = false
     @Published var selectedDeadline: Date = Calendar.current.date(bySettingHour: 23, minute: 59, second: 0, of: Date()) ?? Date()
     @AppStorage("appearance") var appearance: Appearance = .light
     @AppStorage(QuietHours.startKey) var quietHoursStart: Int = QuietHours.defaultStart
     @AppStorage(QuietHours.endKey) var quietHoursEnd: Int = QuietHours.defaultEnd
     @AppStorage("favorite_agent") var favoriteAgentRaw: String = ""
+    
+    private let appId = "6738916276"
+    
+    var appURL: URL? {
+        URL(string: "https://apps.apple.com/app/id\(appId)")
+    }
     
     var favoriteAgent: Agent? {
         get { Agent(rawValue: favoriteAgentRaw) }
@@ -95,11 +104,17 @@ final class HomeViewModel: ObservableObject {
         return missionHistory.filter { calendar.startOfDay(for: $0.createdAt) == today }.count
     }
     
-    func orderAgentList() -> [Agent] {
+    func orderAgentList(packStore: AgentPackStore? = nil) -> [Agent] {
         let indexByAgent = Dictionary(uniqueKeysWithValues: Agent.allCases.enumerated().map { ($1, $0) })
         let fav = favoriteAgent
+        
+        // Base agents always visible; pack agents only if purchased
+        let available = Agent.allCases.filter { agent in
+            guard let pack = agent.pack else { return true }
+            return packStore?.isPurchased(pack) ?? false
+        }
 
-        return Agent.allCases.sorted { lhs, rhs in
+        return available.sorted { lhs, rhs in
             // Favorite always first
             if lhs == fav && rhs != fav { return true }
             if rhs == fav && lhs != fav { return false }
@@ -142,6 +157,7 @@ final class HomeViewModel: ObservableObject {
         if let active = await useCases.fetchActiveMission.execute(()) {
             missionReady = true
             phase = .activeMission(active)
+            await loadNextNagMessage(for: active.id)
         } else {
             phase = .selection
         }
@@ -202,11 +218,12 @@ final class HomeViewModel: ObservableObject {
         // Step 2: Show ActiveMissionView in loading state
         missionReady = false
         withAnimation(.easeInOut(duration: 0.4)) {
+            showAgents = true
             phase = .activeMission(mission)
         }
         
         // Step 3: Short delay for the loading feel, then reveal stats
-        try? await Task.sleep(for: .seconds(2))
+        try? await Task.sleep(for: .seconds(3))
         withAnimation(.easeInOut(duration: 0.4)) {
             missionReady = true
         }
@@ -242,6 +259,8 @@ final class HomeViewModel: ObservableObject {
     /// Mission erledigt → Stats-Screen.
     @MainActor
     func markMissionDone(_ mission: Mission) async {
+        defer { missionIsCompleting = false }
+        missionIsCompleting = true
         guard let result = await useCases.completeMission.execute(mission.id) else { return }
         phase = .completed(result)
         await refreshMissionHistory()
@@ -290,8 +309,17 @@ final class HomeViewModel: ObservableObject {
         globalLeaderboard = await useCases.fetchGlobalLeaderboard.execute(())
     }
     
+    // MARK: - Nag Message
+    
+    @MainActor
+    func loadNextNagMessage(for missionId: UUID) async {
+        currentNagMessage = await NagService.shared.nextScheduledMessage(for: missionId)
+    }
+    
     @MainActor
     func backToInput() {
+        missionText = ""
+        selectedAgent = nil
         phase = .selection
     }
 }

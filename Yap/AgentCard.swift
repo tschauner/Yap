@@ -8,8 +8,8 @@
 import SwiftUI
 
 enum AgentCardSize {
-    case small
     case big
+    case small
     
     var frame: CGSize {
         switch self {
@@ -31,7 +31,10 @@ enum AgentCardSize {
 }
 
 struct AgentCard: View {
-    var agent: Agent, isSelected: Bool, cardSize: AgentCardSize = .small
+    var agent: Agent
+    var isSelected: Bool = false
+    var isFloading: Bool = false
+    var cardSize: AgentCardSize = .small
     
     var body: some View {
         VStack(spacing: 0) {
@@ -50,7 +53,7 @@ struct AgentCard: View {
                         .offset(x: 10, y: -5)
                 }
             }
-            .floatingEffect(enabled: isSelected)
+            .floatingEffect(enabled: isFloading)
 
             Text(agent.displayName)
                 .font(.system(size: 14, weight: .medium))
@@ -67,5 +70,5 @@ struct AgentCard: View {
 }
 
 #Preview {
-    AgentCard(agent: .mom, isSelected: false)
+    AgentCard(agent: .mom, isSelected: true, isFloading: true)
 }

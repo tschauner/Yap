@@ -11,6 +11,7 @@ protocol NagProviding: Actor {
     @discardableResult func scheduleEscalation(for mission: Mission, startDelay: Int) -> Int
     func missionCompleted(_ missionId: UUID)
     func cancelNotifications(for goalId: UUID)
+    func nextScheduledMessage(for missionId: UUID) async -> String?
 }
 
 /// Schedules escalating local notifications for a goal.
@@ -141,6 +142,26 @@ actor NagService: NagProviding {
             let seconds = trigger?.timeInterval ?? 0
             print("  [\(req.identifier)] in \(Int(seconds/60))min — \(req.content.title): \(req.content.body)")
         }
+    }
+    
+    // MARK: - Next Scheduled Message
+    
+    /// Returns the body of the next pending notification for a mission.
+    func nextScheduledMessage(for missionId: UUID) async -> String? {
+        let center = UNUserNotificationCenter.current()
+        let requests = await center.pendingNotificationRequests()
+        let prefix = "yap-\(missionId.uuidString)"
+        
+        let matching = requests
+            .filter { $0.identifier.hasPrefix(prefix) }
+            .compactMap { req -> (body: String, fireDate: Date)? in
+                guard let trigger = req.trigger as? UNTimeIntervalNotificationTrigger,
+                      let next = trigger.nextTriggerDate() else { return nil }
+                return (req.content.body, next)
+            }
+            .sorted { $0.fireDate < $1.fireDate }
+        
+        return matching.first?.body
     }
     
     // MARK: - Private

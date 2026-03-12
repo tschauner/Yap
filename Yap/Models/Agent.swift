@@ -14,6 +14,8 @@ enum Agent: String, Codable, CaseIterable, Identifiable {
     case therapist   // Starts validating, gets uncomfortably honest
     case grandma     // Emotional warfare from grandma
     
+    static var standard: [Self] = [.mom, .bestFriend, .boss, .drill, .therapist, .grandma]
+    
     // MARK: - Chaos Pack
     case ex                          // Passive-aggressive heartbreak
     case conspiracyTheorist          // Unhinged but weirdly motivating
@@ -40,6 +42,23 @@ enum Agent: String, Codable, CaseIterable, Identifiable {
         case .gordonRamsay: "Gordon Ramsay"
         case .disappointedDad: "Disappointed Dad"
         case .gymBro: "Gym Bro"
+        }
+    }
+    
+    var celebrationEmoji: String {
+        switch self {
+        case .bestFriend: "🤙"
+        case .mom: "❤️"
+        case .boss: "💼"
+        case .drill: "🫡"
+        case .therapist: "🧘"
+        case .grandma: "🍪"
+        case .ex: "💔"
+        case .conspiracyTheorist: "👁️"
+        case .passiveAggressiveColleague: "🙂"
+        case .gordonRamsay: "🔥"
+        case .disappointedDad: "😶"
+        case .gymBro: "💪"
         }
     }
     
@@ -175,12 +194,12 @@ enum Agent: String, Codable, CaseIterable, Identifiable {
     /// Sales pitch for the paywall — agents justify the price.
     var salesPitch: String {
         switch self {
-        case .bestFriend: "Bro, that's less than ONE coffee. And I'll be there for you EVERY day. Unlike your ex."
-        case .mom: "I gave birth to guilt-trips for FREE. This is a bargain."
-        case .boss: "Consider this an investment in your career. Tax deductible, probably."
-        case .drill: "THE COST OF WEAKNESS IS FAR GREATER, MAGGOT! PAY UP!"
-        case .therapist: "Think of it as self-care. You're worth it. Aren't you?"
-        case .grandma: "In my day, motivation cost NOTHING. But fine, I'll take it."
+        case .bestFriend: return "Bro, that's less than ONE coffee. And I'll be there for you EVERY day. Unlike your ex."
+        case .mom: return "I gave birth to guilt-trips for FREE. This is a bargain."
+        case .boss: return "Consider this an investment in your career. Tax deductible, probably."
+        case .drill: return "THE COST OF WEAKNESS IS FAR GREATER, MAGGOT! PAY UP!"
+        case .therapist: return "Think of it as self-care. You're worth it. Aren't you?"
+        case .grandma: return "In my day, motivation cost NOTHING. But fine, I'll take it."
         // Pack agents don't appear in the standard paywall
         case .ex, .conspiracyTheorist, .passiveAggressiveColleague,
              .gordonRamsay, .disappointedDad, .gymBro:

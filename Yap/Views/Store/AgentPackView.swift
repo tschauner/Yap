@@ -38,7 +38,7 @@ struct AgentPackView: View {
         } label: {
             Text("Restore Purchases")
                 .font(.system(size: 14))
-                .foregroundStyle(.secondary)
+                .foregroundStyle(.yellow)
         }
     }
 }
@@ -68,25 +68,21 @@ private struct PackCard: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
             // Header
-            HStack(alignment: .top) {
+            HStack(alignment: .center) {
                 VStack(alignment: .leading, spacing: 4) {
                     HStack(spacing: 6) {
-                        Text(pack.emoji)
-                            .font(.system(size: 22))
-                        Text(displayName)
-                            .font(.system(size: 19, weight: .bold))
+                        Text("\(displayName) 3 Agents")
+                            .font(.system(size: 17, weight: .bold))
                     }
-                    Text(displayDescription)
-                        .font(.system(size: 14))
-                        .foregroundStyle(.secondary)
                 }
 
                 Spacer()
 
-                purchasedBadge
+                if !isPurchased {
+                    buyButton
+                }
             }
-            .padding([.horizontal, .top], 16)
-            .padding(.bottom, 12)
+            .padding(.bottom, 20)
 
             // Agent bubbles
             HStack(spacing: 0) {
@@ -95,18 +91,12 @@ private struct PackCard: View {
                         .frame(maxWidth: .infinity)
                 }
             }
-            .padding(.horizontal, 8)
-            .padding(.bottom, 16)
-
-            // CTA
-            if !isPurchased {
-                buyButton
-                    .padding([.horizontal, .bottom], 16)
-            }
+            .padding(.bottom, 10)
         }
+        .padding(15)
         .background(
             RoundedRectangle(cornerRadius: 20)
-                .fill(Color(.secondarySystemGroupedBackground))
+                .fill(Color(.quaternarySystemFill))
         )
     }
 
@@ -125,24 +115,25 @@ private struct PackCard: View {
     }
 
     private var buyButton: some View {
-        Button {
-            Task { await packStore.purchase(pack) }
-        } label: {
-            HStack {
-                if case .loading = packStore.purchaseState {
-                    ProgressView()
-                        .tint(.white)
-                        .frame(maxWidth: .infinity)
-                } else {
-                    Text("Get Pack · \(priceString)")
-                        .font(.system(size: 16, weight: .semibold))
-                        .frame(maxWidth: .infinity)
-                }
+        HStack {
+            if case .loading = packStore.purchaseState {
+                ProgressView()
+                    .tint(.white)
+                    .frame(maxWidth: .infinity)
+            } else {
+                Text(priceString)
+                    .font(.system(size: 15, weight: .bold))
+                    .foregroundStyle(Color.blue)
+                    .frame(maxWidth: .infinity)
             }
-            .foregroundStyle(.white)
-            .padding(.vertical, 13)
-            .background(Color.primary, in: RoundedRectangle(cornerRadius: 14))
         }
+        .frame(width: 70, height: 30)
+        .foregroundStyle(.white)
+        .background(.quinary, in: Capsule())
+        .button {
+            Task { await packStore.purchase(pack) }
+        }
+        .buttonStyle(.plain)
         .disabled(packStore.purchaseState == .loading)
     }
 }
