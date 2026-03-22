@@ -21,6 +21,7 @@ struct AgentQuoteView: View {
                     .font(.system(size: isBig ? 30 : 19, weight: .semibold))
                     .italic()
                     .multilineTextAlignment(.leading)
+                    .minimumScaleFactor(0.8)
             } else {
                 Text(quote)
                     .font(.system(size: isBig ? 26 : 19, weight: .semibold))

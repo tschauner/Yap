@@ -18,7 +18,7 @@ struct OnboardingStartView: View {
             Image("quote")
                 .resizable()
                 .aspectRatio(contentMode: .fit)
-                .frame(height: 60)
+                .frame(height: 50)
             
             VStack(spacing: 15) {
                 Text(L10n.Onboarding.headline)

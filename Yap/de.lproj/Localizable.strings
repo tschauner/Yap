@@ -15,7 +15,7 @@
 
 // ── Onboarding ──────────────────────────────────────────────
 "onboarding_start_headline" = "Die Motivations-App, die nicht die Klappe hält.";
-"onboarding_start_subline" = "Wähl einen Agenten. Setz eine Mission.\nLass dich yappen, bis es erledigt ist.";
+"onboarding_start_subline" = "Wähl einen Agenten. Starte eine Mission. Lass dich voll-yappen, bis du fertig ist.";
 "onboarding_agents_headline" = "Wer soll dich yappen?";
 "onboarding_agents_subline" = "Jeder Agent hat seinen eigenen Style.\nTipp einen an und hör den Pitch.";
 "onboarding_deadline_headline" = "Am Anfang sind sie nett.\nDas bleibt nicht so.";
@@ -284,7 +284,7 @@
 // ── Agents: Disappointed Dad ────────────────────────────────
 "agent_disappointedDad_display_name" = "Disappointed Dad";
 "agent_disappointedDad_description" = "Er sagt nichts. Das ist irgendwie schlimmer.";
-"agent_disappointedDad_pitch" = "Ich bin nicht sauer. Ich geh nur... ich geh in die Garage.";
+"agent_disappointedDad_pitch" = "Ich bin nicht sauer. Ich geh nur... in den Keller.";
 "agent_disappointedDad_pro_pitch" = "Ich bin nicht sauer. Ich dachte nur, du wärst inzwischen Pro.";
 "agent_disappointedDad_give_up_roast" = "...";
 "agent_disappointedDad_give_up_confirmation" = "...Mach was du willst.";
