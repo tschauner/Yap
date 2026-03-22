@@ -183,7 +183,7 @@
 "agent_bestFriend_style_tag" = "Bro Vibes";
 
 // ── Agents: Mom ─────────────────────────────────────────────
-"agent_mom_display_name" = "Maman";
+"agent_mom_display_name" = "Mom";
 "agent_mom_description" = "Culpabilisation jusqu'à la destruction émotionnelle";
 "agent_mom_pitch" = "Tu vas finir. Parce que je t'ai pas élevé comme ça.";
 "agent_mom_pro_pitch" = "J'ai accouché de culpabilité GRATUITEMENT. C'est une affaire.";
@@ -216,7 +216,7 @@
 "agent_drill_style_tag" = "Militaire";
 
 // ── Agents: Therapist ───────────────────────────────────────
-"agent_therapist_display_name" = "Thérapeute";
+"agent_therapist_display_name" = "Therapist";
 "agent_therapist_description" = "Te valide, puis pose les vraies questions";
 "agent_therapist_pitch" = "On va trouver la cause. Et on va la résoudre.";
 "agent_therapist_pro_pitch" = "Vois ça comme du self-care. Tu le mérites. Non ?";
@@ -227,7 +227,7 @@
 "agent_therapist_style_tag" = "Empathique";
 
 // ── Agents: Grandma ─────────────────────────────────────────
-"agent_grandma_display_name" = "Mamie";
+"agent_grandma_display_name" = "Grandma";
 "agent_grandma_description" = "« Je suis pas fâchée, juste déçue » sous stéroïdes";
 "agent_grandma_pitch" = "J'ai tout mon temps. Et je sais où tu habites.";
 "agent_grandma_pro_pitch" = "De mon temps, la motivation coûtait RIEN. Mais bon, d'accord.";

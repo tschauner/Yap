@@ -183,7 +183,7 @@
 "agent_bestFriend_style_tag" = "Bro Vibes";
 
 // ── Agents: Mom ─────────────────────────────────────────────
-"agent_mom_display_name" = "Mamá";
+"agent_mom_display_name" = "Mom";
 "agent_mom_description" = "Culpa que escala hasta devastación emocional";
 "agent_mom_pitch" = "Lo vas a terminar. Porque te eduqué mejor que esto.";
 "agent_mom_pro_pitch" = "Parí culpabilidad GRATIS. Esto es una ganga.";
@@ -216,7 +216,7 @@
 "agent_drill_style_tag" = "Militar";
 
 // ── Agents: Therapist ───────────────────────────────────────
-"agent_therapist_display_name" = "Terapeuta";
+"agent_therapist_display_name" = "Therapist";
 "agent_therapist_description" = "Te valida y luego hace las preguntas difíciles";
 "agent_therapist_pitch" = "Encontraremos la causa. Y la resolveremos.";
 "agent_therapist_pro_pitch" = "Piénsalo como autocuidado. Lo mereces. ¿No?";
@@ -227,7 +227,7 @@
 "agent_therapist_style_tag" = "Empático";
 
 // ── Agents: Grandma ─────────────────────────────────────────
-"agent_grandma_display_name" = "Abuela";
+"agent_grandma_display_name" = "Grandma";
 "agent_grandma_description" = "\"No estoy enojada, solo decepcionada\" con esteroides";
 "agent_grandma_pitch" = "Tengo todo el día. Y sé dónde vives.";
 "agent_grandma_pro_pitch" = "En mis tiempos, la motivación no costaba NADA. Pero bueno, acepto.";
