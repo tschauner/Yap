@@ -2,7 +2,7 @@
 // Yap
 
 import Foundation
-import UserNotifications
+@preconcurrency import UserNotifications
 
 // MARK: - Protocol
 
@@ -26,6 +26,7 @@ actor NagService: NagProviding {
     
     // MARK: - Permission
     
+    @discardableResult
     func requestPermission() async -> Bool {
         let center = UNUserNotificationCenter.current()
         let granted = try? await center.requestAuthorization(options: [.alert, .sound, .badge])
@@ -50,14 +51,15 @@ actor NagService: NagProviding {
         // Alte Notifications für dieses Goal entfernen
         cancelNotifications(for: mission.id)
         
-        let schedule = EscalationLevel.buildSchedule(profile: mission.agent.escalationProfile, startOffsetMinutes: startDelay)
-        
-        // Nur Notifications planen die VOR der Deadline liegen
-        let minutesUntilDeadline = Int(mission.deadline.timeIntervalSinceNow / 60)
-        let withinDeadline = schedule.filter { $0.minuteOffset < minutesUntilDeadline }
+        let minutesUntilDeadline = max(0, Int(mission.deadline.timeIntervalSinceNow / 60))
+        let schedule = EscalationLevel.buildSchedule(
+            profile: mission.agent.escalationProfile,
+            startOffsetMinutes: startDelay,
+            availableMinutes: minutesUntilDeadline
+        )
         
         // Max 64 pending insgesamt, wir nehmen max 24 pro Goal
-        let capped = Array(withinDeadline.prefix(24))
+        let capped = Array(schedule.prefix(24))
         
         for (index, entry) in capped.enumerated() {
             let template = NagCopy.template(
@@ -79,6 +81,8 @@ actor NagService: NagProviding {
             // Badge zeigt Eskalations-Level
             content.badge = NSNumber(value: entry.level.rawValue + 1)
             
+            let finalContent: UNNotificationContent = content
+            
             let seconds = max(TimeInterval(entry.minuteOffset * 60), 1)
             let trigger = UNTimeIntervalNotificationTrigger(
                 timeInterval: seconds,
@@ -88,7 +92,7 @@ actor NagService: NagProviding {
             let identifier = notificationId(goalId: mission.id, index: index)
             let request = UNNotificationRequest(
                 identifier: identifier,
-                content: content,
+                content: finalContent,
                 trigger: trigger
             )
             
@@ -186,4 +190,5 @@ actor NagService: NagProviding {
             UNUserNotificationCenter.current().setBadgeCount(0)
         }
     }
+    
 }

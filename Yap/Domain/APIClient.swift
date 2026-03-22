@@ -2,7 +2,6 @@
 // Yap
 
 import Foundation
-import UIKit
 
 // MARK: - Errors
 
@@ -141,6 +140,21 @@ struct APIClient: Sendable {
         let _ = try await rawRequest(
             path: "/rest/v1/\(table)?\(query)",
             method: .DELETE,
+            timeout: timeout
+        )
+    }
+    
+    /// Upsert: INSERT … ON CONFLICT (merge-duplicates).
+    func restUpsert(
+        table: String,
+        body: RequestBody,
+        timeout: TimeInterval = 10
+    ) async throws {
+        let _ = try await rawRequest(
+            path: "/rest/v1/\(table)",
+            method: .POST,
+            body: body,
+            extraHeaders: ["Prefer": "return=minimal,resolution=merge-duplicates"],
             timeout: timeout
         )
     }

@@ -1,16 +1,23 @@
 // AppDelegate.swift
 // Yap
 
-import UIKit
 import UserNotifications
+import Foundation
+internal import UIKit
+import SwiftUI
 
 class AppDelegate: NSObject, UIApplicationDelegate, UNUserNotificationCenterDelegate {
+    
+    @AppStorage("completedOnboarding") var completedOnboarding = false
     
     func application(
         _ application: UIApplication,
         didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]? = nil
     ) -> Bool {
-        // TODO: Firebase.configure() wenn Firebase SDK hinzugefügt
+        
+        #if DEBUG
+        completedOnboarding = false
+        #endif
         
         // Notification Delegate setzen (für Foreground-Anzeige)
         UNUserNotificationCenter.current().delegate = self
@@ -18,7 +25,29 @@ class AppDelegate: NSObject, UIApplicationDelegate, UNUserNotificationCenterDele
         // Notification Actions registrieren
         registerNotificationActions()
         
+        // Register for remote push notifications
+        application.registerForRemoteNotifications()
+        
+        // Sync device metadata (timezone, language) on every launch
+        Task { await DeviceService.shared.syncDeviceMetadata() }
+        
         return true
+    }
+    
+    // MARK: - Remote Push Token
+    
+    func application(
+        _ application: UIApplication,
+        didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data
+    ) {
+        DeviceService.shared.didRegisterForRemoteNotifications(deviceToken: deviceToken)
+    }
+    
+    func application(
+        _ application: UIApplication,
+        didFailToRegisterForRemoteNotificationsWithError error: Error
+    ) {
+        print("⚠️ Failed to register for remote notifications: \(error.localizedDescription)")
     }
     
     // MARK: - Foreground Notifications anzeigen
@@ -65,19 +94,19 @@ class AppDelegate: NSObject, UIApplicationDelegate, UNUserNotificationCenterDele
     private func registerNotificationActions() {
         let doneAction = UNNotificationAction(
             identifier: "DONE_ACTION",
-            title: "Done ✅",
+            title: "Done",
             options: [.destructive]
         )
         
         let snoozeAction = UNNotificationAction(
             identifier: "SNOOZE_ACTION",
-            title: "Shut up for 30min 🤫",
+            title: "Shut up for 30min",
             options: []
         )
         
         let category = UNNotificationCategory(
             identifier: "YAP_REMINDER",
-            actions: [doneAction, snoozeAction],
+            actions: [doneAction],
             intentIdentifiers: [],
             options: []
         )

@@ -17,7 +17,7 @@ struct HelpView: View {
                             .font(.system(size: 17))
                             .foregroundStyle(.indigo)
                             .frame(width: 28)
-                        Text("Join the Community")
+                        Text(L10n.Help.joinCommunity)
                         Spacer()
                         Image(systemName: "arrow.up.right")
                             .font(.system(size: 12))
@@ -32,7 +32,7 @@ struct HelpView: View {
                             .font(.system(size: 17))
                             .foregroundStyle(.orange)
                             .frame(width: 28)
-                        Text("Request a Feature")
+                        Text(L10n.Help.requestFeature)
                         Spacer()
                         Image(systemName: "arrow.up.right")
                             .font(.system(size: 12))
@@ -42,56 +42,56 @@ struct HelpView: View {
                         openURL(URL(string: "https://userjot.com/")!)
                     }
                 } header: {
-                    Text("Community & Feedback")
+                    Text(L10n.Help.sectionCommunity)
                 } footer: {
-                    Text("Vote on features and help shape Yap.")
+                    Text(L10n.Help.communityFooter)
                 }
                 
                 // FAQ
                 Section {
                     faqItem(
-                        question: "What is Yap?",
-                        answer: "Yap uses AI agents with unique personalities to motivate you to finish tasks. Pick an agent, describe your mission, and get nudged until you're done."
+                        question: L10n.Help.faqWhatIsYapQ,
+                        answer: L10n.Help.faqWhatIsYapA
                     )
                     
                     faqItem(
-                        question: "How does the free plan work?",
-                        answer: "You get Mom as your free agent with 1 mission per day. AI-powered messages, leaderboard, and quiet hours are included for everyone."
+                        question: L10n.Help.faqFreePlanQ,
+                        answer: L10n.Help.faqFreePlanA
                     )
                     
                     faqItem(
-                        question: "What does Pro unlock?",
-                        answer: "All 6 agents, unlimited daily missions, and the ability to extend deadlines."
+                        question: L10n.Help.faqProUnlockQ,
+                        answer: L10n.Help.faqProUnlockA
                     )
                     
                     faqItem(
-                        question: "What happens when I miss a deadline?",
-                        answer: "The mission counts as failed and affects your stats. Your agent won't be happy about it either."
+                        question: L10n.Help.faqMissDeadlineQ,
+                        answer: L10n.Help.faqMissDeadlineA
                     )
                     
                     faqItem(
-                        question: "Can I extend a deadline?",
-                        answer: "Pro users can extend a deadline once per mission by 24 hours."
+                        question: L10n.Help.faqExtendDeadlineQ,
+                        answer: L10n.Help.faqExtendDeadlineA
                     )
                     
                     faqItem(
-                        question: "What are quiet hours?",
-                        answer: "Set a time window where agents won't send notifications. They'll resume bugging you after."
+                        question: L10n.Help.faqNightNotificationsQ,
+                        answer: L10n.Help.faqNightNotificationsA
                     )
                     
                     faqItem(
-                        question: "How do agents differ?",
-                        answer: "Each agent has a unique personality and communication style — from Mom's guilt trips to Drill Sergeant's tough love. Try them all to find your match."
+                        question: L10n.Help.faqAgentDifferencesQ,
+                        answer: L10n.Help.faqAgentDifferencesA
                     )
                 } header: {
-                    Text("FAQ")
+                    Text(L10n.Help.sectionFaq)
                 }
             }
-            .navigationTitle("Help & Support")
+            .navigationTitle(L10n.Help.title)
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .confirmationAction) {
-                    Button("Done") { dismiss() }
+                    Button(L10n.Common.done) { dismiss() }
                 }
             }
         }

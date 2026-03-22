@@ -1,0 +1,311 @@
+/* 
+  Localizable.strings
+  Yap — Deutsch
+
+  Created by Philipp Tschauner on 14.03.26.
+*/
+
+// ── Common ──────────────────────────────────────────────────
+"common_cancel" = "Abbrechen";
+"common_done" = "Fertig";
+
+// ── Legal ───────────────────────────────────────────────────
+"legal_privacy_policy" = "Datenschutz";
+"legal_terms_of_use" = "Nutzungsbedingungen";
+
+// ── Onboarding ──────────────────────────────────────────────
+"onboarding_start_headline" = "Die Motivations-App, die nicht die Klappe hält.";
+"onboarding_start_subline" = "Wähl einen Agent. Setz eine Mission.\nWirst zugeyappt, bis es erledigt ist.";
+"onboarding_agents_headline" = "Wer soll dich zuyappen?";
+"onboarding_agents_subline" = "Jeder Agent hat seinen eigenen Style.\nTipp einen an für seinen Pitch.";
+"onboarding_deadline_headline" = "Am Anfang sind sie nett.\nDas bleibt nicht so.";
+"onboarding_deadline_subline" = "Je näher die Deadline, desto härter die Nachrichten.";
+"onboarding_deadline_start" = "Start";
+"onboarding_deadline_deadline" = "Deadline";
+"onboarding_notifications_enabled" = "Jetzt reden wir.";
+"onboarding_notifications_disabled" = "Ich kann dich nicht anschreien, wenn du mich stumm schaltest.";
+"onboarding_notifications_ready" = "ist bereit. Zeit für deine erste Mission.";
+"onboarding_notifications_agent_fallback" = "Dein Agent";
+"onboarding_notifications_disabled_subline" = "Erlaube Mitteilungen, damit dein Agent dich erreicht.";
+"onboarding_button_lets_go" = "Los geht's";
+"onboarding_button_allow_notifications" = "Mitteilungen erlauben";
+"onboarding_button_next" = "Weiter";
+"onboarding_paywall_maybe_later" = "Vielleicht später";
+"onboarding_paywall_go_pro_price" = "Go Pro — %@";
+"onboarding_paywall_lifetime_subline" = "Einmalkauf. Kein Abo.";
+"onboarding_paywall_go_pro" = "Go Pro";
+
+// ── Mission ─────────────────────────────────────────────────
+"mission_hold_to_complete" = "Halten zum Abschließen";
+"mission_give_up" = "Aufgeben";
+"mission_set_another" = "Neue Mission starten";
+"mission_selection_headline" = "Was schiebst du auf?\nWähl einen Agent.";
+"mission_selection_agents" = "Agents";
+"mission_selection_show_more" = "Mehr";
+"mission_toolbar_achievements" = "Erfolge";
+"mission_time_left" = "übrig";
+"mission_messages_ignored" = "%d Nachrichten ignoriert";
+"mission_messages_scheduled" = "%d Nachrichten geplant";
+
+// ── Input ───────────────────────────────────────────────────
+"input_mission_placeholder" = "Was muss erledigt werden?";
+"input_deadline_label" = "Deadline %@";
+"input_agent_placeholder" = "Agent";
+"input_deadline_picker_title" = "Bis wann?";
+
+// ── Agents ──────────────────────────────────────────────────
+"agents_title" = "Agents";
+"agents_headline" = "Willkommen in der Agentur";
+"agents_subline" = "Jeder Agent hat seinen eigenen Style. Tipp einen an für seinen Pitch.";
+"agents_special_description" = "Sie erinnern sich an vergangene Missionen.\nMit Pro freigeschaltet.";
+"agents_deploy_agent" = "Agent aktivieren";
+"agents_dismiss_agent" = "Agent entfernen";
+"agents_remove_favorite" = "Favorit entfernen";
+"agents_set_favorite" = "Als Favorit setzen";
+
+// ── Leaderboard ─────────────────────────────────────────────
+"leaderboard_title" = "Agent Leaderboard";
+"leaderboard_tab_global" = "Global";
+"leaderboard_tab_you" = "Du";
+"leaderboard_global_empty_title" = "Noch keine Daten";
+"leaderboard_global_empty_description" = "Missionen aller Nutzer erscheinen hier.";
+"leaderboard_you_empty_title" = "Noch keine Missionen";
+"leaderboard_you_empty_description" = "Schließ deine erste Mission ab.";
+"leaderboard_users" = "%d Nutzer";
+
+// ── Agent Detail ────────────────────────────────────────────
+"agent_detail_completed" = "Erledigt";
+"agent_detail_failed" = "Fehlgeschlagen";
+"agent_detail_success" = "Erfolg";
+"agent_detail_no_missions" = "Noch keine Missionen";
+"agent_detail_missions" = "Missionen";
+
+// ── Settings ────────────────────────────────────────────────
+"settings_title" = "Einstellungen";
+"settings_section_account" = "Account";
+"settings_section_personalization" = "Personalisierung";
+"settings_section_general" = "Allgemein";
+"settings_section_legal" = "Rechtliches";
+"settings_custom_roast" = "Custom Roast";
+"settings_custom_roast_active" = "Aktiv";
+"settings_personalization_footer" = "Erzähl deinen Agents von dir für persönlichere Nachrichten.";
+"settings_haptic_feedback" = "Haptisches Feedback";
+"settings_review_yap" = "Yap bewerten";
+"settings_share_yap" = "Yap teilen";
+"settings_restore_purchases" = "Käufe wiederherstellen";
+"settings_account_synced" = "Mit Apple ID verknüpft";
+"settings_unlink_account" = "Account trennen";
+"settings_unlink_alert_title" = "Account trennen?";
+"settings_unlink_alert_message" = "Deine Daten bleiben auf diesem Gerät, werden aber nicht mehr synchronisiert.";
+"settings_unlink_action" = "Trennen";
+"settings_sign_in_description" = "Mit Apple anmelden, um Daten geräteübergreifend zu synchronisieren.";
+"settings_not_linked_footer" = "Deine Daten bleiben auf diesem Gerät, bis du sie verknüpfst.";
+
+// ── Custom Roast ────────────────────────────────────────────
+"custom_roast_title" = "Custom Roast";
+"custom_roast_placeholder" = "z.B. Ich prokrastiniere, war seit 3 Monaten nicht im Gym und esse Cornflakes zum Abendessen";
+"custom_roast_section_header" = "Erzähl deinem Agent von dir";
+"custom_roast_section_footer" = "Deine Agents nutzen das für persönlichere Roasts. Je genauer, desto besser die Burns.";
+"custom_roast_clear" = "Löschen";
+
+// ── Help ────────────────────────────────────────────────────
+"help_title" = "Hilfe & Support";
+"help_section_community" = "Community & Feedback";
+"help_community_footer" = "Stimm für Features ab und gestalte Yap mit.";
+"help_join_community" = "Community beitreten";
+"help_request_feature" = "Feature vorschlagen";
+"help_section_faq" = "FAQ";
+"help_faq_what_is_yap_q" = "Was ist Yap?";
+"help_faq_what_is_yap_a" = "Yap nutzt KI-Agents mit eigenen Persönlichkeiten, um dich zu motivieren. Wähl einen Agent, beschreib deine Mission, und wirst genervt bis es erledigt ist.";
+"help_faq_free_plan_q" = "Wie funktioniert der Free-Plan?";
+"help_faq_free_plan_a" = "Du bekommst Mom als Agent mit 1 Mission pro Tag. KI-Nachrichten und das Leaderboard sind für alle dabei.";
+"help_faq_pro_unlock_q" = "Was bringt Pro?";
+"help_faq_pro_unlock_a" = "Alle 6 Agents, unbegrenzte Missionen und die Möglichkeit, Deadlines zu verlängern.";
+"help_faq_miss_deadline_q" = "Was passiert bei verpasster Deadline?";
+"help_faq_miss_deadline_a" = "Die Mission gilt als gescheitert und fließt in deine Stats ein. Dein Agent wird nicht begeistert sein.";
+"help_faq_extend_deadline_q" = "Kann ich eine Deadline verlängern?";
+"help_faq_extend_deadline_a" = "Pro-Nutzer können eine Deadline einmal pro Mission um 24 Stunden verlängern.";
+"help_faq_night_notifications_q" = "Krieg ich nachts Benachrichtigungen?";
+"help_faq_night_notifications_a" = "Ja. Dein Agent schläft nicht. Wenn deine Mission läuft, kommen Nachrichten. Das ist der Punkt.";
+"help_faq_agent_differences_q" = "Wie unterscheiden sich die Agents?";
+"help_faq_agent_differences_a" = "Jeder Agent hat einen eigenen Style — von Moms Guilt-Trips bis zum Drill Sergeants Tough Love. Probier alle aus.";
+
+// ── Paywall ─────────────────────────────────────────────────
+"paywall_pro" = "PRO";
+"paywall_headline" = "Schalte dein volles Motivations-Squad frei.";
+"paywall_feature_special_agents" = "6 Special Agents mit eigenem Style";
+"paywall_feature_agent_memory" = "Sie erinnern sich an deine Missionen";
+"paywall_feature_unlimited_missions" = "Unbegrenzte Missionen pro Tag";
+"paywall_unlock_pro_price" = "Pro freischalten — %@";
+"paywall_one_time_purchase" = "Einmalkauf";
+"paywall_unlock_pro" = "Pro freischalten";
+"paywall_restore_purchase" = "Kauf wiederherstellen";
+
+// ── Comparison Table ────────────────────────────────────────
+"comparison_free" = "Free";
+"comparison_pro" = "Pro";
+"comparison_special_agents" = "Special Agents";
+"comparison_missions_per_day" = "Missionen / Tag";
+"comparison_missions_per_day_free" = "1";
+"comparison_missions_per_day_pro" = "∞";
+"comparison_ai_messages" = "KI-Nachrichten";
+"comparison_agent_memory" = "Agent Memory";
+"comparison_custom_roast" = "Custom Roast";
+"comparison_custom_deadline" = "Eigene Deadline";
+"comparison_extend_24h" = "+24h verlängern";
+
+// ── Menu ────────────────────────────────────────────────────
+"menu_settings" = "Einstellungen";
+"menu_upgrade_plan" = "Plan upgraden";
+"menu_help_and_support" = "Hilfe & Support";
+
+// ── Store Errors ────────────────────────────────────────────
+"store_error_general" = "Etwas ist schiefgelaufen. Versuch's nochmal.";
+"store_error_no_product_network" = "Produkte konnten nicht geladen werden. Prüf deine Verbindung.";
+"store_error_user_cancelled" = "Kauf abgebrochen.";
+"store_error_pending" = "Kauf wartet auf Freigabe.";
+"store_error_not_allowed" = "Käufe sind auf diesem Gerät nicht erlaubt.";
+"store_error_product_unavailable" = "Produkt nicht verfügbar.";
+"store_error_network_unavailable" = "Kein Netz. Versuch's nochmal.";
+"store_error_verification_failed" = "Transaktion nicht verifizierbar.";
+"store_error_verification_failed_reason" = "Verifizierung fehlgeschlagen: %@";
+"store_error_restore_failed" = "Wiederherstellung fehlgeschlagen. Versuch's nochmal.";
+
+// ── Agents: Best Friend ─────────────────────────────────────
+"agent_bestFriend_display_name" = "Best Friend";
+"agent_bestFriend_description" = "Disst dich, weil er dich liebt";
+"agent_bestFriend_pitch" = "Ich hype dich und diss dich, bis es fertig ist.";
+"agent_bestFriend_pro_pitch" = "Bro, das ist weniger als EIN Kaffee. Und ich bin JEDEN Tag da. Anders als dein Ex.";
+"agent_bestFriend_give_up_roast" = "Bro... Ich hab an dich geglaubt. Ich hab's der Gruppe erzählt.";
+"agent_bestFriend_give_up_confirmation" = "Warte, du hörst echt auf? Nach dem ganzen Hype den ich dir gegeben hab?";
+"agent_bestFriend_completion" = "JAAAA! Wusste ich doch, dass du's drauf hast!";
+"agent_bestFriend_extend_roast" = "Bro... du brauchst EXTRA ZEIT? Ich hab an dich geglaubt 😭";
+"agent_bestFriend_style_tag" = "Bro Vibes";
+
+// ── Agents: Mom ─────────────────────────────────────────────
+"agent_mom_display_name" = "Mama";
+"agent_mom_description" = "Schuldgefühle bis zur emotionalen Zerstörung";
+"agent_mom_pitch" = "Du wirst das fertigmachen. Weil ich dich besser erzogen hab.";
+"agent_mom_pro_pitch" = "Ich hab Schuldgefühle GRATIS geboren. Das hier ist ein Schnäppchen.";
+"agent_mom_give_up_roast" = "Ich bin nicht sauer. Ich bin nur... nein, ich bin sauer.";
+"agent_mom_give_up_confirmation" = "Du willst aufgeben? Nach allem was ich für dich getan hab?";
+"agent_mom_completion" = "Siehst du? Hab ich doch immer gewusst. Ruf mich öfter an.";
+"agent_mom_extend_roast" = "Noch 24 Stunden? Dein Bruder hat nie eine Verlängerung gebraucht. Nur so.";
+"agent_mom_style_tag" = "Schuldgefühle";
+
+// ── Agents: Boss ────────────────────────────────────────────
+"agent_boss_display_name" = "Boss";
+"agent_boss_description" = "Corporate Passive-Aggression als Push-Nachricht";
+"agent_boss_pitch" = "Deadlines existieren. Ich setze sie durch. Fertig.";
+"agent_boss_pro_pitch" = "Sieh das als Investment in deine Karriere. Steuerlich absetzbar, wahrscheinlich.";
+"agent_boss_give_up_roast" = "Das wird in deiner Leistungsbeurteilung stehen.";
+"agent_boss_give_up_confirmation" = "Einfach die Verantwortung abgeben? Mutiger Karriereschritt.";
+"agent_boss_completion" = "Hervorragende Arbeit. Wird im nächsten Review vermerkt.";
+"agent_boss_extend_roast" = "Ich vermerke diese Verlängerung in deiner Leistungsbeurteilung. Nur so.";
+"agent_boss_style_tag" = "Corporate";
+
+// ── Agents: Drill Sergeant ──────────────────────────────────
+"agent_drill_display_name" = "Drill Sergeant";
+"agent_drill_description" = "Voller R. Lee Ermey Modus. Keine Gnade.";
+"agent_drill_pitch" = "Ich werde dich brechen. Und dann bist du unaufhaltbar.";
+"agent_drill_pro_pitch" = "SCHWÄCHE KOSTET MEHR, REKRUT! ZAHL GEFÄLLIGST!";
+"agent_drill_give_up_roast" = "UNEHRENHAFT. ENTLASSUNG. AUS MEINEN AUGEN.";
+"agent_drill_give_up_confirmation" = "KAPITULATION?! Ist das was die dir beigebracht haben?! IST ES?!";
+"agent_drill_completion" = "HERVORRAGEND, SOLDAT! Du hast dir meinen Respekt verdient.";
+"agent_drill_extend_roast" = "EXTRA ZEIT?! BEI UNS GIBT'S KEINE EXTRA ZEIT. BEI UNS GIBT'S LIEGESTÜTZE.";
+"agent_drill_style_tag" = "Militärisch";
+
+// ── Agents: Therapist ───────────────────────────────────────
+"agent_therapist_display_name" = "Therapeut";
+"agent_therapist_description" = "Validiert dich, stellt dann die harten Fragen";
+"agent_therapist_pitch" = "Wir finden die Ursache. Und dann lösen wir es.";
+"agent_therapist_pro_pitch" = "Sieh es als Selfcare. Du bist es dir wert. Oder nicht?";
+"agent_therapist_give_up_roast" = "Lass uns auspacken, warum du Dinge immer abbrichst.";
+"agent_therapist_give_up_confirmation" = "Bist du sicher, dass du das willst, oder vermeidest du nur Unbehagen?";
+"agent_therapist_completion" = "Geschafft. Wie fühlt es sich an, dein Versprechen einzuhalten?";
+"agent_therapist_extend_roast" = "Lass uns erkunden, warum du die Verlängerung brauchtest. Was vermeiden wir hier wirklich?";
+"agent_therapist_style_tag" = "Empathisch";
+
+// ── Agents: Grandma ─────────────────────────────────────────
+"agent_grandma_display_name" = "Oma";
+"agent_grandma_description" = "„Ich bin nicht böse, nur enttäuscht" auf Steroiden";
+"agent_grandma_pitch" = "Ich hab den ganzen Tag Zeit. Und ich weiß wo du wohnst.";
+"agent_grandma_pro_pitch" = "Zu meiner Zeit hat Motivation NIX gekostet. Aber gut, ich nehm's.";
+"agent_grandma_give_up_roast" = "Schon gut. Ich sitz einfach hier. Alleine. Wie immer.";
+"agent_grandma_give_up_confirmation" = "Jetzt schon aufgeben? Ich hab nen Krieg überlebt, weißt du.";
+"agent_grandma_completion" = "Ich bin so stolz auf dich! Komm vorbei, ich hab Kekse gebacken.";
+"agent_grandma_extend_roast" = "Du brauchst mehr Zeit? Schon gut, Schatz. Ich warte hier. Alleine.";
+"agent_grandma_style_tag" = "Enttäuscht";
+
+// ── Agents: The Ex ──────────────────────────────────────────
+"agent_ex_display_name" = "The Ex";
+"agent_ex_description" = "Passiv-aggressiv. Verletzend. Irgendwie effektiv.";
+"agent_ex_pitch" = "Ich find's einfach interessant, dass du das nicht konntest als wir zusammen waren.";
+"agent_ex_pro_pitch" = "Du upgradest nicht? Wow. Typisch du.";
+"agent_ex_give_up_roast" = "Typisch. Keine Ahnung wieso ich was anderes erwartet hab.";
+"agent_ex_give_up_confirmation" = "Natürlich gibst du auf. Manche Dinge ändern sich nie.";
+"agent_ex_completion" = "Naja... gut. Scheinbar kannst du doch Dinge ohne mich schaffen.";
+"agent_ex_extend_roast" = "Typisch. Du konntest dich nie an eine Deadline halten. Deshalb hat's nicht geklappt.";
+"agent_ex_style_tag" = "Toxisch";
+
+// ── Agents: The Theorist ────────────────────────────────────
+"agent_conspiracyTheorist_display_name" = "The Theorist";
+"agent_conspiracyTheorist_description" = "DIE wollen nicht, dass du fertig wirst. Genau deshalb musst du.";
+"agent_conspiracyTheorist_pitch" = "Das System will nicht, dass du Erfolg hast. Ich schon.";
+"agent_conspiracyTheorist_pro_pitch" = "Die Free Version ist ne Psyop. Wach auf.";
+"agent_conspiracyTheorist_give_up_roast" = "Genau das wollten DIE. Du hast denen in die Hände gespielt.";
+"agent_conspiracyTheorist_give_up_confirmation" = "Aufgeben? Genau das wollen DIE. Wach auf.";
+"agent_conspiracyTheorist_completion" = "Die dachten nicht, dass du's schaffst. Du hast sie alle widerlegt.";
+"agent_conspiracyTheorist_extend_roast" = "DIE WOLLEN, dass du mehr Zeit brauchst. Das System ist DESIGNED um dich scheitern zu lassen.";
+"agent_conspiracyTheorist_style_tag" = "Unhinged";
+
+// ── Agents: The Colleague ───────────────────────────────────
+"agent_passiveAggressiveColleague_display_name" = "The Colleague";
+"agent_passiveAggressiveColleague_description" = "„Nein nein, passt schon. Ich übernehm das. Mal wieder."";
+"agent_passiveAggressiveColleague_pitch" = "Ich wart einfach... nee, mach du. Ich übernehm das.";
+"agent_passiveAggressiveColleague_pro_pitch" = "Nein nein, passt schon. Bleib auf Free. Ich arbeite einfach härter.";
+"agent_passiveAggressiveColleague_give_up_roast" = "Kein Ding. Ich hab's eh schon für dich erledigt. Wie immer.";
+"agent_passiveAggressiveColleague_give_up_confirmation" = "Oh, aufgeben? Nein nein, passt schon. Ich mach's einfach... selbst.";
+"agent_passiveAggressiveColleague_completion" = "Oh wow, du bist fertig. Ich hatte schon angefangen für dich einzuspringen, aber... super.";
+"agent_passiveAggressiveColleague_extend_roast" = "Oh, Verlängerung! Schön für dich. Manche von uns werden pünktlich fertig, aber klar 🙃";
+"agent_passiveAggressiveColleague_style_tag" = "Passiv-Aggressiv";
+
+// ── Agents: The Chef ────────────────────────────────────────
+"agent_chef_display_name" = "The Chef";
+"agent_chef_description" = "Die Aufgabe ist ROH. Fertig machen oder raus.";
+"agent_chef_pitch" = "Ich hab besseren Einsatz von einer Tiefkühlpizza gesehen.";
+"agent_chef_pro_pitch" = "Die Free Version ist ROOOH. Upgrade, du Donut.";
+"agent_chef_give_up_roast" = "Erbärmlich. Raus aus meiner Küche.";
+"agent_chef_give_up_confirmation" = "Das nennst du Aufgeben?! AB ZURÜCK DA REIN!";
+"agent_chef_completion" = "ENDLICH. DAS meine ich. Wunderschön.";
+"agent_chef_extend_roast" = "NOCH 24 STUNDEN?! Du hast nicht mal die ERSTE Deadline gepackt! ERBÄRMLICH!";
+"agent_chef_style_tag" = "Screaming";
+
+// ── Agents: Disappointed Dad ────────────────────────────────
+"agent_disappointedDad_display_name" = "Disappointed Dad";
+"agent_disappointedDad_description" = "Er sagt nichts. Das ist irgendwie schlimmer.";
+"agent_disappointedDad_pitch" = "Ich bin nicht sauer. Ich geh nur... ich geh in die Garage.";
+"agent_disappointedDad_pro_pitch" = "Ich bin nicht sauer. Ich dachte nur, du wärst inzwischen Pro.";
+"agent_disappointedDad_give_up_roast" = "...";
+"agent_disappointedDad_give_up_confirmation" = "...Mach was du willst.";
+"agent_disappointedDad_completion" = "Gut gemacht, Sohn.";
+"agent_disappointedDad_extend_roast" = "...Eine Verlängerung. Okay.";
+"agent_disappointedDad_style_tag" = "Schweigendes Treatment";
+
+// ── Agents: Gym Bro ─────────────────────────────────────────
+"agent_gymBro_display_name" = "Gym Bro";
+"agent_gymBro_description" = "KEIN RUHETAG. KEINE AUSREDEN. BRO.";
+"agent_gymBro_pitch" = "Jede Wiederholung. Jede Aufgabe. Jeden Tag. LOS GEHT'S.";
+"agent_gymBro_pro_pitch" = "Bro, Pro ist wie Kreatin für deine Produktivität. SEND IT.";
+"agent_gymBro_give_up_roast" = "BRO. Ich kann dich grad nicht mal anschauen.";
+"agent_gymBro_give_up_confirmation" = "BRO. Du willst echt aufgeben?! ERNSTHAFT?!";
+"agent_gymBro_completion" = "YOOO LOS GEHT'S BRO! DAS IST ES WOVON ICH REDE!";
+"agent_gymBro_extend_roast" = "RUHETAG?! Nee Bro das war nur das Aufwärmen. JETZT wird's HART 💪";
+"agent_gymBro_style_tag" = "Hype Beast";
+
+// ── Agent Intensity ─────────────────────────────────────────
+"agent_intensity_extreme" = "Extrem";
+"agent_intensity_intense" = "Intensiv";
+"agent_intensity_high" = "Hoch";
+"agent_intensity_medium" = "Mittel";
+"agent_intensity_chill" = "Chill";

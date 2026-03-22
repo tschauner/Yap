@@ -28,16 +28,68 @@ enum EscalationLevel: Int, CaseIterable {
     case meltdown = 4
     
     /// Build the full schedule using an agent's escalation profile.
-    static func buildSchedule(profile: EscalationProfile, startOffsetMinutes: Int = 0) -> [(minuteOffset: Int, level: EscalationLevel)] {
+    /// - Parameters:
+    ///   - profile: Agent-specific escalation timing
+    ///   - startOffsetMinutes: Delay before first notification
+    ///   - availableMinutes: Total time until deadline. If provided, intervals compress to fit.
+    static func buildSchedule(
+        profile: EscalationProfile,
+        startOffsetMinutes: Int = 0,
+        availableMinutes: Int? = nil
+    ) -> [(minuteOffset: Int, level: EscalationLevel)] {
         var schedule: [(minuteOffset: Int, level: EscalationLevel)] = []
+        
+        // Calculate total uncompressed duration
+        let uncompressedTotal = EscalationLevel.allCases.reduce(0) { sum, level in
+            sum + profile.interval(for: level) * profile.count(for: level)
+        }
+        
+        // Compression: shrink intervals proportionally when deadline is tight
+        // Floor at 0.15 → never less than 15% of original intervals
+        let effectiveAvailable = (availableMinutes ?? uncompressedTotal) - startOffsetMinutes
+        let compression: Double = effectiveAvailable > 0
+            ? min(1.0, max(0.15, Double(effectiveAvailable) / Double(uncompressedTotal)))
+            : 1.0
+        
+        let minInterval = 5 // minimum 5 minutes between pushes
         var currentMinute = startOffsetMinutes
+        
+        // Erste Notification sofort: Agent meldet sich direkt nach Mission-Start
+        schedule.append((startOffsetMinutes, .gentle))
         
         for level in EscalationLevel.allCases {
             let count = profile.count(for: level)
-            let interval = profile.interval(for: level)
+            let interval = max(minInterval, Int(Double(profile.interval(for: level)) * compression))
             for _ in 0..<count {
-                schedule.append((currentMinute, level))
                 currentMinute += interval
+                // Stop if we'd exceed the deadline
+                if let available = availableMinutes, currentMinute >= available {
+                    break
+                }
+                schedule.append((currentMinute, level))
+            }
+            if let available = availableMinutes, currentMinute >= available {
+                break
+            }
+        }
+        
+        // Guarantee minimum 6 messages for a decent experience
+        let minimumMessages = 6
+        if let available = availableMinutes, schedule.count < minimumMessages, schedule.count > 0 {
+            let lastMinute = schedule.last?.minuteOffset ?? startOffsetMinutes
+            let remainingTime = available - lastMinute
+            let needed = minimumMessages - schedule.count
+            
+            if remainingTime > needed * minInterval {
+                let fillInterval = max(minInterval, remainingTime / (needed + 1))
+                var cursor = lastMinute
+                
+                for i in 0..<needed {
+                    cursor += fillInterval
+                    if cursor >= available { break }
+                    let level: EscalationLevel = i < needed / 2 ? .urgent : .meltdown
+                    schedule.append((cursor, level))
+                }
             }
         }
         

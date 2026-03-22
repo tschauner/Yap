@@ -2,7 +2,6 @@
 // Yap
 
 import Foundation
-import UIKit
 
 /// Trackt Goal-Lifecycle-Events in der yap_goals-Tabelle auf Supabase.
 /// Rein asynchron, fire-and-forget — Fehler werden geloggt, blockieren aber nichts.

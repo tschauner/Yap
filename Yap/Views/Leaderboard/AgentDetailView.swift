@@ -4,7 +4,7 @@
 import SwiftUI
 
 struct AgentDetailView: View {
-    @EnvironmentObject var viewModel: HomeViewModel
+    @EnvironmentObject var viewModel: MissionViewModel
     let agent: Agent
     
     private var missions: [Mission] {
@@ -23,9 +23,9 @@ struct AgentDetailView: View {
                     AgentCard(agent: agent)
                     
                     HStack(spacing: 32) {
-                        statBadge(value: "\(stats.completed)", label: "Completed", color: .green)
-                        statBadge(value: "\(stats.givenUp)", label: "Failed", color: .red)
-                        statBadge(value: stats.successRateFormatted, label: "Success", color: .blue)
+                        statBadge(value: "\(stats.completed)", label: L10n.AgentDetail.completed, color: .green)
+                        statBadge(value: "\(stats.givenUp)", label: L10n.AgentDetail.failed, color: .red)
+                        statBadge(value: stats.successRateFormatted, label: L10n.AgentDetail.success, color: .blue)
                     }
                 }
                 .frame(maxWidth: .infinity)
@@ -36,7 +36,7 @@ struct AgentDetailView: View {
             // Mission list
             Section {
                 if missions.isEmpty {
-                    Text("No missions yet")
+                    Text(L10n.AgentDetail.noMissions)
                         .foregroundStyle(.secondary)
                         .frame(maxWidth: .infinity)
                         .padding(.vertical, 24)
@@ -46,7 +46,7 @@ struct AgentDetailView: View {
                     }
                 }
             } header: {
-                Text("Missions")
+                Text(L10n.AgentDetail.missions)
             }
         }
         .listStyle(.insetGrouped)
@@ -96,6 +96,6 @@ struct AgentDetailView: View {
 #Preview {
     NavigationStack {
         AgentDetailView(agent: .mom)
-            .environmentObject(HomeViewModel())
+            .environmentObject(MissionViewModel())
     }
 }

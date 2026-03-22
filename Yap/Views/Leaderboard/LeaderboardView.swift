@@ -5,12 +5,19 @@ import SwiftUI
 
 struct LeaderboardView: View {
     @Environment(\.dismiss) var dismiss
-    @EnvironmentObject var viewModel: HomeViewModel
+    @EnvironmentObject var viewModel: MissionViewModel
     @State private var selectedTab: LeaderboardTab = .global
     
     enum LeaderboardTab: String, CaseIterable {
         case global = "Global"
         case you = "You"
+        
+        var localizedName: String {
+            switch self {
+            case .global: return L10n.Leaderboard.tabGlobal
+            case .you: return L10n.Leaderboard.tabYou
+            }
+        }
     }
     
     var body: some View {
@@ -28,13 +35,14 @@ struct LeaderboardView: View {
                     yourLeaderboardContent
                 }
             }
-            .navigationTitle("Agent Leaderboard")
+            .navigationTitle(L10n.Leaderboard.title)
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .confirmationAction) {
-                    Button("Done") {
-                        dismiss()
-                    }
+                    Image(icon: .close)
+                        .button {
+                            dismiss()
+                        }
                 }
             }
             .task {
@@ -46,7 +54,7 @@ struct LeaderboardView: View {
     private var boardPicker: some View {
         Picker("", selection: $selectedTab) {
             ForEach(LeaderboardTab.allCases, id: \.self) { tab in
-                Text(tab.rawValue).tag(tab)
+                Text(tab.localizedName).tag(tab)
             }
         }
         .pickerStyle(.segmented)
@@ -57,8 +65,8 @@ struct LeaderboardView: View {
     @ViewBuilder
     private var globalLeaderboardContent: some View {
         if viewModel.globalLeaderboard.isEmpty {
-            ContentUnavailableView("No global data yet", image: "", description:
-                Text("Missions from all users will appear here.")
+            ContentUnavailableView(L10n.Leaderboard.globalEmptyTitle, image: "", description:
+                Text(L10n.Leaderboard.globalEmptyDescription)
             )
         } else {
             globalLeaderboardList
@@ -66,21 +74,25 @@ struct LeaderboardView: View {
     }
     
     private var globalLeaderboardList: some View {
-        List {
-            ForEach(Array(viewModel.globalLeaderboard.enumerated()), id: \.element.id) { index, stats in
-                if let agent = stats.resolvedAgent {
-                    NavigationLink {
-                        AgentDetailView(agent: agent)
-                            .environmentObject(viewModel)
-                    } label: {
+        ScrollView {
+            VStack(spacing: 20) {
+                ForEach(Array(viewModel.globalLeaderboard.enumerated()), id: \.element.id) { index, stats in
+                    if let agent = stats.resolvedAgent {
+                        NavigationLink {
+                            AgentDetailView(agent: agent)
+                                .environmentObject(viewModel)
+                        } label: {
+                            globalRow(index: index, stats: stats)
+                        }
+                        .buttonStyle(.plain)
+                    } else {
                         globalRow(index: index, stats: stats)
                     }
-                } else {
-                    globalRow(index: index, stats: stats)
                 }
             }
+            .padding(.horizontal, .horizontal)
         }
-        .listStyle(.plain)
+        .scrollIndicators(.hidden)
     }
     
     // MARK: - Your Tab
@@ -88,8 +100,8 @@ struct LeaderboardView: View {
     @ViewBuilder
     private var yourLeaderboardContent: some View {
         if viewModel.agentLeaderboard.isEmpty {
-            ContentUnavailableView("No missions yet", image: "", description:
-                 Text("Complete your first mission to see agent performance.")
+            ContentUnavailableView(L10n.Leaderboard.youEmptyTitle, image: "", description:
+                 Text(L10n.Leaderboard.youEmptyDescription)
             )
         } else {
             userLeaderboardList
@@ -98,7 +110,7 @@ struct LeaderboardView: View {
     
     private var userLeaderboardList: some View {
         ScrollView {
-            VStack(spacing: 0) {
+            VStack(spacing: 20) {
                 ForEach(Array(viewModel.agentLeaderboard.enumerated()), id: \.element.id) { index, stats in
                     NavigationLink {
                         AgentDetailView(agent: stats.agent)
@@ -109,15 +121,16 @@ struct LeaderboardView: View {
                     .buttonStyle(.plain)
                 }
             }
+            .padding(.horizontal, .horizontal)
         }
+        .scrollIndicators(.hidden)
     }
     
     private func agentRow(stats: AgentStats, index: Int) -> some View {
         HStack(spacing: 0) {
             Text("\(index + 1)")
-                .font(.system(size: 18, weight: .bold))
+                .font(.system(size: 18, weight: .black))
                 .padding(.trailing, 20)
-            
             AgentCircle(agent: stats.agent)
                 .padding(.trailing, 10)
             
@@ -126,16 +139,19 @@ struct LeaderboardView: View {
                     .font(.system(size: 17, weight: .semibold))
                 Text(stats.record)
                     .font(.system(size: 14))
+                    .fontWeight(.heavy)
+                    .fontDesign(.rounded)
                     .foregroundStyle(.secondary)
             }
             
             Spacer()
             
             Text(stats.successRateFormatted)
-                .font(.system(size: 18, weight: .bold))
+                .font(.system(size: 20, weight: .heavy))
                 .foregroundStyle(rateColor(for: stats.successRate))
+                .fontWeight(.bold)
+                .fontDesign(.rounded)
         }
-        .padding()
         .contentShape(Rectangle())
 //        .background(index == 0 ? Color.black.opacity(0.8) : .clear)
     }
@@ -143,36 +159,44 @@ struct LeaderboardView: View {
     // MARK: - Global Row
     
     private func globalRow(index: Int, stats: GlobalAgentStats) -> some View {
-        HStack(spacing: 12) {
+        HStack(spacing: 0) {
             Text("\(index + 1)")
-                .font(.system(size: 18, weight: .bold))
+                .font(.system(size: 18, weight: .black))
+                .padding(.trailing, 20)
             
             AgentCircle(agent: stats.resolvedAgent ?? .mom)
+                .padding(.trailing, 10)
             
             VStack(alignment: .leading, spacing: 2) {
                 Text(stats.resolvedAgent?.displayName ?? stats.agent)
-                    .font(.system(size: 16, weight: .medium))
-                
-                HStack(spacing: 8) {
-                    Text(stats.record)
-                    Text("·")
-                    Text("\(stats.totalUsers) users")
+                    .font(.system(size: 17, weight: .semibold))
+                HStack(spacing: 5) {
+                    Text(L10n.Leaderboard.users(stats.totalUsers))
                     if stats.avgMinutes != nil {
                         Text("·")
                         Text("⌀ \(stats.avgTimeFormatted)")
                     }
                 }
-                .font(.system(size: 13))
+                .font(.system(size: 12))
+                .fontWeight(.heavy)
+                .fontDesign(.rounded)
                 .foregroundStyle(.secondary)
+                
+                Text(stats.record)
+                    .font(.system(size: 12))
+                    .fontWeight(.heavy)
+                    .fontDesign(.rounded)
+                    .foregroundStyle(.secondary)
             }
             
             Spacer()
             
             Text(stats.successRateFormatted)
-                .font(.system(size: 18, weight: .bold))
+                .font(.system(size: 20, weight: .heavy))
                 .foregroundStyle(rateColor(for: stats.successRate))
+                .fontWeight(.bold)
+                .fontDesign(.rounded)
         }
-        .padding(.vertical, 4)
     }
     
     // MARK: - Helpers
@@ -192,5 +216,5 @@ struct LeaderboardView: View {
 
 #Preview {
     LeaderboardView()
-        .environmentObject(HomeViewModel())
+        .environmentObject(MissionViewModel())
 }

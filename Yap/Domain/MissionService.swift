@@ -177,10 +177,14 @@ actor MissionService: MissionProviding {
     // MARK: - Extend
     
     func extendMission(_ id: UUID) async throws -> Mission? {
+        let newDeadline = Date.now.addingTimeInterval(24 * 60 * 60)
         let updated: [Mission] = try await api.restUpdate(
             table: table,
             query: "id=eq.\(id.uuidString)",
-            body: .json(["extended": true])
+            body: .json([
+                "extended": true,
+                "deadline": ISO8601DateFormatter().string(from: newDeadline)
+            ])
         )
         return updated.first
     }

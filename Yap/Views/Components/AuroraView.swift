@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct AuroraView: View {
+    var colors: [Color] = [.pink, .blue, .red]
     @State private var phase: CGFloat = 0
     
     var body: some View {
@@ -20,9 +21,9 @@ struct AuroraView: View {
                 
                 // 3 blobs rotating at different speeds
                 let blobs: [(Color, Double, Double, Double)] = [
-                    (.purple, 0.08, 0.6, 0),
-                    (.blue, 0.06, 0.5, 2.1),
-                    (.pink, 0.1, 0.45, 4.2),
+                    (colors[0], 0.08, 0.6, 0),
+                    (colors[1], 0.06, 0.5, 2.1),
+                    (colors[2], 0.1, 0.45, 4.2),
                 ]
                 
                 for (color, speed, radius, offset) in blobs {

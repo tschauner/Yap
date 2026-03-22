@@ -2,104 +2,100 @@
 // Yap
 
 import SwiftUI
+import StoreKit
+import Combine
+import AuthenticationServices
 
 struct SettingsView: View {
     @Environment(\.dismiss) var dismiss
+    @EnvironmentObject var store: StoreManager
     @StateObject private var auth = AuthService.shared
-    @AppStorage(QuietHours.startKey) private var quietHoursStart: Int = QuietHours.defaultStart
-    @AppStorage(QuietHours.endKey) private var quietHoursEnd: Int = QuietHours.defaultEnd
-    
-    @State private var quietStart: Date = Date()
-    @State private var quietEnd: Date = Date()
     @State private var showUnlinkAlert = false
+    @AppStorage("customRoast") private var customRoast: String = ""
+    @AppStorage("hapticFeedbackEnabled") private var isOn: Bool = true
+    @Environment(\.requestReview) private var requestReview
+    
+    private let appURL = URL(string: "https://apps.apple.com/app/id6738916276")!
     
     var body: some View {
         NavigationStack {
             List {
-                // Quiet Hours
+                // Account
+                appleSignInSection
+                
+                // Personalization
                 Section {
-                    HStack {
-                        Text("From")
-                        Spacer()
-                        DatePicker("", selection: $quietStart, displayedComponents: .hourAndMinute)
-                            .labelsHidden()
+                    NavigationLink {
+                        CustomRoastView()
+                    } label: {
+                        HStack {
+                            Text(L10n.Settings.customRoast)
+                            Spacer()
+                            if !customRoast.isEmpty {
+                                Text(L10n.Settings.customRoastActive)
+                                    .foregroundStyle(.secondary)
+                                    .font(.system(size: 14))
+                            }
+                        }
                     }
                     
-                    HStack {
-                        Text("Until")
-                        Spacer()
-                        DatePicker("", selection: $quietEnd, displayedComponents: .hourAndMinute)
-                            .labelsHidden()
-                    }
                 } header: {
-                    Text("Quiet Hours")
+                    Text(L10n.Settings.sectionPersonalization)
                 } footer: {
-                    Text("No notifications between these times.")
+                    Text(L10n.Settings.personalizationFooter)
                 }
                 
-                // Account
+                // General
                 Section {
-                    if auth.isLinked {
-                        // Linked state
+                    Toggle(L10n.Settings.hapticFeedback, isOn: $isOn)
+                    
+                    Button {
+                        requestReview()
+                    } label: {
                         HStack {
-                            Image(systemName: "checkmark.circle.fill")
-                                .foregroundStyle(.green)
-                            Text("Synced with Apple ID")
+                            Text(L10n.Settings.reviewYap)
+                                .foregroundStyle(.primary)
                             Spacer()
-                        }
-                        
-                        Button(role: .destructive) {
-                            showUnlinkAlert = true
-                        } label: {
-                            HStack {
-                                Text("Unlink Account")
-                                if auth.isLoading {
-                                    Spacer()
-                                    ProgressView()
-                                }
-                            }
-                        }
-                        .disabled(auth.isLoading)
-                    } else {
-                        // Not linked
-                        VStack(alignment: .leading, spacing: 12) {
-                            Text("Sign in with Apple to sync your data across devices.")
-                                .font(.system(size: 14))
+                            Image(icon: .star)
                                 .foregroundStyle(.secondary)
-                            
-                            Button {
-                                auth.signInWithApple()
-                            } label: {
-                                HStack {
-                                    Image(systemName: "apple.logo")
-                                    Text("Sign in with Apple")
-                                }
-                                .font(.system(size: 17, weight: .medium))
-                                .foregroundStyle(.white)
-                                .frame(maxWidth: .infinity)
-                                .frame(height: 50)
-                                .background(.black)
-                                .clipShape(RoundedRectangle(cornerRadius: 10))
-                            }
-                            .disabled(auth.isLoading)
-                            .overlay {
-                                if auth.isLoading {
-                                    ProgressView()
-                                        .tint(.white)
-                                }
+                        }
+                    }
+                    
+                    ShareLink(item: appURL) {
+                        HStack {
+                            Text(L10n.Settings.shareYap)
+                            Spacer()
+                            Image(icon: .share)
+                                .foregroundStyle(.secondary)
+                        }
+                    }
+                    
+                    Button {
+                        Task { await store.restore() }
+                    } label: {
+                        HStack {
+                            Text(L10n.Settings.restorePurchases)
+                                .foregroundStyle(.primary)
+                            if store.isLoading {
+                                Spacer()
+                                ProgressView()
                             }
                         }
-                        .padding(.vertical, 4)
                     }
                 } header: {
-                    Text("Account")
-                } footer: {
-                    if !auth.isLinked {
-                        Text("Your data stays on this device until you link it.")
-                    }
+                    Text(L10n.Settings.sectionGeneral)
+                }
+
+                // Legal
+                Section {
+                    Link(L10n.Legal.privacyPolicy, destination: URL(string: "https://yap.fail/privacy")!)
+                    Link(L10n.Legal.termsOfUse, destination: URL(string: "https://yap.fail/terms")!)
+                } header: {
+                    Text(L10n.Settings.sectionLegal)
                 }
                 
-                // Device Info
+                // Debug (only in debug builds)
+                #if DEBUG
                 Section {
                     HStack {
                         Text("Device ID")
@@ -111,42 +107,82 @@ struct SettingsView: View {
                 } header: {
                     Text("Debug")
                 }
+                #endif
             }
-            .navigationTitle("Settings")
+            .navigationTitle(L10n.Settings.title)
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .confirmationAction) {
-                    Button("Done") {
-                        saveQuietHours()
+                    Button(L10n.Common.done) {
                         dismiss()
                     }
                 }
             }
-            .onAppear {
-                quietStart = timeFromHour(quietHoursStart)
-                quietEnd = timeFromHour(quietHoursEnd)
-            }
-            .alert("Unlink Account?", isPresented: $showUnlinkAlert) {
-                Button("Cancel", role: .cancel) { }
-                Button("Unlink", role: .destructive) {
+            .alert(L10n.Settings.unlinkAlertTitle, isPresented: $showUnlinkAlert) {
+                Button(L10n.Common.cancel, role: .cancel) { }
+                Button(L10n.Settings.unlinkAction, role: .destructive) {
                     Task { await auth.unlinkAccount() }
                 }
             } message: {
-                Text("Your data will stay on this device but won't sync to new devices.")
+                Text(L10n.Settings.unlinkAlertMessage)
             }
         }
     }
     
-    private func saveQuietHours() {
-        quietHoursStart = Calendar.current.component(.hour, from: quietStart)
-        quietHoursEnd = Calendar.current.component(.hour, from: quietEnd)
-    }
-    
-    private func timeFromHour(_ hour: Int) -> Date {
-        Calendar.current.date(bySettingHour: hour, minute: 0, second: 0, of: Date()) ?? Date()
+    var appleSignInSection: some View {
+        Section {
+            if auth.isLinked {
+                // Linked state
+                HStack {
+                    Image(icon: .checkmarkCircle)
+                        .foregroundStyle(.green)
+                    Text(L10n.Settings.accountSynced)
+                    Spacer()
+                }
+                
+                Button(role: .destructive) {
+                    showUnlinkAlert = true
+                } label: {
+                    HStack {
+                        Text(L10n.Settings.unlinkAccount)
+                        if auth.isLoading {
+                            Spacer()
+                            ProgressView()
+                        }
+                    }
+                }
+                .disabled(auth.isLoading)
+            } else {
+                // Not linked
+                VStack(alignment: .leading, spacing: 12) {
+                    Text(L10n.Settings.signInDescription)
+                        .font(.system(size: 14))
+                        .foregroundStyle(.secondary)
+                    
+                    SignInWithAppleButton(.signIn) { request in
+                        request.requestedScopes = []
+                        auth.isLoading = true
+                        auth.error = nil
+                    } onCompletion: { result in
+                        auth.handleSignInResult(result)
+                    }
+                    .signInWithAppleButtonStyle(.black)
+                    .frame(height: 50)
+                    .disabled(auth.isLoading)
+                }
+                .padding(.vertical, 4)
+            }
+        } header: {
+            Text(L10n.Settings.sectionAccount)
+        } footer: {
+            if !auth.isLinked {
+                Text(L10n.Settings.notLinkedFooter)
+            }
+        }
     }
 }
 
 #Preview {
     SettingsView()
+        .environmentObject(StoreManager())
 }

@@ -128,6 +128,6 @@ final class StoreManager: ObservableObject {
     
     enum StoreError: LocalizedError {
         case unverified
-        var errorDescription: String? { "Transaction could not be verified." }
+        var errorDescription: String? { L10n.StoreError.general }
     }
 }

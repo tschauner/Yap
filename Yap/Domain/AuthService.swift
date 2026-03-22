@@ -28,6 +28,30 @@ final class AuthService: NSObject, ObservableObject {
     
     // MARK: - Sign In
     
+    /// Called from SignInWithAppleButton's onCompletion handler.
+    func handleSignInResult(_ result: Result<ASAuthorization, Error>) {
+        switch result {
+        case .success(let authorization):
+            guard let credential = authorization.credential as? ASAuthorizationAppleIDCredential else {
+                error = "Invalid credential"
+                isLoading = false
+                return
+            }
+            Task {
+                await linkDevice(appleUserId: credential.user)
+            }
+        case .failure(let err):
+            // User cancelled is not an error
+            if (err as? ASAuthorizationError)?.code == .canceled {
+                isLoading = false
+                return
+            }
+            error = err.localizedDescription
+            isLoading = false
+        }
+    }
+    
+    /// Legacy delegate-based sign in (keep for programmatic use).
     func signInWithApple() {
         let request = ASAuthorizationAppleIDProvider().createRequest()
         request.requestedScopes = [] // We don't need email or name

@@ -2,6 +2,7 @@
 // Yap
 
 import Foundation
+import SwiftUI
 
 // MARK: - Protocol
 
@@ -62,9 +63,10 @@ final class CopyService: CopyProviding {
         if let cached = loadCopy(for: mission.id) { return cached }
         
         do {
+            let body = await requestBody(for: mission)
             let response: EdgeCopyResponse = try await api.edgeFunction(
                 name: "generate-copy",
-                body: .json(requestBody(for: mission)),
+                body: .json(body),
                 timeout: 30
             )
             let copy = GeneratedCopy(
@@ -89,22 +91,90 @@ final class CopyService: CopyProviding {
     
     // MARK: - Request
     
-    private func requestBody(for mission: Mission) -> [String: Any] {
-        let schedule = EscalationLevel.buildSchedule(profile: mission.agent.escalationProfile)
+    private func requestBody(for mission: Mission) async -> [String: Any] {
+        let minutesUntilDeadline = max(0, Int(mission.deadline.timeIntervalSinceNow / 60))
+        let schedule = EscalationLevel.buildSchedule(
+            profile: mission.agent.escalationProfile,
+            availableMinutes: minutesUntilDeadline
+        )
         let count = min(schedule.count, 24)
         
         let levels = schedule.prefix(count).enumerated().map { i, entry in
             "Message \(i + 1): level=\(entry.level.promptName), sent \(entry.minuteOffset)min after start"
         }.joined(separator: "\n")
         
-        return [
+        let customRoast = UserDefaults.standard.string(forKey: "customRoast") ?? ""
+        
+        let isPro = ProAccess.isPro
+        
+        var body: [String: Any] = [
             "goal": mission.title,
             "tone": mission.agent.displayName,
             "toneDescription": mission.agent.description,
             "language": userLanguage,
             "messageCount": count,
-            "levels": levels
+            "levels": levels,
+            "isPro": isPro,
+            "extended": mission.extended
         ]
+        
+        if !customRoast.isEmpty {
+            body["userContext"] = customRoast
+        }
+        
+        // Remote Push: send schedule offsets so server can schedule notifications
+        if DeviceService.shared.isRegistered {
+            body["goalId"] = mission.id.uuidString
+            body["deviceId"] = APIClient.deviceId
+            body["agent"] = mission.agent.rawValue
+            body["scheduleOffsets"] = schedule.prefix(count).map { entry in
+                ["minuteOffset": entry.minuteOffset, "level": entry.level.rawValue]
+            }
+        }
+        
+        // Special Agents get memory — past missions with this agent
+        if mission.agent.isSpecialAgent {
+            let memory = await loadAgentMemory(agent: mission.agent)
+            if !memory.isEmpty {
+                body["agentMemory"] = memory
+            }
+        }
+        
+        return body
+    }
+    
+    // MARK: - Agent Memory
+    
+    private func loadAgentMemory(agent: Agent) async -> [[String: Any]] {
+        struct MemoryEntry: Decodable {
+            let title: String
+            let status: String
+            let timeToCompleteMinutes: Int?
+            let createdAt: String?
+        }
+        
+        do {
+            let entries: [MemoryEntry] = try await api.rpc(
+                function: "get_agent_memory",
+                params: .json([
+                    "p_device_id": APIClient.deviceId,
+                    "p_agent": agent.rawValue
+                ])
+            )
+            return entries.map { entry in
+                var dict: [String: Any] = [
+                    "goal": entry.title,
+                    "outcome": entry.status == "completed" ? "completed" : "gave up"
+                ]
+                if let mins = entry.timeToCompleteMinutes {
+                    dict["minutes"] = mins
+                }
+                return dict
+            }
+        } catch {
+            print("\u{26A0}\u{FE0F} Agent memory load failed: \(error.localizedDescription)")
+            return []
+        }
     }
     
     // MARK: - Fallback
@@ -162,8 +232,7 @@ final class CopyService: CopyProviding {
     // MARK: - Helpers
     
     private var userLanguage: String {
-        guard let code = Locale.current.language.languageCode?.identifier else { return "English" }
-        return Locale(identifier: "en").localizedString(forLanguageCode: code) ?? "English"
+        LanguageResolver.currentBackendLang()
     }
 }
 

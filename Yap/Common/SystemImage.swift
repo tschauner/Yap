@@ -11,7 +11,8 @@ enum SystemImage: String {
     case shield = "shield.fill"
     case brain = "brain.head.profile"
     case eyeglasses
-    case eye = "eye.slash"
+    case eye = "eye"
+    case eyeSlash = "eye.slash"
     case ellipsis
     case personPlus = "person.badge.plus"
     case agent = "person.wave.2"
@@ -35,6 +36,7 @@ enum SystemImage: String {
     case bellSlash = "bell.slash"
     case flame = "flame"
     case flag = "flag.pattern.checkered"
+    case removeFavorite = "star.slash"
     
     // Status
     case info = "info.circle"
@@ -60,10 +62,29 @@ enum SystemImage: String {
     case quoteClosing = "quote.closing"
     case laurelLeading = "laurel.leading"
     case laurelTrailing = "laurel.trailing"
+    case arrowRight = "arrow.right"
+    case appleLogo = "apple.logo"
+    case bolt = "bolt.fill"
 }
 
 extension Image {
     init(icon: SystemImage) {
         self.init(systemName: icon.rawValue)
+    }
+}
+
+struct ContextButton: View {
+    let title: String
+    let icon: SystemImage
+    var role: ButtonRole?
+    let action: () -> Void
+    
+    var body: some View {
+        Button(
+            title,
+            systemImage: icon.rawValue,
+            role: role,
+            action: action
+        )
     }
 }

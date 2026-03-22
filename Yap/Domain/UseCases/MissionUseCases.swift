@@ -2,6 +2,7 @@
 // Yap
 
 import Foundation
+import UserNotifications
 
 // MARK: - Queue
 
@@ -75,12 +76,9 @@ struct FetchActiveMissionUseCase: UseCase {
 /// Neue Mission erstellen (direkt aktiv, nicht aus Queue).
 struct CreateMissionUseCase: UseCase {
     private let service: any MissionProviding
-    private let nagService: any NagProviding
     
-    init(service: any MissionProviding = MissionService.shared,
-         nagService: any NagProviding = NagService.shared) {
+    init(service: any MissionProviding = MissionService.shared) {
         self.service = service
-        self.nagService = nagService
     }
     
     struct Input {
@@ -91,12 +89,8 @@ struct CreateMissionUseCase: UseCase {
     
     func execute(_ input: Input) async -> Mission? {
         do {
-            var mission = try await service.createMission(title: input.title, agent: input.agent, deadline: input.deadline)
-            
-            let scheduled = await nagService.scheduleEscalation(for: mission, startDelay: 0)
-            try? await service.updateNotificationsScheduled(mission.id, count: scheduled)
-            mission.notificationsScheduled = scheduled
-            
+            let mission = try await service.createMission(title: input.title, agent: input.agent, deadline: input.deadline)
+            // Remote push notifications are scheduled server-side via generate-copy
             return mission
         } catch {
             print("⚠️ CreateMission failed: \(error.localizedDescription)")
@@ -108,12 +102,9 @@ struct CreateMissionUseCase: UseCase {
 /// Queue-Item aktivieren → Agent wählen → wird zur Mission.
 struct ActivateMissionUseCase: UseCase {
     private let service: any MissionProviding
-    private let nagService: any NagProviding
     
-    init(service: any MissionProviding = MissionService.shared,
-         nagService: any NagProviding = NagService.shared) {
+    init(service: any MissionProviding = MissionService.shared) {
         self.service = service
-        self.nagService = nagService
     }
     
     struct Input {
@@ -124,12 +115,8 @@ struct ActivateMissionUseCase: UseCase {
     
     func execute(_ input: Input) async -> Mission? {
         do {
-            guard var mission = try await service.activate(input.id, agent: input.agent, deadline: input.deadline) else { return nil }
-            
-            let scheduled = await nagService.scheduleEscalation(for: mission, startDelay: 0)
-            try? await service.updateNotificationsScheduled(mission.id, count: scheduled)
-            mission.notificationsScheduled = scheduled
-            
+            guard let mission = try await service.activate(input.id, agent: input.agent, deadline: input.deadline) else { return nil }
+            // Remote push notifications are scheduled server-side via generate-copy
             return mission
         } catch {
             print("⚠️ ActivateMission failed: \(error.localizedDescription)")
@@ -143,18 +130,18 @@ struct ActivateMissionUseCase: UseCase {
 /// Mission erledigt → Mission für Stats.
 struct CompleteMissionUseCase: UseCase {
     private let service: any MissionProviding
-    private let nagService: any NagProviding
     
-    init(service: any MissionProviding = MissionService.shared,
-         nagService: any NagProviding = NagService.shared) {
+    init(service: any MissionProviding = MissionService.shared) {
         self.service = service
-        self.nagService = nagService
     }
     
     func execute(_ input: UUID) async -> Mission? {
         do {
             let mission = try await service.completeMission(input)
-            await nagService.missionCompleted(input)
+            // Cancel server-side remote push notifications
+            await DeviceService.shared.cancelPendingNotifications(goalId: input)
+            // Reset app badge
+            try? await UNUserNotificationCenter.current().setBadgeCount(0)
             return mission
         } catch {
             print("⚠️ CompleteMission failed: \(error.localizedDescription)")
@@ -166,22 +153,22 @@ struct CompleteMissionUseCase: UseCase {
 /// Mission aufgeben → Mission für Stats.
 struct GiveUpMissionUseCase: UseCase {
     private let service: any MissionProviding
-    private let nagService: any NagProviding
     private let copyService: any CopyProviding
     
     init(service: any MissionProviding = MissionService.shared,
-         nagService: any NagProviding = NagService.shared,
          copyService: any CopyProviding = CopyService.shared) {
         self.service = service
-        self.nagService = nagService
         self.copyService = copyService
     }
     
     func execute(_ input: UUID) async -> Mission? {
         do {
             let mission = try await service.giveUpMission(input)
-            await nagService.cancelNotifications(for: input)
             copyService.deleteCopy(for: input)
+            // Cancel server-side remote push notifications
+            await DeviceService.shared.cancelPendingNotifications(goalId: input)
+            // Reset app badge
+            try? await UNUserNotificationCenter.current().setBadgeCount(0)
             return mission
         } catch {
             print("⚠️ GiveUpMission failed: \(error.localizedDescription)")
@@ -194,19 +181,16 @@ struct GiveUpMissionUseCase: UseCase {
 
 struct ExtendMissionUseCase: UseCase {
     private let service: any MissionProviding
-    private let nagService: any NagProviding
     
-    init(service: any MissionProviding = MissionService.shared,
-         nagService: any NagProviding = NagService.shared) {
+    init(service: any MissionProviding = MissionService.shared) {
         self.service = service
-        self.nagService = nagService
     }
     
     func execute(_ input: UUID) async -> Mission? {
         do {
             guard let updated = try await service.extendMission(input) else { return nil }
-            await nagService.cancelNotifications(for: input)
-            await nagService.scheduleEscalation(for: updated, startDelay: 0)
+            // Cancel old server-side notifications — new ones will be scheduled via generate-copy
+            await DeviceService.shared.cancelPendingNotifications(goalId: input)
             return updated
         } catch {
             print("⚠️ ExtendMission failed: \(error.localizedDescription)")

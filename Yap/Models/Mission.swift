@@ -50,6 +50,10 @@ struct Mission: Identifiable, Codable, Equatable {
     
     var isCompleted: Bool { status == .completed }
     var isActive: Bool { status == .active }
+    var isGivenUp: Bool { status == .givenUp }
+    var isExpired: Bool { status == .active && deadline < .now }
+    var isFailed: Bool { isGivenUp || isExpired }
+    var isFinished: Bool { isCompleted || isFailed }
     
     /// Wie lange die Mission aktiv war
     var duration: TimeInterval {
@@ -58,9 +62,7 @@ struct Mission: Identifiable, Codable, Equatable {
     }
     
     var estimatedIgnoredMessages: Int {
-        let schedule = EscalationLevel.buildSchedule(profile: agent.escalationProfile)
-        let elapsedMinutes = Int(duration / 60)
-        return schedule.prefix(notificationsScheduled).filter { $0.minuteOffset <= elapsedMinutes }.count
+        notificationsSent
     }
     
     var peakEscalation: EscalationLevel {

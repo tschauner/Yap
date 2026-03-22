@@ -31,7 +31,7 @@ enum PickerState: Equatable {
 }
 
 struct InputTextfield: View {
-    @EnvironmentObject var viewModel: HomeViewModel
+    @EnvironmentObject var viewModel: MissionViewModel
     @FocusState private var isFocused
     @State private var showDeadlinePicker = false
     
@@ -54,12 +54,16 @@ struct InputTextfield: View {
                 HStack(spacing: 4) {
                     Image(icon: .clock)
                         .font(.system(size: 12, weight: .medium))
-                    Text("until \(deadlineFormatted)")
+                    Text(L10n.Input.deadlineLabel(deadlineFormatted))
                         .font(.system(size: 13, weight: .medium))
                 }
                 .foregroundStyle(.secondary)
                 .onTapGesture {
-                    showDeadlinePicker = true
+                    if ProAccess.canChangeDeadline {
+                        showDeadlinePicker = true
+                    } else {
+                        viewModel.showPaywall = true
+                    }
                 }
                 
                 HStack(spacing: 4) {
@@ -69,7 +73,7 @@ struct InputTextfield: View {
                         Text(agent.displayName)
                             .font(.system(size: 13, weight: .medium))
                     } else {
-                        Text("Agent")
+                        Text(L10n.Input.agentPlaceholder)
                             .font(.system(size: 13, weight: .medium))
                     }
                 }
@@ -80,7 +84,7 @@ struct InputTextfield: View {
             
             // Input Row
             HStack(spacing: 15) {
-                TextField("", text: $viewModel.missionText, prompt: Text("What needs to get done?"), axis: .vertical)
+                TextField("", text: $viewModel.missionText, prompt: Text(L10n.Input.placeholder), axis: .vertical)
                     .focused($isFocused)
                     .foregroundStyle(.secondary)
                     .frame(maxWidth: .infinity, alignment: .leading)
@@ -135,7 +139,7 @@ struct DeadlinePickerSheet: View {
     var body: some View {
         NavigationStack {
             VStack(spacing: 20) {
-                Text("Until when?")
+                Text(L10n.Input.deadlinePickerTitle)
                     .font(.system(size: 20, weight: .bold))
                 
                 DatePicker(
@@ -153,7 +157,7 @@ struct DeadlinePickerSheet: View {
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .confirmationAction) {
-                    Button("Done") {
+                    Button(L10n.Common.done) {
                         dismiss()
                     }
                 }

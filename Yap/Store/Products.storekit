@@ -50,12 +50,12 @@
       "internalID" : "C3D4E5F6-A7B8-9012-CDEF-123456789012",
       "localizations" : [
         {
-          "description" : "Gordon Ramsay, Disappointed Dad & Gym Bro",
+          "description" : "The Chef, Disappointed Dad & Gym Bro",
           "displayName" : "Legends Pack",
           "locale" : "en_US"
         },
         {
-          "description" : "Gordon Ramsay, Enttäuschter Papa & Gym Bro",
+          "description" : "The Chef, Enttäuschter Papa & Gym Bro",
           "displayName" : "Legends Pack",
           "locale" : "de"
         }

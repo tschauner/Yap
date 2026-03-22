@@ -7,6 +7,17 @@ import { serve } from "https://deno.land/std@0.177.0/http/server.ts";
 const OPENAI_API_KEY = Deno.env.get("OPENAI_API_KEY");
 const MODEL = "gpt-4o-mini";
 
+const LANG_MAP: Record<string, string> = {
+  en: "English",
+  de: "German",
+  fr: "French",
+  es: "Spanish",
+};
+
+function resolveLanguage(lang: string): string {
+  return LANG_MAP[lang?.toLowerCase()] ?? lang ?? "English";
+}
+
 serve(async (req) => {
   if (req.method === "OPTIONS") {
     return new Response(null, {
@@ -18,7 +29,8 @@ serve(async (req) => {
   }
 
   try {
-    const { goal, tone, toneDescription, language } = await req.json();
+    const { goal, tone, toneDescription, language: rawLang } = await req.json();
+    const language = resolveLanguage(rawLang);
 
     if (!goal || !tone) {
       return new Response(JSON.stringify({ error: "Missing required fields" }), {
@@ -32,14 +44,30 @@ You're an AI agent in a motivation app called Yap. A user just assigned you a ne
 
 The user's goal: "${goal}"
 
-Write a SHORT, funny, spontaneous one-liner reaction (max 150 chars) to hearing this goal for the first time. 
-Stay fully in character. Be witty. Reference specific aspects of the goal — don't just repeat it.
-Write in ${language}.
+CRITICAL: Write your reaction in ${language}. Not a single word in any other language.
 
-Examples for different agents:
-- Mom hearing "Clean apartment": "Oh NOW you want to clean? After I've been saying it for weeks?"
-- Drill Sergeant hearing "Write thesis": "A THESIS?! That's a 200-page war. Let's GO!"
-- Therapist hearing "Go to gym": "Interesting. What's really stopping you from going?"
+BEFORE you react, quickly think about what this goal ACTUALLY involves:
+- What's the physical setting? What objects/tools are involved?
+- What specific sub-tasks does this break down into?
+- What's the user probably avoiding right now instead of doing it?
+- What sensory detail (empty fridge, dusty gym bag, blinking cursor) captures the situation?
+
+Now write a SHORT, funny, spontaneous one-liner reaction (max 150 chars) to hearing this goal.
+Your reaction MUST reference a SPECIFIC detail of the goal — a sub-task, an object, a situation — NOT the goal title.
+
+Stay fully in character. Be witty.
+
+BAD reactions (too generic):
+- "Time to study? Let's go."
+- "Time to clean? Let's go!"
+- "Interesting goal."
+
+GOOD reactions (specific + in-character):
+- Mom hearing "Go grocery shopping": "The fridge has been empty since TUESDAY. Tuesday."
+- Drill Sergeant hearing "Write thesis": "200 PAGES?! That's a WAR. Grab your keyboard, soldier!"
+- Therapist hearing "Go to gym": "Your gym bag has been packed since Tuesday. What's really stopping you?"
+- Best Friend hearing "Clean apartment": "Bro I saw the dish situation last week. Respect for finally doing something."
+- Ex hearing "Study for exam": "Interesting. You could never commit to anything when we were together either."
 
 Respond with ONLY the reaction text. No quotes, no JSON, no explanation.`;
 

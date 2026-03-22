@@ -6,6 +6,11 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		13FE92742F6731E6000B46CC /* YapNotificationService.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 13FE926D2F6731E6000B46CC /* YapNotificationService.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		13FE92832F6735B8000B46CC /* Intents.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 13FE92822F6735B8000B46CC /* Intents.framework */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXContainerItemProxy section */
 		134837BF2F56EFA0005A9F3A /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -21,17 +26,68 @@
 			remoteGlobalIDString = 134837B02F56EF9F005A9F3A;
 			remoteInfo = Yap;
 		};
+		13FE92722F6731E6000B46CC /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 134837A92F56EF9F005A9F3A /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 13FE926C2F6731E6000B46CC;
+			remoteInfo = YapNotificationService;
+		};
 /* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		13FE92792F6731E6000B46CC /* Embed Foundation Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				13FE92742F6731E6000B46CC /* YapNotificationService.appex in Embed Foundation Extensions */,
+			);
+			name = "Embed Foundation Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		134837B12F56EF9F005A9F3A /* Yap.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Yap.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		134837BE2F56EFA0005A9F3A /* YapTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = YapTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		134837C82F56EFA0005A9F3A /* YapUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = YapUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		13FE926D2F6731E6000B46CC /* YapNotificationService.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = YapNotificationService.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		13FE92822F6735B8000B46CC /* Intents.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Intents.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS26.2.sdk/System/Library/Frameworks/Intents.framework; sourceTree = DEVELOPER_DIR; };
 /* End PBXFileReference section */
+
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		13FE92682F6729B4000B46CC /* Exceptions for "Yap" folder in "Yap" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = 134837B02F56EF9F005A9F3A /* Yap */;
+		};
+		13FE92782F6731E6000B46CC /* Exceptions for "YapNotificationService" folder in "YapNotificationService" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = 13FE926C2F6731E6000B46CC /* YapNotificationService */;
+		};
+		13FE927B2F67322A000B46CC /* Exceptions for "Yap" folder in "YapNotificationService" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Assets.xcassets,
+			);
+			target = 13FE926C2F6731E6000B46CC /* YapNotificationService */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		134837B32F56EF9F005A9F3A /* Yap */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				13FE92682F6729B4000B46CC /* Exceptions for "Yap" folder in "Yap" target */,
+				13FE927B2F67322A000B46CC /* Exceptions for "Yap" folder in "YapNotificationService" target */,
+			);
 			path = Yap;
 			sourceTree = "<group>";
 		};
@@ -43,6 +99,14 @@
 		134837CB2F56EFA0005A9F3A /* YapUITests */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			path = YapUITests;
+			sourceTree = "<group>";
+		};
+		13FE926E2F6731E6000B46CC /* YapNotificationService */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				13FE92782F6731E6000B46CC /* Exceptions for "YapNotificationService" folder in "YapNotificationService" target */,
+			);
+			path = YapNotificationService;
 			sourceTree = "<group>";
 		};
 /* End PBXFileSystemSynchronizedRootGroup section */
@@ -69,6 +133,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		13FE926A2F6731E6000B46CC /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				13FE92832F6735B8000B46CC /* Intents.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -78,6 +150,8 @@
 				134837B32F56EF9F005A9F3A /* Yap */,
 				134837C12F56EFA0005A9F3A /* YapTests */,
 				134837CB2F56EFA0005A9F3A /* YapUITests */,
+				13FE926E2F6731E6000B46CC /* YapNotificationService */,
+				13FE92812F6735B8000B46CC /* Frameworks */,
 				134837B22F56EF9F005A9F3A /* Products */,
 			);
 			sourceTree = "<group>";
@@ -88,8 +162,17 @@
 				134837B12F56EF9F005A9F3A /* Yap.app */,
 				134837BE2F56EFA0005A9F3A /* YapTests.xctest */,
 				134837C82F56EFA0005A9F3A /* YapUITests.xctest */,
+				13FE926D2F6731E6000B46CC /* YapNotificationService.appex */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		13FE92812F6735B8000B46CC /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				13FE92822F6735B8000B46CC /* Intents.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -102,10 +185,12 @@
 				134837AD2F56EF9F005A9F3A /* Sources */,
 				134837AE2F56EF9F005A9F3A /* Frameworks */,
 				134837AF2F56EF9F005A9F3A /* Resources */,
+				13FE92792F6731E6000B46CC /* Embed Foundation Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				13FE92732F6731E6000B46CC /* PBXTargetDependency */,
 			);
 			fileSystemSynchronizedGroups = (
 				134837B32F56EF9F005A9F3A /* Yap */,
@@ -163,6 +248,28 @@
 			productReference = 134837C82F56EFA0005A9F3A /* YapUITests.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
 		};
+		13FE926C2F6731E6000B46CC /* YapNotificationService */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 13FE92752F6731E6000B46CC /* Build configuration list for PBXNativeTarget "YapNotificationService" */;
+			buildPhases = (
+				13FE92692F6731E6000B46CC /* Sources */,
+				13FE926A2F6731E6000B46CC /* Frameworks */,
+				13FE926B2F6731E6000B46CC /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				13FE926E2F6731E6000B46CC /* YapNotificationService */,
+			);
+			name = YapNotificationService;
+			packageProductDependencies = (
+			);
+			productName = YapNotificationService;
+			productReference = 13FE926D2F6731E6000B46CC /* YapNotificationService.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -184,6 +291,9 @@
 						CreatedOnToolsVersion = 26.3;
 						TestTargetID = 134837B02F56EF9F005A9F3A;
 					};
+					13FE926C2F6731E6000B46CC = {
+						CreatedOnToolsVersion = 26.3;
+					};
 				};
 			};
 			buildConfigurationList = 134837AC2F56EF9F005A9F3A /* Build configuration list for PBXProject "Yap" */;
@@ -192,6 +302,11 @@
 			knownRegions = (
 				en,
 				Base,
+				de,
+				fr,
+				es,
+				"pt-BR",
+				"pt-PT",
 			);
 			mainGroup = 134837A82F56EF9F005A9F3A;
 			minimizedProjectReferenceProxies = 1;
@@ -203,6 +318,7 @@
 				134837B02F56EF9F005A9F3A /* Yap */,
 				134837BD2F56EFA0005A9F3A /* YapTests */,
 				134837C72F56EFA0005A9F3A /* YapUITests */,
+				13FE926C2F6731E6000B46CC /* YapNotificationService */,
 			);
 		};
 /* End PBXProject section */
@@ -223,6 +339,13 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		134837C62F56EFA0005A9F3A /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		13FE926B2F6731E6000B46CC /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -253,6 +376,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		13FE92692F6731E6000B46CC /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -266,6 +396,11 @@
 			target = 134837B02F56EF9F005A9F3A /* Yap */;
 			targetProxy = 134837C92F56EFA0005A9F3A /* PBXContainerItemProxy */;
 		};
+		13FE92732F6731E6000B46CC /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 13FE926C2F6731E6000B46CC /* YapNotificationService */;
+			targetProxy = 13FE92722F6731E6000B46CC /* PBXContainerItemProxy */;
+		};
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
@@ -274,6 +409,7 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
@@ -327,6 +463,7 @@
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
@@ -336,6 +473,7 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
@@ -382,6 +520,7 @@
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_EMIT_LOC_STRINGS = YES;
 			};
 			name = Release;
 		};
@@ -399,6 +538,7 @@
 				ENABLE_PREVIEWS = YES;
 				ENABLE_USER_SELECTED_FILES = readonly;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Yap/Info.plist;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphoneos*]" = YES;
@@ -444,6 +584,7 @@
 				ENABLE_PREVIEWS = YES;
 				ENABLE_USER_SELECTED_FILES = readonly;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Yap/Info.plist;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphoneos*]" = YES;
@@ -573,6 +714,67 @@
 			};
 			name = Release;
 		};
+		13FE92762F6731E6000B46CC /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 98QF3H5LV4;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = YapNotificationService/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = YapNotificationService;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 26.2;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.phitsch.Yap.YapNotificationService;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		13FE92772F6731E6000B46CC /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 98QF3H5LV4;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = YapNotificationService/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = YapNotificationService;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 26.2;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.phitsch.Yap.YapNotificationService;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -608,6 +810,15 @@
 			buildConfigurations = (
 				134837D92F56EFA0005A9F3A /* Debug */,
 				134837DA2F56EFA0005A9F3A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		13FE92752F6731E6000B46CC /* Build configuration list for PBXNativeTarget "YapNotificationService" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				13FE92762F6731E6000B46CC /* Debug */,
+				13FE92772F6731E6000B46CC /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

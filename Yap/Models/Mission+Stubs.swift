@@ -24,4 +24,21 @@ extension Mission {
              usedAiCopy: true
         )
     }
+    
+    static func active(_ agent: Agent = .mom) -> Self {
+        Self(id: UUID(),
+             deviceId: "someId",
+             title: "Wäsche waschen",
+             agent: agent,
+             language: "de-DE",
+             status: .active,
+             createdAt: .now,
+             deadline: .tomorrow,
+             extended: false,
+             notificationsScheduled: 20,
+             notificationsSent: 5,
+             isPro: true,
+             usedAiCopy: true
+        )
+    }
 }
