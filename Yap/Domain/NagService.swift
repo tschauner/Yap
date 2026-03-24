@@ -9,6 +9,7 @@ import Foundation
 protocol NagProviding: Actor {
     func requestPermission() async -> Bool
     @discardableResult func scheduleEscalation(for mission: Mission, startDelay: Int) -> Int
+    func scheduleReactionPush(for mission: Mission, reaction: String)
     func missionCompleted(_ missionId: UUID)
     func cancelNotifications(for goalId: UUID)
     func nextScheduledMessage(for missionId: UUID) async -> String?
@@ -105,6 +106,36 @@ actor NagService: NagProviding {
         
         print("📬 Scheduled \(capped.count) notifications for '\(mission.title)' (\(mission.agent.displayName))")
         return capped.count
+    }
+    
+    // MARK: - Reaction Push
+    
+    /// Fires the agent's "mission accepted" reaction as an immediate local push.
+    /// Scheduled with a 5s delay so the user sees it if they leave the app.
+    func scheduleReactionPush(for mission: Mission, reaction: String) {
+        let center = UNUserNotificationCenter.current()
+        
+        let content = UNMutableNotificationContent()
+        content.title = "\(mission.agent.emoji) \(mission.agent.displayName)"
+        content.body = reaction
+        content.sound = .default
+        content.categoryIdentifier = "YAP_REMINDER"
+        content.userInfo = [
+            "goalId": mission.id.uuidString,
+            "level": 0
+        ]
+        
+        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 5, repeats: false)
+        let identifier = "yap-reaction-\(mission.id.uuidString)"
+        let request = UNNotificationRequest(identifier: identifier, content: content, trigger: trigger)
+        
+        center.add(request) { error in
+            if let error {
+                print("⚠️ Failed to schedule reaction push: \(error.localizedDescription)")
+            } else {
+                print("📬 Reaction push scheduled for '\(mission.title)' (\(mission.agent.displayName))")
+            }
+        }
     }
     
     // MARK: - Complete / Cancel

@@ -32,12 +32,20 @@ final class CopyService: CopyProviding {
     /// Fast call — only generates the agent's reaction (~2s).
     func generateReaction(for mission: Mission) async -> String? {
         do {
-            let body: [String: Any] = [
+            var body: [String: Any] = [
                 "goal": mission.title,
                 "tone": mission.agent.displayName,
                 "toneDescription": mission.agent.description,
                 "language": userLanguage
             ]
+            
+            // Special Agents get memory — past missions with this agent
+            if mission.agent.isSpecialAgent {
+                let memory = await loadAgentMemory(agent: mission.agent)
+                if !memory.isEmpty {
+                    body["agentMemory"] = memory
+                }
+            }
             let response: EdgeReactionResponse = try await api.edgeFunction(
                 name: "generate-reaction",
                 body: .json(body),
@@ -93,8 +101,14 @@ final class CopyService: CopyProviding {
     
     private func requestBody(for mission: Mission) async -> [String: Any] {
         let minutesUntilDeadline = max(0, Int(mission.deadline.timeIntervalSinceNow / 60))
+        // First push at ~20 min — reaction covers the immediate moment at mission start.
+        // For short deadlines: cap at 1/5th of available time (min 5 min).
+        let firstPushOffset = minutesUntilDeadline > 0
+            ? min(20, max(5, minutesUntilDeadline / 5))
+            : 20
         let schedule = EscalationLevel.buildSchedule(
             profile: mission.agent.escalationProfile,
+            startOffsetMinutes: firstPushOffset,
             availableMinutes: minutesUntilDeadline
         )
         let count = min(schedule.count, 24)

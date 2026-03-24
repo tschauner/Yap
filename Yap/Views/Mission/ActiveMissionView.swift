@@ -27,8 +27,15 @@ private let isDebug = false
             return mission.agent.completionMessage
         } else if mission.isFailed {
             return mission.agent.giveUpRoast
+        } else if let nag = viewModel.currentNagMessage {
+            // Once push messages start coming in, show the latest one
+            return nag
+        } else if let reaction = viewModel.agentReaction {
+            // After mission start, show the agent's reaction
+            return reaction
         } else {
-            return viewModel.currentNagMessage ?? mission.agent.pitch
+            // Default: agent pitch
+            return mission.agent.pitch
         }
     }
 
@@ -77,12 +84,12 @@ private let isDebug = false
             if viewModel.missionReady && !mission.isFinished {
                 Text(L10n.Mission.giveUp)
                     .font(.system(size: 17, weight: .medium))
-                    .frame(maxWidth: .infinity)
-                    .frame(height: 50)
                     .foregroundStyle(.red)
                     .button {
                         viewModel.showGiveApAlert = true
                     }
+                .padding(.bottom, 25)
+                
             } else {
                 Spacer()
                     .frame(height: 50)

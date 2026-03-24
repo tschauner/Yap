@@ -32,7 +32,7 @@ final class MissionViewModel: ObservableObject {
     @Published var showAgents = true
     @Published var showAllAgents = false
     @Published var missionIsCompleting = false
-    @Published var selectedDeadline: Date = Calendar.current.date(bySettingHour: 23, minute: 59, second: 0, of: Date()) ?? Date()
+    @Published var selectedDeadline: Date = .nextSixPM
     @AppStorage("favorite_agent") var favoriteAgentRaw: String = ""
     @AppStorage("dismissedAgents") var dismissedAgentsRaw: String = ""
     
@@ -177,6 +177,10 @@ final class MissionViewModel: ObservableObject {
             // Only show as active if not failed (expired or given up)
             missionReady = true
             phase = .activeMission(active)
+            // Restore cached reaction so the quote doesn't reset to pitch
+            if agentReaction == nil {
+                agentReaction = useCases.loadReaction.execute(active.id)
+            }
             await loadNextNagMessage(for: active.id)
         } else {
             phase = .selection
@@ -234,6 +238,15 @@ final class MissionViewModel: ObservableObject {
             phase = .activeMission(mission)
         }
         
+        // Step 2b: Fire reaction immediately (fast ~2s call) — shown during loading screen
+        Task { [weak self] in
+            if let reaction = await self?.useCases.generateReaction.execute(mission) {
+                await MainActor.run {
+                    self?.agentReaction = reaction
+                }
+            }
+        }
+        
         // Step 3: Short delay for the loading feel, then reveal stats
         try? await Task.sleep(for: .seconds(3))
         withAnimation(.easeInOut(duration: 0.4)) {
@@ -243,6 +256,7 @@ final class MissionViewModel: ObservableObject {
         await refreshMissionHistory()
         
         // Fire-and-forget: Generate full notification copy in background
+        // First push is scheduled at +25 min (see CopyService.requestBody)
         if ProAccess.canUseAICopy {
             Task { [weak self] in
                 await self?.useCases.generateCopy.execute(mission)
