@@ -31,7 +31,7 @@ struct OnboardingNotificationsView: View {
                 }
             
                 Subline(text: notificationsEnabled ? "\(selectedAgent?.displayName ?? L10n.Onboarding.notificationsAgentFallback) \(L10n.Onboarding.notificationsReady)" : L10n.Onboarding.notificationsDisabledSubline)
-                    .padding(.horizontal, .horizontal)
+                    .padding(.horizontal, 30)
                     .padding(.top, 15)
             }
             

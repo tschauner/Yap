@@ -46,10 +46,26 @@ struct MissionContentView: View {
                         Text(mission.durationFormatted)
                             .foregroundStyle(mission.isFailed ? .red : .secondary)
                     } else {
-                        Text(mission.deadline, style: .relative)
-                            .foregroundStyle(.secondary)
-                        Text(L10n.Mission.left)
-                            .foregroundStyle(.secondary)
+                        HStack(spacing: 5) {
+                            Text(mission.deadline, style: .relative)
+                                .foregroundStyle(.secondary)
+                            Text(L10n.Mission.left)
+                                .foregroundStyle(.secondary)
+                        }
+                        
+                        Spacer()
+                        
+                        Text("+ 24h")
+                            .font(.system(size: 14, weight: .medium))
+                            .padding(.vertical, 5)
+                            .padding(.horizontal, 10)
+                            .background(.quinary)
+                            .clipShape(Capsule())
+                            .button {
+                                Task {
+                                    await viewModel.extend(mission)
+                                }
+                            }
                     }
                 }
             }

@@ -8,22 +8,30 @@
 import SwiftUI
 
 struct OnboardingStartView: View {
+    @State var onAppear = false
+    
     var body: some View {
         VStack(spacing: 32) {
             Image("grid")
                 .resizable()
                 .aspectRatio(contentMode: .fit)
                 .ignoresSafeArea()
-                
-            Image("quote")
-                .resizable()
-                .aspectRatio(contentMode: .fit)
-                .frame(height: 50)
+            
+            HStack(spacing: 1) {
+                Image("single_quote")
+                    .resizable()
+                    .aspectRatio(contentMode: .fit)
+                    .frame(height: 50)
+                    .offset(y: onAppear ? 0 : -30)
+                Image("single_quote")
+                    .resizable()
+                    .aspectRatio(contentMode: .fit)
+                    .frame(height: 50)
+                    .offset(y: onAppear ? 0 : 30)
+            }
             
             VStack(spacing: 15) {
-                Text(L10n.Onboarding.headline)
-                    .font(.system(size: 28, weight: .heavy, design: .rounded))
-                    .multilineTextAlignment(.center)
+                Headline(text: L10n.Onboarding.headline)
                 
                 Text(L10n.Onboarding.subline)
                     .multilineTextAlignment(.center)
@@ -35,6 +43,14 @@ struct OnboardingStartView: View {
             }
             .padding(.horizontal, 50)
             .padding(.top, 10)
+        }
+        .onAppear {
+            withAnimation(.bouncy(extraBounce: 0.15)) {
+                onAppear = true
+            }
+        }
+        .onDisappear {
+            onAppear = false
         }
     }
 }

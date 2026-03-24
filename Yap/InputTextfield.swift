@@ -138,10 +138,7 @@ struct DeadlinePickerSheet: View {
     
     var body: some View {
         NavigationStack {
-            VStack(spacing: 20) {
-                Text(L10n.Input.deadlinePickerTitle)
-                    .font(.system(size: 20, weight: .bold))
-                
+            VStack(spacing: 0) {
                 DatePicker(
                     "",
                     selection: $deadline,
@@ -150,11 +147,9 @@ struct DeadlinePickerSheet: View {
                 )
                 .datePickerStyle(.wheel)
                 .labelsHidden()
-                
-                Spacer()
             }
-            .padding()
             .navigationBarTitleDisplayMode(.inline)
+            .navigationTitle(L10n.Input.deadlinePickerTitle)
             .toolbar {
                 ToolbarItem(placement: .confirmationAction) {
                     Button(L10n.Common.done) {
@@ -162,7 +157,12 @@ struct DeadlinePickerSheet: View {
                     }
                 }
             }
+            .presentationBackground(.black.opacity(0.6))
         }
-        .presentationDetents([.medium])
+        .presentationDetents([.height(320)])
     }
+}
+
+#Preview {
+    DeadlinePickerSheet(deadline: .constant(.now))
 }

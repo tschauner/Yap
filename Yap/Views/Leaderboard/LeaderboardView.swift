@@ -78,13 +78,7 @@ struct LeaderboardView: View {
             VStack(spacing: 20) {
                 ForEach(Array(viewModel.globalLeaderboard.enumerated()), id: \.element.id) { index, stats in
                     if let agent = stats.resolvedAgent {
-                        NavigationLink {
-                            AgentDetailView(agent: agent)
-                                .environmentObject(viewModel)
-                        } label: {
-                            globalRow(index: index, stats: stats)
-                        }
-                        .buttonStyle(.plain)
+                        globalRow(index: index, stats: stats)
                     } else {
                         globalRow(index: index, stats: stats)
                     }
@@ -130,6 +124,7 @@ struct LeaderboardView: View {
         HStack(spacing: 0) {
             Text("\(index + 1)")
                 .font(.system(size: 18, weight: .black))
+                .frame(width: 25, alignment: .center)
                 .padding(.trailing, 20)
             AgentCircle(agent: stats.agent)
                 .padding(.trailing, 10)
@@ -162,6 +157,7 @@ struct LeaderboardView: View {
         HStack(spacing: 0) {
             Text("\(index + 1)")
                 .font(.system(size: 18, weight: .black))
+                .frame(width: 25, alignment: .center)
                 .padding(.trailing, 20)
             
             AgentCircle(agent: stats.resolvedAgent ?? .mom)

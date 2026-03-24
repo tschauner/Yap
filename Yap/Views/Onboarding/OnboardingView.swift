@@ -82,34 +82,35 @@ struct OnboardingView: View {
             
             // Bottom
             .safeAreaInset(edge: .bottom) {
-                if currentPage == .paywall {
-                    // Paywall CTA
-                    VStack(spacing: 20) {
-                        paywallButton
-                        
-                        Button(L10n.Onboarding.maybeLater) {
-                            completedOnboarding = true
+                VStack {
+                    if currentPage == .paywall {
+                        // Paywall CTA
+                        VStack(spacing: 15) {
+                            paywallButton
+                            
+                            Button(L10n.Onboarding.maybeLater) {
+                                completedOnboarding = true
+                            }
+                            .font(.system(size: 14, weight: .medium))
+                            .foregroundStyle(.secondary)
                         }
-                        .font(.system(size: 14, weight: .medium))
-                        .foregroundStyle(.secondary)
+                    } else {
+                        Text(buttonTitle)
+                            .font(.system(size: 17, weight: .semibold))
+                            .foregroundStyle(.white)
+                            .frame(height: 60)
+                            .padding(.horizontal, 40)
+                            .background(Color.blue)
+                            .clipShape(Capsule())
+                            .button {
+                                handleNext()
+                            }
+                            .disabled(buttonDisabled)
+                            .opacity(buttonDisabled ? 0 : 1)
                     }
-                    .padding(.top, 5)
-                    .padding(.bottom, 10)
-                } else {
-                    Text(buttonTitle)
-                        .font(.system(size: 17, weight: .semibold))
-                        .foregroundStyle(.white)
-                        .frame(height: 60)
-                        .padding(.horizontal, 40)
-                        .background(Color.blue)
-                        .clipShape(Capsule())
-                        .button {
-                            handleNext()
-                        }
-                        .disabled(buttonDisabled)
-                        .opacity(buttonDisabled ? 0 : 1)
-                        .padding(.bottom, 40)
                 }
+                .frame(height: 90, alignment: .top)
+                .padding(.top, 5)
             }
         }
     }
@@ -160,7 +161,7 @@ struct OnboardingView: View {
         }
         .foregroundStyle(.white)
         .frame(maxWidth: .infinity)
-        .frame(height: 56)
+        .frame(height: 60)
         .background(Color.blue)
         .clipShape(RoundedRectangle(cornerRadius: 14))
         .padding(.horizontal, 24)
