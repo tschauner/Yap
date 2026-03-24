@@ -15,7 +15,7 @@
 
 // ── Onboarding ──────────────────────────────────────────────
 "onboarding_start_headline" = "Die Motivations-App, die nicht die Klappe hält.";
-"onboarding_start_subline" = "Wähl einen Agenten. Starte eine Mission. Lass dich voll-yappen, bis du fertig ist.";
+"onboarding_start_subline" = "Wähl einen Agenten. Starte eine Mission.\nLass dich voll-yappen, bis du fertig bist.";
 "onboarding_agents_headline" = "Wer soll dich yappen?";
 "onboarding_agents_subline" = "Jeder Agent hat seinen eigenen Style.\nTipp einen an und hör den Pitch.";
 "onboarding_deadline_headline" = "Am Anfang sind sie nett.\nDas bleibt nicht so.";
@@ -26,7 +26,7 @@
 "onboarding_notifications_disabled" = "Ich kann dich nicht anschreien, wenn du mich stumm schaltest.";
 "onboarding_notifications_ready" = "ist bereit. Zeit für deine erste Mission.";
 "onboarding_notifications_agent_fallback" = "Dein Agent";
-"onboarding_notifications_disabled_subline" = "Erlaube Mitteilungen, damit dein Agent dich erreicht.";
+"onboarding_notifications_disabled_subline" = "Erlaube Mitteilungen, damit dein Agent dich erreichen kann.";
 "onboarding_button_lets_go" = "Los geht's";
 "onboarding_button_allow_notifications" = "Mitteilungen erlauben";
 "onboarding_button_next" = "Weiter";
@@ -36,7 +36,7 @@
 "onboarding_paywall_go_pro" = "Go Pro";
 
 // ── Mission ─────────────────────────────────────────────────
-"mission_hold_to_complete" = "Halten zum Abschließen";
+"mission_hold_to_complete" = "Gedrückt halten";
 "mission_give_up" = "Aufgeben";
 "mission_set_another" = "Neue Mission starten";
 "mission_selection_headline" = "Was schiebst du auf?\nWähl einen Agenten.";
@@ -55,11 +55,11 @@
 
 // ── Agents ──────────────────────────────────────────────────
 "agents_title" = "Agents";
-"agents_headline" = "Willkommen in der Agentur";
+"agents_headline" = "Triff deine Agents";
 "agents_subline" = "Jeder Agent hat seinen eigenen Style. Tipp einen an und hör den Pitch.";
-"agents_special_description" = "Sie erinnern sich an vergangene Missionen.\nMit Pro freigeschaltet.";
-"agents_deploy_agent" = "Agent aktivieren";
-"agents_dismiss_agent" = "Agent entfernen";
+"agents_special_description" = "Sie merken sich deine Missionen.\nMit Pro freigeschaltet.";
+"agents_deploy_agent" = "Agenten einsetzen";
+"agents_dismiss_agent" = "Agenten entlassen";
 "agents_remove_favorite" = "Favorit entfernen";
 "agents_set_favorite" = "Als Favorit setzen";
 
@@ -104,7 +104,7 @@
 // ── Custom Roast ────────────────────────────────────────────
 "custom_roast_title" = "Custom Roast";
 "custom_roast_placeholder" = "z.B. Ich prokrastiniere, war seit 3 Monaten nicht im Gym und esse Cornflakes zum Abendessen";
-"custom_roast_section_header" = "Erzähl deinem Agent von dir";
+"custom_roast_section_header" = "Erzähl deinem Agenten von dir";
 "custom_roast_section_footer" = "Deine Agents nutzen das für persönlichere Roasts. Je genauer, desto härter die Burns.";
 "custom_roast_clear" = "Löschen";
 
@@ -132,9 +132,9 @@
 
 // ── Paywall ─────────────────────────────────────────────────
 "paywall_pro" = "PRO";
-"paywall_headline" = "Schalte dein volles Motivations-Team frei.";
-"paywall_feature_special_agents" = "6 Special Agents mit eigenem Style";
-"paywall_feature_agent_memory" = "Sie erinnern sich an deine Missionen";
+"paywall_headline" = "Hol dir dein volles Motivations-Team.";
+"paywall_feature_special_agents" = "6 Special Agents mit eigener Persönlichkeit";
+"paywall_feature_agent_memory" = "Merken sich deine Missionen";
 "paywall_feature_unlimited_missions" = "Unbegrenzte Missionen pro Tag";
 "paywall_unlock_pro_price" = "Pro freischalten — %@";
 "paywall_one_time_purchase" = "Einmalkauf";
@@ -184,9 +184,9 @@
 
 // ── Agents: Mom ─────────────────────────────────────────────
 "agent_mom_display_name" = "Mom";
-"agent_mom_description" = "Schuldgefühle bis zur emotionalen Zerstörung";
+"agent_mom_description" = "Guilt-Trips, die eskalieren. Heftig.";
 "agent_mom_pitch" = "Du wirst das fertig machen. Weil ich dich besser erzogen hab.";
-"agent_mom_pro_pitch" = "Ich hab Schuldgefühle GRATIS geboren. Das hier ist ein Schnäppchen.";
+"agent_mom_pro_pitch" = "Schuldgefühle gab’s bei mir GRATIS. Das hier ist ein Schnäppchen.";
 "agent_mom_give_up_roast" = "Ich bin nicht sauer. Ich bin nur... nein, ich bin sauer.";
 "agent_mom_give_up_confirmation" = "Du willst aufgeben? Nach allem was ich für dich getan hab?";
 "agent_mom_completion" = "Siehst du? Hab ich doch immer gewusst. Ruf mich öfter an.";
@@ -195,18 +195,18 @@
 
 // ── Agents: Boss ────────────────────────────────────────────
 "agent_boss_display_name" = "Boss";
-"agent_boss_description" = "Corporate Passive-Aggression als Push-Nachricht";
+"agent_boss_description" = "Corporate Passive-Aggression in Benachrichtigungsform";
 "agent_boss_pitch" = "Deadlines existieren. Ich setze sie durch. Fertig.";
 "agent_boss_pro_pitch" = "Sieh das als Investment in deine Karriere. Steuerlich absetzbar, wahrscheinlich.";
 "agent_boss_give_up_roast" = "Das wird in deiner Leistungsbeurteilung stehen.";
-"agent_boss_give_up_confirmation" = "Einfach die Verantwortung abgeben? Mutiger Karriereschritt.";
+"agent_boss_give_up_confirmation" = "Einfach alles hinschmeißen? Mutiger Karriereschritt.";
 "agent_boss_completion" = "Hervorragende Arbeit. Wird im nächsten Review vermerkt.";
 "agent_boss_extend_roast" = "Ich vermerke diese Verlängerung in deiner Leistungsbeurteilung. Nur so.";
 "agent_boss_style_tag" = "Corporate";
 
 // ── Agents: Drill Sergeant ──────────────────────────────────
 "agent_drill_display_name" = "Drill Sergeant";
-"agent_drill_description" = "Voller R.-Lee-Ermey-Modus. Keine Gnade.";
+"agent_drill_description" = "Kasernenhof-Modus. Keine Gnade.";
 "agent_drill_pitch" = "Ich werde dich brechen. Und dann bist du unaufhaltbar.";
 "agent_drill_pro_pitch" = "SCHWÄCHE KOSTET MEHR, REKRUT! ZAHL GEFÄLLIGST!";
 "agent_drill_give_up_roast" = "UNEHRENHAFT. ENTLASSUNG. AUS MEINEN AUGEN.";
@@ -217,13 +217,13 @@
 
 // ── Agents: Therapist ───────────────────────────────────────
 "agent_therapist_display_name" = "Therapist";
-"agent_therapist_description" = "Validiert dich und stellt dann die harten Fragen";
-"agent_therapist_pitch" = "Wir finden die Ursache. Und dann lösen wir es.";
-"agent_therapist_pro_pitch" = "Sieh es als Self-Care. Du bist es dir wert. Oder nicht?";
-"agent_therapist_give_up_roast" = "Lass uns anschauen, warum du Dinge immer abbrichst.";
-"agent_therapist_give_up_confirmation" = "Bist du sicher, dass du das willst, oder vermeidest du nur Unbehagen?";
-"agent_therapist_completion" = "Geschafft. Wie fühlt es sich an, dein Versprechen einzuhalten?";
-"agent_therapist_extend_roast" = "Lass uns erkunden, warum du die Verlängerung brauchtest. Was vermeiden wir hier wirklich?";
+"agent_therapist_description" = "Hört dir zu — und stellt dann die unbequemen Fragen";
+"agent_therapist_pitch" = "Wir finden den Grund. Und dann lösen wir das.";
+"agent_therapist_pro_pitch" = "Sieh’s als Self-Care. Du bist es dir wert. Oder?";
+"agent_therapist_give_up_roast" = "Lass uns mal schauen, warum du immer alles hinschmeißt.";
+"agent_therapist_give_up_confirmation" = "Bist du sicher, dass du das willst — oder weichst du gerade nur aus?";
+"agent_therapist_completion" = "Geschafft. Wie fühlt es sich an, es durchgezogen zu haben?";
+"agent_therapist_extend_roast" = "Lass uns mal anschauen, warum du die Verlängerung brauchst. Was vermeidest du hier wirklich?";
 "agent_therapist_style_tag" = "Empathisch";
 
 // ── Agents: Grandma ─────────────────────────────────────────

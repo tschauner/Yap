@@ -14,7 +14,7 @@
 "legal_terms_of_use" = "Conditions d'utilisation";
 
 // ── Onboarding ──────────────────────────────────────────────
-"onboarding_start_headline" = "L'appli motivation qui ne ferme jamais sa bouche.";
+"onboarding_start_headline" = "L'appli motivation qui la ferme jamais.";
 "onboarding_start_subline" = "Choisis un agent. Lance une mission.\nFais-toi yapper jusqu'au bout.";
 "onboarding_agents_headline" = "Qui va te yapper ?";
 "onboarding_agents_subline" = "Chaque agent a sa propre personnalité.\nTouche-en un pour entendre son pitch.";
@@ -55,10 +55,10 @@
 
 // ── Agents ──────────────────────────────────────────────────
 "agents_title" = "Agents";
-"agents_headline" = "Bienvenue à l'agence";
+"agents_headline" = "Voici tes agents";
 "agents_subline" = "Chaque agent a son propre style. Touche-en un pour son pitch.";
-"agents_special_description" = "Ils se souviennent de tes missions passées.\nDébloqués avec Pro.";
-"agents_deploy_agent" = "Activer l'agent";
+"agents_special_description" = "Ils retiennent tes missions passées.\nDébloqués avec Pro.";
+"agents_deploy_agent" = "Déployer l'agent";
 "agents_dismiss_agent" = "Retirer l'agent";
 "agents_remove_favorite" = "Retirer des favoris";
 "agents_set_favorite" = "Mettre en favori";
@@ -116,7 +116,7 @@
 "help_request_feature" = "Proposer une feature";
 "help_section_faq" = "FAQ";
 "help_faq_what_is_yap_q" = "C'est quoi Yap ?";
-"help_faq_what_is_yap_a" = "Yap utilise des agents IA avec des personnalités uniques pour te motiver. Choisis un agent, décris ta mission, et fais-toi bousculer jusqu'au bout.";
+"help_faq_what_is_yap_a" = "Yap utilise des agents IA avec leur propre personnalité pour te motiver. Choisis un agent, décris ta mission, et fais-toi harceler jusqu'au bout.";
 "help_faq_free_plan_q" = "Comment marche le plan gratuit ?";
 "help_faq_free_plan_a" = "Tu as Mom comme agent gratuit avec 1 mission par jour. Les messages IA et le classement sont inclus pour tout le monde.";
 "help_faq_pro_unlock_q" = "Que débloque Pro ?";
@@ -132,9 +132,9 @@
 
 // ── Paywall ─────────────────────────────────────────────────
 "paywall_pro" = "PRO";
-"paywall_headline" = "Débloque toute ton équipe de motivation.";
+"paywall_headline" = "Débloque ton squad de motivation au complet.";
 "paywall_feature_special_agents" = "6 Special Agents aux personnalités uniques";
-"paywall_feature_agent_memory" = "Ils se souviennent de tes missions";
+"paywall_feature_agent_memory" = "Ils retiennent tes missions";
 "paywall_feature_unlimited_missions" = "Missions illimitées par jour";
 "paywall_unlock_pro_price" = "Débloquer Pro — %@";
 "paywall_one_time_purchase" = "Achat unique";
@@ -184,7 +184,7 @@
 
 // ── Agents: Mom ─────────────────────────────────────────────
 "agent_mom_display_name" = "Mom";
-"agent_mom_description" = "Culpabilisation jusqu'à la destruction émotionnelle";
+"agent_mom_description" = "Guilt-trips qui vont beaucoup trop loin";
 "agent_mom_pitch" = "Tu vas finir. Parce que je t'ai pas élevé comme ça.";
 "agent_mom_pro_pitch" = "J'ai accouché de culpabilité GRATUITEMENT. C'est une affaire.";
 "agent_mom_give_up_roast" = "Je suis pas en colère. Je suis juste... non, je suis en colère.";
@@ -206,7 +206,7 @@
 
 // ── Agents: Drill Sergeant ──────────────────────────────────
 "agent_drill_display_name" = "Drill Sergeant";
-"agent_drill_description" = "Mode R. Lee Ermey. Aucune pitié.";
+"agent_drill_description" = "Mode caserne. Aucune pitié.";
 "agent_drill_pitch" = "Je vais te briser. Et après tu seras inarrêtable.";
 "agent_drill_pro_pitch" = "LA FAIBLESSE COÛTE PLUS CHER, LARVE ! PAYE !";
 "agent_drill_give_up_roast" = "DÉSHONORANT. RENVOYÉ. HORS DE MA VUE.";
@@ -217,12 +217,12 @@
 
 // ── Agents: Therapist ───────────────────────────────────────
 "agent_therapist_display_name" = "Therapist";
-"agent_therapist_description" = "Te valide, puis pose les vraies questions";
+"agent_therapist_description" = "T'écoute, puis pose les vraies questions";
 "agent_therapist_pitch" = "On va trouver la cause. Et on va la résoudre.";
 "agent_therapist_pro_pitch" = "Vois ça comme du self-care. Tu le mérites. Non ?";
-"agent_therapist_give_up_roast" = "Explorons pourquoi tu abandonnes toujours les choses.";
+"agent_therapist_give_up_roast" = "Explorons pourquoi tu lâches toujours l'affaire.";
 "agent_therapist_give_up_confirmation" = "Tu es sûr·e que c'est ce que tu veux, ou tu évites juste l'inconfort ?";
-"agent_therapist_completion" = "Tu l'as fait. Qu'est-ce que ça fait d'honorer ton engagement ?";
+"agent_therapist_completion" = "Tu l'as fait. Ça fait quoi d'honorer un engagement ?";
 "agent_therapist_extend_roast" = "Explorons pourquoi tu as eu besoin de cette extension. Qu'est-ce qu'on évite vraiment ?";
 "agent_therapist_style_tag" = "Empathique";
 

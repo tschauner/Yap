@@ -55,10 +55,10 @@
 
 // ── Agents ──────────────────────────────────────────────────
 "agents_title" = "Agentes";
-"agents_headline" = "Bienvenido a la agencia";
+"agents_headline" = "Conoce a tus agentes";
 "agents_subline" = "Cada agente tiene su propio estilo. Toca uno para escuchar su pitch.";
-"agents_special_description" = "Recuerdan tus misiones pasadas.\nDesbloqueados con Pro.";
-"agents_deploy_agent" = "Activar agente";
+"agents_special_description" = "Se acuerdan de tus misiones pasadas.\nDesbloqueados con Pro.";
+"agents_deploy_agent" = "Desplegar agente";
 "agents_dismiss_agent" = "Quitar agente";
 "agents_remove_favorite" = "Quitar favorito";
 "agents_set_favorite" = "Marcar favorito";
@@ -116,7 +116,7 @@
 "help_request_feature" = "Sugerir feature";
 "help_section_faq" = "FAQ";
 "help_faq_what_is_yap_q" = "¿Qué es Yap?";
-"help_faq_what_is_yap_a" = "Yap usa agentes IA con personalidades únicas para motivarte. Elige un agente, describe tu misión, y te acosarán hasta que termines.";
+"help_faq_what_is_yap_a" = "Yap usa agentes IA con personalidades únicas para motivarte. Elige un agente, describe tu misión, y te van a insistir hasta que termines.";
 "help_faq_free_plan_q" = "¿Cómo funciona el plan gratis?";
 "help_faq_free_plan_a" = "Tienes a Mom como agente gratis con 1 misión al día. Mensajes IA y el ranking están incluidos para todos.";
 "help_faq_pro_unlock_q" = "¿Qué desbloquea Pro?";
@@ -132,9 +132,9 @@
 
 // ── Paywall ─────────────────────────────────────────────────
 "paywall_pro" = "PRO";
-"paywall_headline" = "Desbloquea tu squad de motivación.";
+"paywall_headline" = "Desbloquea tu squad de motivación al completo.";
 "paywall_feature_special_agents" = "6 Special Agents con personalidades únicas";
-"paywall_feature_agent_memory" = "Recuerdan tus misiones pasadas";
+"paywall_feature_agent_memory" = "Se acuerdan de tus misiones";
 "paywall_feature_unlimited_missions" = "Misiones ilimitadas al día";
 "paywall_unlock_pro_price" = "Desbloquear Pro — %@";
 "paywall_one_time_purchase" = "Pago único";
@@ -184,7 +184,7 @@
 
 // ── Agents: Mom ─────────────────────────────────────────────
 "agent_mom_display_name" = "Mom";
-"agent_mom_description" = "Culpa que escala hasta devastación emocional";
+"agent_mom_description" = "Guilt-trips que llegan demasiado lejos";
 "agent_mom_pitch" = "Lo vas a terminar. Porque te eduqué mejor que esto.";
 "agent_mom_pro_pitch" = "Parí culpabilidad GRATIS. Esto es una ganga.";
 "agent_mom_give_up_roast" = "No estoy enfadada. Solo estoy... no, sí estoy enfadada.";
@@ -206,7 +206,7 @@
 
 // ── Agents: Drill Sergeant ──────────────────────────────────
 "agent_drill_display_name" = "Drill Sergeant";
-"agent_drill_description" = "Modo R. Lee Ermey. Sin piedad.";
+"agent_drill_description" = "Modo cuartel. Sin piedad.";
 "agent_drill_pitch" = "Te voy a partir. Y después serás imparable.";
 "agent_drill_pro_pitch" = "¡LA DEBILIDAD CUESTA MÁS, GUSANO! ¡PAGA!";
 "agent_drill_give_up_roast" = "DESHONROSO. BAJA. FUERA DE MI VISTA.";
@@ -217,12 +217,12 @@
 
 // ── Agents: Therapist ───────────────────────────────────────
 "agent_therapist_display_name" = "Therapist";
-"agent_therapist_description" = "Te valida y luego hace las preguntas difíciles";
+"agent_therapist_description" = "Te escucha y luego hace las preguntas incómodas";
 "agent_therapist_pitch" = "Encontraremos la causa. Y la resolveremos.";
 "agent_therapist_pro_pitch" = "Piénsalo como autocuidado. Lo mereces. ¿No?";
-"agent_therapist_give_up_roast" = "Exploremos por qué siempre abandonas las cosas.";
+"agent_therapist_give_up_roast" = "Veamos por qué siempre terminas dejando las cosas.";
 "agent_therapist_give_up_confirmation" = "¿Estás seguro de que es lo que quieres, o solo evitas la incomodidad?";
-"agent_therapist_completion" = "Lo hiciste. ¿Cómo se siente cumplir tu compromiso?";
+"agent_therapist_completion" = "Lo hiciste. ¿Cómo se siente haberlo sacado adelante?";
 "agent_therapist_extend_roast" = "Exploremos por qué necesitaste esta extensión. ¿Qué estamos evitando realmente?";
 "agent_therapist_style_tag" = "Empático";
 

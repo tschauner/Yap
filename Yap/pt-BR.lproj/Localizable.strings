@@ -15,7 +15,7 @@
 
 // ── Onboarding ──────────────────────────────────────────────
 "onboarding_start_headline" = "O app de motivação que não cala a boca.";
-"onboarding_start_subline" = "Escolha um agente. Crie uma missão.\nVai levar yap até terminar.";
+"onboarding_start_subline" = "Escolha um agente. Crie uma missão.\nSe prepara pra levar yap até acabar.";
 "onboarding_agents_headline" = "Quem vai te yappar?";
 "onboarding_agents_subline" = "Cada agente tem sua própria personalidade.\nToque em um pra ouvir o pitch.";
 "onboarding_deadline_headline" = "No começo eles são legais.\nNão dura muito.";
@@ -55,10 +55,10 @@
 
 // ── Agents ──────────────────────────────────────────────────
 "agents_title" = "Agentes";
-"agents_headline" = "Bem-vindo à agência";
+"agents_headline" = "Conheça seus agentes";
 "agents_subline" = "Cada agente tem seu próprio estilo. Toque em um pra ouvir o pitch.";
 "agents_special_description" = "Eles lembram das suas missões passadas.\nLiberados com Pro.";
-"agents_deploy_agent" = "Ativar agente";
+"agents_deploy_agent" = "Escalar agente";
 "agents_dismiss_agent" = "Remover agente";
 "agents_remove_favorite" = "Remover favorito";
 "agents_set_favorite" = "Favoritar";
@@ -116,7 +116,7 @@
 "help_request_feature" = "Sugerir feature";
 "help_section_faq" = "FAQ";
 "help_faq_what_is_yap_q" = "O que é o Yap?";
-"help_faq_what_is_yap_a" = "O Yap usa agentes IA com personalidades próprias pra te motivar. Escolha um agente, descreva sua missão e leve na cabeça até terminar.";
+"help_faq_what_is_yap_a" = "O Yap usa agentes IA com personalidades próprias pra te motivar. Escolha um agente, descreva sua missão e se prepare pra levar na cabeça até terminar.";
 "help_faq_free_plan_q" = "Como funciona o plano grátis?";
 "help_faq_free_plan_a" = "Você tem a Mom como agente grátis com 1 missão por dia. Mensagens IA e ranking inclusos pra todo mundo.";
 "help_faq_pro_unlock_q" = "O que o Pro libera?";
@@ -184,7 +184,7 @@
 
 // ── Agents: Mom ─────────────────────────────────────────────
 "agent_mom_display_name" = "Mom";
-"agent_mom_description" = "Culpa que escala até devastação emocional";
+"agent_mom_description" = "Guilt-trip que vai longe demais";
 "agent_mom_pitch" = "Você vai terminar. Porque eu te criei melhor que isso.";
 "agent_mom_pro_pitch" = "Eu dei à luz culpa DE GRAÇA. Isso aqui é pechincha.";
 "agent_mom_give_up_roast" = "Não tô brava. Tô só... não, tô brava sim.";
@@ -206,7 +206,7 @@
 
 // ── Agents: Drill Sergeant ──────────────────────────────────
 "agent_drill_display_name" = "Drill Sergeant";
-"agent_drill_description" = "Modo R. Lee Ermey. Sem piedade.";
+"agent_drill_description" = "Modo quartel. Sem piedade.";
 "agent_drill_pitch" = "Vou te quebrar. E depois você será imparável.";
 "agent_drill_pro_pitch" = "A FRAQUEZA CUSTA MAIS, VERME! PAGA!";
 "agent_drill_give_up_roast" = "DESONROSO. DISPENSADO. SAIA DA MINHA FRENTE.";
@@ -217,12 +217,12 @@
 
 // ── Agents: Therapist ───────────────────────────────────────
 "agent_therapist_display_name" = "Therapist";
-"agent_therapist_description" = "Te valida e depois faz as perguntas difíceis";
+"agent_therapist_description" = "Te ouve e depois faz as perguntas que doem";
 "agent_therapist_pitch" = "Vamos achar a causa. E depois resolver.";
 "agent_therapist_pro_pitch" = "Pense nisso como autocuidado. Você merece. Ou não?";
-"agent_therapist_give_up_roast" = "Vamos entender por que você sempre abandona as coisas.";
+"agent_therapist_give_up_roast" = "Vamos entender por que você sempre larga as coisas no meio.";
 "agent_therapist_give_up_confirmation" = "Tem certeza que é isso que quer, ou tá só evitando desconforto?";
-"agent_therapist_completion" = "Você conseguiu. Como é cumprir seu compromisso?";
+"agent_therapist_completion" = "Você conseguiu. Como é ter ido até o fim?";
 "agent_therapist_extend_roast" = "Vamos explorar por que você precisou dessa extensão. O que estamos realmente evitando?";
 "agent_therapist_style_tag" = "Empático";
 
