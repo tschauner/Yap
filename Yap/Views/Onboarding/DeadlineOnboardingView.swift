@@ -20,6 +20,7 @@ struct DeadlineOnboardingView: View {
                     )
                 
                 Subline(text: L10n.Onboarding.deadlineSubline)
+                    .padding(.horizontal)
                     .padding(.top, 10)
             }
             .padding(.horizontal, .horizontal)

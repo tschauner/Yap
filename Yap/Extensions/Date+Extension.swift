@@ -46,6 +46,17 @@ extension Date {
         return Calendar.current.date(byAdding: .day, value: -1, to: Date())!
     }
     
+    /// Next upcoming 18:00 – today if before 18:00, otherwise tomorrow.
+    static var nextSixPM: Date {
+        let cal = Calendar.current
+        let now = Date()
+        let today18 = cal.date(bySettingHour: 18, minute: 0, second: 0, of: now) ?? now
+        if now >= today18 {
+            return cal.date(byAdding: .day, value: 1, to: today18) ?? today18
+        }
+        return today18
+    }
+    
     // Gibt das Datum von heute zurück (normalisiert auf Mitternacht)
     static var today: Date {
         let calendar = Calendar.current
