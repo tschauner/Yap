@@ -24,7 +24,7 @@ struct HelpView: View {
                             .foregroundStyle(.tertiary)
                     }
                     .button {
-                        openURL(URL(string: "https://discord.gg/yap")!)
+                        openURL(URL(string: "https://discord.gg/eK6hUZKs")!)
                     }
                     
                     HStack(spacing: 12) {
@@ -39,7 +39,7 @@ struct HelpView: View {
                             .foregroundStyle(.tertiary)
                     }
                     .button {
-                        openURL(URL(string: "https://userjot.com/")!)
+                        openURL(URL(string: "https://yapapp.userjot.com/")!)
                     }
                 } header: {
                     Text(L10n.Help.sectionCommunity)
