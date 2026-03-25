@@ -93,13 +93,14 @@
 "settings_review_yap" = "Avaliar Yap";
 "settings_share_yap" = "Partilhar Yap";
 "settings_restore_purchases" = "Restaurar compras";
+"settings_upgrade" = "Subscrever";
 "settings_account_synced" = "Ligado ao Apple ID";
 "settings_unlink_account" = "Desassociar conta";
 "settings_unlink_alert_title" = "Desassociar conta?";
 "settings_unlink_alert_message" = "Os teus dados ficam neste dispositivo mas deixam de sincronizar.";
 "settings_unlink_action" = "Desassociar";
 "settings_sign_in_description" = "Inicia sessão com Apple para sincronizar os teus dados.";
-"settings_not_linked_footer" = "Os teus dados ficam neste dispositivo até os associares.";
+"settings_not_linked_footer" = "Inicia sessão para manter os teus dados seguros em todos os dispositivos.";
 
 // ── Custom Roast ────────────────────────────────────────────
 "custom_roast_title" = "Custom Roast";
@@ -124,7 +125,7 @@
 "help_faq_miss_deadline_q" = "O que acontece se falhar a deadline?";
 "help_faq_miss_deadline_a" = "A missão conta como falhada e afeta as tuas stats. O teu agente também não vai gostar.";
 "help_faq_extend_deadline_q" = "Posso estender uma deadline?";
-"help_faq_extend_deadline_a" = "Utilizadores Pro podem estender uma deadline uma vez por missão, 24 horas.";
+"help_faq_extend_deadline_a" = "Utilizadores Pro podem estender uma deadline uma vez por missão.";
 "help_faq_night_notifications_q" = "Vou receber notificações à noite?";
 "help_faq_night_notifications_a" = "Sim. O teu agente não dorme. Se a missão estiver ativa, as mensagens continuam. É esse o objetivo.";
 "help_faq_agent_differences_q" = "Qual a diferença entre os agentes?";
@@ -152,7 +153,13 @@
 "comparison_agent_memory" = "Agent Memory";
 "comparison_custom_roast" = "Custom Roast";
 "comparison_custom_deadline" = "Deadline personalizada";
-"comparison_extend_24h" = "+24h estender";
+"comparison_extend" = "Estender deadline";
+
+// ── Mission Extend Alert ────────────────────────────────────
+"mission_extend_title" = "Estender deadline?";
+"mission_extend_message" = "Quanto tempo extra precisas?";
+"mission_extend_2h" = "+2 horas";
+"mission_extend_24h" = "Amanhã";
 
 // ── Menu ────────────────────────────────────────────────────
 "menu_settings" = "Definições";

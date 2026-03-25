@@ -93,13 +93,14 @@
 "settings_review_yap" = "Avaliar Yap";
 "settings_share_yap" = "Compartilhar Yap";
 "settings_restore_purchases" = "Restaurar compras";
+"settings_upgrade" = "Assinar";
 "settings_account_synced" = "Vinculado ao Apple ID";
 "settings_unlink_account" = "Desvincular conta";
 "settings_unlink_alert_title" = "Desvincular conta?";
 "settings_unlink_alert_message" = "Seus dados ficam neste dispositivo mas não vão mais sincronizar.";
 "settings_unlink_action" = "Desvincular";
 "settings_sign_in_description" = "Entre com Apple pra sincronizar seus dados.";
-"settings_not_linked_footer" = "Seus dados ficam neste dispositivo até você vincular.";
+"settings_not_linked_footer" = "Entre pra manter seus dados seguros em todos os dispositivos.";
 
 // ── Custom Roast ────────────────────────────────────────────
 "custom_roast_title" = "Custom Roast";
@@ -124,7 +125,7 @@
 "help_faq_miss_deadline_q" = "O que acontece se eu perder a deadline?";
 "help_faq_miss_deadline_a" = "A missão conta como falha e afeta suas stats. Seu agente também não vai curtir.";
 "help_faq_extend_deadline_q" = "Posso estender uma deadline?";
-"help_faq_extend_deadline_a" = "Usuários Pro podem estender uma deadline uma vez por missão, 24 horas.";
+"help_faq_extend_deadline_a" = "Usuários Pro podem estender uma deadline uma vez por missão.";
 "help_faq_night_notifications_q" = "Vou receber notificações de noite?";
 "help_faq_night_notifications_a" = "Sim. Seu agente não dorme. Se sua missão tá ativa, as mensagens seguem vindo. É esse o ponto.";
 "help_faq_agent_differences_q" = "Qual a diferença entre os agentes?";
@@ -152,7 +153,13 @@
 "comparison_agent_memory" = "Agent Memory";
 "comparison_custom_roast" = "Custom Roast";
 "comparison_custom_deadline" = "Deadline personalizada";
-"comparison_extend_24h" = "+24h estender";
+"comparison_extend" = "Estender deadline";
+
+// ── Mission Extend Alert ────────────────────────────────────
+"mission_extend_title" = "Estender deadline?";
+"mission_extend_message" = "Quanto tempo extra você precisa?";
+"mission_extend_2h" = "+2 horas";
+"mission_extend_24h" = "Amanhã";
 
 // ── Menu ────────────────────────────────────────────────────
 "menu_settings" = "Ajustes";

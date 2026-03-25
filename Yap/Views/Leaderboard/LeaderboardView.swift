@@ -133,7 +133,7 @@ struct LeaderboardView: View {
                 Text(stats.agent.displayName)
                     .font(.system(size: 17, weight: .semibold))
                 Text(stats.record)
-                    .font(.system(size: 14))
+                    .font(.system(size: 13))
                     .fontWeight(.heavy)
                     .fontDesign(.rounded)
                     .foregroundStyle(.secondary)

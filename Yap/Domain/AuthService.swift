@@ -152,10 +152,4 @@ private struct LinkResult: Decodable {
     let status: String
     let deviceId: String
     let migrated: Bool
-    
-    enum CodingKeys: String, CodingKey {
-        case status
-        case deviceId = "device_id"
-        case migrated
-    }
 }

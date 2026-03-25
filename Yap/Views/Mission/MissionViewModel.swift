@@ -24,10 +24,13 @@ final class MissionViewModel: ObservableObject {
     @Published var showPaywall: Bool = false
     @Published var selectedMission: MissionItem?
     @Published var showGiveApAlert = false
+    @Published var showExtendAlert = false
     @Published var isFocused = false
     @Published var agentReaction: String? = nil
     @Published var missionReady = false
     @Published var currentNagMessage: String? = nil
+    
+    private var pushObserver: AnyCancellable?
     @Published var pickerState: PickerState = .selection
     @Published var showAgents = true
     @Published var showAllAgents = false
@@ -181,7 +184,9 @@ final class MissionViewModel: ObservableObject {
             if agentReaction == nil {
                 agentReaction = useCases.loadReaction.execute(active.id)
             }
-            await loadNextNagMessage(for: active.id)
+            // Load locally saved push body (only shows messages that actually arrived)
+            loadSavedPushBody(for: active.id)
+            observePushArrivals(for: active.id)
         } else {
             phase = .selection
             // Reset badge when no active mission (expired/failed)
@@ -256,7 +261,7 @@ final class MissionViewModel: ObservableObject {
         await refreshMissionHistory()
         
         // Fire-and-forget: Generate full notification copy in background
-        // First push is scheduled at +25 min (see CopyService.requestBody)
+        // First push is scheduled at +5 min (see CopyService.requestBody)
         if ProAccess.canUseAICopy {
             Task { [weak self] in
                 await self?.useCases.generateCopy.execute(mission)
@@ -267,7 +272,7 @@ final class MissionViewModel: ObservableObject {
                         self?.phase = .activeMission(updated)
                         self?.missionReady = true
                     }
-                    await self?.loadNextNagMessage(for: updated.id)
+                    // Push body will arrive via foreground observer — no DB fetch needed
                 }
             }
         }
@@ -308,15 +313,15 @@ final class MissionViewModel: ObservableObject {
         await refreshMissionHistory()
     }
     
-    /// 24h Verlängerung (nur 1× pro Mission, Pro-only).
+    /// Extension (nur 1× pro Mission, Pro-only). +2h or +24h.
     @MainActor
-    func extend(_ mission: Mission) async {
+    func extend(_ mission: Mission, hours: Int) async {
         guard ProAccess.canExtend else {
             showPaywall = true
             return
         }
         guard !mission.extended else { return }
-        guard let updated = await useCases.extendMission.execute(mission.id) else { return }
+        guard let updated = await useCases.extendMission.execute(mission.id, hours: hours) else { return }
         phase = .activeMission(updated)
         
         // Delete old cached copy and generate fresh notifications for the extension
@@ -364,9 +369,25 @@ final class MissionViewModel: ObservableObject {
     
     // MARK: - Nag Message
     
+    /// Load the last push body that was saved locally when a notification arrived.
     @MainActor
-    func loadNextNagMessage(for missionId: UUID) async {
-        currentNagMessage = await DeviceService.shared.fetchNextPendingMessage(goalId: missionId)
+    func loadSavedPushBody(for missionId: UUID) {
+        let key = "lastPushBody_\(missionId.uuidString)"
+        currentNagMessage = UserDefaults.standard.string(forKey: key)
+    }
+    
+    /// Observe foreground push arrivals so the UI updates immediately.
+    private func observePushArrivals(for missionId: UUID) {
+        pushObserver?.cancel()
+        pushObserver = NotificationCenter.default
+            .publisher(for: .yapPushReceived)
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] notification in
+                guard let goalId = notification.userInfo?["goalId"] as? String,
+                      goalId == missionId.uuidString,
+                      let body = notification.userInfo?["body"] as? String else { return }
+                self?.currentNagMessage = body
+            }
     }
     
     @MainActor

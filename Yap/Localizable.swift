@@ -50,6 +50,10 @@ enum L10n {
         static let holdToComplete = "mission_hold_to_complete".localized
         static let giveUp = "mission_give_up".localized
         static let setAnother = "mission_set_another".localized
+        static let extendTitle = "mission_extend_title".localized
+        static let extendMessage = "mission_extend_message".localized
+        static let extend2h = "mission_extend_2h".localized
+        static let extend24h = "mission_extend_24h".localized
         static let selectionHeadline = "mission_selection_headline".localized
         static let agentsLabel = "mission_selection_agents".localized
         static let showMore = "mission_selection_show_more".localized
@@ -114,6 +118,7 @@ enum L10n {
         static let reviewYap = "settings_review_yap".localized
         static let shareYap = "settings_share_yap".localized
         static let restorePurchases = "settings_restore_purchases".localized
+        static let upgrade = "settings_upgrade".localized
         static let accountSynced = "settings_account_synced".localized
         static let unlinkAccount = "settings_unlink_account".localized
         static let unlinkAlertTitle = "settings_unlink_alert_title".localized
@@ -181,7 +186,7 @@ enum L10n {
         static let agentMemory = "comparison_agent_memory".localized
         static let customRoast = "comparison_custom_roast".localized
         static let customDeadline = "comparison_custom_deadline".localized
-        static let extend24h = "comparison_extend_24h".localized
+        static let extend = "comparison_extend".localized
     }
     
     // MARK: - Menu

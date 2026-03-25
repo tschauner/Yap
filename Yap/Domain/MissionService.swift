@@ -18,7 +18,7 @@ protocol MissionProviding: Actor {
     func activate(_ id: UUID, agent: Agent, deadline: Date) async throws -> Mission?
     func completeMission(_ id: UUID) async throws -> Mission?
     func giveUpMission(_ id: UUID) async throws -> Mission?
-    func extendMission(_ id: UUID) async throws -> Mission?
+    func extendMission(_ id: UUID, hours: Int) async throws -> Mission?
     func updateNotificationsScheduled(_ id: UUID, count: Int) async throws
     
     // History + Stats
@@ -176,8 +176,17 @@ actor MissionService: MissionProviding {
     
     // MARK: - Extend
     
-    func extendMission(_ id: UUID) async throws -> Mission? {
-        let newDeadline = Date.now.addingTimeInterval(24 * 60 * 60)
+    func extendMission(_ id: UUID, hours: Int) async throws -> Mission? {
+        let newDeadline: Date
+        if hours <= 12 {
+            // Short extension: just add hours to now
+            newDeadline = Date.now.addingTimeInterval(Double(hours) * 3600)
+        } else {
+            // Full-day extension: tomorrow 18:00 (avoids overnight pushes)
+            let cal = Calendar.current
+            let tomorrow = cal.date(byAdding: .day, value: 1, to: Date()) ?? Date()
+            newDeadline = cal.date(bySettingHour: 18, minute: 0, second: 0, of: tomorrow) ?? tomorrow
+        }
         let updated: [Mission] = try await api.restUpdate(
             table: table,
             query: "id=eq.\(id.uuidString)",

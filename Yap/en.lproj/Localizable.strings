@@ -93,13 +93,14 @@
 "settings_review_yap" = "Review Yap";
 "settings_share_yap" = "Share Yap";
 "settings_restore_purchases" = "Restore Purchases";
+"settings_upgrade" = "Upgrade";
 "settings_account_synced" = "Synced with Apple ID";
 "settings_unlink_account" = "Unlink Account";
 "settings_unlink_alert_title" = "Unlink Account?";
 "settings_unlink_alert_message" = "Your data will stay on this device but won't sync to new devices.";
 "settings_unlink_action" = "Unlink";
 "settings_sign_in_description" = "Sign in with Apple to sync your data across devices.";
-"settings_not_linked_footer" = "Your data stays on this device until you link it.";
+"settings_not_linked_footer" = "Sign in to keep your data safe across devices.";
 
 // ── Custom Roast ────────────────────────────────────────────
 "custom_roast_title" = "Custom Roast";
@@ -124,7 +125,7 @@
 "help_faq_miss_deadline_q" = "What happens when I miss a deadline?";
 "help_faq_miss_deadline_a" = "The mission counts as failed and affects your stats. Your agent won't be happy about it either.";
 "help_faq_extend_deadline_q" = "Can I extend a deadline?";
-"help_faq_extend_deadline_a" = "Pro users can extend a deadline once per mission by 24 hours.";
+"help_faq_extend_deadline_a" = "Pro users can extend a deadline once per mission.";
 "help_faq_night_notifications_q" = "Will I get notifications at night?";
 "help_faq_night_notifications_a" = "Yes. Your agent doesn't sleep. If your mission is active, messages keep coming. That's the point.";
 "help_faq_agent_differences_q" = "How do agents differ?";
@@ -152,7 +153,13 @@
 "comparison_agent_memory" = "Agent Memory";
 "comparison_custom_roast" = "Custom Roast";
 "comparison_custom_deadline" = "Custom deadline";
-"comparison_extend_24h" = "Extend +24h";
+"comparison_extend" = "Extend deadline";
+
+// ── Mission Extend Alert ────────────────────────────────────
+"mission_extend_title" = "Extend deadline?";
+"mission_extend_message" = "Choose how much extra time you need.";
+"mission_extend_2h" = "+2 Hours";
+"mission_extend_24h" = "Tomorrow";
 
 // ── Menu ────────────────────────────────────────────────────
 "menu_settings" = "Settings";

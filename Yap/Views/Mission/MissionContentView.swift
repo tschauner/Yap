@@ -18,7 +18,7 @@ struct MissionContentView: View {
                     Image(icon: .flag)
                         .font(.system(size: 13, weight: .medium))
                         .frame(width: 20)
-                    Text(mission.title)
+                    Text(mission.title.capitalized)
                         .multilineTextAlignment(.leading)
                         .foregroundStyle(.primary)
                         .fontWeight(.medium)
@@ -54,17 +54,14 @@ struct MissionContentView: View {
                         }
                         
                         Spacer()
-                        
-                        Text("+ 24h")
+                        Image(icon: .extend)
                             .font(.system(size: 14, weight: .medium))
                             .padding(.vertical, 5)
-                            .padding(.horizontal, 10)
+                            .padding(.horizontal, 15)
                             .background(.quinary)
                             .clipShape(Capsule())
                             .button {
-                                Task {
-                                    await viewModel.extend(mission)
-                                }
+                                viewModel.showExtendAlert = true
                             }
                     }
                 }

@@ -101,11 +101,19 @@ final class CopyService: CopyProviding {
     
     private func requestBody(for mission: Mission) async -> [String: Any] {
         let minutesUntilDeadline = max(0, Int(mission.deadline.timeIntervalSinceNow / 60))
-        // First push at ~20 min — reaction covers the immediate moment at mission start.
-        // For short deadlines: cap at 1/5th of available time (min 5 min).
-        let firstPushOffset = minutesUntilDeadline > 0
-            ? min(20, max(5, minutesUntilDeadline / 5))
-            : 20
+        // +2h extension: deadline is close → pushes start in 5 min (same day).
+        // +24h extension: deadline is far away (tomorrow 18:00) → pushes start 9 AM next day.
+        // Normal missions: first push at 5 min.
+        let firstPushOffset: Int
+        if mission.extended && minutesUntilDeadline > 720 {
+            // Long extension (24h) — delay first push to 9 AM on deadline day
+            let cal = Calendar.current
+            let deadlineDay9 = cal.date(bySettingHour: 9, minute: 0, second: 0,
+                                        of: mission.deadline) ?? mission.deadline
+            firstPushOffset = max(5, Int(deadlineDay9.timeIntervalSinceNow / 60))
+        } else {
+            firstPushOffset = 5
+        }
         let schedule = EscalationLevel.buildSchedule(
             profile: mission.agent.escalationProfile,
             startOffsetMinutes: firstPushOffset,

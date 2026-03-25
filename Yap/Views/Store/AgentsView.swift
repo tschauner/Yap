@@ -5,7 +5,6 @@ import SwiftUI
 
 struct AgentsView: View {
     @EnvironmentObject var viewModel: MissionViewModel
-    @AppStorage("isPro") private var isPro = false
     @Environment(\.dismiss) private var dismiss
     @State private var selectedAgent: Agent?
 

@@ -113,6 +113,17 @@ private let isDebug = false
             
             Button(L10n.Common.cancel, role: .cancel) { }
         }
+        .alert(L10n.Mission.extendTitle, isPresented: $viewModel.showExtendAlert) {
+            Button(L10n.Mission.extend2h) {
+                Task { await viewModel.extend(mission, hours: 2) }
+            }
+            Button(L10n.Mission.extend24h) {
+                Task { await viewModel.extend(mission, hours: 24) }
+            }
+            Button(L10n.Common.cancel, role: .cancel) { }
+        } message: {
+            Text(L10n.Mission.extendMessage)
+        }
     }
 }
 

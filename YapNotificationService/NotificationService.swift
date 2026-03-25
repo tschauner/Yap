@@ -33,6 +33,10 @@ class NotificationService: UNNotificationServiceExtension {
         let agentKey = Self.normalizeAgentKey(rawAgentKey)
         logger.info("NSE rawAgent=\(rawAgentKey, privacy: .public) normalizedAgent=\(agentKey, privacy: .public)")
         
+        // Preserve the GPT-generated title as subtitle (Duolingo-style catchphrase).
+        // Communication Notification will override title with agent display name.
+        let creativeTitleFromGPT = content.title
+        
         // Override title with agent display name (no emoji)
         let displayName = Self.agentDisplayName(for: agentKey)
         if !displayName.isEmpty {
@@ -98,8 +102,16 @@ class NotificationService: UNNotificationServiceExtension {
             
             do {
                 let updatedContent = try content.updating(from: intent)
-                logger.info("NSE updating(from:) success for agent=\(agentKey, privacy: .public)")
-                contentHandler(updatedContent)
+                // Set the GPT title as subtitle AFTER intent update (which overrides title)
+                if !creativeTitleFromGPT.isEmpty,
+                   let mutableUpdated = updatedContent.mutableCopy() as? UNMutableNotificationContent {
+                    mutableUpdated.subtitle = creativeTitleFromGPT
+                    logger.info("NSE updating(from:) success for agent=\(agentKey, privacy: .public), subtitle=\(creativeTitleFromGPT, privacy: .public)")
+                    contentHandler(mutableUpdated)
+                } else {
+                    logger.info("NSE updating(from:) success for agent=\(agentKey, privacy: .public)")
+                    contentHandler(updatedContent)
+                }
                 return
             } catch {
                 logger.error("Communication Notification failed: \(error.localizedDescription, privacy: .public)")

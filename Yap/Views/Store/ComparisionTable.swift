@@ -37,7 +37,7 @@ struct ComparisionTable: View {
             comparisonRow(L10n.Comparison.agentMemory, free: false, pro: true)
             comparisonRow(L10n.Comparison.customRoast, free: false, pro: true)
             comparisonRow(L10n.Comparison.customDeadline, free: false, pro: true)
-            comparisonRow(L10n.Comparison.extend24h, free: false, pro: true, showDivider: false)
+            comparisonRow(L10n.Comparison.extend, free: false, pro: true, showDivider: false)
         }
         .padding(.vertical, 16)
     }

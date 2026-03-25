@@ -179,18 +179,18 @@ struct GiveUpMissionUseCase: UseCase {
 
 // MARK: - Extend
 
-struct ExtendMissionUseCase: UseCase {
+struct ExtendMissionUseCase {
     private let service: any MissionProviding
     
     init(service: any MissionProviding = MissionService.shared) {
         self.service = service
     }
     
-    func execute(_ input: UUID) async -> Mission? {
+    func execute(_ id: UUID, hours: Int) async -> Mission? {
         do {
-            guard let updated = try await service.extendMission(input) else { return nil }
+            guard let updated = try await service.extendMission(id, hours: hours) else { return nil }
             // Cancel old server-side notifications — new ones will be scheduled via generate-copy
-            await DeviceService.shared.cancelPendingNotifications(goalId: input)
+            await DeviceService.shared.cancelPendingNotifications(goalId: id)
             return updated
         } catch {
             print("⚠️ ExtendMission failed: \(error.localizedDescription)")

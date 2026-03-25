@@ -93,13 +93,14 @@
 "settings_review_yap" = "Noter Yap";
 "settings_share_yap" = "Partager Yap";
 "settings_restore_purchases" = "Restaurer les achats";
+"settings_upgrade" = "Passer à Pro";
 "settings_account_synced" = "Lié à l'Apple ID";
 "settings_unlink_account" = "Délier le compte";
 "settings_unlink_alert_title" = "Délier le compte ?";
 "settings_unlink_alert_message" = "Tes données restent sur cet appareil mais ne seront plus synchronisées.";
 "settings_unlink_action" = "Délier";
 "settings_sign_in_description" = "Connecte-toi avec Apple pour synchroniser tes données.";
-"settings_not_linked_footer" = "Tes données restent sur cet appareil tant que tu ne les lies pas.";
+"settings_not_linked_footer" = "Connecte-toi pour garder tes données en sécurité sur tous tes appareils.";
 
 // ── Custom Roast ────────────────────────────────────────────
 "custom_roast_title" = "Custom Roast";
@@ -124,7 +125,7 @@
 "help_faq_miss_deadline_q" = "Que se passe-t-il si je rate ma deadline ?";
 "help_faq_miss_deadline_a" = "La mission est comptée comme échouée et affecte tes stats. Ton agent ne sera pas content non plus.";
 "help_faq_extend_deadline_q" = "Je peux prolonger une deadline ?";
-"help_faq_extend_deadline_a" = "Les utilisateurs Pro peuvent prolonger une deadline une fois par mission de 24 heures.";
+"help_faq_extend_deadline_a" = "Les utilisateurs Pro peuvent prolonger une deadline une fois par mission.";
 "help_faq_night_notifications_q" = "Je recevrai des notifs la nuit ?";
 "help_faq_night_notifications_a" = "Oui. Ton agent ne dort pas. Si ta mission est active, les messages continuent. C'est le principe.";
 "help_faq_agent_differences_q" = "Quelle est la différence entre les agents ?";
@@ -152,7 +153,13 @@
 "comparison_agent_memory" = "Agent Memory";
 "comparison_custom_roast" = "Custom Roast";
 "comparison_custom_deadline" = "Deadline perso";
-"comparison_extend_24h" = "+24h prolonger";
+"comparison_extend" = "Prolonger la deadline";
+
+// ── Mission Extend Alert ────────────────────────────────────
+"mission_extend_title" = "Prolonger la deadline ?";
+"mission_extend_message" = "Choisis combien de temps en plus tu veux.";
+"mission_extend_2h" = "+2 heures";
+"mission_extend_24h" = "Demain";
 
 // ── Menu ────────────────────────────────────────────────────
 "menu_settings" = "Réglages";

@@ -16,16 +16,18 @@ struct YapApp: App {
     
     var body: some Scene {
         WindowGroup {
-            if completedOnboarding {
-                MissionView()
-                    .environmentObject(viewModel)
-                    .environmentObject(store)
-                    .task {
-                        store.prepare()
-                    }
-            } else {
-                OnboardingView()
-                    .environmentObject(store)
+            Group {
+                if completedOnboarding {
+                    MissionView()
+                        .environmentObject(viewModel)
+                        .environmentObject(store)
+                } else {
+                    OnboardingView()
+                        .environmentObject(store)
+                }
+            }
+            .task {
+                store.prepare()
             }
         }
     }

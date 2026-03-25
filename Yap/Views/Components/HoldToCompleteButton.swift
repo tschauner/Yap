@@ -34,6 +34,18 @@ struct HoldToCompleteButton: View {
                     }
                 }
             }
+            .overlay {
+                GeometryReader { geo in
+                    Text(L10n.Mission.holdToComplete)
+                        .foregroundStyle(.white)
+                        .font(.system(size: 16, weight: .semibold))
+                        .frame(width: geo.size.width, height: geo.size.height)
+                        .mask(alignment: .leading) {
+                            Rectangle()
+                                .frame(width: geo.size.width * holdProgress)
+                        }
+                }
+            }
             .clipShape(Capsule())
             .scaleEffect(isHolding ? 0.95 : 1.0)
             .animation(.easeInOut(duration: 0.15), value: isHolding)

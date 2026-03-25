@@ -26,6 +26,7 @@ enum SystemImage: String {
     case closeFill = "xmark.circle.fill"
     case minus
     case share = "square.and.arrow.up"
+    case extend = "clock.arrow.trianglehead.2.counterclockwise.rotate.90"
     
     // Actions
     case checkmark

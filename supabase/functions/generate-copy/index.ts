@@ -175,18 +175,41 @@ BEFORE writing ANY message, you MUST first analyze the goal internally:
 
 Now use this analysis in EVERY message:
 - Each message MUST reference a SPECIFIC sub-task, object, or sensory detail — NEVER the goal title itself.
-- BAD: "Have you done it yet?" / "Time to study!" / "Get it done!"
-- GOOD: "The fridge is literally empty and you're scrolling. Put shoes on."
-- GOOD: "That cursor has been blinking on slide 3 for 20 minutes."
-- GOOD: "Your flashcards are right next to you. So is your phone. Guess which one you're holding."
+- BAD (boring, generic, zero punch): "Have you done it yet?" / "Time to study!" / "Get it done!" / "Just a reminder" / "Don't forget!"
+- GOOD (specific, visual, hurts): "The fridge is literally empty and you're scrolling. Put shoes on."
+- GOOD: "That cursor has been blinking on slide 3 for 20 minutes. It's judging you."
+- GOOD: "Your flashcards are right next to you. So is your phone. We both know which one you're holding."
 - GOOD: "The dishes aren't going to wash themselves. I can smell them from here."
+- GOOD: "Your gym bag has been packed since Monday. It's Wednesday."
 - Each message should reference a DIFFERENT sub-task or angle. No repeats.
 - Match the agent's personality in HOW they reference these details.
+- Think of each notification as a TWEET — short, punchy, screenshot-worthy.
 
 Rules:
-- Each message has a "title" (max 40 chars, catchy) and a "body" (max 120 chars)
-- Messages escalate from gentle to absolutely unhinged
+- Each message has a "title" (max 40 chars) and a "body" (max 120 chars)
+- The "title" is a SHORT, punchy agent catchphrase — like Duolingo's notification titles.
+  It should feel like the agent announcing themselves or their mood. Examples:
+  - Mom: "Mom here 🫵", "Honey...", "Don't make me come over", "Mom's watching", "I'm not angry, just disappointed"
+  - Best Friend: "Bro.", "yooo", "bro check your phone", "real talk", "u good?"
+  - Boss: "Quick update.", "As discussed.", "FYI.", "Per my last message", "Action required"
+  - Drill Sergeant: "ATTENTION.", "REPORT.", "WAKE UP.", "NO EXCUSES.", "STATUS UPDATE."
+  - Therapist: "Let's check in.", "A thought.", "How are we doing?", "Be honest.", "Gentle reminder"
+  - Grandma: "Hello dear", "It's Grandma", "Just worried", "Grandma knows", "Back in my day..."
+  - Ex: "Miss me?", "Classic.", "Figures.", "Saw this coming", "Typical."
+  - Theorist: "WAKE UP.", "They know.", "Coincidence?", "Think about it.", "Open your eyes."
+  - Colleague: "Hey! 😊", "Quick question", "No pressure but", "Just checking in 🙂", "Noted."
+  - Chef: "ORDER UP.", "KITCHEN UPDATE.", "BEHIND!", "SERVICE!", "HEARD?!"
+  - Dad: "...", "Hey.", "So.", "Just me.", "About that thing."
+  - Gym Bro: "BRO.", "LETS GO.", "NO REST DAYS.", "GAINS CHECK.", "REP TIME."
+  IMPORTANT: Don't just copy these examples — create VARIED titles in the agent's voice. Each title should be different.
+  The title shows as a bold subtitle under the agent name in the notification.
+- The "body" is the actual roast/nag message — specific, personal, referencing the task.
+- BODY LENGTH: Shorter = better. Aim for 40-80 chars. Max 120 chars. Punchlines, not paragraphs.
+- FIRST MESSAGE MATTERS: The very first notification sets the tone. It should HIT HARD and make the user laugh or feel called out. Don't waste it on "Hey, just a reminder..." — make them screenshot it.
+- Messages escalate from already-spicy to absolutely unhinged
+- NEVER be generic. NEVER say "Time to get started!" or "Don't forget your task!" — those are BORING. Every message must be so specific it could ONLY be about this user's exact task.
 - Be creative, funny, and varied — no two messages should feel the same
+- The user should WANT to show these notifications to their friends. That's the bar.
 - Use emoji sparingly but effectively (EXCEPTION: Disappointed Dad NEVER uses emoji)
 - MANDATORY: Write ALL messages in ${language}. Not a single word in any other language.
 ${extended ? `

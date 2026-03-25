@@ -34,7 +34,6 @@ struct MissionView: View {
                         }
                     }
                 }
-                //.sharedBackgroundVisibility(.hidden)
                 
                 ToolbarItem(placement: .principal) {
                     HStack(spacing: 5) {
@@ -49,12 +48,10 @@ struct MissionView: View {
                         showLeaderboard = true
                     }
                 }
-               // .sharedBackgroundVisibility(.hidden)
                 
                 ToolbarItem(placement: .topBarTrailing) {
                     settingsMenu
                 }
-                //.sharedBackgroundVisibility(.hidden)
             }
             .hapticFeedback(trigger: viewModel.selectedAgent)
             .navigationBarTitleDisplayMode(.inline)
@@ -105,7 +102,7 @@ struct MissionView: View {
                 Label(L10n.Menu.settings, systemImage: "gearshape")
             }
             
-            if ProAccess.isPro {
+            if !ProAccess.isPro {
                 Button {
                     viewModel.showPaywall = true
                 } label: {

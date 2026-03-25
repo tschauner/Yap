@@ -11,6 +11,7 @@ struct SettingsView: View {
     @EnvironmentObject var store: StoreManager
     @StateObject private var auth = AuthService.shared
     @State private var showUnlinkAlert = false
+    @State private var showPaywall = false
     @AppStorage("customRoast") private var customRoast: String = ""
     @AppStorage("hapticFeedbackEnabled") private var isOn: Bool = true
     @Environment(\.requestReview) private var requestReview
@@ -25,18 +26,19 @@ struct SettingsView: View {
                 
                 // Personalization
                 Section {
-                    NavigationLink {
-                        CustomRoastView()
-                    } label: {
-                        HStack {
-                            Text(L10n.Settings.customRoast)
-                            Spacer()
-                            if !customRoast.isEmpty {
-                                Text(L10n.Settings.customRoastActive)
-                                    .foregroundStyle(.secondary)
-                                    .font(.system(size: 14))
-                            }
+                    if ProAccess.isPro {
+                        NavigationLink {
+                            CustomRoastView()
+                        } label: {
+                            customRoastLabel
                         }
+                    } else {
+                        Button {
+                            showPaywall = true
+                        } label: {
+                            customRoastLabel
+                        }
+                        .foregroundStyle(.primary)
                     }
                     
                 } header: {
@@ -49,39 +51,39 @@ struct SettingsView: View {
                 Section {
                     Toggle(L10n.Settings.hapticFeedback, isOn: $isOn)
                     
+                    if !ProAccess.isPro {
+                        Button {
+                            showPaywall = true
+                        } label: {
+                            HStack {
+                                Text("Yap Pro")
+                                    .foregroundStyle(.primary)
+                                    .frame(maxWidth: .infinity, alignment: .leading)
+                                
+                                Text(L10n.Settings.upgrade)
+                                    .font(.system(size: 14, weight: .semibold))
+                                    .foregroundStyle(.white)
+                                    .padding(.horizontal, 10)
+                                    .padding(.vertical, 5)
+                                    .background(Color.blue.gradient)
+                                    .clipShape(Capsule())
+                            }
+                        }
+                        .buttonStyle(.plain)
+                    }
+                    
                     Button {
                         requestReview()
                     } label: {
-                        HStack {
-                            Text(L10n.Settings.reviewYap)
-                                .foregroundStyle(.primary)
-                            Spacer()
-                            Image(icon: .star)
-                                .foregroundStyle(.secondary)
-                        }
+                        Text(L10n.Settings.reviewYap)
                     }
+                    .buttonStyle(.plain)
                     
                     ShareLink(item: appURL) {
-                        HStack {
-                            Text(L10n.Settings.shareYap)
-                            Spacer()
-                            Image(icon: .share)
-                                .foregroundStyle(.secondary)
-                        }
+                        Text(L10n.Settings.shareYap)
                     }
+                    .buttonStyle(.plain)
                     
-                    Button {
-                        Task { await store.restore() }
-                    } label: {
-                        HStack {
-                            Text(L10n.Settings.restorePurchases)
-                                .foregroundStyle(.primary)
-                            if store.isLoading {
-                                Spacer()
-                                ProgressView()
-                            }
-                        }
-                    }
                 } header: {
                     Text(L10n.Settings.sectionGeneral)
                 }
@@ -89,7 +91,9 @@ struct SettingsView: View {
                 // Legal
                 Section {
                     Link(L10n.Legal.privacyPolicy, destination: URL(string: "https://yap.fail/privacy")!)
+                        .buttonStyle(.plain)
                     Link(L10n.Legal.termsOfUse, destination: URL(string: "https://yap.fail/terms")!)
+                        .buttonStyle(.plain)
                 } header: {
                     Text(L10n.Settings.sectionLegal)
                 }
@@ -125,6 +129,30 @@ struct SettingsView: View {
                 }
             } message: {
                 Text(L10n.Settings.unlinkAlertMessage)
+            }
+            .sheet(isPresented: $showPaywall) {
+                PaywallView()
+            }
+        }
+    }
+    
+    private var customRoastLabel: some View {
+        HStack {
+            Text(L10n.Settings.customRoast)
+            if !ProAccess.isPro {
+                Text("PRO")
+                    .font(.system(size: 10, weight: .bold))
+                    .foregroundStyle(.white)
+                    .padding(.horizontal, 6)
+                    .padding(.vertical, 2)
+                    .background(.blue)
+                    .clipShape(Capsule())
+            }
+            Spacer()
+            if ProAccess.isPro && !customRoast.isEmpty {
+                Text(L10n.Settings.customRoastActive)
+                    .foregroundStyle(.secondary)
+                    .font(.system(size: 14))
             }
         }
     }

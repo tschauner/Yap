@@ -6,9 +6,14 @@ import Foundation
 internal import UIKit
 import SwiftUI
 
+extension Notification.Name {
+    static let yapPushReceived = Notification.Name("yapPushReceived")
+}
+
 class AppDelegate: NSObject, UIApplicationDelegate, UNUserNotificationCenterDelegate {
     
     @AppStorage("completedOnboarding") var completedOnboarding = false
+    @AppStorage("isPro") var isPro = false
     
     func application(
         _ application: UIApplication,
@@ -56,6 +61,13 @@ class AppDelegate: NSObject, UIApplicationDelegate, UNUserNotificationCenterDele
         _ center: UNUserNotificationCenter,
         willPresent notification: UNNotification
     ) async -> UNNotificationPresentationOptions {
+        // Save latest push body so ActiveMissionView can display it
+        let content = notification.request.content
+        let userInfo = content.userInfo
+        if let goalId = userInfo["goalId"] as? String, !content.body.isEmpty {
+            UserDefaults.standard.set(content.body, forKey: "lastPushBody_\(goalId)")
+            NotificationCenter.default.post(name: .yapPushReceived, object: nil, userInfo: ["goalId": goalId, "body": content.body])
+        }
         return [.banner, .sound, .badge]
     }
     
