@@ -21,6 +21,12 @@ struct AgentsView: View {
             .navigationTitle(L10n.Agents.title)
             .navigationBarTitleDisplayMode(.inline)
             .hapticFeedback(trigger: selectedAgent)
+            .safeAreaInset(edge: .bottom) {
+                Text(L10n.Agents.longPressHint)
+                    .font(.caption)
+                    .foregroundStyle(.tertiary)
+                    .padding(.bottom, 15)
+            }
         }
     }
     
@@ -67,15 +73,17 @@ struct AgentsView: View {
             // Base agents
             LazyVGrid(columns: columns, spacing: 16) {
                 ForEach(Agent.allCases, id: \.self) { agent in
-                    AgentBubble(agent: agent, isSelected: agent == selectedAgent, isDismissed: viewModel.isDismissed(agent))
+                    AgentBubble(agent: agent, isSelected: agent == selectedAgent, isDismissed: viewModel.isDismissed(agent), isLocked: ProAccess.requiresPro(agent))
                         .contextMenu {
-                            if viewModel.isDismissed(agent) {
-                                ContextButton(title: L10n.Agents.deployAgent, icon: .eye) {
-                                    viewModel.deployAgent(agent)
-                                }
-                            } else {
-                                ContextButton(title: L10n.Agents.dismissAgent, icon: .eyeSlash, role: .destructive) {
-                                    viewModel.dismissAgent(agent)
+                            if ProAccess.isAgentUnlocked(agent) {
+                                if viewModel.isDismissed(agent) {
+                                    ContextButton(title: L10n.Agents.deployAgent, icon: .eye) {
+                                        viewModel.deployAgent(agent)
+                                    }
+                                } else {
+                                    ContextButton(title: L10n.Agents.dismissAgent, icon: .eyeSlash, role: .destructive) {
+                                        viewModel.dismissAgent(agent)
+                                    }
                                 }
                             }
                         }
@@ -129,6 +137,7 @@ private struct AgentBubble: View {
     let agent: Agent
     var isSelected: Bool = false
     var isDismissed: Bool = false
+    var isLocked: Bool = false
 
     var body: some View {
         VStack(spacing: 6) {
@@ -141,10 +150,21 @@ private struct AgentBubble: View {
                             .frame(width: 67, height: 67)
                     }
                 }
+                .overlay(alignment: .topTrailing) {
+                    if isLocked {
+                        Text("PRO")
+                            .font(.system(size: 8, weight: .heavy))
+                            .foregroundStyle(.black)
+                            .padding(.horizontal, 5)
+                            .padding(.vertical, 2)
+                            .background(Color.yellow, in: Capsule())
+                            .offset(x: 4, y: -2)
+                    }
+                }
 
             Text(agent.displayName)
                 .font(.system(size: 12, weight: .medium))
-                .foregroundStyle(isDismissed ? .tertiary : .primary)
+                .foregroundStyle(isDismissed ? .tertiary : (isLocked ? .secondary : .primary))
                 .multilineTextAlignment(.center)
                 .lineLimit(2)
         }

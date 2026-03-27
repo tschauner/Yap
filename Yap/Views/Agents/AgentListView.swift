@@ -66,8 +66,10 @@ struct AgentListView: View {
                     }
                 }
                 
-                ContextButton(title: L10n.Agents.dismissAgent, icon: .eyeSlash, role: .destructive) {
-                    viewModel.dismissAgent(agent)
+                if ProAccess.isAgentUnlocked(agent) {
+                    ContextButton(title: L10n.Agents.dismissAgent, icon: .eyeSlash, role: .destructive) {
+                        viewModel.dismissAgent(agent)
+                    }
                 }
             }
             
