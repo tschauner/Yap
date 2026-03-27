@@ -10,13 +10,12 @@ struct SettingsView: View {
     @Environment(\.dismiss) var dismiss
     @EnvironmentObject var store: StoreManager
     @StateObject private var auth = AuthService.shared
-    @State private var showUnlinkAlert = false
     @State private var showPaywall = false
     @AppStorage("customRoast") private var customRoast: String = ""
     @AppStorage("hapticFeedbackEnabled") private var isOn: Bool = true
     @Environment(\.requestReview) private var requestReview
     
-    private let appURL = URL(string: "https://apps.apple.com/app/id6738916276")!
+    private let appURL = URL(string: "https://apps.apple.com/app/id6761190023")!
     
     var body: some View {
         NavigationStack {
@@ -26,6 +25,20 @@ struct SettingsView: View {
                 
                 // Personalization
                 Section {
+                    NavigationLink {
+                        NameDetailView()
+                    } label: {
+                        HStack {
+                            Text(L10n.Settings.name)
+                            Spacer()
+                            Text(UserDefaults.standard.string(forKey: "user_display_name")?.isEmpty == false
+                                 ? UserDefaults.standard.string(forKey: "user_display_name")!
+                                 : L10n.Settings.nameNotSet)
+                                .foregroundStyle(.secondary)
+                                .font(.system(size: 14))
+                        }
+                    }
+                    
                     if ProAccess.isPro {
                         NavigationLink {
                             CustomRoastView()
@@ -41,16 +54,26 @@ struct SettingsView: View {
                         .foregroundStyle(.primary)
                     }
                     
+                    NavigationLink {
+                        QuietHoursDetailView()
+                    } label: {
+                        HStack {
+                            Text(L10n.QuietHours.title)
+                            Spacer()
+                            Text(QuietHours.isEnabled ? QuietHours.formattedRange : L10n.Common.off)
+                                .foregroundStyle(.secondary)
+                                .font(.system(size: 14))
+                        }
+                    }
+                    
+                    Toggle(L10n.Settings.hapticFeedback, isOn: $isOn)
+                    
                 } header: {
                     Text(L10n.Settings.sectionPersonalization)
-                } footer: {
-                    Text(L10n.Settings.personalizationFooter)
                 }
                 
                 // General
                 Section {
-                    Toggle(L10n.Settings.hapticFeedback, isOn: $isOn)
-                    
                     if !ProAccess.isPro {
                         Button {
                             showPaywall = true
@@ -84,18 +107,13 @@ struct SettingsView: View {
                     }
                     .buttonStyle(.plain)
                     
-                } header: {
-                    Text(L10n.Settings.sectionGeneral)
-                }
-
-                // Legal
-                Section {
                     Link(L10n.Legal.privacyPolicy, destination: URL(string: "https://yap.fail/privacy")!)
                         .buttonStyle(.plain)
                     Link(L10n.Legal.termsOfUse, destination: URL(string: "https://yap.fail/terms")!)
                         .buttonStyle(.plain)
+                    
                 } header: {
-                    Text(L10n.Settings.sectionLegal)
+                    Text(L10n.Settings.sectionGeneral)
                 }
                 
                 // Debug (only in debug builds)
@@ -122,17 +140,10 @@ struct SettingsView: View {
                     }
                 }
             }
-            .alert(L10n.Settings.unlinkAlertTitle, isPresented: $showUnlinkAlert) {
-                Button(L10n.Common.cancel, role: .cancel) { }
-                Button(L10n.Settings.unlinkAction, role: .destructive) {
-                    Task { await auth.unlinkAccount() }
-                }
-            } message: {
-                Text(L10n.Settings.unlinkAlertMessage)
-            }
             .sheet(isPresented: $showPaywall) {
                 PaywallView()
             }
+
         }
     }
     
@@ -167,19 +178,6 @@ struct SettingsView: View {
                     Text(L10n.Settings.accountSynced)
                     Spacer()
                 }
-                
-                Button(role: .destructive) {
-                    showUnlinkAlert = true
-                } label: {
-                    HStack {
-                        Text(L10n.Settings.unlinkAccount)
-                        if auth.isLoading {
-                            Spacer()
-                            ProgressView()
-                        }
-                    }
-                }
-                .disabled(auth.isLoading)
             } else {
                 // Not linked
                 VStack(alignment: .leading, spacing: 12) {
