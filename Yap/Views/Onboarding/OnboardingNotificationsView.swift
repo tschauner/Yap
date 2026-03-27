@@ -10,6 +10,27 @@ import SwiftUI
 struct OnboardingNotificationsView: View {
     @Binding var selectedAgent: Agent?
     let notificationsEnabled: Bool
+    let notificationsDenied: Bool
+    
+    private var pitchText: String {
+        if notificationsEnabled {
+            return L10n.Onboarding.notificationsEnabled
+        } else if notificationsDenied {
+            return L10n.Onboarding.notificationsDenied
+        } else {
+            return L10n.Onboarding.notificationsDisabled
+        }
+    }
+    
+    private var sublineText: String {
+        if notificationsEnabled {
+            return "\(selectedAgent?.displayName ?? L10n.Onboarding.notificationsAgentFallback) \(L10n.Onboarding.notificationsReady)"
+        } else if notificationsDenied {
+            return L10n.Onboarding.notificationsDeniedSubline
+        } else {
+            return L10n.Onboarding.notificationsDisabledSubline
+        }
+    }
     
     var body: some View {
         VStack(spacing: 0) {
@@ -26,15 +47,14 @@ struct OnboardingNotificationsView: View {
                             }
                         }
                     
-                    AgentPitchCard(agent: selectedAgent ?? .mom, pitch: notificationsEnabled ? L10n.Onboarding.notificationsEnabled : L10n.Onboarding.notificationsDisabled)
+                    AgentPitchCard(agent: selectedAgent ?? .mom, pitch: pitchText)
                         .padding(.horizontal, 40)
                 }
             
-                Subline(text: notificationsEnabled ? "\(selectedAgent?.displayName ?? L10n.Onboarding.notificationsAgentFallback) \(L10n.Onboarding.notificationsReady)" : L10n.Onboarding.notificationsDisabledSubline)
+                Subline(text: sublineText)
                     .padding(.horizontal, 30)
                     .padding(.top, 15)
             }
-            
         }
     }
 }
@@ -42,6 +62,7 @@ struct OnboardingNotificationsView: View {
 #Preview {
     OnboardingNotificationsView(
         selectedAgent: .constant(.mom),
-        notificationsEnabled: false
+        notificationsEnabled: false,
+        notificationsDenied: false
     )
 }

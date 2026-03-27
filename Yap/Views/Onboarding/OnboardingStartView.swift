@@ -8,30 +8,30 @@
 import SwiftUI
 
 struct OnboardingStartView: View {
-    @State var onAppear = false
-    
+
     var body: some View {
         VStack(spacing: 32) {
-            Image("grid")
+            Spacer()
+                .frame(height: 200)
+            
+            Image("icon")
                 .resizable()
                 .aspectRatio(contentMode: .fit)
-                .ignoresSafeArea()
-            
-            HStack(spacing: 1) {
-                Image("single_quote")
-                    .resizable()
-                    .aspectRatio(contentMode: .fit)
-                    .frame(height: 50)
-                    .offset(y: onAppear ? 0 : -30)
-                Image("single_quote")
-                    .resizable()
-                    .aspectRatio(contentMode: .fit)
-                    .frame(height: 50)
-                    .offset(y: onAppear ? 0 : 30)
-            }
-            
+                .frame(height: 80)
+                .clipShape(RoundedRectangle(cornerRadius: 22))
+                .glassEffect(in: .rect(cornerRadius: 22))
+                .zIndex(1)
+
             VStack(spacing: 15) {
                 Headline(text: L10n.Onboarding.headline)
+                    .padding(.horizontal, 30)
+                    .background(
+                        AuroraView()
+                            .frame(width: 280, height: 280)
+                            .opacity(0.7)
+                            .allowsHitTesting(false)
+                    )
+                    .zIndex(0)
                 
                 Text(L10n.Onboarding.subline)
                     .multilineTextAlignment(.center)
@@ -41,16 +41,8 @@ struct OnboardingStartView: View {
                 
                 Spacer()
             }
-            .padding(.horizontal, 50)
+            .padding(.horizontal, 40)
             .padding(.top, 10)
-        }
-        .onAppear {
-            withAnimation(.bouncy(extraBounce: 0.15)) {
-                onAppear = true
-            }
-        }
-        .onDisappear {
-            onAppear = false
         }
     }
 }

@@ -44,7 +44,7 @@ struct OnboardingAgentsView: View {
                             )
                         
                         Subline(text: L10n.Onboarding.agentsSubline)
-                            .padding(.top, 10)
+                            .padding(.top, 15)
                     }
                 }
                 .frame(height: 200)

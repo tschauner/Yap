@@ -10,12 +10,13 @@ struct OnboardingView: View {
         case welcome
         case agents
         case deadline
+        case name
         case notifiation
         case paywall
         
         var canBeSkipped: Bool {
             switch self {
-            case .paywall:
+            case .name, .paywall:
                 return true
             default:
                 return false
@@ -26,11 +27,14 @@ struct OnboardingView: View {
     private let totalPages = 5
     @Namespace var namespace
     @AppStorage("completedOnboarding") var completedOnboarding = false
+    @AppStorage("user_display_name") private var userName: String = ""
     @EnvironmentObject var store: StoreManager
     
     @State private var currentPage: Page = .welcome
     @State private var selectedAgent: Agent?
     @State private var notificationsEnabled = false
+    @State private var notificationsDenied = false
+    @State private var isFocused = false
     
     private var buttonDisabled: Bool {
         switch currentPage {
@@ -42,75 +46,107 @@ struct OnboardingView: View {
     
     private var buttonTitle: String {
         switch currentPage {
+        case .name:
+            return L10n.Onboarding.next
         case .notifiation:
-            return notificationsEnabled ? L10n.Onboarding.letsGo : L10n.Onboarding.allowNotifications
+            if notificationsEnabled {
+                return L10n.Onboarding.letsGo
+            } else if notificationsDenied {
+                return L10n.Onboarding.continueAnyway
+            } else {
+                return L10n.Onboarding.allowNotifications
+            }
         default: return L10n.Onboarding.next
         }
     }
     
     var body: some View {
-        VStack(spacing: 0) {
-            // Content
-            TabView(selection: $currentPage) {
-                OnboardingStartView()
-                    .tag(Page.welcome)
+        NavigationStack {
+            VStack(spacing: 0) {
+                // Content
+                TabView(selection: $currentPage) {
+                    OnboardingStartView()
+                        .tag(Page.welcome)
+                    
+                    OnboardingAgentsView(
+                        selectedAgent: $selectedAgent,
+                        namespace: namespace
+                    )
+                    .tag(Page.agents)
+                    
+                    DeadlineOnboardingView()
+                        .tag(Page.deadline)
+                    
+                    OnboardingNameView(focused: $isFocused)
+                        .tag(Page.name)
+                    
+                    OnboardingNotificationsView(
+                        selectedAgent: $selectedAgent,
+                        notificationsEnabled: notificationsEnabled,
+                        notificationsDenied: notificationsDenied
+                    )
+                    .tag(Page.notifiation)
+                    
+                    OnboardingPaywallView()
+                        .environmentObject(store)
+                        .tag(Page.paywall)
+                    
+                    
+                }
+                .tabViewStyle(.page(indexDisplayMode: .never))
+                .scrollContentBackground(.hidden)
+                .hapticFeedback(trigger: selectedAgent)
+                .hapticFeedback(trigger: currentPage)
+                .animation(.easeInOut(duration: 0.3), value: currentPage)
+                .background(alignment: .top) {
+                    Image("grid")
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                        .transition(.opacity)
+                        .ignoresSafeArea()
+                        .opacity(currentPage == .welcome ? 1 : 0)
+                        .transition(.opacity)
+                }
                 
-                OnboardingAgentsView(
-                    selectedAgent: $selectedAgent,
-                    namespace: namespace
-                )
-                .tag(Page.agents)
-                
-                DeadlineOnboardingView()
-                    .tag(Page.deadline)
-                
-                OnboardingNotificationsView(
-                    selectedAgent: $selectedAgent,
-                    notificationsEnabled: notificationsEnabled
-                )
-                .tag(Page.notifiation)
-                
-                OnboardingPaywallView()
-                    .environmentObject(store)
-                    .tag(Page.paywall)
-            }
-            .tabViewStyle(.page(indexDisplayMode: .never))
-            .animation(.easeInOut(duration: 0.3), value: currentPage)
-            .ignoresSafeArea(edges: .top)
-            .hapticFeedback(trigger: selectedAgent)
-            .hapticFeedback(trigger: currentPage)
-            
-            // Bottom
-            .safeAreaInset(edge: .bottom) {
-                VStack {
-                    if currentPage == .paywall {
-                        // Paywall CTA
-                        VStack(spacing: 15) {
-                            paywallButton
-                            
-                            Button(L10n.Onboarding.maybeLater) {
-                                completedOnboarding = true
-                            }
-                            .font(.system(size: 14, weight: .medium))
-                            .foregroundStyle(.secondary)
+                // Bottom
+                .safeAreaInset(edge: .bottom) {
+                    VStack {
+                        if isFocused {
+                            userNameButton
+                        } else if currentPage == .paywall {
+                            // Paywall CTA
+                            payWallButton
+                        } else {
+                            Text(buttonTitle)
+                                .font(.system(size: 17, weight: .semibold))
+                                .foregroundStyle(.white)
+                                .frame(height: 60)
+                                .padding(.horizontal, 40)
+                                .background(Color.blue)
+                                .clipShape(Capsule())
+                                .button {
+                                    handleNext()
+                                }
+                                .disabled(buttonDisabled)
+                                .opacity(buttonDisabled ? 0 : 1)
                         }
-                    } else {
-                        Text(buttonTitle)
-                            .font(.system(size: 17, weight: .semibold))
-                            .foregroundStyle(.white)
-                            .frame(height: 60)
-                            .padding(.horizontal, 40)
-                            .background(Color.blue)
-                            .clipShape(Capsule())
+                    }
+                    .frame(height: 90, alignment: .top)
+                    .padding(.top, 5)
+                }
+            }
+            .navigationBarTitleDisplayMode(.inline)
+            .toolbar {
+                ToolbarItem(placement: .cancellationAction) {
+                    if currentPage == .paywall {
+                        Image(icon: .close)
                             .button {
-                                handleNext()
+                                withAnimation {
+                                    completedOnboarding = true
+                                }
                             }
-                            .disabled(buttonDisabled)
-                            .opacity(buttonDisabled ? 0 : 1)
                     }
                 }
-                .frame(height: 90, alignment: .top)
-                .padding(.top, 5)
             }
         }
     }
@@ -118,30 +154,56 @@ struct OnboardingView: View {
     private func handleNext() {
         switch currentPage {
         case .welcome:
-            currentPage = .agents
+            withAnimation(.easeInOut(duration: 0.3)) { currentPage = .agents }
         case .agents:
-            currentPage = .deadline
+            withAnimation(.easeInOut(duration: 0.3)) { currentPage = .deadline }
         case .deadline:
-            currentPage = .notifiation
+            withAnimation(.easeInOut(duration: 0.3)) { currentPage = .name }
+        case .name:
+            withAnimation(.easeInOut(duration: 0.3)) { currentPage = .notifiation }
         case .notifiation:
-            if notificationsEnabled {
-                currentPage = .paywall
+            if notificationsEnabled || notificationsDenied {
+                withAnimation(.easeInOut(duration: 0.3)) { currentPage = .paywall }
             } else {
                 Task {
-                    await NagService.shared.requestPermission()
-                    await MainActor.run {
-                        withAnimation { notificationsEnabled = true }
+                    let granted = await NagService.shared.requestPermission()
+                    if granted {
+                        await MainActor.run {
+                            withAnimation { notificationsEnabled = true }
+                        }
+                    } else {
+                        let status = await NagService.shared.permissionStatus()
+                        if status == .denied {
+                            await MainActor.run {
+                                withAnimation { notificationsDenied = true }
+                            }
+                        }
                     }
                 }
             }
+            
         case .paywall:
-            completedOnboarding = true
+            withAnimation {
+                completedOnboarding = true
+            }
         }
     }
     
     // MARK: - Paywall Button
+    private var payWallButton: some View {
+        VStack(spacing: 0) {
+            payButton
+            // Restore
+            Button(L10n.Paywall.restorePurchase) {
+                Task { await store.restore() }
+            }
+            .font(.system(size: 13, weight: .medium))
+            .foregroundStyle(.secondary)
+                .padding(.top, 15)
+        }
+    }
     
-    private var paywallButton: some View {
+    private var payButton: some View {
         Group {
             if store.isLoading {
                 ProgressView()
@@ -169,6 +231,35 @@ struct OnboardingView: View {
             Task { await store.purchase() }
         }
         .disabled(store.isLoading || store.product == nil)
+    }
+    
+    private var userNameButton: some View {
+        VStack {
+            Spacer()
+            HStack {
+                Text(L10n.Common.cancel)
+                    .padding(.horizontal)
+                    .button {
+                        userName = ""
+                        isFocused = false
+                    }
+                    .buttonStyle(.plain)
+                Spacer()
+                Circle()
+                    .frame(width: 30)
+                    .foregroundStyle(.blue)
+                    .overlay(
+                        Image(icon: .checkmark)
+                            .foregroundStyle(.white)
+                    )
+                    .button {
+                        isFocused = false
+                    }
+                    .disabled(userName.count < 2)
+                    .glassEffect(in: .circle)
+                    .padding()
+            }
+        }
     }
 }
 

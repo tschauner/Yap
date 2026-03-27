@@ -20,42 +20,13 @@ struct DeadlineOnboardingView: View {
                     )
                 
                 Subline(text: L10n.Onboarding.deadlineSubline)
-                    .padding(.horizontal)
-                    .padding(.top, 10)
+                    .padding(.top, 15)
             }
             .padding(.horizontal, .horizontal)
-            .padding(.bottom, 60)
+            .padding(.bottom, 40)
             
             VStack(spacing: 0) {
-                HStack(spacing: 5) {
-                    Text("😊")
-                        .frame(width: 40, height: 30, alignment: .center)
-                        .font(.system(size: 30))
-                    
-                    Image(icon: .arrowRight)
-                    
-                    Text("😐")
-                        .frame(width: 40, height: 30, alignment: .center)
-                        .font(.system(size: 30))
-                    
-                    Image(icon: .arrowRight)
-                    
-                    Text("😠")
-                        .frame(width: 40, height: 30, alignment: .center)
-                        .font(.system(size: 30))
-                    
-                    Image(icon: .arrowRight)
-                    
-                    Text("🤬")
-                        .frame(width: 40, height: 30, alignment: .center)
-                        .font(.system(size: 30))
-                    
-                    Image(icon: .arrowRight)
-                    
-                    Text("💀")
-                        .frame(width: 40, height: 30, alignment: .center)
-                        .font(.system(size: 30))
-                }
+                emojis
                 .frame(maxWidth: .infinity)
                 
                 HStack {
@@ -75,6 +46,38 @@ struct DeadlineOnboardingView: View {
             .cornerRadius(30)
             .glassEffect(in: .rect(cornerRadius: 30))
             .padding(.horizontal, .horizontal)
+        }
+    }
+    
+    var emojis: some View {
+        HStack(spacing: 5) {
+            Text("😊")
+                .frame(width: 40, height: 30, alignment: .center)
+                .font(.system(size: 30))
+            
+            Image(icon: .arrowRight)
+            
+            Text("😐")
+                .frame(width: 40, height: 30, alignment: .center)
+                .font(.system(size: 30))
+            
+            Image(icon: .arrowRight)
+            
+            Text("😠")
+                .frame(width: 40, height: 30, alignment: .center)
+                .font(.system(size: 30))
+            
+            Image(icon: .arrowRight)
+            
+            Text("🤬")
+                .frame(width: 40, height: 30, alignment: .center)
+                .font(.system(size: 30))
+            
+            Image(icon: .arrowRight)
+            
+            Text("💀")
+                .frame(width: 40, height: 30, alignment: .center)
+                .font(.system(size: 30))
         }
     }
 }
