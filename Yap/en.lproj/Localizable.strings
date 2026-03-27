@@ -8,6 +8,7 @@
 // ── Common ──────────────────────────────────────────────────
 "common_cancel" = "Cancel";
 "common_done" = "Done";
+"common_off" = "Off";
 
 // ── Legal ───────────────────────────────────────────────────
 "legal_privacy_policy" = "Privacy Policy";
@@ -15,7 +16,10 @@
 
 // ── Onboarding ──────────────────────────────────────────────
 "onboarding_start_headline" = "The motivation app that won't shut up.";
-"onboarding_start_subline" = "Pick an agent. Set a mission.\nGet yapped at until it's done.";
+"onboarding_start_subline" = "Pick an agent. Set a mission. Get yapped at until it's done.";
+"onboarding_name_headline" = "What should we call you?";
+"onboarding_name_subline" = "Your agents will use your name to get personal. Optional, but recommended.";
+"onboarding_name_placeholder" = "Your name";
 "onboarding_agents_headline" = "Pick who yaps at you.";
 "onboarding_agents_subline" = "Each agent has a unique personality.\nTap one to hear their pitch.";
 "onboarding_deadline_headline" = "They start nice.\nThey don't stay nice.";
@@ -27,6 +31,9 @@
 "onboarding_notifications_ready" = "is ready. Time for your first mission.";
 "onboarding_notifications_agent_fallback" = "Your agent";
 "onboarding_notifications_disabled_subline" = "Allow notifications so your agent can reach you.";
+"onboarding_notifications_denied" = "Bold move. You hired me and then muted me.";
+"onboarding_notifications_denied_subline" = "You can still use Yap, but your agent can't nag you. Enable notifications in Settings anytime.";
+"onboarding_button_continue_anyway" = "Continue anyway";
 "onboarding_button_lets_go" = "Let's go";
 "onboarding_button_allow_notifications" = "Allow Notifications";
 "onboarding_button_next" = "Next";
@@ -42,6 +49,9 @@
 "mission_selection_headline" = "What are you avoiding?\nPick an agent to fix it.";
 "mission_selection_agents" = "Agents";
 "mission_selection_show_more" = "Show more";
+"mission_notifications_disabled_title" = "Notifications are off";
+"mission_notifications_disabled_subline" = "Yap can't nag you without notifications. Enable them in Settings.";
+"mission_open_settings" = "Open Settings";
 "mission_toolbar_achievements" = "Achievements";
 "mission_time_left" = "left";
 "mission_messages_ignored" = "%d messages ignored";
@@ -50,8 +60,19 @@
 // ── Input ───────────────────────────────────────────────────
 "input_mission_placeholder" = "What needs to get done?";
 "input_deadline_label" = "Deadline %@";
-"input_agent_placeholder" = "Agent";
+"input_agent_placeholder" = "Pick agent";
 "input_deadline_picker_title" = "Until when?";
+
+// ── Quiet Hours ──────────────────────────────────────────────
+"quiet_hours_title" = "Silent Hours";
+"quiet_hours_enabled" = "Silent Hours";
+"quiet_hours_footer" = "No notifications during this time.";
+"quiet_hours_from" = "From";
+"quiet_hours_until" = "Until";
+"quiet_hours_alert_title" = "Silent Hours active";
+"quiet_hours_alert_message" = "No notifications between %@. You can change this or start anyway.";
+"quiet_hours_alert_start" = "Start";
+"quiet_hours_alert_change" = "Change";
 
 // ── Agents ──────────────────────────────────────────────────
 "agents_title" = "Agents";
@@ -60,6 +81,7 @@
 "agents_special_description" = "They remember past missions and adapt over time.\nUnlocked with Pro.";
 "agents_deploy_agent" = "Deploy Agent";
 "agents_dismiss_agent" = "Dismiss Agent";
+"agents_long_press_hint" = "Long press to dismiss or deploy agents";
 "agents_remove_favorite" = "Remove Favorite";
 "agents_set_favorite" = "Set as Favorite";
 
@@ -88,8 +110,11 @@
 "settings_section_legal" = "Legal";
 "settings_custom_roast" = "Custom Roast";
 "settings_custom_roast_active" = "Active";
-"settings_personalization_footer" = "Tell your agents about yourself for personalized messages.";
+"settings_personalization_footer" = "Personalize your agents and set silent hours for notifications.";
 "settings_haptic_feedback" = "Haptic feedback";
+"settings_name" = "Name";
+"settings_name_not_set" = "Not set";
+"settings_name_footer" = "Your agents will address you by name in their messages.";
 "settings_review_yap" = "Review Yap";
 "settings_share_yap" = "Share Yap";
 "settings_restore_purchases" = "Restore Purchases";

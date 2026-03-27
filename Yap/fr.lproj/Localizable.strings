@@ -8,6 +8,7 @@
 // ── Common ──────────────────────────────────────────────────
 "common_cancel" = "Annuler";
 "common_done" = "OK";
+"common_off" = "Désactivé";
 
 // ── Legal ───────────────────────────────────────────────────
 "legal_privacy_policy" = "Confidentialité";
@@ -15,7 +16,10 @@
 
 // ── Onboarding ──────────────────────────────────────────────
 "onboarding_start_headline" = "L'appli motivation qui la ferme jamais.";
-"onboarding_start_subline" = "Choisis un agent. Lance une mission.\nFais-toi yapper jusqu'au bout.";
+"onboarding_start_subline" = "Choisis un agent. Lance une mission. Fais-toi yapper jusqu'au bout.";
+"onboarding_name_headline" = "Comment tu t'appelles ?";
+"onboarding_name_subline" = "Tes agents utiliseront ton nom pour devenir plus personnels. Facultatif, mais recommandé.";
+"onboarding_name_placeholder" = "Ton nom";
 "onboarding_agents_headline" = "Qui va te yapper ?";
 "onboarding_agents_subline" = "Chaque agent a sa propre personnalité.\nTouche-en un pour entendre son pitch.";
 "onboarding_deadline_headline" = "Au début ils sont sympas.\nÇa ne dure pas.";
@@ -27,6 +31,9 @@
 "onboarding_notifications_ready" = "est prêt. C'est l'heure de ta première mission.";
 "onboarding_notifications_agent_fallback" = "Ton agent";
 "onboarding_notifications_disabled_subline" = "Autorise les notifications pour que ton agent puisse te joindre.";
+"onboarding_notifications_denied" = "Culotté. Tu m'embauches et tu me coupes le son.";
+"onboarding_notifications_denied_subline" = "Tu peux utiliser Yap, mais ton agent ne peut pas te harceler. Active les notifications dans les réglages à tout moment.";
+"onboarding_button_continue_anyway" = "Continuer quand même";
 "onboarding_button_lets_go" = "C'est parti";
 "onboarding_button_allow_notifications" = "Autoriser les notifications";
 "onboarding_button_next" = "Suivant";
@@ -42,6 +49,9 @@
 "mission_selection_headline" = "Tu procrastines quoi ?\nChoisis un agent.";
 "mission_selection_agents" = "Agents";
 "mission_selection_show_more" = "Plus";
+"mission_notifications_disabled_title" = "Notifications désactivées";
+"mission_notifications_disabled_subline" = "Yap ne peut pas te harceler sans notifications. Active-les dans les réglages.";
+"mission_open_settings" = "Ouvrir les réglages";
 "mission_toolbar_achievements" = "Succès";
 "mission_time_left" = "restant";
 "mission_messages_ignored" = "%d messages ignorés";
@@ -50,8 +60,19 @@
 // ── Input ───────────────────────────────────────────────────
 "input_mission_placeholder" = "Qu'est-ce qui doit être fait ?";
 "input_deadline_label" = "Deadline %@";
-"input_agent_placeholder" = "Agent";
+"input_agent_placeholder" = "Choisir agent";
 "input_deadline_picker_title" = "Jusqu'à quand ?";
+
+// ── Quiet Hours ──────────────────────────────────────────────
+"quiet_hours_title" = "Heures calmes";
+"quiet_hours_enabled" = "Heures calmes";
+"quiet_hours_footer" = "Aucune notification pendant cette période.";
+"quiet_hours_from" = "De";
+"quiet_hours_until" = "Jusqu'à";
+"quiet_hours_alert_title" = "Heures calmes actives";
+"quiet_hours_alert_message" = "Pas de notifications entre %@. Tu peux modifier ou démarrer quand même.";
+"quiet_hours_alert_start" = "Démarrer";
+"quiet_hours_alert_change" = "Modifier";
 
 // ── Agents ──────────────────────────────────────────────────
 "agents_title" = "Agents";
@@ -60,6 +81,7 @@
 "agents_special_description" = "Ils retiennent tes missions passées.\nDébloqués avec Pro.";
 "agents_deploy_agent" = "Déployer l'agent";
 "agents_dismiss_agent" = "Retirer l'agent";
+"agents_long_press_hint" = "Appui long pour retirer ou déployer";
 "agents_remove_favorite" = "Retirer des favoris";
 "agents_set_favorite" = "Mettre en favori";
 
@@ -88,8 +110,11 @@
 "settings_section_legal" = "Juridique";
 "settings_custom_roast" = "Custom Roast";
 "settings_custom_roast_active" = "Actif";
-"settings_personalization_footer" = "Parle de toi à tes agents pour des messages plus persos.";
+"settings_personalization_footer" = "Personnalise tes agents et définis des heures calmes pour les notifications.";
 "settings_haptic_feedback" = "Retour haptique";
+"settings_name" = "Nom";
+"settings_name_not_set" = "Non défini";
+"settings_name_footer" = "Tes agents t'appelleront par ton nom dans leurs messages.";
 "settings_review_yap" = "Noter Yap";
 "settings_share_yap" = "Partager Yap";
 "settings_restore_purchases" = "Restaurer les achats";

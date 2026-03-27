@@ -8,6 +8,7 @@
 // ── Common ──────────────────────────────────────────────────
 "common_cancel" = "Cancelar";
 "common_done" = "Pronto";
+"common_off" = "Desativado";
 
 // ── Legal ───────────────────────────────────────────────────
 "legal_privacy_policy" = "Privacidade";
@@ -15,7 +16,10 @@
 
 // ── Onboarding ──────────────────────────────────────────────
 "onboarding_start_headline" = "O app de motivação que não cala a boca.";
-"onboarding_start_subline" = "Escolha um agente. Crie uma missão.\nSe prepara pra levar yap até acabar.";
+"onboarding_start_subline" = "Escolha um agente. Crie uma missão. Se prepara pra levar yap até acabar.";
+"onboarding_name_headline" = "Como você se chama?";
+"onboarding_name_subline" = "Seus agentes vão usar seu nome pra ficar mais pessoal. Opcional, mas recomendado.";
+"onboarding_name_placeholder" = "Seu nome";
 "onboarding_agents_headline" = "Quem vai te yappar?";
 "onboarding_agents_subline" = "Cada agente tem sua própria personalidade.\nToque em um pra ouvir o pitch.";
 "onboarding_deadline_headline" = "No começo eles são legais.\nNão dura muito.";
@@ -27,6 +31,9 @@
 "onboarding_notifications_ready" = "tá pronto. Hora da sua primeira missão.";
 "onboarding_notifications_agent_fallback" = "Seu agente";
 "onboarding_notifications_disabled_subline" = "Ative as notificações pro seu agente te alcançar.";
+"onboarding_notifications_denied" = "Corajoso. Me contrata e depois me silencia.";
+"onboarding_notifications_denied_subline" = "Você pode usar o Yap, mas seu agente não pode te encher. Ative as notificações nos Ajustes a qualquer momento.";
+"onboarding_button_continue_anyway" = "Continuar mesmo assim";
 "onboarding_button_lets_go" = "Bora";
 "onboarding_button_allow_notifications" = "Permitir notificações";
 "onboarding_button_next" = "Próximo";
@@ -42,6 +49,9 @@
 "mission_selection_headline" = "O que você tá enrolando?\nEscolha um agente.";
 "mission_selection_agents" = "Agentes";
 "mission_selection_show_more" = "Mais";
+"mission_notifications_disabled_title" = "Notificações desativadas";
+"mission_notifications_disabled_subline" = "O Yap não consegue te encher sem notificações. Ative-as nos Ajustes.";
+"mission_open_settings" = "Abrir Ajustes";
 "mission_toolbar_achievements" = "Conquistas";
 "mission_time_left" = "restante";
 "mission_messages_ignored" = "%d mensagens ignoradas";
@@ -50,16 +60,26 @@
 // ── Input ───────────────────────────────────────────────────
 "input_mission_placeholder" = "O que precisa ser feito?";
 "input_deadline_label" = "Deadline %@";
-"input_agent_placeholder" = "Agente";
+"input_agent_placeholder" = "Escolher agente";
 "input_deadline_picker_title" = "Até quando?";
 
+// ── Quiet Hours ──────────────────────────────────────────────
+"quiet_hours_title" = "Horas silenciosas";
+"quiet_hours_enabled" = "Horas silenciosas";
+"quiet_hours_footer" = "Sem notificações durante esse período.";
+"quiet_hours_from" = "De";
+"quiet_hours_until" = "Até";
+"quiet_hours_alert_title" = "Horas silenciosas ativas";
+"quiet_hours_alert_message" = "Sem notificações entre %@. Você pode mudar ou começar mesmo assim.";
+"quiet_hours_alert_start" = "Começar";
+"quiet_hours_alert_change" = "Mudar";
+
 // ── Agents ──────────────────────────────────────────────────
-"agents_title" = "Agentes";
-"agents_headline" = "Conheça seus agentes";
 "agents_subline" = "Cada agente tem seu próprio estilo. Toque em um pra ouvir o pitch.";
 "agents_special_description" = "Eles lembram das suas missões passadas.\nLiberados com Pro.";
 "agents_deploy_agent" = "Escalar agente";
 "agents_dismiss_agent" = "Remover agente";
+"agents_long_press_hint" = "Pressione longo para remover ou escalar";
 "agents_remove_favorite" = "Remover favorito";
 "agents_set_favorite" = "Favoritar";
 
@@ -88,8 +108,11 @@
 "settings_section_legal" = "Legal";
 "settings_custom_roast" = "Custom Roast";
 "settings_custom_roast_active" = "Ativo";
-"settings_personalization_footer" = "Conte aos seus agentes sobre você pra mensagens mais pessoais.";
+"settings_personalization_footer" = "Personalize seus agentes e defina horas silenciosas para notificações.";
 "settings_haptic_feedback" = "Feedback háptico";
+"settings_name" = "Nome";
+"settings_name_not_set" = "Não definido";
+"settings_name_footer" = "Seus agentes vão te chamar pelo nome nas mensagens.";
 "settings_review_yap" = "Avaliar Yap";
 "settings_share_yap" = "Compartilhar Yap";
 "settings_restore_purchases" = "Restaurar compras";

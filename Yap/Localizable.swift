@@ -13,6 +13,7 @@ enum L10n {
     enum Common {
         static let cancel = "common_cancel".localized
         static let done = "common_done".localized
+        static let off = "common_off".localized
     }
     
     // MARK: - Legal
@@ -36,9 +37,15 @@ enum L10n {
         static let notificationsReady = "onboarding_notifications_ready".localized
         static let notificationsAgentFallback = "onboarding_notifications_agent_fallback".localized
         static let notificationsDisabledSubline = "onboarding_notifications_disabled_subline".localized
+        static let notificationsDenied = "onboarding_notifications_denied".localized
+        static let notificationsDeniedSubline = "onboarding_notifications_denied_subline".localized
+        static let continueAnyway = "onboarding_button_continue_anyway".localized
         static let letsGo = "onboarding_button_lets_go".localized
         static let allowNotifications = "onboarding_button_allow_notifications".localized
         static let next = "onboarding_button_next".localized
+        static let nameHeadline = "onboarding_name_headline".localized
+        static let nameSubline = "onboarding_name_subline".localized
+        static let namePlaceholder = "onboarding_name_placeholder".localized
         static let maybeLater = "onboarding_paywall_maybe_later".localized
         static func goProPrice(_ price: String) -> String { "onboarding_paywall_go_pro_price".localized(with: price) }
         static let lifetimeSubline = "onboarding_paywall_lifetime_subline".localized
@@ -57,6 +64,9 @@ enum L10n {
         static let selectionHeadline = "mission_selection_headline".localized
         static let agentsLabel = "mission_selection_agents".localized
         static let showMore = "mission_selection_show_more".localized
+        static let notificationsDisabledTitle = "mission_notifications_disabled_title".localized
+        static let notificationsDisabledSubline = "mission_notifications_disabled_subline".localized
+        static let openSettings = "mission_open_settings".localized
         static let achievements = "mission_toolbar_achievements".localized
         static let left = "mission_time_left".localized
         static func messagesIgnored(_ count: Int) -> String { "mission_messages_ignored".localized(with: count) }
@@ -71,6 +81,19 @@ enum L10n {
         static let deadlinePickerTitle = "input_deadline_picker_title".localized
     }
     
+    // MARK: - Quiet Hours
+    enum QuietHours {
+        static let title = "quiet_hours_title".localized
+        static let enabled = "quiet_hours_enabled".localized
+        static let footer = "quiet_hours_footer".localized
+        static let from = "quiet_hours_from".localized
+        static let until = "quiet_hours_until".localized
+        static let alertTitle = "quiet_hours_alert_title".localized
+        static func alertMessage(_ range: String) -> String { "quiet_hours_alert_message".localized(with: range) }
+        static let alertStart = "quiet_hours_alert_start".localized
+        static let alertChange = "quiet_hours_alert_change".localized
+    }
+    
     // MARK: - Agents
     enum Agents {
         static let title = "agents_title".localized
@@ -81,6 +104,7 @@ enum L10n {
         static let dismissAgent = "agents_dismiss_agent".localized
         static let removeFavorite = "agents_remove_favorite".localized
         static let setFavorite = "agents_set_favorite".localized
+        static let longPressHint = "agents_long_press_hint".localized
     }
     
     // MARK: - Leaderboard
@@ -115,6 +139,9 @@ enum L10n {
         static let customRoastActive = "settings_custom_roast_active".localized
         static let personalizationFooter = "settings_personalization_footer".localized
         static let hapticFeedback = "settings_haptic_feedback".localized
+        static let name = "settings_name".localized
+        static let nameNotSet = "settings_name_not_set".localized
+        static let nameFooter = "settings_name_footer".localized
         static let reviewYap = "settings_review_yap".localized
         static let shareYap = "settings_share_yap".localized
         static let restorePurchases = "settings_restore_purchases".localized
