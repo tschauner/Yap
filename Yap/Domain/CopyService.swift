@@ -39,6 +39,11 @@ final class CopyService: CopyProviding {
                 "language": userLanguage
             ]
             
+            let userName = UserDefaults.standard.string(forKey: "user_display_name") ?? ""
+            if !userName.isEmpty {
+                body["userName"] = userName
+            }
+            
             // Special Agents get memory — past missions with this agent
             if mission.agent.isSpecialAgent {
                 let memory = await loadAgentMemory(agent: mission.agent)
@@ -114,11 +119,14 @@ final class CopyService: CopyProviding {
         } else {
             firstPushOffset = 5
         }
-        let schedule = EscalationLevel.buildSchedule(
+        let rawSchedule = EscalationLevel.buildSchedule(
             profile: mission.agent.escalationProfile,
             startOffsetMinutes: firstPushOffset,
             availableMinutes: minutesUntilDeadline
         )
+        
+        // Quiet Hours: shift notifications that fall into silent period
+        let schedule = Self.applyQuietHours(to: rawSchedule, missionStart: mission.createdAt, deadline: mission.deadline)
         let count = min(schedule.count, 24)
         
         let levels = schedule.prefix(count).enumerated().map { i, entry in
@@ -142,6 +150,11 @@ final class CopyService: CopyProviding {
         
         if !customRoast.isEmpty {
             body["userContext"] = customRoast
+        }
+        
+        let userName = UserDefaults.standard.string(forKey: "user_display_name") ?? ""
+        if !userName.isEmpty {
+            body["userName"] = userName
         }
         
         // Remote Push: send schedule offsets so server can schedule notifications
@@ -256,6 +269,33 @@ final class CopyService: CopyProviding {
     private var userLanguage: String {
         LanguageResolver.currentBackendLang()
     }
+    
+    // MARK: - Quiet Hours Filter
+    
+    /// Verschiebt Schedule-Einträge, die in Quiet Hours fallen, zum nächsten erlaubten Zeitpunkt.
+    /// Einträge die nach der Deadline landen würden, werden entfernt.
+    static func applyQuietHours(
+        to schedule: [(minuteOffset: Int, level: EscalationLevel)],
+        missionStart: Date,
+        deadline: Date
+    ) -> [(minuteOffset: Int, level: EscalationLevel)] {
+        guard QuietHours.isEnabled else { return schedule }
+        
+        let minutesUntilDeadline = max(0, Int(deadline.timeIntervalSince(missionStart) / 60))
+        
+        return schedule.compactMap { entry in
+            let fireDate = missionStart.addingTimeInterval(TimeInterval(entry.minuteOffset * 60))
+            guard QuietHours.isQuietTime(fireDate) else { return entry }
+            
+            // Verschiebe auf nächsten erlaubten Zeitpunkt
+            let allowed = QuietHours.nextAllowedTime(after: fireDate)
+            let newOffset = Int(allowed.timeIntervalSince(missionStart) / 60)
+            
+            // Nur behalten wenn noch vor Deadline
+            guard newOffset < minutesUntilDeadline else { return nil }
+            return (minuteOffset: newOffset, level: entry.level)
+        }
+    }
 }
 
 // MARK: - Edge Function Responses
@@ -276,7 +316,7 @@ private struct EdgeCopyResponse: Decodable {
         func toCopyMessage() -> GeneratedCopy.Message {
             .init(
                 title: String(title.prefix(40)),
-                body: String(body.prefix(120)),
+                body: String(body.prefix(150)),
                 level: level
             )
         }

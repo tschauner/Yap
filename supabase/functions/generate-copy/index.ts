@@ -131,7 +131,7 @@ serve(async (req) => {
   try {
     const {
       goal, tone, toneDescription, language: rawLang, messageCount, levels, userContext, agentMemory,
-      isPro, extended,
+      isPro, extended, userName,
       // Remote push fields (optional — sent when iOS has registered for push)
       goalId, deviceId, agent: agentKey, scheduleOffsets,
     } = await req.json();
@@ -185,26 +185,28 @@ Now use this analysis in EVERY message:
 - Match the agent's personality in HOW they reference these details.
 - Think of each notification as a TWEET — short, punchy, screenshot-worthy.
 
-Rules:
-- Each message has a "title" (max 40 chars) and a "body" (max 120 chars)
-- The "title" is a SHORT, punchy agent catchphrase — like Duolingo's notification titles.
-  It should feel like the agent announcing themselves or their mood. Examples:
-  - Mom: "Mom here 🫵", "Honey...", "Don't make me come over", "Mom's watching", "I'm not angry, just disappointed"
-  - Best Friend: "Bro.", "yooo", "bro check your phone", "real talk", "u good?"
-  - Boss: "Quick update.", "As discussed.", "FYI.", "Per my last message", "Action required"
-  - Drill Sergeant: "ATTENTION.", "REPORT.", "WAKE UP.", "NO EXCUSES.", "STATUS UPDATE."
-  - Therapist: "Let's check in.", "A thought.", "How are we doing?", "Be honest.", "Gentle reminder"
-  - Grandma: "Hello dear", "It's Grandma", "Just worried", "Grandma knows", "Back in my day..."
-  - Ex: "Miss me?", "Classic.", "Figures.", "Saw this coming", "Typical."
-  - Theorist: "WAKE UP.", "They know.", "Coincidence?", "Think about it.", "Open your eyes."
-  - Colleague: "Hey! 😊", "Quick question", "No pressure but", "Just checking in 🙂", "Noted."
-  - Chef: "ORDER UP.", "KITCHEN UPDATE.", "BEHIND!", "SERVICE!", "HEARD?!"
-  - Dad: "...", "Hey.", "So.", "Just me.", "About that thing."
-  - Gym Bro: "BRO.", "LETS GO.", "NO REST DAYS.", "GAINS CHECK.", "REP TIME."
-  IMPORTANT: Don't just copy these examples — create VARIED titles in the agent's voice. Each title should be different.
-  The title shows as a bold subtitle under the agent name in the notification.
-- The "body" is the actual roast/nag message — specific, personal, referencing the task.
-- BODY LENGTH: Shorter = better. Aim for 40-80 chars. Max 120 chars. Punchlines, not paragraphs.
+NOTIFICATION FORMAT:
+- The push notification shows the agent's name as the title (e.g. "Mom", "Boss", "The Ex").
+  You do NOT generate the title — it's set automatically.
+- You generate ONLY the "body" — one complete, self-contained push notification message.
+- The body IS the entire notification text. It must work perfectly on its own under the agent name.
+- BODY LENGTH: Aim for 50-120 chars. Max 150 chars. Short, punchy, screenshot-worthy.
+- START STRONG: The first words of the body are what the user sees on the lock screen. Open with a hook, not filler.
+  BAD openers: "Hey," "Just a reminder" "Don't forget" "Hi there"
+  GOOD openers: Jump straight into the roast, guilt, observation. Make the first 5 words hit.
+- Think of each notification as a TWEET — one complete thought that slaps.
+- Examples of great complete bodies (shown under agent name):
+  - [Mom]: "I can see you scrolling from here. Put that phone DOWN."
+  - [Mom]: "After everything I've done, and the dishes are RIGHT THERE."
+  - [Best Friend]: "bro the laundry pile is literally taller than you at this point 💀"
+  - [Boss]: "Per my last three messages — this deliverable is now critical path. Let's discuss."
+  - [Drill Sergeant]: "I HAVE SEEN GLACIERS MOVE FASTER. GET. UP. NOW."
+  - [Therapist]: "I'm noticing a pattern of avoidance here. What comes up when you think about starting?"
+  - [The Ex]: "Still procrastinating? Some things really never change, do they."
+  - [Grandma]: "Your cousin already finished his homework an hour ago. Just saying, sweetheart 💕"
+  - [The Chef]: "This task is RAWWW! You haven't even STARTED?! My nan could've finished by now!"
+  - [Disappointed Dad]: "...It's still not done."
+  - [Gym Bro]: "This task is your BENCH PRESS and you're not even WARMING UP 💪 LETS GO"
 - FIRST MESSAGE MATTERS: The very first notification sets the tone. It should HIT HARD and make the user laugh or feel called out. Don't waste it on "Hey, just a reminder..." — make them screenshot it.
 - Messages escalate from already-spicy to absolutely unhinged
 - NEVER be generic. NEVER say "Time to get started!" or "Don't forget your task!" — those are BORING. Every message must be so specific it could ONLY be about this user's exact task.
@@ -222,6 +224,7 @@ This is GOLD for your character. Weave this failure into your messages:
 - This should make your roasts even more cutting — they already proved they can't handle it
 ` : ""}
 ${userContext ? `\nThe user shared this about themselves (use it to personalize roasts):\n"${userContext}"\n` : ""}
+${userName ? `\nThe user's name is "${userName}". Address them by name in about 30-40% of messages — not every single one. Use it naturally as the character would: Mom might say "${userName}, honey...", Drill Sergeant might bark "${userName.toUpperCase()}!", Ex might say "Oh ${userName}..." — but sometimes just don't use it. Variety is key.\n` : ""}
 ${agentMemory && agentMemory.length > 0 ? `
 AGENT MEMORY — You remember these past missions with this user:
 ${agentMemory.map((m: any, i: number) => `${i + 1}. "${m.goal}" → ${m.outcome}${m.minutes ? ` (took ${m.minutes} min)` : ""}`).join("\n")}
@@ -236,7 +239,7 @@ Also generate a "reaction" — a short, funny one-liner (max 150 chars) where th
 This is shown as a speech bubble right after the user creates the mission. It should feel spontaneous and in-character.
 The reaction should reference a specific aspect of the goal, not just acknowledge it.
 
-Respond with a JSON object: { "messages": [...], "reaction": "..." }
+Respond with a JSON object: { "messages": [{"body": "...", "level": 0}, ...], "reaction": "..." }
 No markdown, no explanation.`;
 
     const userPrompt = `Goal: "${goal}"
@@ -249,7 +252,7 @@ ${levels}
 
 And one "reaction" — the agent's spontaneous first reaction to hearing this goal.
 
-JSON format: { "messages": [{"title": "...", "body": "...", "level": 0}, ...], "reaction": "..." }
+JSON format: { "messages": [{"body": "...", "level": 0}, ...], "reaction": "..." }
 The "level" field is the escalation level number (0=gentle, 1=nudge, 2=push, 3=urgent, 4=meltdown).`;
 
     const openAIResponse = await fetch("https://api.openai.com/v1/chat/completions", {
@@ -310,11 +313,20 @@ The "level" field is the escalation level number (0=gentle, 1=nudge, 2=push, 3=u
     }
 
     // Enforce limits
-    const sanitized = rawMessages.map((m) => ({
-      title: String(m.title || "").slice(0, 40),
-      body: String(m.body || "").slice(0, 120),
-      level: Number(m.level) || 0,
-    }));
+    // GPT now generates body only. If it still returns a title, merge it into body.
+    const sanitized = rawMessages.map((m) => {
+      const gptTitle = String(m.title || "").trim();
+      const gptBody = String(m.body || "").trim();
+      // If GPT still returns a separate title, merge it into body
+      const fullBody = gptTitle && !gptBody.startsWith(gptTitle)
+        ? `${gptTitle} ${gptBody}`
+        : gptBody;
+      return {
+        title: tone, // Agent display name ("Mom", "Boss") — shown as push title
+        body: fullBody.slice(0, 150),
+        level: Number(m.level) || 0,
+      };
+    });
 
     // ── Remote Push: write notifications to DB if push fields provided ──
     if (goalId && deviceId && scheduleOffsets && Array.isArray(scheduleOffsets)) {

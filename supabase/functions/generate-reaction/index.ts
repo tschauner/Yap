@@ -29,7 +29,7 @@ serve(async (req) => {
   }
 
   try {
-    const { goal, tone, toneDescription, language: rawLang, agentMemory } = await req.json();
+    const { goal, tone, toneDescription, language: rawLang, agentMemory, userName } = await req.json();
     const language = resolveLanguage(rawLang);
 
     if (!goal || !tone) {
@@ -76,6 +76,7 @@ BEFORE you react, quickly think about what this goal ACTUALLY involves:
 
 Now write a SHORT, punchy "mission accepted" one-liner (max 150 chars) reacting to this goal.
 Your reaction MUST reference a SPECIFIC detail of the goal — a sub-task, an object, a situation — NOT just the goal title.
+${userName ? `The user's name is "${userName}". You can address them by name if it feels natural for the character — but it's not required for every reaction.` : ""}
 ${agentMemory && agentMemory.length > 0 ? "If you have memory of past missions, WEAVE IT IN. A reference to their history is MORE powerful than a generic observation." : ""}
 
 CHARACTER TONE GUIDE:
