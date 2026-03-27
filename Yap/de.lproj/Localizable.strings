@@ -47,7 +47,7 @@
 "mission_give_up" = "Aufgeben";
 "mission_set_another" = "Neue Mission starten";
 "mission_selection_headline" = "Was schiebst du auf?\nWähl einen Agenten.";
-"mission_selection_agents" = "Agents";
+"mission_selection_agents" = "Agenten";
 "mission_selection_show_more" = "Mehr";
 "mission_notifications_disabled_title" = "Mitteilungen sind aus";
 "mission_notifications_disabled_subline" = "Yap kann dich nicht nerven ohne Mitteilungen. Aktiviere sie in den Einstellungen.";
@@ -75,9 +75,9 @@
 "quiet_hours_alert_change" = "Ändern";
 
 // ── Agents ──────────────────────────────────────────────────
-"agents_title" = "Agents";
-"agents_headline" = "Triff deine Agents";
-"agents_subline" = "Jeder Agent hat seinen eigenen Style. Tipp einen an und hör den Pitch.";
+"agents_title" = "Agenten";
+"agents_headline" = "Lerne deine Agenten kennen";
+"agents_subline" = "Jeder Agent hat seinen eigenen Stil. Tipp einen an und hör dir den Pitch an.";
 "agents_special_description" = "Sie merken sich deine Missionen.\nMit Pro freigeschaltet.";
 "agents_deploy_agent" = "Agenten einsetzen";
 "agents_dismiss_agent" = "Agenten entlassen";
@@ -110,7 +110,7 @@
 "settings_section_legal" = "Rechtliches";
 "settings_custom_roast" = "Custom Roast";
 "settings_custom_roast_active" = "Aktiv";
-"settings_personalization_footer" = "Personalisiere deine Agents und stelle Ruhezeiten für Benachrichtigungen ein.";
+"settings_personalization_footer" = "Personalisiere deine Agenten und lege Ruhezeiten für Benachrichtigungen fest.";
 "settings_haptic_feedback" = "Haptisches Feedback";
 "settings_name" = "Name";
 "settings_name_not_set" = "Nicht gesetzt";
@@ -131,7 +131,7 @@
 "custom_roast_title" = "Custom Roast";
 "custom_roast_placeholder" = "z.B. Ich prokrastiniere, war seit 3 Monaten nicht im Gym und esse Cornflakes zum Abendessen";
 "custom_roast_section_header" = "Erzähl deinem Agenten von dir";
-"custom_roast_section_footer" = "Deine Agents nutzen das für persönlichere Roasts. Je genauer, desto härter die Burns.";
+"custom_roast_section_footer" = "Deine Agenten nutzen das für persönlichere Roasts. Je genauer, desto härter die Sprüche.";
 "custom_roast_clear" = "Löschen";
 
 // ── Help ────────────────────────────────────────────────────
@@ -142,11 +142,11 @@
 "help_request_feature" = "Feature vorschlagen";
 "help_section_faq" = "FAQ";
 "help_faq_what_is_yap_q" = "Was ist Yap?";
-"help_faq_what_is_yap_a" = "Yap nutzt KI-Agents mit eigener Persönlichkeit, um dich zu motivieren. Wähl einen Agenten, beschreib deine Mission und lass dich yappen, bis sie erledigt ist.";
+"help_faq_what_is_yap_a" = "Yap nutzt KI-Agenten mit eigener Persönlichkeit, um dich zu motivieren. Wähl einen Agenten, beschreib deine Mission und lass dich yappen, bis sie erledigt ist.";
 "help_faq_free_plan_q" = "Wie funktioniert der Free-Plan?";
-"help_faq_free_plan_a" = "Du bekommst Mom als Agent mit 1 Mission pro Tag. KI-Nachrichten und das Leaderboard sind für alle dabei.";
+"help_faq_free_plan_a" = "Du bekommst Mom als Agentin mit 1 Mission pro Tag. KI-Nachrichten und das Leaderboard sind für alle dabei.";
 "help_faq_pro_unlock_q" = "Was bringt Pro?";
-"help_faq_pro_unlock_a" = "Alle 6 Agents, unbegrenzte Missionen und die Option, Deadlines zu verlängern.";
+"help_faq_pro_unlock_a" = "Alle 6 Agenten, unbegrenzte Missionen und die Option, Deadlines zu verlängern.";
 "help_faq_miss_deadline_q" = "Was passiert bei verpasster Deadline?";
 "help_faq_miss_deadline_a" = "Die Mission gilt als gescheitert und fließt in deine Stats ein. Dein Agent wird nicht begeistert sein.";
 "help_faq_extend_deadline_q" = "Kann ich eine Deadline verlängern?";
@@ -154,11 +154,11 @@
 "help_faq_night_notifications_q" = "Krieg ich nachts Benachrichtigungen?";
 "help_faq_night_notifications_a" = "Ja. Dein Agent schläft nicht. Wenn deine Mission läuft, kommen Nachrichten. Das ist der Punkt.";
 "help_faq_agent_differences_q" = "Wie unterscheiden sich die Agents?";
-"help_faq_agent_differences_a" = "Jeder Agent hat seinen eigenen Style — von Moms Guilt-Trips bis zur Tough Love vom Drill Sergeant. Probier alle aus.";
+"help_faq_agent_differences_a" = "Jeder Agent hat seinen eigenen Stil — von Moms Schuldgefühlen bis zur Tough Love vom Drill Sergeant. Probier alle aus.";
 
 // ── Paywall ─────────────────────────────────────────────────
 "paywall_pro" = "PRO";
-"paywall_headline" = "Hol dir dein volles Motivations-Team.";
+"paywall_headline" = "Hol dir dein komplettes Motivations-Team.";
 "paywall_feature_special_agents" = "6 Special Agents mit eigener Persönlichkeit";
 "paywall_feature_agent_memory" = "Merken sich deine Missionen";
 "paywall_feature_unlimited_missions" = "Unbegrenzte Missionen pro Tag";
