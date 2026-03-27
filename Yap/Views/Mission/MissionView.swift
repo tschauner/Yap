@@ -10,6 +10,7 @@ import SwiftUI
 struct MissionView: View {
     @EnvironmentObject var viewModel: MissionViewModel
     @EnvironmentObject var store: StoreManager
+    @Environment(\.scenePhase) private var scenePhase
     @Namespace private var cardNamespace
     @State var isActive = false
     @State private var showSettings = false
@@ -25,10 +26,18 @@ struct MissionView: View {
             .task {
                 await viewModel.onAppear()
             }
+            .onChange(of: scenePhase) { _, newPhase in
+                if newPhase == .active {
+                    Task {
+                        await viewModel.refreshFromDeliveredNotifications()
+                        await viewModel.checkNotificationPermission()
+                    }
+                }
+            }
             .toolbar {
                 ToolbarItem(placement: .topBarLeading) {
-                    if let appURL = viewModel.appURL, let appName = Bundle.main.appName {
-                        ShareLink(item: appURL, message: .init("L10n.About.shareApp(appName)")) {
+                    if let appURL = viewModel.appURL {
+                        ShareLink(item: appURL, message: .init("Yap — Get nagged until you get it done 💪\n\(appURL)")) {
                             Image(icon: .share)
                                 .offset(y: -2)
                         }

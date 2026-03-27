@@ -25,7 +25,14 @@ final class MissionViewModel: ObservableObject {
     @Published var selectedMission: MissionItem?
     @Published var showGiveApAlert = false
     @Published var showExtendAlert = false
+    @Published var showQuietHoursAlert = false
+    @Published var showQuietHoursSheet = false
     @Published var isFocused = false
+    @Published var notificationsDisabled = false
+    
+    // Pending mission start (deferred by quiet hours alert)
+    private var pendingAgent: Agent?
+    private var pendingTitle: String?
     @Published var agentReaction: String? = nil
     @Published var missionReady = false
     @Published var currentNagMessage: String? = nil
@@ -35,11 +42,11 @@ final class MissionViewModel: ObservableObject {
     @Published var showAgents = true
     @Published var showAllAgents = false
     @Published var missionIsCompleting = false
-    @Published var selectedDeadline: Date = .nextSixPM
+    @Published var selectedDeadline: Date = Date().addingTimeInterval(2 * 60 * 60)
     @AppStorage("favorite_agent") var favoriteAgentRaw: String = ""
     @AppStorage("dismissedAgents") var dismissedAgentsRaw: String = ""
     
-    private let appId = "6738916276"
+    private let appId = "6761190023"
     
     var appURL: URL? {
         URL(string: "https://apps.apple.com/app/id\(appId)")
@@ -184,17 +191,22 @@ final class MissionViewModel: ObservableObject {
             if agentReaction == nil {
                 agentReaction = useCases.loadReaction.execute(active.id)
             }
-            // Load locally saved push body (only shows messages that actually arrived)
-            loadSavedPushBody(for: active.id)
+            // Fetch latest sent push from DB
+            await fetchLatestSentMessage(for: active.id)
+            // Observe foreground push arrivals + poll DB every 30s
             observePushArrivals(for: active.id)
+            startPolling(for: active.id)
         } else {
             phase = .selection
+            selectedDeadline = Date().addingTimeInterval(2 * 60 * 60)
             // Reset badge when no active mission (expired/failed)
             try? await UNUserNotificationCenter.current().setBadgeCount(0)
         }
         
         // History für Agent Stats laden
         await refreshMissionHistory()
+        
+        await checkNotificationPermission()
     }
 
     @MainActor
@@ -215,6 +227,35 @@ final class MissionViewModel: ObservableObject {
         phase = .selection
     }
     
+    // MARK: - Quiet Hours
+    
+    /// Check if mission spans quiet hours and show alert if needed.
+    @MainActor
+    func startMissionWithQuietCheck(_ agent: Agent, title: String) async {
+        if QuietHours.missionSpansQuietHours(missionStart: Date(), deadline: selectedDeadline) {
+            pendingAgent = agent
+            pendingTitle = title
+            showQuietHoursAlert = true
+        } else {
+            await selectAgent(agent, title: title)
+        }
+    }
+    
+    /// User tapped "Start" in quiet hours alert — proceed with mission.
+    @MainActor
+    func confirmQuietHoursStart() async {
+        guard let agent = pendingAgent, let title = pendingTitle else { return }
+        pendingAgent = nil
+        pendingTitle = nil
+        await selectAgent(agent, title: title)
+    }
+    
+    /// User tapped "Change" in quiet hours alert — open quiet hours sheet.
+    @MainActor
+    func changeQuietHours() {
+        showQuietHoursSheet = true
+    }
+    
     // MARK: - Mission Flow
     @MainActor
     func selectAgent(_ agent: Agent, title: String) async {
@@ -226,11 +267,14 @@ final class MissionViewModel: ObservableObject {
             return
         }
         
+        // Free users always get a fresh 2h deadline at mission start
+        let deadline = ProAccess.canChangeDeadline ? selectedDeadline : Date().addingTimeInterval(2 * 60 * 60)
+        
         // Step 1: Create mission (fast DB call, ~1s)
         guard let mission = await useCases.createMission.execute(.init(
             title: title,
             agent: agent,
-            deadline: selectedDeadline
+            deadline: deadline
         )) else {
             error = "Mission konnte nicht erstellt werden."
             return
@@ -344,6 +388,7 @@ final class MissionViewModel: ObservableObject {
     @MainActor
     func continueAfterResult() {
         // Queue hat nur MissionItems — User muss erst Agent wählen.
+        selectedDeadline = Date().addingTimeInterval(2 * 60 * 60)
         phase = .selection
     }
     
@@ -369,11 +414,42 @@ final class MissionViewModel: ObservableObject {
     
     // MARK: - Nag Message
     
-    /// Load the last push body that was saved locally when a notification arrived.
+    private var pollingTimer: AnyCancellable?
+    
+    /// Fetch the latest sent notification body from the DB for this mission.
     @MainActor
-    func loadSavedPushBody(for missionId: UUID) {
-        let key = "lastPushBody_\(missionId.uuidString)"
-        currentNagMessage = UserDefaults.standard.string(forKey: key)
+    func fetchLatestSentMessage(for goalId: UUID) async {
+        struct SentNotification: Decodable {
+            let body: String
+        }
+        do {
+            let results: [SentNotification] = try await APIClient().rest(
+                table: "yap_notifications",
+                query: "goal_id=eq.\(goalId.uuidString)&status=eq.sent&order=sent_at.desc&limit=1"
+            )
+            if let latest = results.first, !latest.body.isEmpty {
+                currentNagMessage = latest.body
+            }
+        } catch {
+            print("⚠️ Failed to fetch latest sent message: \(error.localizedDescription)")
+        }
+    }
+    
+    /// Start polling the DB every 30s for new sent messages.
+    @MainActor
+    func startPolling(for goalId: UUID) {
+        pollingTimer?.cancel()
+        pollingTimer = Timer.publish(every: 30, on: .main, in: .common)
+            .autoconnect()
+            .sink { [weak self] _ in
+                Task { await self?.fetchLatestSentMessage(for: goalId) }
+            }
+    }
+    
+    /// Stop polling.
+    func stopPolling() {
+        pollingTimer?.cancel()
+        pollingTimer = nil
     }
     
     /// Observe foreground push arrivals so the UI updates immediately.
@@ -390,10 +466,25 @@ final class MissionViewModel: ObservableObject {
             }
     }
     
+    /// Called when app returns to foreground — fetch latest sent push from DB.
+    @MainActor
+    func refreshFromDeliveredNotifications() async {
+        guard case .activeMission(let mission) = phase else { return }
+        await fetchLatestSentMessage(for: mission.id)
+    }
+    
+    /// Check if notifications are enabled — called on foreground return.
+    @MainActor
+    func checkNotificationPermission() async {
+        let status = await NagService.shared.permissionStatus()
+        notificationsDisabled = (status == .denied)
+    }
+    
     @MainActor
     func backToInput() {
         missionText = ""
         selectedAgent = nil
+        selectedDeadline = Date().addingTimeInterval(2 * 60 * 60)
         phase = .selection
     }
     

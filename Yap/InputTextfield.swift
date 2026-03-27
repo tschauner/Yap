@@ -36,7 +36,7 @@ struct InputTextfield: View {
     @State private var showDeadlinePicker = false
     
     private var addEnabled: Bool {
-        missionText.count >= 3
+        missionText.count >= 3 && !viewModel.notificationsDisabled
     }
     
     private var missionText: String {
@@ -104,7 +104,7 @@ struct InputTextfield: View {
                         .onTapGesture {
                             Task {
                                 await MainActor.run { isFocused = false }
-                                await viewModel.selectAgent(selectedAgent, title: missionText)
+                                await viewModel.startMissionWithQuietCheck(selectedAgent, title: missionText)
                             }
                         }
                 } else {
@@ -113,7 +113,7 @@ struct InputTextfield: View {
                 }
             }
         }
-        //.onAppear { isFocused = true }
+        .errorFeedback(trigger: viewModel.showQuietHoursAlert)
         .animation(.snappy(duration: 0.3), value: missionText.isEmpty)
         .onChange(of: isFocused) { oldValue, newValue in
             viewModel.isFocused = isFocused
@@ -123,6 +123,20 @@ struct InputTextfield: View {
         }
         .sheet(isPresented: $showDeadlinePicker) {
             DeadlinePickerSheet(deadline: $viewModel.selectedDeadline)
+        }
+        .alert(L10n.QuietHours.alertTitle, isPresented: $viewModel.showQuietHoursAlert) {
+            Button(L10n.QuietHours.alertStart) {
+                Task { await viewModel.confirmQuietHoursStart() }
+            }
+            Button(L10n.QuietHours.alertChange) {
+                viewModel.changeQuietHours()
+            }
+            Button(L10n.Common.cancel, role: .cancel) { }
+        } message: {
+            Text(L10n.QuietHours.alertMessage(QuietHours.formattedRange))
+        }
+        .sheet(isPresented: $viewModel.showQuietHoursSheet) {
+            QuietHoursSheet()
         }
     }
 }
@@ -136,9 +150,22 @@ struct DeadlinePickerSheet: View {
     private var minDate: Date { Date() }
     private var maxDate: Date { Date().addingTimeInterval(24 * 60 * 60) } // +24h
     
+    private let quickOptions: [(label: String, hours: Double)] = [
+        ("1h", 1), ("2h", 2), ("4h", 4)
+    ]
+    
+    private func isSelected(_ hours: Double) -> Bool {
+        let target = Date().addingTimeInterval(hours * 60 * 60)
+        return abs(deadline.timeIntervalSince(target)) < 5 * 60 // within 5 min
+    }
+    
     var body: some View {
         NavigationStack {
-            VStack(spacing: 0) {
+            VStack(spacing: 16) {
+                // Quick-select chips
+                hourPicker
+                    .padding(.top, 12)
+                
                 DatePicker(
                     "",
                     selection: $deadline,
@@ -159,7 +186,28 @@ struct DeadlinePickerSheet: View {
             }
             .presentationBackground(.black.opacity(0.6))
         }
-        .presentationDetents([.height(320)])
+        .presentationDetents([.height(380)])
+    }
+    
+    var hourPicker: some View {
+        HStack(spacing: 10) {
+            ForEach(quickOptions, id: \.hours) { option in
+                Text(option.label)
+                    .font(.system(size: 15, weight: .semibold))
+                    .padding(.horizontal, 18)
+                    .padding(.vertical, 8)
+                    .background(
+                        isSelected(option.hours)
+                            ? Color.blue.opacity(0.2)
+                            : Color.white.opacity(0.08)
+                    )
+                    .foregroundStyle(isSelected(option.hours) ? .blue : .secondary)
+                    .clipShape(Capsule())
+                    .button {
+                        deadline = Date().addingTimeInterval(option.hours * 60 * 60)
+                    }
+            }
+        }
     }
 }
 
