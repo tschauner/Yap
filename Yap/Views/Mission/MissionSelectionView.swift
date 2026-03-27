@@ -35,17 +35,22 @@ struct MissionSelectionView: View {
                     }
                     
                 } else {
-                    Text(L10n.Mission.selectionHeadline)
-                        .font(.system(size: 18, weight: .semibold))
-                        .multilineTextAlignment(.center)
-                        .padding(.horizontal, 50)
-                        .padding(.top)
-                        .background(
-                            AuroraView()
-                                .frame(width: 280, height: 280)
-                                .opacity(0.7)
-                                .allowsHitTesting(false)
-                        )
+                    if viewModel.notificationsDisabled {
+                        notificationWarning
+                            .padding(.horizontal, 40)
+                    } else {
+                        Text(L10n.Mission.selectionHeadline)
+                            .font(.system(size: 18, weight: .semibold))
+                            .multilineTextAlignment(.center)
+                            .padding(.horizontal, 50)
+                            .padding(.top)
+                            .background(
+                                AuroraView()
+                                    .frame(width: 280, height: 280)
+                                    .opacity(0.7)
+                                    .allowsHitTesting(false)
+                            )
+                    }
                 }
                 
                 Spacer()
@@ -81,7 +86,6 @@ struct MissionSelectionView: View {
             if viewModel.pickerState.lockedAgent == nil {
                 InputTextfield()
                     .padding(15)
-                //                    .background(Color("purpleDark"), in: .rect(cornerRadius: 20))
                     .glassEffect(.clear, in: .rect(cornerRadius: 20))
                     .padding(.bottom, 20)
                     .transition(.opacity)
@@ -109,6 +113,35 @@ struct MissionSelectionView: View {
     }
     
     return MissionSelectionContainerView()
+}
+
+// MARK: - Notification Warning
+
+extension MissionSelectionView {
+    var notificationWarning: some View {
+        VStack(spacing: 0) {
+            Text(L10n.Mission.notificationsDisabledTitle)
+                .font(.system(size: 20, weight: .semibold))
+                .multilineTextAlignment(.center)
+            
+            Subline(text: L10n.Mission.notificationsDisabledSubline)
+                .padding(.top, 15)
+            
+            Text(L10n.Mission.openSettings)
+                .font(.system(size: 15, weight: .semibold))
+                .foregroundStyle(.white)
+                .padding(.horizontal, 20)
+                .padding(.vertical, 10)
+                .background(Color.blue, in: Capsule())
+                .button {
+                    if let url = URL(string: UIApplication.openSettingsURLString) {
+                        UIApplication.shared.open(url)
+                    }
+                }
+                .padding(.top, 20)
+        }
+        .padding(.top, 10)
+    }
 }
 
 struct AgentCircle: View {
