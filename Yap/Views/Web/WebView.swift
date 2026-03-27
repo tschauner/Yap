@@ -8,6 +8,11 @@
 import SwiftUI
 import WebKit
 
+struct WebURL: Identifiable {
+    let id = UUID().uuidString
+    let url: URL
+}
+
 struct WebView: View {
     @Environment(\.dismiss) var dismiss
     @Environment(\.colorScheme) var colorScheme

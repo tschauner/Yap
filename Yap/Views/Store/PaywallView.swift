@@ -11,6 +11,7 @@ struct PaywallView: View {
     @Environment(\.colorScheme) private var colorScheme
     
     @State private var currentPage: Int = 0
+    @State private var webURL: WebURL?
     
     private let timer = Timer.publish(every: 5, on: .main, in: .common).autoconnect()
     
@@ -39,14 +40,8 @@ struct PaywallView: View {
                             .padding(.horizontal, 24)
                         
                         // Legal
-                        HStack(spacing: 16) {
-                            Link(L10n.Legal.privacyPolicy, destination: URL(string: "https://yap.fail/privacy")!)
-                            Text("·")
-                            Link(L10n.Legal.termsOfUse, destination: URL(string: "https://yap.fail/terms")!)
-                        }
-                        .font(.system(size: 12))
-                        .foregroundStyle(.tertiary)
-                        .padding(.top, 30)
+                        termsSection
+                            .padding(.vertical, 30)
                         
                         // Bottom spacing for sticky button
                         Spacer()
@@ -68,6 +63,9 @@ struct PaywallView: View {
                             dismiss()
                         }
                 }
+            }
+            .sheet(item: $webURL) { item in
+                WebView(url: item.url)
             }
             .onChange(of: store.isPro) { _, isPro in
                 if isPro { dismiss() }
@@ -204,12 +202,30 @@ struct PaywallView: View {
         }
         .padding(.horizontal, 24)
         .padding(.top, 12)
-        .padding(.bottom, 28)
         .background(
             Color.black
                 .ignoresSafeArea(.all, edges: .bottom)
                
         )
+    }
+    
+    
+    private var termsSection: some View {
+        HStack(spacing: 16) {
+            Text(L10n.Legal.privacyPolicy)
+                .font(.caption)
+                .button {
+                    webURL = .init(url: URL(string: "https://yap.fail/privacy")!)
+                }
+            Text("·")
+            Text(L10n.Legal.termsOfUse)
+                .font(.caption)
+                .button {
+                    webURL = .init(url: URL(string: "https://yap.fail/terms")!)
+                }
+        }
+        .font(.system(size: 12))
+        .foregroundStyle(.tertiary)
     }
 }
 

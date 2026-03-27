@@ -18,7 +18,7 @@ struct MissionContentView: View {
                     Image(icon: .flag)
                         .font(.system(size: 13, weight: .medium))
                         .frame(width: 20)
-                    Text(mission.title.capitalized)
+                    Text(mission.title)
                         .multilineTextAlignment(.leading)
                         .foregroundStyle(.primary)
                         .fontWeight(.medium)

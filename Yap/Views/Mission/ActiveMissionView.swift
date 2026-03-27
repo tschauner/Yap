@@ -97,6 +97,7 @@ private let isDebug = false
         }
         .errorFeedback(trigger: viewModel.showGiveApAlert)
         .animation(.easeInOut(duration: 0.4), value: viewModel.missionReady)
+        .animation(.bouncy, value: quote)
         .animation(.spring(), value: mission.isCompleted)
         .onReceive(deadlineTimer) { _ in
             // Check if deadline has passed

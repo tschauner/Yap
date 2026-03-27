@@ -77,7 +77,7 @@ struct LeaderboardView: View {
         ScrollView {
             VStack(spacing: 20) {
                 ForEach(Array(viewModel.globalLeaderboard.enumerated()), id: \.element.id) { index, stats in
-                    if let agent = stats.resolvedAgent {
+                    if let _ = stats.resolvedAgent {
                         globalRow(index: index, stats: stats)
                     } else {
                         globalRow(index: index, stats: stats)

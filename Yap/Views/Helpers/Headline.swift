@@ -12,10 +12,9 @@ struct Headline: View {
     
     var body: some View {
         Text(text)
-            .font(.system(size: 28, weight: .heavy))
-            .fontDesign(.rounded)
-//            .italic()
+            .font(.system(size: 27, weight: .bold))
             .multilineTextAlignment(.center)
+            .fixedSize(horizontal: false, vertical: true)
             .frame(maxWidth: .infinity, alignment: .center)
     }
 }
