@@ -14,6 +14,10 @@ struct OnboardingView: View {
         case notifiation
         case paywall
         
+        static var pages: [Self] {
+            [.welcome, .agents, .deadline, .name, .notifiation]
+        }
+        
         var canBeSkipped: Bool {
             switch self {
             case .name, .paywall:
@@ -22,12 +26,22 @@ struct OnboardingView: View {
                 return false
             }
         }
+        
+        var showPageIndicator: Bool {
+            switch self {
+            case .welcome, .paywall:
+                return false
+            default:
+                return true
+            }
+        }
     }
     
     private let totalPages = 5
     @Namespace var namespace
     @AppStorage("completedOnboarding") var completedOnboarding = false
     @AppStorage("user_display_name") private var userName: String = ""
+    @AppStorage("isPro") var isPro = false
     @EnvironmentObject var store: StoreManager
     
     @State private var currentPage: Page = .welcome
@@ -95,6 +109,7 @@ struct OnboardingView: View {
                 }
                 .tabViewStyle(.page(indexDisplayMode: .never))
                 .scrollContentBackground(.hidden)
+                .scrollDisabled(true)
                 .hapticFeedback(trigger: selectedAgent)
                 .hapticFeedback(trigger: currentPage)
                 .animation(.easeInOut(duration: 0.3), value: currentPage)
@@ -109,6 +124,26 @@ struct OnboardingView: View {
                 }
                 
                 // Bottom
+                .overlay(alignment: .top) {
+                    Group {
+                        if currentPage.showPageIndicator {
+                            HStack(spacing: 4) {
+                                ForEach(Page.pages, id: \.self) { page in
+                                    RoundedRectangle(cornerRadius: 2)
+                                        .frame(height: 3)
+                                        .frame(maxWidth: .infinity)
+                                        .opacity(page == currentPage ? 1 : 0.1)
+                                }
+                            }
+                            .padding(.horizontal, .horizontal)
+                            .padding(.top, 30)
+                        } else {
+                            Spacer()
+                                .frame(height: 3)
+                        }
+                    }
+                    .frame(width: 300)
+                }
                 .safeAreaInset(edge: .bottom) {
                     VStack {
                         if isFocused {
@@ -163,7 +198,13 @@ struct OnboardingView: View {
             withAnimation(.easeInOut(duration: 0.3)) { currentPage = .notifiation }
         case .notifiation:
             if notificationsEnabled || notificationsDenied {
-                withAnimation(.easeInOut(duration: 0.3)) { currentPage = .paywall }
+                withAnimation(.easeInOut(duration: 0.3)) {
+                    if isPro {
+                        completedOnboarding = true
+                    } else {
+                        currentPage = .paywall
+                    }
+                }
             } else {
                 Task {
                     let granted = await NagService.shared.requestPermission()

@@ -88,7 +88,7 @@ struct InputTextfield: View {
                     .focused($isFocused)
                     .foregroundStyle(.secondary)
                     .frame(maxWidth: .infinity, alignment: .leading)
-                    .font(.system(size: 19, weight: .medium))
+                    .font(.system(size: 18, weight: .medium))
                     .padding(.top, 15)
                     .onChange(of: viewModel.missionText) { _, newValue in
                         if newValue.count > 120 {

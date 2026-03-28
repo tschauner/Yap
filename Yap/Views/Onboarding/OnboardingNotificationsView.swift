@@ -52,7 +52,7 @@ struct OnboardingNotificationsView: View {
                 }
             
                 Subline(text: sublineText)
-                    .padding(.horizontal, 30)
+                    .padding(.horizontal, 40)
                     .padding(.top, 15)
             }
         }

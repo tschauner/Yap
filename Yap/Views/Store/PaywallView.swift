@@ -31,12 +31,10 @@ struct PaywallView: View {
                                 AuroraView()
                                     .frame(width: 280, height: 280)
                             )
-//                            .padding(.top, 20)
                         
                         // Comparison table
                         ComparisionTable()
                             .glassEffect(in: .rect(cornerRadius: 16))
-//                            .padding(.top, 20)
                             .padding(.horizontal, 24)
                         
                         // Legal
@@ -93,10 +91,6 @@ struct PaywallView: View {
                 .multilineTextAlignment(.center)
                 .foregroundStyle(.secondary)
                 .padding(.horizontal)
-            
-            // Laurel badge
-//            laurelBadge
-//                .padding(.top, 20)
         }
     }
     

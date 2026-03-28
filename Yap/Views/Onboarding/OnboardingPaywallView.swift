@@ -13,6 +13,7 @@ struct OnboardingPaywallView: View {
     @AppStorage("completedOnboarding") var completedOnboarding = false
     
     @State private var selectedAgent: Agent = .ex
+    @State private var webURL: WebURL?
     
     private let specialAgents = AgentPack.payWall
     
@@ -47,19 +48,17 @@ struct OnboardingPaywallView: View {
                             .glassEffect(in: .rect(cornerRadius: 16))
                             .padding(.horizontal, 30)
                         
-                        HStack(spacing: 16) {
-                            Link(L10n.Legal.privacyPolicy, destination: URL(string: "https://yap.fail/privacy")!)
-                            Text("·")
-                            Link(L10n.Legal.termsOfUse, destination: URL(string: "https://yap.fail/terms")!)
-                        }
-                        .font(.system(size: 12))
-                        .foregroundStyle(.tertiary)
-                        .padding(.vertical, 30)
+                        // Legal
+                        termsSection
+                            .padding(.vertical, 30)
                     }
                     .padding(.top, 20)
                 }
             }
             .scrollIndicators(.hidden)
+        }
+        .sheet(item: $webURL) { item in
+            WebView(url: item.url)
         }
         .hapticFeedback(trigger: selectedAgent)
         .onChange(of: store.isPro) { _, isPro in
@@ -127,6 +126,24 @@ struct OnboardingPaywallView: View {
                 .multilineTextAlignment(.leading)
         }
         .padding(.horizontal, 10)
+    }
+    
+    private var termsSection: some View {
+        HStack(spacing: 16) {
+            Text(L10n.Legal.privacyPolicy)
+                .font(.caption)
+                .button {
+                    webURL = .init(url: URL(string: "https://yap.fail/privacy")!)
+                }
+            Text("·")
+            Text(L10n.Legal.termsOfUse)
+                .font(.caption)
+                .button {
+                    webURL = .init(url: URL(string: "https://yap.fail/terms")!)
+                }
+        }
+        .font(.system(size: 12))
+        .foregroundStyle(.tertiary)
     }
 }
 
