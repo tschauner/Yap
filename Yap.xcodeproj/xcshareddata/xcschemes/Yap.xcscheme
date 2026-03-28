@@ -75,12 +75,6 @@
             ReferencedContainer = "container:Yap.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
-      <CommandLineArguments>
-         <CommandLineArgument
-            argument = "-MOCK_LEADERBOARD"
-            isEnabled = "YES">
-         </CommandLineArgument>
-      </CommandLineArguments>
       <StoreKitConfigurationFileReference
          identifier = "../../Yap/Store/Products.storekit">
       </StoreKitConfigurationFileReference>
