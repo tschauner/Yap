@@ -1,6 +1,6 @@
 /* 
   Localizable.strings
-  Yap — English
+  Yap - English
 
   Created by Philipp Tschauner on 14.03.26.
 */
@@ -38,7 +38,7 @@
 "onboarding_button_allow_notifications" = "Allow Notifications";
 "onboarding_button_next" = "Next";
 "onboarding_paywall_maybe_later" = "Maybe later";
-"onboarding_paywall_go_pro_price" = "Go Pro — %@";
+"onboarding_paywall_go_pro_price" = "Go Pro - %@";
 "onboarding_paywall_lifetime_subline" = "Lifetime. One-time. No subscription.";
 "onboarding_paywall_go_pro" = "Go Pro";
 
@@ -154,7 +154,7 @@
 "help_faq_night_notifications_q" = "Will I get notifications at night?";
 "help_faq_night_notifications_a" = "Yes. Your agent doesn't sleep. If your mission is active, messages keep coming. That's the point.";
 "help_faq_agent_differences_q" = "How do agents differ?";
-"help_faq_agent_differences_a" = "Each agent has a unique personality and communication style — from Mom's guilt trips to Drill Sergeant's tough love. Try them all to find your match.";
+"help_faq_agent_differences_a" = "Each agent has a unique personality and communication style - from Mom's guilt trips to Drill Sergeant's tough love. Try them all to find your match.";
 
 // ── Paywall ─────────────────────────────────────────────────
 "paywall_pro" = "PRO";
@@ -162,7 +162,7 @@
 "paywall_feature_special_agents" = "6 Special Agents with unique personalities";
 "paywall_feature_agent_memory" = "They remember your past missions";
 "paywall_feature_unlimited_missions" = "Unlimited missions per day";
-"paywall_unlock_pro_price" = "Unlock Pro — %@";
+"paywall_unlock_pro_price" = "Unlock Pro - %@";
 "paywall_one_time_purchase" = "One-time purchase";
 "paywall_unlock_pro" = "Unlock Pro";
 "paywall_restore_purchase" = "Restore purchase";

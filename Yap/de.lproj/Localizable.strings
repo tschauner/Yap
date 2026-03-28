@@ -1,6 +1,6 @@
 /* 
   Localizable.strings
-  Yap — Deutsch
+  Yap - Deutsch
 
   Created by Philipp Tschauner on 14.03.26.
 */
@@ -15,14 +15,14 @@
 "legal_terms_of_use" = "Nutzungsbedingungen";
 
 // ── Onboarding ──────────────────────────────────────────────
-"onboarding_start_headline" = "Die Motivations-App, die nicht die Klappe hält.";
-"onboarding_start_subline" = "Wähl einen Agenten. Starte eine Mission. Lass dich voll-yappen, bis du fertig bist.";
+"onboarding_start_headline" = "Die Motivations-App, die dich nicht in Ruhe lässt.";
+"onboarding_start_subline" = "Sag uns was ansteht. Setz ne Deadline. Den Rest machen wir.";
 "onboarding_name_headline" = "Wie heißt du?";
 "onboarding_name_subline" = "Deine Agenten nutzen deinen Namen, um persönlich zu werden. Optional, aber empfohlen.";
 "onboarding_name_placeholder" = "Dein Name";
 "onboarding_agents_headline" = "Wer soll dich yappen?";
 "onboarding_agents_subline" = "Jeder Agent hat seinen eigenen Style.\nTipp einen an und hör den Pitch.";
-"onboarding_deadline_headline" = "Am Anfang sind sie nett.\nDas bleibt nicht so.";
+"onboarding_deadline_headline" = "Zuerst sind sie nett.\nDann nicht mehr.";
 "onboarding_deadline_subline" = "Je näher die Deadline, desto härter die Nachrichten.";
 "onboarding_deadline_start" = "Start";
 "onboarding_deadline_deadline" = "Deadline";
@@ -38,7 +38,7 @@
 "onboarding_button_allow_notifications" = "Mitteilungen erlauben";
 "onboarding_button_next" = "Weiter";
 "onboarding_paywall_maybe_later" = "Vielleicht später";
-"onboarding_paywall_go_pro_price" = "Go Pro — %@";
+"onboarding_paywall_go_pro_price" = "Go Pro - %@";
 "onboarding_paywall_lifetime_subline" = "Einmalkauf. Kein Abo.";
 "onboarding_paywall_go_pro" = "Go Pro";
 
@@ -46,9 +46,9 @@
 "mission_hold_to_complete" = "Gedrückt halten";
 "mission_give_up" = "Aufgeben";
 "mission_set_another" = "Neue Mission starten";
-"mission_selection_headline" = "Was schiebst du auf?\nWähl einen Agenten.";
+"mission_selection_headline" = "Was schiebst du auf?\nWähl deinen Agenten.";
 "mission_selection_agents" = "Agenten";
-"mission_selection_show_more" = "Mehr";
+"mission_selection_show_more" = "Mehr anzeigen";
 "mission_notifications_disabled_title" = "Mitteilungen sind aus";
 "mission_notifications_disabled_subline" = "Yap kann dich nicht nerven ohne Mitteilungen. Aktiviere sie in den Einstellungen.";
 "mission_open_settings" = "Einstellungen öffnen";
@@ -154,7 +154,7 @@
 "help_faq_night_notifications_q" = "Krieg ich nachts Benachrichtigungen?";
 "help_faq_night_notifications_a" = "Ja. Dein Agent schläft nicht. Wenn deine Mission läuft, kommen Nachrichten. Das ist der Punkt.";
 "help_faq_agent_differences_q" = "Wie unterscheiden sich die Agents?";
-"help_faq_agent_differences_a" = "Jeder Agent hat seinen eigenen Stil — von Moms Schuldgefühlen bis zur Tough Love vom Drill Sergeant. Probier alle aus.";
+"help_faq_agent_differences_a" = "Jeder Agent hat seinen eigenen Stil - von Moms Schuldgefühlen bis zur Tough Love vom Drill Sergeant. Probier alle aus.";
 
 // ── Paywall ─────────────────────────────────────────────────
 "paywall_pro" = "PRO";
@@ -162,7 +162,7 @@
 "paywall_feature_special_agents" = "6 Special Agents mit eigener Persönlichkeit";
 "paywall_feature_agent_memory" = "Merken sich deine Missionen";
 "paywall_feature_unlimited_missions" = "Unbegrenzte Missionen pro Tag";
-"paywall_unlock_pro_price" = "Pro freischalten — %@";
+"paywall_unlock_pro_price" = "Pro freischalten - %@";
 "paywall_one_time_purchase" = "Einmalkauf";
 "paywall_unlock_pro" = "Pro freischalten";
 "paywall_restore_purchase" = "Kauf wiederherstellen";
@@ -206,7 +206,7 @@
 // ── Agents: Best Friend ─────────────────────────────────────
 "agent_bestFriend_display_name" = "Best Friend";
 "agent_bestFriend_description" = "Disst dich, weil er dich liebt";
-"agent_bestFriend_pitch" = "Ich hype dich und roast dich, bis es fertig ist.";
+"agent_bestFriend_pitch" = "Ich hype dich und roaste dich, bis es fertig ist.";
 "agent_bestFriend_pro_pitch" = "Bro, das ist weniger als EIN Kaffee. Und ich bin JEDEN Tag da. Anders als dein Ex.";
 "agent_bestFriend_give_up_roast" = "Bro... Ich hab an dich geglaubt. Ich hab's der Gruppe erzählt.";
 "agent_bestFriend_give_up_confirmation" = "Warte, du hörst echt auf? Nach dem ganzen Hype den ich dir gegeben hab?";
@@ -249,11 +249,11 @@
 
 // ── Agents: Therapist ───────────────────────────────────────
 "agent_therapist_display_name" = "Therapist";
-"agent_therapist_description" = "Hört dir zu — und stellt dann die unbequemen Fragen";
+"agent_therapist_description" = "Hört dir zu - und stellt dann die unbequemen Fragen";
 "agent_therapist_pitch" = "Wir finden den Grund. Und dann lösen wir das.";
 "agent_therapist_pro_pitch" = "Sieh’s als Self-Care. Du bist es dir wert. Oder?";
 "agent_therapist_give_up_roast" = "Lass uns mal schauen, warum du immer alles hinschmeißt.";
-"agent_therapist_give_up_confirmation" = "Bist du sicher, dass du das willst — oder weichst du gerade nur aus?";
+"agent_therapist_give_up_confirmation" = "Bist du sicher, dass du das willst - oder weichst du gerade nur aus?";
 "agent_therapist_completion" = "Geschafft. Wie fühlt es sich an, es durchgezogen zu haben?";
 "agent_therapist_extend_roast" = "Lass uns mal anschauen, warum du die Verlängerung brauchst. Was vermeidest du hier wirklich?";
 "agent_therapist_style_tag" = "Empathisch";

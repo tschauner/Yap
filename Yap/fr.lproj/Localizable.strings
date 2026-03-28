@@ -1,6 +1,6 @@
 /* 
   Localizable.strings
-  Yap — Français
+  Yap - Français
 
   Created by Philipp Tschauner on 14.03.26.
 */
@@ -38,7 +38,7 @@
 "onboarding_button_allow_notifications" = "Autoriser les notifications";
 "onboarding_button_next" = "Suivant";
 "onboarding_paywall_maybe_later" = "Plus tard";
-"onboarding_paywall_go_pro_price" = "Go Pro — %@";
+"onboarding_paywall_go_pro_price" = "Go Pro - %@";
 "onboarding_paywall_lifetime_subline" = "Achat unique. Pas d'abo.";
 "onboarding_paywall_go_pro" = "Go Pro";
 
@@ -154,7 +154,7 @@
 "help_faq_night_notifications_q" = "Je recevrai des notifs la nuit ?";
 "help_faq_night_notifications_a" = "Oui. Ton agent ne dort pas. Si ta mission est active, les messages continuent. C'est le principe.";
 "help_faq_agent_differences_q" = "Quelle est la différence entre les agents ?";
-"help_faq_agent_differences_a" = "Chaque agent a son style — des guilt-trips de Mom au tough love du Drill Sergeant. Essaie-les tous.";
+"help_faq_agent_differences_a" = "Chaque agent a son style - des guilt-trips de Mom au tough love du Drill Sergeant. Essaie-les tous.";
 
 // ── Paywall ─────────────────────────────────────────────────
 "paywall_pro" = "PRO";
@@ -162,7 +162,7 @@
 "paywall_feature_special_agents" = "6 Special Agents aux personnalités uniques";
 "paywall_feature_agent_memory" = "Ils retiennent tes missions";
 "paywall_feature_unlimited_missions" = "Missions illimitées par jour";
-"paywall_unlock_pro_price" = "Débloquer Pro — %@";
+"paywall_unlock_pro_price" = "Débloquer Pro - %@";
 "paywall_one_time_purchase" = "Achat unique";
 "paywall_unlock_pro" = "Débloquer Pro";
 "paywall_restore_purchase" = "Restaurer l'achat";
@@ -253,7 +253,7 @@
 "agent_therapist_pitch" = "On va trouver la cause. Et on va la résoudre.";
 "agent_therapist_pro_pitch" = "Vois ça comme du self-care. Tu le mérites. Non ?";
 "agent_therapist_give_up_roast" = "Explorons pourquoi tu lâches toujours l'affaire.";
-"agent_therapist_give_up_confirmation" = "Tu es sûr·e que c'est ce que tu veux, ou tu évites juste l'inconfort ?";
+"agent_therapist_give_up_confirmation" = "Tu es sûr(e) que c'est ce que tu veux, ou tu évites juste l'inconfort ?";
 "agent_therapist_completion" = "Tu l'as fait. Ça fait quoi d'honorer un engagement ?";
 "agent_therapist_extend_roast" = "Explorons pourquoi tu as eu besoin de cette extension. Qu'est-ce qu'on évite vraiment ?";
 "agent_therapist_style_tag" = "Empathique";

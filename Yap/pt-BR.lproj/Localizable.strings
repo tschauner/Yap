@@ -1,6 +1,6 @@
 /* 
   Localizable.strings
-  Yap — Português (Brasil)
+  Yap - Português (Brasil)
 
   Created by Philipp Tschauner on 14.03.26.
 */
@@ -38,7 +38,7 @@
 "onboarding_button_allow_notifications" = "Permitir notificações";
 "onboarding_button_next" = "Próximo";
 "onboarding_paywall_maybe_later" = "Talvez depois";
-"onboarding_paywall_go_pro_price" = "Go Pro — %@";
+"onboarding_paywall_go_pro_price" = "Go Pro - %@";
 "onboarding_paywall_lifetime_subline" = "Compra única. Sem assinatura.";
 "onboarding_paywall_go_pro" = "Go Pro";
 
@@ -75,11 +75,13 @@
 "quiet_hours_alert_change" = "Mudar";
 
 // ── Agents ──────────────────────────────────────────────────
+"agents_title" = "Agentes";
+"agents_headline" = "Bem-vindo à agência";
 "agents_subline" = "Cada agente tem seu próprio estilo. Toque em um pra ouvir o pitch.";
 "agents_special_description" = "Eles lembram das suas missões passadas.\nLiberados com Pro.";
 "agents_deploy_agent" = "Escalar agente";
 "agents_dismiss_agent" = "Remover agente";
-"agents_long_press_hint" = "Pressione longo para remover ou escalar";
+"agents_long_press_hint" = "Segure para remover ou escalar";
 "agents_remove_favorite" = "Remover favorito";
 "agents_set_favorite" = "Favoritar";
 
@@ -152,7 +154,7 @@
 "help_faq_night_notifications_q" = "Vou receber notificações de noite?";
 "help_faq_night_notifications_a" = "Sim. Seu agente não dorme. Se sua missão tá ativa, as mensagens seguem vindo. É esse o ponto.";
 "help_faq_agent_differences_q" = "Qual a diferença entre os agentes?";
-"help_faq_agent_differences_a" = "Cada agente tem seu estilo — dos guilt-trips da Mom ao tough love do Drill Sergeant. Testa todos.";
+"help_faq_agent_differences_a" = "Cada agente tem seu estilo - dos guilt-trips da Mom ao tough love do Drill Sergeant. Testa todos.";
 
 // ── Paywall ─────────────────────────────────────────────────
 "paywall_pro" = "PRO";
@@ -160,7 +162,7 @@
 "paywall_feature_special_agents" = "6 Special Agents com personalidades únicas";
 "paywall_feature_agent_memory" = "Eles lembram das suas missões";
 "paywall_feature_unlimited_missions" = "Missões ilimitadas por dia";
-"paywall_unlock_pro_price" = "Liberar Pro — %@";
+"paywall_unlock_pro_price" = "Liberar Pro - %@";
 "paywall_one_time_purchase" = "Compra única";
 "paywall_unlock_pro" = "Liberar Pro";
 "paywall_restore_purchase" = "Restaurar compra";
@@ -263,7 +265,7 @@
 "agent_grandma_pro_pitch" = "No meu tempo, motivação não custava NADA. Mas tá bom, aceito.";
 "agent_grandma_give_up_roast" = "Tá bom. Fico aqui sentada. Sozinha. Como sempre.";
 "agent_grandma_give_up_confirmation" = "Já desistindo? Eu sobrevivi uma guerra, sabia.";
-"agent_grandma_completion" = "To tão orgulhosa! Vem cá, fiz biscoitos.";
+"agent_grandma_completion" = "Tô tão orgulhosa! Vem cá, fiz biscoitos.";
 "agent_grandma_extend_roast" = "Precisa de mais tempo? Tá bom, querido. Espero aqui. Sozinha.";
 "agent_grandma_style_tag" = "Decepcionada";
 

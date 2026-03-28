@@ -1,6 +1,6 @@
 /* 
   Localizable.strings
-  Yap — Português (Portugal)
+  Yap - Português (Portugal)
 
   Created by Philipp Tschauner on 14.03.26.
 */
@@ -38,12 +38,12 @@
 "onboarding_button_allow_notifications" = "Permitir notificações";
 "onboarding_button_next" = "Seguinte";
 "onboarding_paywall_maybe_later" = "Talvez depois";
-"onboarding_paywall_go_pro_price" = "Go Pro — %@";
+"onboarding_paywall_go_pro_price" = "Go Pro - %@";
 "onboarding_paywall_lifetime_subline" = "Compra única. Sem subscrição.";
 "onboarding_paywall_go_pro" = "Go Pro";
 
 // ── Mission ─────────────────────────────────────────────────
-"mission_hold_to_complete" = "Manter para completar";
+"mission_hold_to_complete" = "Prima sem largar para concluir";
 "mission_give_up" = "Desistir";
 "mission_set_another" = "Nova missão";
 "mission_selection_headline" = "O que andas a adiar?\nEscolhe um agente.";
@@ -75,11 +75,13 @@
 "quiet_hours_alert_change" = "Alterar";
 
 // ── Agents ──────────────────────────────────────────────────
+"agents_title" = "Agentes";
+"agents_headline" = "Bem-vindo à agência";
 "agents_subline" = "Cada agente tem o seu estilo. Toca num para ouvir o pitch.";
 "agents_special_description" = "Lembram-se das tuas missões passadas.\nDesbloqueados com Pro.";
 "agents_deploy_agent" = "Destacar agente";
 "agents_dismiss_agent" = "Remover agente";
-"agents_long_press_hint" = "Pressione longo para remover ou destacar";
+"agents_long_press_hint" = "Prima sem largar para remover ou ativar";
 "agents_remove_favorite" = "Remover favorito";
 "agents_set_favorite" = "Marcar como favorito";
 
@@ -152,7 +154,7 @@
 "help_faq_night_notifications_q" = "Vou receber notificações à noite?";
 "help_faq_night_notifications_a" = "Sim. O teu agente não dorme. Se a missão estiver ativa, as mensagens continuam. É esse o objetivo.";
 "help_faq_agent_differences_q" = "Qual a diferença entre os agentes?";
-"help_faq_agent_differences_a" = "Cada agente tem o seu estilo — dos guilt-trips da Mom ao tough love do Drill Sergeant. Experimenta todos.";
+"help_faq_agent_differences_a" = "Cada agente tem o seu estilo - dos guilt-trips da Mom ao tough love do Drill Sergeant. Experimenta todos.";
 
 // ── Paywall ─────────────────────────────────────────────────
 "paywall_pro" = "PRO";
@@ -160,7 +162,7 @@
 "paywall_feature_special_agents" = "6 Special Agents com personalidades únicas";
 "paywall_feature_agent_memory" = "Lembram-se das tuas missões";
 "paywall_feature_unlimited_missions" = "Missões ilimitadas por dia";
-"paywall_unlock_pro_price" = "Desbloquear Pro — %@";
+"paywall_unlock_pro_price" = "Desbloquear Pro - %@";
 "paywall_one_time_purchase" = "Compra única";
 "paywall_unlock_pro" = "Desbloquear Pro";
 "paywall_restore_purchase" = "Restaurar compra";
