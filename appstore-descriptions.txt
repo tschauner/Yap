@@ -1,0 +1,561 @@
+================================================================================
+YAP - APP STORE METADATA
+================================================================================
+
+App Store Connect fields:
+- Name: 30 chars max (indexed for search)
+- Subtitle: 30 chars max (indexed for search)
+- Promotional Text: 170 chars max (updatable without new build)
+- Description: 4000 chars max (NOT indexed - conversion only)
+- Keywords: 100 chars max (don't repeat words from name/subtitle)
+- What's New: 4000 chars max
+
+
+================================================================================
+NAME + SUBTITLE (FINAL)
+================================================================================
+
+Name:     Yap - AI Motivation Agency        (25 chars)
+Subtitle: Agents that roast & nag          (23 chars)
+
+Indexed: yap, ai, motivation, agency, agents, that, roast, nag
+
+
+================================================================================
+PROMOTIONAL TEXT  (170 chars max - updatable anytime)
+================================================================================
+
+Option 1 (Agent voice):
+Mom: "I didn't raise a quitter." - 12 AI agents nag you with escalating push notifications until your task is done. Pick your torture.
+(136 chars)
+
+Option 2 (Punchy):
+12 AI agents. 12 ways to get roasted. Pick who nags you, set a deadline, and get yapped at until it's done. Or give up. They'll judge you either way.
+(150 chars)
+
+Option 3 (Direct):
+The productivity app that guilt-trips, roasts, and nags you until the job's done. 12 AI agents. Zero chill. You asked for this.
+(126 chars)
+
+
+================================================================================
+DESCRIPTION  (4000 chars max - first 3 lines visible before "more")
+================================================================================
+
+Hi sweetie. It's Mom.
+I noticed you still haven't done the thing. So I got you an app. You're welcome.
+
+You tell us what you've been avoiding. You pick an agent. You set a deadline. Then we nag you until it's done. Not the "gentle reminder" kind. The kind where I question every decision I made as a parent.
+
+There's 12 of us. I do guilt. The Therapist does that thing where he asks "what's really stopping you?" and then just waits. The Ex is here too - don't make eye contact. They'll say "typical" and somehow that works better than all of us combined. We don't talk about why.
+
+Every message is AI-generated. Never the same twice. You can even tell us your weaknesses and we'll use them against you. Some agents remember your past missions. They keep receipts.
+
+Anyway. You scrolled this far. You're not going to just close this and do nothing. Right?
+
+Download it. For me. Please. I worry.
+
+Terms of Use (EULA): https://www.apple.com/legal/internet-services/itunes/dev/stdeula/
+Privacy Policy: https://yap.fail/privacy
+
+
+================================================================================
+KEYWORDS  (100 chars max, comma-separated, no spaces)
+================================================================================
+
+Rule: Don't include words already in name+subtitle (Apple indexes those).
+Rule: Singular forms only (Apple matches plurals automatically).
+Rule: No spaces, no app name, no category name.
+
+Already indexed via Name+Subtitle: yap, ai, motivation, agency, agents, that, roast, nag
+
+Keywords:
+productivity,reminder,todo,habit,focus,procrastination,deadline,task,accountability,guilt,goal
+(97 chars ✅)
+
+
+================================================================================
+WHAT'S NEW  (for first release + updates)
+================================================================================
+
+First release:
+Your agents are ready. Pick one. Set a mission. Try not to disappoint them.
+
+Future updates:
+New agents. Sharper roasts. Your excuses don't stand a chance.
+
+
+================================================================================
+APP STORE CATEGORY
+================================================================================
+
+Primary: Productivity
+Secondary: Lifestyle
+
+
+================================================================================
+AGE RATING NOTES
+================================================================================
+
+- Infrequent/Mild Mature/Suggestive Themes (agent roasts can be edgy)
+- Infrequent/Mild Profanity or Crude Humor
+- No violence, gambling, alcohol, drugs, or sexual content
+- Recommended: 12+
+
+
+================================================================================
+DEUTSCH (DE)
+================================================================================
+
+Name: Yap - KI-Motivationsagentur
+Subtitle: Agenten, die roasten & nerven
+
+Promotional Text:
+Mom: „Ich hab dich nicht als Aufgeber erzogen." - 12 KI-Agenten nerven dich mit eskalierenden Push-Nachrichten, bis deine Aufgabe erledigt ist. Such dir deine Qual aus.
+
+Description:
+Hallo Schatz. Hier ist Mom.
+Mir ist aufgefallen, dass du die Sache immer noch nicht erledigt hast. Also hab ich dir eine App besorgt. Gern geschehen.
+
+Du sagst uns, was du vor dir herschiebst. Du wählst einen Agenten. Du setzt eine Deadline. Dann nerven wir dich, bis es erledigt ist. Nicht die „freundliche Erinnerung"-Art. Die Art, bei der ich jede Entscheidung in Frage stelle, die ich als Elternteil getroffen habe.
+
+Wir sind 12. Ich mach Schuldgefühle. Der Therapist macht dieses Ding, wo er fragt „was hält dich wirklich auf?" und dann einfach wartet. Der Ex ist auch da - kein Blickkontakt. Er sagt „typisch" und irgendwie wirkt das besser als wir alle zusammen. Wir reden nicht drüber warum.
+
+Jede Nachricht ist KI-generiert. Nie zweimal die gleiche. Du kannst uns sogar deine Schwächen verraten und wir benutzen sie gegen dich. Manche Agenten erinnern sich an deine vergangenen Missionen. Die haben Beweise.
+
+Jedenfalls. Du hast bis hierhin gescrollt. Du wirst jetzt nicht einfach zumachen und nichts tun. Oder?
+
+Lad's runter. Für mich. Bitte. Ich mach mir Sorgen.
+
+Keywords:
+produktivität,erinnerung,aufgaben,fokus,prokrastination,deadline,todo,gewohnheit,schuld,ziel
+(94 chars ✅)
+
+What's New:
+Deine Agenten sind bereit. Wähl einen. Setz eine Mission. Versuch sie nicht zu enttäuschen.
+
+
+================================================================================
+FRANÇAIS (FR)
+================================================================================
+
+Name: Yap - Agence de Motivation IA
+Subtitle: Agents qui lâchent rien
+
+Promotional Text:
+Mom : « J'ai pas élevé un lâcheur. » - 12 agents IA te harcèlent avec des notifications qui escaladent jusqu'à ce que tu aies fini. Choisis ta torture.
+
+Description:
+Coucou mon cœur. C'est Mom.
+J'ai remarqué que t'as toujours pas fait le truc. Alors je t'ai trouvé une appli. De rien.
+
+Tu nous dis ce que tu évites. Tu choisis un agent. Tu fixes une deadline. Ensuite on te harcèle jusqu'à ce que ce soit fait. Pas le genre « petit rappel sympa ». Le genre où je remets en question chaque décision que j'ai prise en tant que parent.
+
+On est 12. Moi je fais la culpabilité. Le Therapist fait ce truc où il demande « qu'est-ce qui te bloque vraiment ? » et puis il attend. L'Ex est là aussi - évite le regard. Il dira « typique » et bizarrement ça marche mieux que nous tous réunis. On en parle pas.
+
+Chaque message est généré par IA. Jamais le même deux fois. Tu peux même nous confier tes faiblesses et on les utilisera contre toi. Certains agents se souviennent de tes anciennes missions. Ils gardent les preuves.
+
+Bref. T'as scrollé jusqu'ici. Tu vas pas juste fermer ça et rien faire. Si ?
+
+Télécharge-la. Pour moi. S'il te plaît. Je m'inquiète.
+
+Keywords:
+productivité,rappel,tâche,habitude,focus,procrastination,deadline,roast,nag,objectif,todo
+(92 chars ✅)
+
+What's New:
+Tes agents sont prêts. Choisis-en un. Lance une mission. Essaie de pas les décevoir.
+
+
+================================================================================
+ESPAÑOL (ES)
+================================================================================
+
+Name: Yap - Agencia Motivación IA
+Subtitle: Agentes que no se callan
+
+Promotional Text:
+Mom: "No te crié para que te rindieras." - 12 agentes IA te acosan con notificaciones que escalan hasta que termines. Elige tu tortura.
+
+Description:
+Hola cariño. Soy Mom.
+Me di cuenta de que todavía no hiciste la cosa. Así que te conseguí una app. De nada.
+
+Nos dices qué estás evitando. Eliges un agente. Pones una deadline. Y te molestamos hasta que esté hecho. No del tipo "recordatorio amable". Del tipo donde cuestiono cada decisión que tomé como madre.
+
+Somos 12. Yo hago culpa. El Therapist hace eso de preguntar "¿qué te está deteniendo realmente?" y después solo espera. El Ex también está - no hagas contacto visual. Dirá "típico" y de alguna forma funciona mejor que todos nosotros juntos. No hablamos de por qué.
+
+Cada mensaje es generado por IA. Nunca el mismo dos veces. Hasta puedes contarnos tus debilidades y las usaremos en tu contra. Algunos agentes recuerdan tus misiones pasadas. Guardan las pruebas.
+
+En fin. Scrolleaste hasta acá. No vas a cerrar esto y no hacer nada. ¿Verdad?
+
+Descárgala. Por mí. Por favor. Me preocupo.
+
+Keywords:
+productividad,recordatorio,tarea,hábito,foco,procrastinación,deadline,roast,nag,meta,todo,culpa
+(95 chars ✅)
+
+What's New:
+Tus agentes están listos. Elige uno. Lanza una misión. Intenta no decepcionarlos.
+
+
+================================================================================
+PORTUGUÊS - PORTUGAL (PT-PT)
+================================================================================
+
+Name: Yap - Agência de Motivação IA
+Subtitle: Agentes IA que não se calam
+
+Promotional Text:
+Mom: "Não te criei para desistires." - 12 agentes IA chateiam-te com notificações que escalam até acabares. Escolhe a tua tortura.
+
+Description:
+Olá querido. É a Mom.
+Reparei que ainda não fizeste a coisa. Por isso arranjei-te uma app. De nada.
+
+Dizes-nos o que andas a evitar. Escolhes um agente. Defines um prazo. Depois chateamos-te até estar feito. Não do tipo "lembrete simpático". Do tipo em que questiono cada decisão que tomei como mãe.
+
+Somos 12. Eu faço culpa. O Therapist faz aquilo de perguntar "o que é que te está realmente a impedir?" e depois fica ali à espera. O Ex também cá está - não faças contacto visual. Vai dizer "típico" e de alguma forma resulta melhor que todos nós juntos. Não falamos sobre porquê.
+
+Cada mensagem é gerada por IA. Nunca igual duas vezes. Até nos podes contar as tuas fraquezas e nós usamo-las contra ti. Alguns agentes lembram-se das tuas missões passadas. Guardam provas.
+
+Enfim. Fizeste scroll até aqui. Não vais simplesmente fechar isto e não fazer nada. Pois não?
+
+Faz download. Por mim. Por favor. Eu preocupo-me.
+
+Keywords:
+produtividade,lembrete,tarefa,hábito,foco,procrastinação,prazo,roast,nag,objetivo,todo,culpa
+(92 chars ✅)
+
+What's New:
+Os teus agentes estão prontos. Escolhe um. Lança uma missão. Tenta não os desiludir.
+
+
+================================================================================
+PORTUGUÊS - BRASIL (PT-BR)
+================================================================================
+
+Name: Yap - Agência de Motivação IA
+Subtitle: Agentes que não calam a boca
+
+Promotional Text:
+Mom: "Não te criei pra desistir." - 12 agentes IA te enchem o saco com notificações que escalam até você terminar. Escolha sua tortura.
+
+Description:
+Oi querido. É a Mom.
+Reparei que você ainda não fez a coisa. Então te arranjei um app. De nada.
+
+Você nos diz o que tá evitando. Escolhe um agente. Define um prazo. Aí a gente te enche o saco até estar feito. Não do tipo "lembrete fofo". Do tipo onde eu questiono cada decisão que tomei como mãe.
+
+Somos 12. Eu faço culpa. O Therapist faz aquela coisa de perguntar "o que realmente tá te impedindo?" e depois só fica esperando. O Ex também tá aqui - não faz contato visual. Vai falar "típico" e de algum jeito funciona melhor que todos nós juntos. A gente não fala sobre por quê.
+
+Cada mensagem é gerada por IA. Nunca igual duas vezes. Você até pode contar suas fraquezas e a gente usa contra você. Alguns agentes lembram das suas missões passadas. Eles guardam provas.
+
+Enfim. Você scrollou até aqui. Não vai simplesmente fechar isso e não fazer nada. Né?
+
+Baixa. Por mim. Por favor. Eu me preocupo.
+
+Keywords:
+produtividade,lembrete,tarefa,hábito,foco,procrastinação,prazo,roast,nag,meta,todo,culpa,objetivo
+(97 chars ✅)
+
+What's New:
+Seus agentes estão prontos. Escolha um. Lance uma missão. Tenta não decepcionar eles.
+
+
+================================================================================
+APP REVIEW NOTES
+================================================================================
+
+In-App Purchase: com.philipptschauner.yap.lifetime
+Type: Non-Consumable (Lifetime, one-time purchase, $9.99)
+
+How to access the paywall:
+- During onboarding (shown automatically)
+- In an active mission → tap "..." (top right) → Go Pro
+- Try to change a deadline → paywall appears
+- Settings → Go Pro
+
+Pro unlocks: 6 additional Special Agents, unlimited missions per day, agent memory, custom roast, custom deadline, extend deadline. Free tier includes 6 base agents, 1 mission/day, and AI-powered messages.
+
+AI-generated messages are created via OpenAI API. Content is humorous/motivational. No harmful or sexual content. Notifications require user permission and only fire during active missions. Restore purchases available in Settings.
+
+Privacy Policy: https://yap.fail/privacy
+
+
+================================================================================
+APP STORE SCREENSHOTS
+================================================================================
+
+────────────────────────────────────────
+BILD 1 - Hero
+────────────────────────────────────────
+
+EN:
+  Headline:
+    #1
+    get-your-
+    sh*t-done
+    app.
+  Subline:
+    The fact that you're here means you already know you need help.
+    - Therapist
+
+DE:
+  Headline:
+    Die #1
+    get-your-
+    sh*t-done
+    App.
+  Subline:
+    Dass du hier bist, zeigt mir, dass du selbst weißt, dass du Hilfe brauchst.
+    - Therapist
+
+FR:
+  Headline:
+    L'appli #1
+    get-your-
+    sh*t-done.
+  Subline:
+    Le fait que tu sois ici prouve que tu sais que t'as besoin d'aide.
+    - Therapist
+
+ES:
+  Headline:
+    La app #1
+    get-your-
+    sh*t-done.
+  Subline:
+    El hecho de que estés aquí significa que ya sabes que necesitas ayuda.
+    - Therapist
+
+PT-PT:
+  Headline:
+    A app #1
+    get-your-
+    sh*t-done.
+  Subline:
+    O facto de estares aqui mostra que já sabes que precisas de ajuda.
+    - Therapist
+
+PT-BR:
+  Headline:
+    O app #1
+    get-your-
+    sh*t-done.
+  Subline:
+    O fato de você estar aqui mostra que já sabe que precisa de ajuda.
+    - Therapist
+
+
+────────────────────────────────────────
+BILD 2 - How it works
+────────────────────────────────────────
+
+EN:
+  Headline: Set a task. Pick a deadline. We handle the rest.
+  Quote:
+    Bro you set a deadline?
+    I'm screenshotting this
+    for when you miss it.
+    - Best Friend
+  Task: Finish Q2 report
+
+DE:
+  Headline: Sag uns was ansteht. Setz ne Deadline. Den Rest machen wir.
+  Quote:
+    Alter du hast ne Deadline gesetzt?
+    Ich screenshot das
+    für wenn du's verpasst.
+    - Best Friend
+  Task: Q2-Report fertig machen
+
+FR:
+  Headline: Choisis une tâche. Fixe une deadline. On gère le reste.
+  Quote:
+    Mec t'as mis une deadline ?
+    Je screenshot ça
+    pour quand tu la rateras.
+    - Best Friend
+  Task: Finir le rapport Q2
+
+ES:
+  Headline: Pon una tarea. Elige una deadline. Nosotros hacemos el resto.
+  Quote:
+    Bro pusiste una deadline?
+    Le saqué captura
+    para cuando la incumplas.
+    - Best Friend
+  Task: Terminar informe Q2
+
+PT-PT:
+  Headline: Define uma tarefa. Escolhe um prazo. Nós tratamos do resto.
+  Quote:
+    Mano meteste um prazo?
+    Estou a fazer screenshot disto
+    para quando falhares.
+    - Best Friend
+  Task: Acabar relatório Q2
+
+PT-BR:
+  Headline: Defina uma tarefa. Escolha um prazo. A gente cuida do resto.
+  Quote:
+    Mano tu botou um prazo?
+    To printando isso
+    pra quando tu furar.
+    - Best Friend
+  Task: Terminar relatório Q2
+
+
+────────────────────────────────────────
+BILD 3 - Agent selection
+────────────────────────────────────────
+
+EN:
+  Headline: 12 agents. 12 ways to get roasted.
+  Quote:
+    Oh, 12 agents? Can't commit to just one?
+    Typical.
+    - The Ex
+
+DE:
+  Headline: 12 Agenten. 12 Arten, geröstet zu werden.
+  Quote:
+    Oh, 12 Agenten? Kannst dich nicht mal für einen entscheiden?
+    Typisch.
+    - The Ex
+
+FR:
+  Headline: 12 agents. 12 façons de se faire griller.
+  Quote:
+    Oh, 12 agents ? Tu peux pas t'engager pour un seul ?
+    Typique.
+    - The Ex
+
+ES:
+  Headline: 12 agentes. 12 formas de que te asen.
+  Quote:
+    Oh, 12 agentes? No puedes comprometerte con uno solo?
+    Típico.
+    - The Ex
+
+PT-PT:
+  Headline: 12 agentes. 12 formas de seres assado.
+  Quote:
+    Oh, 12 agentes? Não consegues comprometer-te com um só?
+    Típico.
+    - The Ex
+
+PT-BR:
+  Headline: 12 agentes. 12 jeitos de ser torrado.
+  Quote:
+    Oh, 12 agentes? Não consegue se comprometer com um só?
+    Típico.
+    - The Ex
+
+
+────────────────────────────────────────
+BILD 4 - Custom roast / weaknesses
+────────────────────────────────────────
+
+EN:
+  Headline: Tell us your weaknesses. We'll use them.
+  Quote:
+    I survived a war and you can't survive a salad? Noted.
+    - Grandma
+  User input: I eat cereal for dinner and haven't been to the gym in 3 months
+
+DE:
+  Headline: Erzähl uns deine Schwächen. Wir nutzen sie gegen dich.
+  Quote:
+    Ich hab einen Krieg überlebt und du schaffst keinen Salat? Notiert.
+    - Grandma
+  User input: Ich ess Cornflakes zum Abendessen und war seit 3 Monaten nicht im Gym
+
+FR:
+  Headline: Dis-nous tes faiblesses. On les utilisera contre toi.
+  Quote:
+    J'ai survécu à une guerre et toi tu survis pas à une salade ? Noté.
+    - Grandma
+  User input: Je mange des céréales au dîner et j'ai pas été à la salle depuis 3 mois
+
+ES:
+  Headline: Cuéntanos tus debilidades. Las usaremos en tu contra.
+  Quote:
+    Sobreviví una guerra y tú no sobrevives una ensalada? Anotado.
+    - Grandma
+  User input: Ceno cereales y llevo 3 meses sin pisar el gym
+
+PT-PT:
+  Headline: Conta-nos as tuas fraquezas. Vamos usá-las contra ti.
+  Quote:
+    Sobrevivi a uma guerra e tu não aguentas uma salada? Anotado.
+    - Grandma
+  User input: Janto cereais e não vou ao ginásio há 3 meses
+
+PT-BR:
+  Headline: Conta suas fraquezas. A gente usa contra você.
+  Quote:
+    Sobrevivi uma guerra e você não aguenta uma salada? Anotado.
+    - Grandma
+  User input: Janto cereal e não vou na academia faz 3 meses
+
+
+────────────────────────────────────────
+BILD 5 - Escalating notifications
+────────────────────────────────────────
+
+EN:
+  Headline: They don't stop. You shouldn't either.
+  Agent: Mom | Task: Clean the apartment
+  Notifications (escalating):
+    1. "The apartment won't clean itself. But you knew that 3 hours ago."
+    2. "I told Grandma you'd rather live in filth than lift a finger."
+    3. "Your cousin just bought a house. You can't even clean yours."
+    4. "I'm coming over. Unannounced. Right now."
+
+DE:
+  Headline: Sie hören nicht auf. Du solltest es auch nicht.
+  Agent: Mom | Task: Wohnung putzen
+  Notifications (eskalierend):
+    1. "Die Wohnung putzt sich nicht von allein. Das wusstest du vor 3 Stunden."
+    2. "Ich hab Oma erzählt, dass du lieber im Dreck lebst als einen Finger zu rühren."
+    3. "Dein Cousin hat grad ein Haus gekauft. Du kriegst deins nicht mal sauber."
+    4. "Ich komm vorbei. Unangemeldet. Jetzt."
+
+FR:
+  Headline: Ils ne s'arrêtent pas. Toi non plus.
+  Agent: Mom | Task: Nettoyer l'appart
+  Notifications (escalade):
+    1. "L'appart va pas se nettoyer tout seul. Mais ça tu le savais il y a 3 heures."
+    2. "J'ai dit à Mamie que tu préfères vivre dans la crasse que lever le petit doigt."
+    3. "Ton cousin vient d'acheter une maison. Toi tu peux même pas nettoyer la tienne."
+    4. "J'arrive. Sans prévenir. Là maintenant."
+
+ES:
+  Headline: Ellos no paran. Tú tampoco deberías.
+  Agent: Mom | Task: Limpiar el apartamento
+  Notifications (escalando):
+    1. "El apartamento no se va a limpiar solo. Pero eso ya lo sabías hace 3 horas."
+    2. "Le dije a la abuela que prefieres vivir en mugre que mover un dedo."
+    3. "Tu primo acaba de comprar una casa. Tú no puedes ni limpiar la tuya."
+    4. "Voy para allá. Sin avisar. Ahora mismo."
+
+PT-PT:
+  Headline: Eles não param. Tu também não devias.
+  Agent: Mom | Task: Limpar o apartamento
+  Notifications (escalando):
+    1. "O apartamento não se limpa sozinho. Mas isso já sabias há 3 horas."
+    2. "Contei à avó que preferes viver na porcaria do que mexer um dedo."
+    3. "O teu primo acabou de comprar casa. Tu não consegues limpar a tua."
+    4. "Estou a ir aí. Sem avisar. Agora."
+
+PT-BR:
+  Headline: Eles não param. Você também não deveria.
+  Agent: Mom | Task: Limpar o apartamento
+  Notifications (escalando):
+    1. "O apartamento não vai se limpar sozinho. Mas isso você já sabia há 3 horas."
+    2. "Contei pra vó que você prefere viver na sujeira do que mexer um dedo."
+    3. "Seu primo acabou de comprar uma casa. Você não consegue limpar a sua."
+    4. "To indo aí. Sem avisar. Agora."
+
