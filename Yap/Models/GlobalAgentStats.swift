@@ -35,12 +35,4 @@ struct GlobalAgentStats: Identifiable, Decodable {
         let m = avg % 60
         return m > 0 ? "\(h)h \(m)m" : "\(h)h"
     }
-    
-    enum CodingKeys: String, CodingKey {
-        case agent, completed, total
-        case givenUp = "given_up"
-        case totalUsers = "total_users"
-        case successRate = "success_rate"
-        case avgMinutes = "avg_minutes"
-    }
 }
