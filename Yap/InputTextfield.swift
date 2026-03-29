@@ -138,6 +138,14 @@ struct InputTextfield: View {
         .sheet(isPresented: $viewModel.showQuietHoursSheet) {
             QuietHoursSheet()
         }
+        .alert(L10n.Common.error, isPresented: Binding(
+            get: { viewModel.error != nil },
+            set: { if !$0 { viewModel.error = nil } }
+        )) {
+            Button(L10n.Common.ok) { viewModel.error = nil }
+        } message: {
+            Text(viewModel.error ?? "")
+        }
     }
 }
 

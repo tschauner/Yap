@@ -259,6 +259,7 @@ final class MissionViewModel: ObservableObject {
     // MARK: - Mission Flow
     @MainActor
     func selectAgent(_ agent: Agent, title: String) async {
+        let title = title.trimmingCharacters(in: .whitespacesAndNewlines)
         // Daily limit check: Free users get 1 mission/day
         
         // Daily limit check: Free users get 1 mission/day
@@ -276,7 +277,7 @@ final class MissionViewModel: ObservableObject {
             agent: agent,
             deadline: deadline
         )) else {
-            error = "Mission konnte nicht erstellt werden."
+            error = L10n.Mission.creationFailed
             return
         }
         
@@ -409,7 +410,17 @@ final class MissionViewModel: ObservableObject {
             return
         }
         #endif
-        globalLeaderboard = await useCases.fetchGlobalLeaderboard.execute(())
+        let raw = await useCases.fetchGlobalLeaderboard.execute(())
+        // Re-sort: agents with < 3 missions show "–" and go to the bottom
+        globalLeaderboard = raw.sorted { lhs, rhs in
+            let lhsHasRate = lhs.total >= 3
+            let rhsHasRate = rhs.total >= 3
+            if lhsHasRate != rhsHasRate { return lhsHasRate }
+            if lhsHasRate {
+                if lhs.successRate != rhs.successRate { return lhs.successRate > rhs.successRate }
+            }
+            return lhs.total > rhs.total
+        }
     }
     
     // MARK: - Nag Message
