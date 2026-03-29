@@ -352,3 +352,15 @@
 // ── Mission additions ────────────────────────────────────────
 "mission_share_message" = "Yap — Deixa-te irritar até o fazeres 💪\n%@";
 "mission_creation_failed" = "Não foi possível criar a missão. Tenta novamente.";
+
+// ── Fake Reviews ──────────────────────────────────────────────────
+"paywall_review_1_body" = "Detesto esta app. Finalmente entreguei a minha tese.";
+"paywall_review_1_name" = "Inês";
+"paywall_review_2_body" = "O meu Ex lembra-se de todas as deadlines que falhei. Eu também já me lembro.";
+"paywall_review_2_name" = "Rui";
+"paywall_review_3_body" = "Chorei. Terminei. Chorei outra vez. 5 estrelas.";
+"paywall_review_3_name" = "Ana";
+"paywall_review_4_body" = "Disappointed Dad disse-me que o meu auge foi em 2019. Provei que estava errado.";
+"paywall_review_4_name" = "João";
+"paywall_review_5_body" = "Só queria ser deixado em paz. Em vez disso, limpei o apartamento.";
+"paywall_review_5_name" = "Beatriz";

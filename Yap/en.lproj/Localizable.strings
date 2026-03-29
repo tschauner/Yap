@@ -352,3 +352,15 @@
 // ── Mission additions ────────────────────────────────────────
 "mission_share_message" = "Yap — Get nagged until you get it done 💪\n%@";
 "mission_creation_failed" = "Could not create mission. Please try again.";
+
+// ── Fake Reviews ─────────────────────────────────────────────
+"paywall_review_1_body" = "I hate this app. I finally finished my thesis.";
+"paywall_review_1_name" = "Julia";
+"paywall_review_2_body" = "My Ex remembers every deadline I missed. So do I now.";
+"paywall_review_2_name" = "Markus";
+"paywall_review_3_body" = "I cried. I finished. I cried again. 5 stars.";
+"paywall_review_3_name" = "Sara";
+"paywall_review_4_body" = "Disappointed Dad told me I peaked in 2019. I proved him wrong.";
+"paywall_review_4_name" = "Tom";
+"paywall_review_5_body" = "I just wanted to be left alone. Instead I cleaned my apartment.";
+"paywall_review_5_name" = "Laura";

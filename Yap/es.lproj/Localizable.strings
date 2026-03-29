@@ -352,3 +352,15 @@
 // ── Mission additions ────────────────────────────────────────
 "mission_share_message" = "Yap — Déjate molestar hasta que lo termines 💪\n%@";
 "mission_creation_failed" = "No se pudo crear la misión. Inténtalo de nuevo.";
+
+// ── Fake Reviews ─────────────────────────────────────────────
+"paywall_review_1_body" = "Odio esta app. Por fin entregué mi tesis.";
+"paywall_review_1_name" = "Sofía";
+"paywall_review_2_body" = "Mi Ex recuerda cada deadline que incumplí. Yo también ahora.";
+"paywall_review_2_name" = "Diego";
+"paywall_review_3_body" = "Lloré. Lo terminé. Volví a llorar. 5 estrellas.";
+"paywall_review_3_name" = "Marta";
+"paywall_review_4_body" = "Disappointed Dad me dijo que mi mejor momento fue en 2019. Se lo demostré.";
+"paywall_review_4_name" = "Pablo";
+"paywall_review_5_body" = "Solo quería que me dejaran en paz. En cambio, limpé mi apartamento.";
+"paywall_review_5_name" = "Elena";

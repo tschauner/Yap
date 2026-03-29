@@ -352,3 +352,15 @@
 // ── Mission additions ────────────────────────────────────────
 "mission_share_message" = "Yap — Laisse-toi harceler jusqu'à ce que ce soit fait 💪\n%@";
 "mission_creation_failed" = "Impossible de créer la mission. Veuillez réessayer.";
+
+// ── Fake Reviews ─────────────────────────────────────────────
+"paywall_review_1_body" = "Je déteste cette appli. J'ai enfin rendu ma thèse.";
+"paywall_review_1_name" = "Camille";
+"paywall_review_2_body" = "Mon Ex se souvient de chaque deadline ratée. Moi aussi maintenant.";
+"paywall_review_2_name" = "Antoine";
+"paywall_review_3_body" = "J'ai pleuré. J'ai fini. J'ai repleuré. 5 étoiles.";
+"paywall_review_3_name" = "Lucie";
+"paywall_review_4_body" = "Papa déçu m'a dit que j'avais atteint mon apogée en 2019. Je lui ai prouvé le contraire.";
+"paywall_review_4_name" = "Théo";
+"paywall_review_5_body" = "Je voulais juste qu'on me laisse tranquille. J'ai rangé mon appart à la place.";
+"paywall_review_5_name" = "Chloe";

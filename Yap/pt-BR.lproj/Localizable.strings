@@ -352,3 +352,15 @@
 // ── Mission additions ────────────────────────────────────────
 "mission_share_message" = "Yap — Se deixe encher o saco até terminar 💪\n%@";
 "mission_creation_failed" = "Não foi possível criar a missão. Tente novamente.";
+
+// ── Fake Reviews ──────────────────────────────────────────────────
+"paywall_review_1_body" = "Eu odeio esse app. Finalmente entreguei minha monografia.";
+"paywall_review_1_name" = "Mariana";
+"paywall_review_2_body" = "Meu Ex lembra de cada prazo que perdi. Agora eu também.";
+"paywall_review_2_name" = "Lucas";
+"paywall_review_3_body" = "Chorei. Terminei. Chorei de novo. 5 estrelas.";
+"paywall_review_3_name" = "Fernanda";
+"paywall_review_4_body" = "Disappointed Dad me disse que meu auge foi em 2019. Provei que ele estava errado.";
+"paywall_review_4_name" = "Pedro";
+"paywall_review_5_body" = "Só queria ser deixado em paz. Em vez disso, limpei meu apartamento.";
+"paywall_review_5_name" = "Camila";

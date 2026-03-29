@@ -352,3 +352,15 @@
 // ── Mission additions ────────────────────────────────────────
 "mission_share_message" = "Yap — Lass dich nerven bis du es erledigt hast 💪\n%@";
 "mission_creation_failed" = "Mission konnte nicht erstellt werden. Bitte versuche es erneut.";
+
+// ── Fake Reviews ─────────────────────────────────────────────
+"paywall_review_1_body" = "Ich hasse diese App. Ich hab endlich meine Thesis abgegeben.";
+"paywall_review_1_name" = "Julia";
+"paywall_review_2_body" = "Mein Ex erinnert sich an jede verpasste Deadline. Ich jetzt auch.";
+"paywall_review_2_name" = "Markus";
+"paywall_review_3_body" = "Ich hab geweint. Ich hab's geschafft. Nochmal geweint. 5 Sterne.";
+"paywall_review_3_name" = "Sara";
+"paywall_review_4_body" = "Disappointed Dad meinte, mein Zenit war 2019. Hab's ihm bewiesen.";
+"paywall_review_4_name" = "Tom";
+"paywall_review_5_body" = "Ich wollte einfach meine Ruhe. Stattdessen hab ich aufgeräumt.";
+"paywall_review_5_name" = "Laura";
