@@ -14,6 +14,8 @@ enum L10n {
         static let cancel = "common_cancel".localized
         static let done = "common_done".localized
         static let off = "common_off".localized
+        static let ok = "common_ok".localized
+        static let error = "common_error".localized
     }
     
     // MARK: - Legal
@@ -69,6 +71,8 @@ enum L10n {
         static let openSettings = "mission_open_settings".localized
         static let achievements = "mission_toolbar_achievements".localized
         static let left = "mission_time_left".localized
+        static func shareMessage(_ url: String) -> String { "mission_share_message".localized(with: url) }
+        static let creationFailed = "mission_creation_failed".localized
         static func messagesIgnored(_ count: Int) -> String { "mission_messages_ignored".localized(with: count) }
         static func messagesScheduled(_ count: Int) -> String { "mission_messages_scheduled".localized(with: count) }
     }
@@ -117,6 +121,7 @@ enum L10n {
         static let youEmptyTitle = "leaderboard_you_empty_title".localized
         static let youEmptyDescription = "leaderboard_you_empty_description".localized
         static func users(_ count: Int) -> String { "leaderboard_users".localized(with: count) }
+        static let rateFooter = "leaderboard_rate_footer".localized
     }
     
     // MARK: - Agent Detail

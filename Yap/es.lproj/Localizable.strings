@@ -94,6 +94,7 @@
 "leaderboard_you_empty_title" = "Sin misiones aún";
 "leaderboard_you_empty_description" = "Completa tu primera misión.";
 "leaderboard_users" = "%d usuarios";
+"leaderboard_rate_footer" = "La tasa de éxito se muestra a partir de 3 misiones.";
 
 // ── Agent Detail ────────────────────────────────────────────
 "agent_detail_completed" = "Completadas";
@@ -341,3 +342,11 @@
 "agent_intensity_high" = "Alto";
 "agent_intensity_medium" = "Medio";
 "agent_intensity_chill" = "Chill";
+
+// ── Common additions ────────────────────────────────────────
+"common_ok" = "OK";
+"common_error" = "Error";
+
+// ── Mission additions ────────────────────────────────────────
+"mission_share_message" = "Yap — Déjate molestar hasta que lo termines 💪\n%@";
+"mission_creation_failed" = "No se pudo crear la misión. Inténtalo de nuevo.";

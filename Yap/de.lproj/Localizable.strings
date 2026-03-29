@@ -94,6 +94,7 @@
 "leaderboard_you_empty_title" = "Noch keine Missionen";
 "leaderboard_you_empty_description" = "Schließ deine erste Mission ab.";
 "leaderboard_users" = "%d Nutzer";
+"leaderboard_rate_footer" = "Erfolgsrate wird ab mindestens 3 Missionen angezeigt.";
 
 // ── Agent Detail ────────────────────────────────────────────
 "agent_detail_completed" = "Erledigt";
@@ -341,3 +342,11 @@
 "agent_intensity_high" = "Hoch";
 "agent_intensity_medium" = "Mittel";
 "agent_intensity_chill" = "Chill";
+
+// ── Common additions ────────────────────────────────────────
+"common_ok" = "OK";
+"common_error" = "Fehler";
+
+// ── Mission additions ────────────────────────────────────────
+"mission_share_message" = "Yap — Lass dich nerven bis du es erledigt hast 💪\n%@";
+"mission_creation_failed" = "Mission konnte nicht erstellt werden. Bitte versuche es erneut.";

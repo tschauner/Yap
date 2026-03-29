@@ -94,6 +94,7 @@
 "leaderboard_you_empty_title" = "Pas encore de missions";
 "leaderboard_you_empty_description" = "Termine ta première mission.";
 "leaderboard_users" = "%d utilisateurs";
+"leaderboard_rate_footer" = "Le taux de réussite s'affiche à partir de 3 missions.";
 
 // ── Agent Detail ────────────────────────────────────────────
 "agent_detail_completed" = "Terminées";
@@ -341,3 +342,11 @@
 "agent_intensity_high" = "Élevé";
 "agent_intensity_medium" = "Moyen";
 "agent_intensity_chill" = "Chill";
+
+// ── Common additions ────────────────────────────────────────
+"common_ok" = "OK";
+"common_error" = "Erreur";
+
+// ── Mission additions ────────────────────────────────────────
+"mission_share_message" = "Yap — Laisse-toi harceler jusqu'à ce que ce soit fait 💪\n%@";
+"mission_creation_failed" = "Impossible de créer la mission. Veuillez réessayer.";
