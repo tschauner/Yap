@@ -145,15 +145,15 @@
 "help_faq_what_is_yap_q" = "¿Qué es Yap?";
 "help_faq_what_is_yap_a" = "Yap usa agentes IA con personalidades únicas para motivarte. Elige un agente, describe tu misión, y te van a insistir hasta que termines.";
 "help_faq_free_plan_q" = "¿Cómo funciona el plan gratis?";
-"help_faq_free_plan_a" = "Tienes a Mom como agente gratis con 1 misión al día. Mensajes IA y el ranking están incluidos para todos.";
+"help_faq_free_plan_a" = "Tienes 6 agentes gratis — Mom, Best Friend, Boss, Drill Sergeant, Terapeuta y Abuela — con 1 misión al día. Mensajes IA y el ranking están incluidos para todos.";
 "help_faq_pro_unlock_q" = "¿Qué desbloquea Pro?";
-"help_faq_pro_unlock_a" = "Los 6 agentes, misiones ilimitadas y la opción de extender deadlines.";
+"help_faq_pro_unlock_a" = "Pro desbloquea 6 agentes especiales: Ex, Conspiranoico, Colega pasivo-agresivo, Chef, Papá Decepcionado y Gym Bro. Más misiones ilimitadas y deadline personalizable por misión.";
 "help_faq_miss_deadline_q" = "¿Qué pasa si no cumplo la deadline?";
 "help_faq_miss_deadline_a" = "La misión cuenta como fallida y afecta tus stats. Tu agente tampoco estará contento.";
 "help_faq_extend_deadline_q" = "¿Puedo extender una deadline?";
 "help_faq_extend_deadline_a" = "Los usuarios Pro pueden extender una deadline una vez por misión.";
 "help_faq_night_notifications_q" = "¿Recibiré notificaciones de noche?";
-"help_faq_night_notifications_a" = "Sí. Tu agente no duerme. Si tu misión está activa, los mensajes siguen llegando. Ese es el punto.";
+"help_faq_night_notifications_a" = "Por defecto, sí. Pero puedes configurar Horas silenciosas en Ajustes para definir un periodo sin notificaciones. Fuera de ese periodo, los mensajes siguen llegando.";
 "help_faq_agent_differences_q" = "¿En qué se diferencian los agentes?";
 "help_faq_agent_differences_a" = "Cada agente tiene su estilo - desde los guilt-trips de Mom hasta el tough love del Drill Sergeant. Pruébalos todos.";
 

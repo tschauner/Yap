@@ -145,15 +145,15 @@
 "help_faq_what_is_yap_q" = "C'est quoi Yap ?";
 "help_faq_what_is_yap_a" = "Yap utilise des agents IA avec leur propre personnalité pour te motiver. Choisis un agent, décris ta mission, et fais-toi harceler jusqu'au bout.";
 "help_faq_free_plan_q" = "Comment marche le plan gratuit ?";
-"help_faq_free_plan_a" = "Tu as Mom comme agent gratuit avec 1 mission par jour. Les messages IA et le classement sont inclus pour tout le monde.";
+"help_faq_free_plan_a" = "Tu as accès à 6 agents gratuits — Mom, Best Friend, Boss, Drill Sergeant, Thérapeute et Grand-mère — avec 1 mission par jour. Les messages IA et le classement sont inclus pour tout le monde.";
 "help_faq_pro_unlock_q" = "Que débloque Pro ?";
-"help_faq_pro_unlock_a" = "Les 6 agents, des missions illimitées et la possibilité de prolonger les deadlines.";
+"help_faq_pro_unlock_a" = "Pro débloque 6 agents spéciaux : Ex, Théoricien du complot, Collègue passif-agressif, Chef cuisinier, Papa déçu et Gym Bro. Plus des missions illimitées et une deadline personnalisable par mission.";
 "help_faq_miss_deadline_q" = "Que se passe-t-il si je rate ma deadline ?";
 "help_faq_miss_deadline_a" = "La mission est comptée comme échouée et affecte tes stats. Ton agent ne sera pas content non plus.";
 "help_faq_extend_deadline_q" = "Je peux prolonger une deadline ?";
 "help_faq_extend_deadline_a" = "Les utilisateurs Pro peuvent prolonger une deadline une fois par mission.";
 "help_faq_night_notifications_q" = "Je recevrai des notifs la nuit ?";
-"help_faq_night_notifications_a" = "Oui. Ton agent ne dort pas. Si ta mission est active, les messages continuent. C'est le principe.";
+"help_faq_night_notifications_a" = "Par défaut, oui. Mais tu peux définir des Heures silencieuses dans les réglages pour bloquer les notifications pendant une plage horaire. En dehors, les messages continuent.";
 "help_faq_agent_differences_q" = "Quelle est la différence entre les agents ?";
 "help_faq_agent_differences_a" = "Chaque agent a son style - des guilt-trips de Mom au tough love du Drill Sergeant. Essaie-les tous.";
 
