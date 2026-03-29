@@ -14,7 +14,7 @@ struct AgentStats: Identifiable {
     var total: Int { completed + givenUp }
     
     var successRate: Double? {
-        guard total > 0 else { return nil }
+        guard total >= 3 else { return nil }
         return Double(completed) / Double(total)
     }
     
@@ -40,15 +40,14 @@ extension Array where Element == Mission {
     }
     
     /// Stats sorted by success rate (highest first), then by total missions.
+    /// Agents with fewer than 3 missions have no rate and sort last.
     func agentLeaderboard() -> [AgentStats] {
         agentStats()
             .filter { $0.total > 0 }
             .sorted { lhs, rhs in
                 let lhsRate = lhs.successRate ?? -1
                 let rhsRate = rhs.successRate ?? -1
-                if lhsRate != rhsRate {
-                    return lhsRate > rhsRate
-                }
+                if lhsRate != rhsRate { return lhsRate > rhsRate }
                 return lhs.total > rhs.total
             }
     }

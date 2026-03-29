@@ -20,8 +20,16 @@ struct GlobalAgentStats: Identifiable, Decodable {
         Agent(rawValue: agent)
     }
     
+    /// Normalized to 0–1 for use with rateColor (Supabase returns 0–100).
+    /// Returns nil when total < 3 so rateColor shows .secondary (grey).
+    var successRateNormalized: Double? {
+        guard total >= 3 else { return nil }
+        return successRate / 100
+    }
+
     var successRateFormatted: String {
-        "\(Int(successRate))%"
+        guard total >= 3 else { return "–" }
+        return "\(Int(successRate))%"
     }
     
     var record: String {

@@ -77,14 +77,16 @@ struct LeaderboardView: View {
         ScrollView {
             VStack(spacing: 20) {
                 ForEach(Array(viewModel.globalLeaderboard.enumerated()), id: \.element.id) { index, stats in
-                    if let _ = stats.resolvedAgent {
-                        globalRow(index: index, stats: stats)
-                    } else {
-                        globalRow(index: index, stats: stats)
-                    }
+                    globalRow(index: index, stats: stats)
                 }
             }
             .padding(.horizontal, .horizontal)
+
+            Text(L10n.Leaderboard.rateFooter)
+                .font(.caption2)
+                .foregroundStyle(.tertiary)
+                .padding(.horizontal)
+                .padding(.vertical, 12)
         }
         .scrollIndicators(.hidden)
     }
@@ -116,6 +118,12 @@ struct LeaderboardView: View {
                 }
             }
             .padding(.horizontal, .horizontal)
+
+            Text(L10n.Leaderboard.rateFooter)
+                .font(.caption2)
+                .foregroundStyle(.tertiary)
+                .padding(.horizontal)
+                .padding(.vertical, 12)
         }
         .scrollIndicators(.hidden)
     }
@@ -146,9 +154,15 @@ struct LeaderboardView: View {
                 .foregroundStyle(rateColor(for: stats.successRate))
                 .fontWeight(.bold)
                 .fontDesign(.rounded)
+                .padding(.trailing, 7)
+            
+            Image(icon: .chevronRight)
+                .font(.system(size: 12, weight: .heavy))
+                .foregroundStyle(.tertiary)
+                .fontDesign(.rounded)
+                .padding(.trailing, 5)
         }
         .contentShape(Rectangle())
-//        .background(index == 0 ? Color.black.opacity(0.8) : .clear)
     }
     
     // MARK: - Global Row
@@ -189,7 +203,7 @@ struct LeaderboardView: View {
             
             Text(stats.successRateFormatted)
                 .font(.system(size: 20, weight: .heavy))
-                .foregroundStyle(rateColor(for: stats.successRate))
+                .foregroundStyle(rateColor(for: stats.successRateNormalized))
                 .fontWeight(.bold)
                 .fontDesign(.rounded)
         }
