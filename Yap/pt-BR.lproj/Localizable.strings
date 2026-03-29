@@ -145,15 +145,17 @@
 "help_faq_what_is_yap_q" = "O que é o Yap?";
 "help_faq_what_is_yap_a" = "O Yap usa agentes IA com personalidades próprias pra te motivar. Escolha um agente, descreva sua missão e se prepare pra levar na cabeça até terminar.";
 "help_faq_free_plan_q" = "Como funciona o plano grátis?";
-"help_faq_free_plan_a" = "Você tem 6 agentes grátis — Mom, Best Friend, Boss, Drill Sergeant, Terapeuta e Vovó — com 1 missão por dia. Mensagens IA e ranking inclusos pra todo mundo.";
+"help_faq_free_plan_a" = "Você tem 6 agentes grátis - Mom, Best Friend, Boss, Drill Sergeant, Therapist e Grandma - com 1 missão por dia. Mensagens IA e ranking inclusos pra todo mundo.";
 "help_faq_pro_unlock_q" = "O que o Pro libera?";
-"help_faq_pro_unlock_a" = "O Pro libera 6 agentes especiais: Ex, Teórico da Conspiração, Colega Passivo-Agressivo, Chef, Pai Decepcionado e Gym Bro. Mais missões ilimitadas e deadline personalizada por missão.";
+"help_faq_pro_unlock_a" = "O Pro libera 6 agentes especiais, missões ilimitadas, uma deadline personalizada por missão, extensão de deadline e um Custom Roast nas configurações.";
+"help_faq_special_agents_q" = "O que são os agentes especiais?";
+"help_faq_special_agents_a" = "Ex, Conspiracy Theorist, Passive-Aggressive Colleague, Chef, Disappointed Dad e Gym Bro. Eles lembram dos seus fracassos passados e jogam na sua cara quando você menos quer ouvir.";
 "help_faq_miss_deadline_q" = "O que acontece se eu perder a deadline?";
 "help_faq_miss_deadline_a" = "A missão conta como falha e afeta suas stats. Seu agente também não vai curtir.";
 "help_faq_extend_deadline_q" = "Posso estender uma deadline?";
 "help_faq_extend_deadline_a" = "Usuários Pro podem estender uma deadline uma vez por missão.";
 "help_faq_night_notifications_q" = "Vou receber notificações de noite?";
-"help_faq_night_notifications_a" = "Por padrão, sim. Mas você pode configurar Horário silencioso nas configurações pra definir um período sem notificações. Fora desse período, as mensagens continuam chegando.";
+"help_faq_night_notifications_a" = "Por padrão, as Quiet Hours ficam ativas entre 22:00 e 8:00 - sem notificações nesse período. Você pode alterar o horário ou desativá-las por completo nas configurações.";
 "help_faq_agent_differences_q" = "Qual a diferença entre os agentes?";
 "help_faq_agent_differences_a" = "Cada agente tem seu estilo - dos guilt-trips da Mom ao tough love do Drill Sergeant. Testa todos.";
 

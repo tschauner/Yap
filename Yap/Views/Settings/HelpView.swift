@@ -65,6 +65,11 @@ struct HelpView: View {
                     )
                     
                     faqItem(
+                        question: L10n.Help.faqSpecialAgentsQ,
+                        answer: L10n.Help.faqSpecialAgentsA
+                    )
+                    
+                    faqItem(
                         question: L10n.Help.faqMissDeadlineQ,
                         answer: L10n.Help.faqMissDeadlineA
                     )

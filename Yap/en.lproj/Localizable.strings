@@ -145,15 +145,17 @@
 "help_faq_what_is_yap_q" = "What is Yap?";
 "help_faq_what_is_yap_a" = "Yap uses AI agents with unique personalities to motivate you to finish tasks. Pick an agent, describe your mission, and get nudged until you're done.";
 "help_faq_free_plan_q" = "How does the free plan work?";
-"help_faq_free_plan_a" = "You get 6 agents for free — Mom, Best Friend, Boss, Drill Sergeant, Therapist, and Grandma — with 1 mission per day. AI-powered messages and the leaderboard are included for everyone.";
+"help_faq_free_plan_a" = "You get 6 agents for free - Mom, Best Friend, Boss, Drill Sergeant, Therapist, and Grandma - with 1 mission per day. AI-powered messages and the leaderboard are included for everyone.";
 "help_faq_pro_unlock_q" = "What does Pro unlock?";
-"help_faq_pro_unlock_a" = "Pro unlocks 6 special agents: Ex, Conspiracy Theorist, Passive-Aggressive Colleague, Chef, Disappointed Dad, and Gym Bro. Plus unlimited daily missions and a custom deadline per mission.";
+"help_faq_pro_unlock_a" = "Pro unlocks 6 special agents, unlimited daily missions, a custom deadline per mission, deadline extension, and a Custom Roast in Settings.";
+"help_faq_special_agents_q" = "What are special agents?";
+"help_faq_special_agents_a" = "Ex, Conspiracy Theorist, Passive-Aggressive Colleague, Chef, Disappointed Dad, and Gym Bro. They remember your past failures and bring them up when you least want to hear it.";
 "help_faq_miss_deadline_q" = "What happens when I miss a deadline?";
 "help_faq_miss_deadline_a" = "The mission counts as failed and affects your stats. Your agent won't be happy about it either.";
 "help_faq_extend_deadline_q" = "Can I extend a deadline?";
 "help_faq_extend_deadline_a" = "Pro users can extend a deadline once per mission.";
 "help_faq_night_notifications_q" = "Will I get notifications at night?";
-"help_faq_night_notifications_a" = "By default, yes. But you can set Quiet Hours in Settings to define a window where notifications are silenced. Outside that window, messages keep coming.";
+"help_faq_night_notifications_a" = "By default, Quiet Hours are active between 22:00 and 8:00 - no notifications during that window. You can change the hours or turn them off entirely in Settings.";
 "help_faq_agent_differences_q" = "How do agents differ?";
 "help_faq_agent_differences_a" = "Each agent has a unique personality and communication style - from Mom's guilt trips to Drill Sergeant's tough love. Try them all to find your match.";
 

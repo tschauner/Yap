@@ -183,6 +183,8 @@ enum L10n {
         static let faqFreePlanA = "help_faq_free_plan_a".localized
         static let faqProUnlockQ = "help_faq_pro_unlock_q".localized
         static let faqProUnlockA = "help_faq_pro_unlock_a".localized
+        static let faqSpecialAgentsQ = "help_faq_special_agents_q".localized
+        static let faqSpecialAgentsA = "help_faq_special_agents_a".localized
         static let faqMissDeadlineQ = "help_faq_miss_deadline_q".localized
         static let faqMissDeadlineA = "help_faq_miss_deadline_a".localized
         static let faqExtendDeadlineQ = "help_faq_extend_deadline_q".localized

@@ -145,15 +145,17 @@
 "help_faq_what_is_yap_q" = "Was ist Yap?";
 "help_faq_what_is_yap_a" = "Yap nutzt KI-Agenten mit eigener Persönlichkeit, um dich zu motivieren. Wähl einen Agenten, beschreib deine Mission und lass dich yappen, bis sie erledigt ist.";
 "help_faq_free_plan_q" = "Wie funktioniert der Free-Plan?";
-"help_faq_free_plan_a" = "Du bekommst 6 Agenten gratis — Mom, Best Friend, Boss, Drill Sergeant, Therapeutin und Oma — mit 1 Mission pro Tag. KI-Nachrichten und das Leaderboard sind für alle dabei.";
+"help_faq_free_plan_a" = "Du bekommst 6 Agenten gratis - Mom, Best Friend, Boss, Drill Sergeant, Therapist und Grandma - mit 1 Mission pro Tag. KI-Nachrichten und das Leaderboard sind für alle dabei.";
 "help_faq_pro_unlock_q" = "Was bringt Pro?";
-"help_faq_pro_unlock_a" = "Pro schaltet 6 besondere Agenten frei: Ex, Verschwörungstheoretiker, Passiv-aggressiver Kollege, Koch, Enttäuschter Vater und Gym Bro. Dazu unbegrenzte Missionen und eine eigene Deadline pro Mission.";
+"help_faq_pro_unlock_a" = "Pro schaltet 6 besondere Agenten frei, unbegrenzte Missionen pro Tag, eine eigene Deadline, Deadline-Verlängerung und einen Custom Roast in den Einstellungen.";
+"help_faq_special_agents_q" = "Was sind Special Agents?";
+"help_faq_special_agents_a" = "Ex, Conspiracy Theorist, Passive-Aggressive Colleague, Chef, Disappointed Dad und Gym Bro. Sie merken sich deine vergangenen Misserfolge und bringen sie genau dann zur Sprache, wenn du es am wenigsten brauchst.";
 "help_faq_miss_deadline_q" = "Was passiert bei verpasster Deadline?";
 "help_faq_miss_deadline_a" = "Die Mission gilt als gescheitert und fließt in deine Stats ein. Dein Agent wird nicht begeistert sein.";
 "help_faq_extend_deadline_q" = "Kann ich eine Deadline verlängern?";
 "help_faq_extend_deadline_a" = "Pro-Nutzer können eine Deadline einmal pro Mission verlängern.";
 "help_faq_night_notifications_q" = "Krieg ich nachts Benachrichtigungen?";
-"help_faq_night_notifications_a" = "Standardmäßig ja. Aber du kannst in den Einstellungen Quiet Hours festlegen, in denen keine Benachrichtigungen kommen. Außerhalb dieses Zeitfensters kommen weiterhin Nachrichten.";
+"help_faq_night_notifications_a" = "Standardmäßig sind Quiet Hours von 22:00 bis 8:00 aktiv - in diesem Zeitraum kommen keine Benachrichtigungen. Du kannst das Zeitfenster anpassen oder komplett deaktivieren in den Einstellungen.";
 "help_faq_agent_differences_q" = "Wie unterscheiden sich die Agents?";
 "help_faq_agent_differences_a" = "Jeder Agent hat seinen eigenen Stil - von Moms Schuldgefühlen bis zur Tough Love vom Drill Sergeant. Probier alle aus.";
 
