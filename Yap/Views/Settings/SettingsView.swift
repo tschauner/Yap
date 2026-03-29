@@ -11,6 +11,7 @@ struct SettingsView: View {
     @EnvironmentObject var store: StoreManager
     @StateObject private var auth = AuthService.shared
     @State private var showPaywall = false
+    @State private var webURL: WebURL?
     @AppStorage("customRoast") private var customRoast: String = ""
     @AppStorage("hapticFeedbackEnabled") private var isOn: Bool = true
     @Environment(\.requestReview) private var requestReview
@@ -107,10 +108,15 @@ struct SettingsView: View {
                     }
                     .buttonStyle(.plain)
                     
-                    Link(L10n.Legal.privacyPolicy, destination: URL(string: "https://yap.fail/privacy")!)
-                        .buttonStyle(.plain)
-                    Link(L10n.Legal.termsOfUse, destination: URL(string: "https://yap.fail/terms")!)
-                        .buttonStyle(.plain)
+                    Text(L10n.Legal.termsOfUse)
+                        .button {
+                            webURL = .init(url: URL(string: "https://yap.fail/terms")!)
+                        }
+                    
+                    Text(L10n.Legal.privacyPolicy)
+                        .button {
+                            webURL = .init(url: URL(string: "https://yap.fail/privacy")!)
+                        }
                     
                 } header: {
                     Text(L10n.Settings.sectionGeneral)
@@ -133,6 +139,9 @@ struct SettingsView: View {
             }
             .navigationTitle(L10n.Settings.title)
             .navigationBarTitleDisplayMode(.inline)
+            .sheet(item: $webURL) { item in
+                WebView(url: item.url)
+            }
             .toolbar {
                 ToolbarItem(placement: .confirmationAction) {
                     Button(L10n.Common.done) {
