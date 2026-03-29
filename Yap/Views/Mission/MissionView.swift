@@ -37,7 +37,7 @@ struct MissionView: View {
             .toolbar {
                 ToolbarItem(placement: .topBarLeading) {
                     if let appURL = viewModel.appURL {
-                        ShareLink(item: appURL, message: .init("Yap — Get nagged until you get it done 💪\n\(appURL)")) {
+                        ShareLink(item: appURL, message: .init(L10n.Mission.shareMessage(appURL.absoluteString))) {
                             Image(icon: .share)
                                 .offset(y: -2)
                         }
@@ -79,13 +79,6 @@ struct MissionView: View {
             .navigationDestination(isPresented: $viewModel.showAllAgents) {
                 AgentsView()
             }
-        }
-    }
-    
-    private func openMail() {
-        let email = "support@yapapp.com"
-        if let url = URL(string: "mailto:\(email)") {
-            UIApplication.shared.open(url)
         }
     }
     
