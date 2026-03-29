@@ -27,9 +27,11 @@ struct AgentDetailView: View {
                         statBadge(value: "\(stats.givenUp)", label: L10n.AgentDetail.failed, color: .red)
                         statBadge(value: stats.successRateFormatted, label: L10n.AgentDetail.success, color: .blue)
                     }
+                    .padding(20)
+                    .glassEffect(in: .rect(cornerRadius: 20))
                 }
                 .frame(maxWidth: .infinity)
-                .padding(.vertical, 16)
+                .padding(.top, 16)
             }
             .listRowBackground(Color.clear)
             

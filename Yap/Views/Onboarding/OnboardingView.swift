@@ -109,7 +109,6 @@ struct OnboardingView: View {
                 }
                 .tabViewStyle(.page(indexDisplayMode: .never))
                 .scrollContentBackground(.hidden)
-                .scrollDisabled(true)
                 .hapticFeedback(trigger: selectedAgent)
                 .hapticFeedback(trigger: currentPage)
                 .animation(.easeInOut(duration: 0.3), value: currentPage)
