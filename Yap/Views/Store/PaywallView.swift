@@ -37,13 +37,16 @@ struct PaywallView: View {
                             .glassEffect(in: .rect(cornerRadius: 16))
                             .padding(.horizontal, 24)
                         
+                        FakeReviewReel(leadingPadding: 25)
+                            .padding(.vertical, 30)
+                        
                         // Legal
                         termsSection
-                            .padding(.vertical, 30)
+                            .padding(.bottom, 30)
                         
                         // Bottom spacing for sticky button
                         Spacer()
-                            .frame(height: 200)
+                            .frame(height: 150)
                     }
                 }
                 .ignoresSafeArea()
@@ -209,13 +212,13 @@ struct PaywallView: View {
             Text(L10n.Legal.privacyPolicy)
                 .font(.caption)
                 .button {
-                    webURL = .init(url: URL(string: "https://yap.fail/privacy")!)
+                    webURL = .init(url: AppLinks.privacy)
                 }
             Text("·")
             Text(L10n.Legal.termsOfUse)
                 .font(.caption)
                 .button {
-                    webURL = .init(url: URL(string: "https://yap.fail/terms")!)
+                    webURL = .init(url: AppLinks.terms)
                 }
         }
         .font(.system(size: 12))

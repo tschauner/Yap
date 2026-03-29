@@ -230,6 +230,18 @@ enum L10n {
         static let helpAndSupport = "menu_help_and_support".localized
     }
     
+    // MARK: - Fake Reviews
+    enum FakeReview {
+        static var all: [PaywallReview] {
+            (1...5).map { i in
+                PaywallReview(
+                    body: "paywall_review_\(i)_body".localized,
+                    name: "paywall_review_\(i)_name".localized
+                )
+            }
+        }
+    }
+
     // MARK: - Store Errors
     enum StoreError {
         static let general = "store_error_general".localized

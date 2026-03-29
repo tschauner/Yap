@@ -44,7 +44,12 @@ struct InputTextfield: View {
     }
     
     private var deadlineFormatted: String {
-        viewModel.selectedDeadline.formatted(date: .omitted, time: .shortened)
+        let total = Int(viewModel.deadlineOffset)
+        let hours = total / 3600
+        let minutes = (total % 3600) / 60
+        if minutes == 0 { return "in \(hours)h" }
+        if hours == 0 { return "in \(minutes)m" }
+        return "in \(hours)h \(minutes)m"
     }
     
     var body: some View {
@@ -122,7 +127,7 @@ struct InputTextfield: View {
             isFocused = newValue
         }
         .sheet(isPresented: $showDeadlinePicker) {
-            DeadlinePickerSheet(deadline: $viewModel.selectedDeadline)
+            DeadlinePickerSheet(offset: $viewModel.deadlineOffset)
         }
         .alert(L10n.QuietHours.alertTitle, isPresented: $viewModel.showQuietHoursAlert) {
             Button(L10n.QuietHours.alertStart) {
@@ -153,66 +158,73 @@ struct InputTextfield: View {
 
 struct DeadlinePickerSheet: View {
     @Environment(\.dismiss) var dismiss
-    @Binding var deadline: Date
-    
+    @Binding var offset: TimeInterval
+
+    // Local absolute date for the wheel picker, initialized fresh on appear
+    @State private var selectedDate: Date = Date().addingTimeInterval(2 * 60 * 60)
+
     private var minDate: Date { Date() }
-    private var maxDate: Date { Date().addingTimeInterval(24 * 60 * 60) } // +24h
-    
-    private let quickOptions: [(label: String, hours: Double)] = [
-        ("1h", 1), ("2h", 2), ("4h", 4)
+    private var maxDate: Date { Date().addingTimeInterval(24 * 60 * 60) }
+
+    private let quickOptions: [(label: String, seconds: Double)] = [
+        ("1h", 3600), ("2h", 7200), ("4h", 4 * 3600)
     ]
-    
-    private func isSelected(_ hours: Double) -> Bool {
-        let target = Date().addingTimeInterval(hours * 60 * 60)
-        return abs(deadline.timeIntervalSince(target)) < 5 * 60 // within 5 min
+
+    private func isSelected(_ seconds: Double) -> Bool {
+        abs(offset - seconds) < 5 * 60
     }
-    
+
     var body: some View {
         NavigationStack {
             VStack(spacing: 16) {
-                // Quick-select chips
                 hourPicker
                     .padding(.top, 12)
-                
+
                 DatePicker(
                     "",
-                    selection: $deadline,
+                    selection: $selectedDate,
                     in: minDate...maxDate,
                     displayedComponents: .hourAndMinute
                 )
                 .datePickerStyle(.wheel)
                 .labelsHidden()
+                .onChange(of: selectedDate) { _, newValue in
+                    let raw = newValue.timeIntervalSinceNow
+                    offset = max(0, (raw / 60).rounded() * 60)
+                }
             }
             .navigationBarTitleDisplayMode(.inline)
             .navigationTitle(L10n.Input.deadlinePickerTitle)
             .toolbar {
                 ToolbarItem(placement: .confirmationAction) {
-                    Button(L10n.Common.done) {
-                        dismiss()
-                    }
+                    Button(L10n.Common.done) { dismiss() }
                 }
             }
             .presentationBackground(.black.opacity(0.6))
         }
         .presentationDetents([.height(380)])
+        .onAppear {
+            selectedDate = Date().addingTimeInterval(offset)
+        }
     }
-    
+
     var hourPicker: some View {
         HStack(spacing: 10) {
-            ForEach(quickOptions, id: \.hours) { option in
+            ForEach(quickOptions, id: \.seconds) { option in
                 Text(option.label)
                     .font(.system(size: 15, weight: .semibold))
                     .padding(.horizontal, 18)
                     .padding(.vertical, 8)
                     .background(
-                        isSelected(option.hours)
+                        isSelected(option.seconds)
                             ? Color.blue.opacity(0.2)
                             : Color.white.opacity(0.08)
                     )
-                    .foregroundStyle(isSelected(option.hours) ? .blue : .secondary)
+                    .foregroundStyle(isSelected(option.seconds) ? .blue : .secondary)
                     .clipShape(Capsule())
                     .button {
-                        deadline = Date().addingTimeInterval(option.hours * 60 * 60)
+                        offset = option.seconds
+                        selectedDate = Date().addingTimeInterval(option.seconds)
                     }
             }
         }
@@ -220,5 +232,5 @@ struct DeadlinePickerSheet: View {
 }
 
 #Preview {
-    DeadlinePickerSheet(deadline: .constant(.now))
+    DeadlinePickerSheet(offset: .constant(7200))
 }

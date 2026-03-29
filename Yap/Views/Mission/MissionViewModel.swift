@@ -42,7 +42,7 @@ final class MissionViewModel: ObservableObject {
     @Published var showAgents = true
     @Published var showAllAgents = false
     @Published var missionIsCompleting = false
-    @Published var selectedDeadline: Date = Date().addingTimeInterval(2 * 60 * 60)
+    @Published var deadlineOffset: TimeInterval = 2 * 60 * 60
     @AppStorage("favorite_agent") var favoriteAgentRaw: String = ""
     @AppStorage("dismissedAgents") var dismissedAgentsRaw: String = ""
     
@@ -198,7 +198,7 @@ final class MissionViewModel: ObservableObject {
             startPolling(for: active.id)
         } else {
             phase = .selection
-            selectedDeadline = Date().addingTimeInterval(2 * 60 * 60)
+            deadlineOffset = 2 * 60 * 60
             // Reset badge when no active mission (expired/failed)
             try? await UNUserNotificationCenter.current().setBadgeCount(0)
         }
@@ -232,7 +232,7 @@ final class MissionViewModel: ObservableObject {
     /// Check if mission spans quiet hours and show alert if needed.
     @MainActor
     func startMissionWithQuietCheck(_ agent: Agent, title: String) async {
-        if QuietHours.missionSpansQuietHours(missionStart: Date(), deadline: selectedDeadline) {
+        if QuietHours.missionSpansQuietHours(missionStart: Date(), deadline: Date().addingTimeInterval(deadlineOffset)) {
             pendingAgent = agent
             pendingTitle = title
             showQuietHoursAlert = true
@@ -268,8 +268,8 @@ final class MissionViewModel: ObservableObject {
             return
         }
         
-        // Free users always get a fresh 2h deadline at mission start
-        let deadline = ProAccess.canChangeDeadline ? selectedDeadline : Date().addingTimeInterval(2 * 60 * 60)
+        // Deadline always computed fresh from offset at submission time
+        let deadline = Date().addingTimeInterval(deadlineOffset)
         
         // Step 1: Create mission (fast DB call, ~1s)
         guard let mission = await useCases.createMission.execute(.init(
@@ -389,7 +389,7 @@ final class MissionViewModel: ObservableObject {
     @MainActor
     func continueAfterResult() {
         // Queue hat nur MissionItems — User muss erst Agent wählen.
-        selectedDeadline = Date().addingTimeInterval(2 * 60 * 60)
+        deadlineOffset = 2 * 60 * 60
         phase = .selection
     }
     
@@ -495,7 +495,7 @@ final class MissionViewModel: ObservableObject {
     func backToInput() {
         missionText = ""
         selectedAgent = nil
-        selectedDeadline = Date().addingTimeInterval(2 * 60 * 60)
+        deadlineOffset = 2 * 60 * 60
         phase = .selection
     }
     
