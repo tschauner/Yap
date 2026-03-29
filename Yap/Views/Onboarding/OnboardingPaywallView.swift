@@ -48,9 +48,12 @@ struct OnboardingPaywallView: View {
                             .glassEffect(in: .rect(cornerRadius: 16))
                             .padding(.horizontal, 30)
                         
+                        FakeReviewReel()
+                            .padding(.vertical, 30)
+                        
                         // Legal
                         termsSection
-                            .padding(.vertical, 30)
+                            .padding(.bottom, 30)
                     }
                     .padding(.top, 20)
                 }
@@ -133,13 +136,13 @@ struct OnboardingPaywallView: View {
             Text(L10n.Legal.privacyPolicy)
                 .font(.caption)
                 .button {
-                    webURL = .init(url: URL(string: "https://yap.fail/privacy")!)
+                    webURL = .init(url: AppLinks.privacy)
                 }
             Text("·")
             Text(L10n.Legal.termsOfUse)
                 .font(.caption)
                 .button {
-                    webURL = .init(url: URL(string: "https://yap.fail/terms")!)
+                    webURL = .init(url: AppLinks.terms)
                 }
         }
         .font(.system(size: 12))

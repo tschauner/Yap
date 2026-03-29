@@ -110,13 +110,15 @@ struct SettingsView: View {
                     
                     Text(L10n.Legal.termsOfUse)
                         .button {
-                            webURL = .init(url: URL(string: "https://yap.fail/terms")!)
+                            webURL = .init(url: AppLinks.terms)
                         }
+                        .buttonStyle(.plain)
                     
                     Text(L10n.Legal.privacyPolicy)
                         .button {
-                            webURL = .init(url: URL(string: "https://yap.fail/privacy")!)
+                            webURL = .init(url: AppLinks.privacy)
                         }
+                        .buttonStyle(.plain)
                     
                 } header: {
                     Text(L10n.Settings.sectionGeneral)
