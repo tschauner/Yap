@@ -13,33 +13,33 @@ struct HelpView: View {
                 // Community & Feedback
                 Section {
                     HStack(spacing: 12) {
-                        Image(systemName: "bubble.left.and.bubble.right")
+                        Image(icon: .bubbleLeftRight)
                             .font(.system(size: 17))
                             .foregroundStyle(.indigo)
                             .frame(width: 28)
                         Text(L10n.Help.joinCommunity)
                         Spacer()
-                        Image(systemName: "arrow.up.right")
+                        Image(icon: .arrowUpRight)
                             .font(.system(size: 12))
                             .foregroundStyle(.tertiary)
                     }
                     .button {
-                        openURL(URL(string: "https://discord.gg/eK6hUZKs")!)
+                        openURL(AppLinks.discord)
                     }
                     
                     HStack(spacing: 12) {
-                        Image(systemName: "lightbulb")
+                        Image(icon: .lightBulb)
                             .font(.system(size: 17))
                             .foregroundStyle(.orange)
                             .frame(width: 28)
                         Text(L10n.Help.requestFeature)
                         Spacer()
-                        Image(systemName: "arrow.up.right")
+                        Image(icon: .arrowUpRight)
                             .font(.system(size: 12))
                             .foregroundStyle(.tertiary)
                     }
                     .button {
-                        openURL(URL(string: "https://yapapp.userjot.com/")!)
+                        openURL(AppLinks.userJot)
                     }
                 } header: {
                     Text(L10n.Help.sectionCommunity)

@@ -171,7 +171,7 @@ struct PaywallView: View {
                     VStack(spacing: 2) {
                         Text(L10n.Paywall.unlockProPrice(product.displayPrice))
                             .font(.system(size: 17, weight: .bold))
-                        Text(L10n.Paywall.oneTimePurchase)
+                        Text(L10n.Paywall.lifetimeSubline)
                             .font(.system(size: 12, weight: .medium))
                             .opacity(0.8)
                     }
