@@ -13,7 +13,7 @@
 > The #1 get-your-shit-done app.
 
 **Agent-Quotes (pick one):**
-> 🫵 Mom: "Honey, I didn't download this app for you so you could ignore it too."
+> 🫵 Mom: "Honey... I downloaded this FOR you... don't you DARE ignore it too... xo mom ❤️"
 > � Best Friend: "Bro you need an app to be productive? That's crazy. Download it."
 > 👔 Boss: "Consider this your final reminder before your final reminder."
 > 🪖 Drill Sergeant: "YOU DOWNLOADED THIS APP. NOW USE IT OR DELETE YOUR EXCUSES."
@@ -38,7 +38,7 @@ App-Icon + "Yap" klein unten.
 **App-Screenshot:** Mission-Input mit "Finish the Q2 report", Deadline 6:00 PM, Mom ausgewählt.
 
 **Agent-Quotes (pick one):**
-> 🫵 Mom: "6 PM? That's plenty of time. Don't you dare waste it."
+> 🫵 Mom: "6 PM?? PLENTY of time... Mrs. Johnson's son would be done by now... just saying... xo mom"
 > 🫶 Best Friend: "Bro you set a deadline? I'm screenshotting this for when you miss it." ⭐
 > 👔 Boss: "I've added this to the tracker. And your performance review."
 > 🪖 Drill Sergeant: "A MISSION HAS BEEN SET. FAILURE IS NOT AN OPTION."
@@ -62,7 +62,7 @@ App-Icon + "Yap" klein unten.
 🫵 Mom · 🫶 Best Friend · 👔 Boss · 🪖 Drill Sergeant · 🛋️ Therapist · 👵 Grandma
 
 **Agent-Quotes (pick one):**
-> � Mom: "Pick wisely. I'll be watching regardless."
+> 🫵 Mom: "Pick wisely... I'll be watching REGARDLESS... I have nothing else to do... xo mom"
 > 🫶 Best Friend: "Bro I told the group chat you'd quit by Tuesday."
 > 👔 Boss: "Choose one. Or I'll assign one. Your call."
 > 🪖 Drill Sergeant: "YOU DON'T PICK YOUR AGENT. YOUR AGENT PICKS YOU."
@@ -82,20 +82,23 @@ App-Icon + "Yap" klein unten.
 **Headline:**
 > They don't stop. You shouldn't either.
 
-**3 Lockscreen-Notifications gestapelt:**
+**4 Lockscreen-Notifications gestapelt:**
 ```
 Yap · 9:00 AM
-Mom 🫵  "Just checking in 😊"
+Mom 🫵  "Schatz... alles gut bei dir?? du weißt schon... lg mama ❤️"
 
 Yap · 12:00 PM  
-Mom 🫵  "...we need to talk."
+Mom 🫵  "Frau Schneider hat gefragt ob du das IMMER NOCH nicht gemacht hast... lg mama"
 
 Yap · 3:00 PM
-Mom 🫵  "I DIDN'T RAISE A QUITTER."
+Mom 🫵  "36 Stunden WEHEN... ohne PDA... und du kannst nicht mal... naja. Lg Mama"
+
+Yap · 5:00 PM
+Mom 🫵  "bin im Auto. Papa fährt. Kärcher und Schande dabei. lg mama"
 ```
 
 **Agent-Quotes (pick one):**
-> � Mom: "I will keep texting. I have nothing else to do. Try me."
+> 🫵 Mom: "I will KEEP texting... 36 hours of labor and you think I can't WAIT?? Try me... xo mom"
 > 🫶 Best Friend: "Bro your phone is going off. The whole bus can see it."
 > 👔 Boss: "Just following up. And I will keep following up."
 > 🪖 Drill Sergeant: "YOU WILL RECEIVE NOTIFICATIONS UNTIL MORALE IMPROVES."
@@ -128,7 +131,7 @@ Mom 🫵  "I DIDN'T RAISE A QUITTER."
 ```
 
 **Agent-Quotes (pick one):**
-> 🫵 Mom: "They all sound different but they're all saying the same thing: DO IT."
+> 🫵 Mom: "They all sound different but they're ALL saying what I've said for YEARS... xo mom"
 > 🫶 Best Friend: "Same task, different energy. All of them think you're slacking."
 > 👔 Boss: "I see three management styles here. All valid. All say you're behind."
 > 🪖 Drill Sergeant: "THREE VOICES. ONE MESSAGE. GET. IT. DONE."
@@ -151,7 +154,7 @@ Mom 🫵  "I DIDN'T RAISE A QUITTER."
 **App-Screenshot:** Custom Roast Eingabe: "I eat cereal for dinner and haven't been to the gym in 3 months"
 
 **Agent-Quotes (pick one):**
-> 🫵 Mom: "I didn't raise you to eat cereal at 9 PM. Actually, did I fail?"
+> 🫵 Mom: "Cereal at 9 PM?? I saw on Facebook that's a sign of... should I call someone?? xo mom ❤️"
 > 🫶 Best Friend: "Bro you VOLUNTARILY told them about the cereal thing?! Bold move."
 > 👔 Boss: "I've noted your weaknesses. They will be referenced quarterly."
 > 🪖 Drill Sergeant: "YOU GAVE US AMMUNITION. MISTAKE." ⭐
@@ -175,7 +178,7 @@ Mom 🫵  "I DIDN'T RAISE A QUITTER."
 💔 The Ex · 🔺 The Theorist · 😊 The Colleague · 👨‍🍳 The Chef · 😶 Disappointed Dad · 💪 Gym Bro
 
 **Agent-Quotes (pick one):**
-> 🫵 Mom: "I'd pay for it for you but I want you to learn responsibility."
+> 🫵 Mom: "I'd PAY for it but your father says you need to learn... like Mrs. Johnson's kids did... xo mom"
 > 🫶 Best Friend: "Bro just get Pro. Stop being cheap. I can see your screen."
 > 👔 Boss: "The premium tier has been approved. I suggest you take it."
 > 🪖 Drill Sergeant: "FREE TIER IS BASIC TRAINING. PRO IS WAR READY."
@@ -200,7 +203,7 @@ Mom 🫵  "I DIDN'T RAISE A QUITTER."
 > Yap won't let you forget it.
 
 **Agent-Quotes (pick one):**
-> 🫵 Mom: "Download it. For me. Please. I worry."
+> 🫵 Mom: "Download it... for me... please... I worry about you every single day... xo mom ❤️"
 > 🫶 Best Friend: "Just do it bro. What are you, a coward?"
 > 👔 Boss: "I'll need confirmation you've downloaded this by EOD."
 > 🪖 Drill Sergeant: "THAT'S AN ORDER."
