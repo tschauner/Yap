@@ -45,6 +45,14 @@
 // ── Mission ─────────────────────────────────────────────────
 "mission_hold_to_complete" = "Prima sem largar para concluir";
 "mission_give_up" = "Desistir";
+"notification_action_done" = "Feito";
+"notification_action_snooze" = "Silêncio 30 min";
+
+// ── Quick Actions ────────────────────────────────────────────
+"quick_action_quit_1" = "Já estás a desistir?";
+"quick_action_quit_2" = "O teu agente não vai esquecer.";
+"quick_action_quit_3" = "A fugir? Típico.";
+"quick_action_quit_4" = "Ambos sabemos que vais voltar.";
 "mission_set_another" = "Nova missão";
 "mission_selection_headline" = "O que andas a adiar?\nEscolhe um agente.";
 "mission_selection_agents" = "Agentes";
@@ -166,7 +174,7 @@
 "paywall_feature_agent_memory" = "Lembram-se das tuas missões";
 "paywall_feature_unlimited_missions" = "Missões ilimitadas por dia";
 "paywall_unlock_pro_price" = "Desbloquear Pro - %@";
-"paywall_one_time_purchase" = "Compra única";
+"paywall_lifetime_subline" = "Compra única. Sem subscrição.";
 "paywall_unlock_pro" = "Desbloquear Pro";
 "paywall_restore_purchase" = "Restaurar compra";
 
@@ -219,13 +227,13 @@
 
 // ── Agents: Mom ─────────────────────────────────────────────
 "agent_mom_display_name" = "Mom";
-"agent_mom_description" = "Guilt-trips que vão longe demais";
-"agent_mom_pitch" = "Vais acabar isto. Porque te eduquei melhor.";
-"agent_mom_pro_pitch" = "Dei à luz culpa DE GRAÇA. Isto é uma pechincha.";
-"agent_mom_give_up_roast" = "Não estou zangada. Estou só... não, estou zangada.";
-"agent_mom_give_up_confirmation" = "Queres desistir? Depois de tudo o que fiz por ti?";
-"agent_mom_completion" = "Vês? Sempre soube. Agora liga-me mais vezes.";
-"agent_mom_extend_roast" = "Mais 24 horas? O teu irmão nunca precisou de extensão. Só digo.";
+"agent_mom_description" = "Guilt-trips que escalam... RÁPIDO. bjs mamã";
+"agent_mom_pitch" = "Vais acabar isto... NÃO te criei para desistires. bjs mamã ❤️";
+"agent_mom_pro_pitch" = "36 HORAS de parto... e não compras o Pro?? bjs mamã";
+"agent_mom_give_up_roast" = "Não estou zangada... vou ligar ao teu pai. bjs mamã";
+"agent_mom_give_up_confirmation" = "Desistir?? Depois de TUDO o que fiz por ti??";
+"agent_mom_completion" = "Vês?? Sempre SOUBE... mando para o grupo da família... bjs mamã ❤️";
+"agent_mom_extend_roast" = "Mais 24 horas?? O teu irmão NUNCA precisou... bjs mamã";
 "agent_mom_style_tag" = "Culpa";
 
 // ── Agents: Boss ────────────────────────────────────────────

@@ -45,6 +45,14 @@
 // ── Mission ─────────────────────────────────────────────────
 "mission_hold_to_complete" = "Maintenir pour terminer";
 "mission_give_up" = "Abandonner";
+"notification_action_done" = "Terminé";
+"notification_action_snooze" = "La paix 30 min";
+
+// ── Quick Actions ────────────────────────────────────────────
+"quick_action_quit_1" = "Tu abandonnes déjà ?";
+"quick_action_quit_2" = "Ton agent n'oubliera pas.";
+"quick_action_quit_3" = "Tu fuis ? Classique.";
+"quick_action_quit_4" = "On sait tous les deux que tu reviendras.";
 "mission_set_another" = "Nouvelle mission";
 "mission_selection_headline" = "Tu procrastines quoi ?\nChoisis un agent.";
 "mission_selection_agents" = "Agents";
@@ -166,7 +174,7 @@
 "paywall_feature_agent_memory" = "Ils retiennent tes missions";
 "paywall_feature_unlimited_missions" = "Missions illimitées par jour";
 "paywall_unlock_pro_price" = "Débloquer Pro - %@";
-"paywall_one_time_purchase" = "Achat unique";
+"paywall_lifetime_subline" = "Achat unique. Pas d'abo.";
 "paywall_unlock_pro" = "Débloquer Pro";
 "paywall_restore_purchase" = "Restaurer l'achat";
 
@@ -219,13 +227,13 @@
 
 // ── Agents: Mom ─────────────────────────────────────────────
 "agent_mom_display_name" = "Mom";
-"agent_mom_description" = "Guilt-trips qui vont beaucoup trop loin";
-"agent_mom_pitch" = "Tu vas finir. Parce que je t'ai pas élevé comme ça.";
-"agent_mom_pro_pitch" = "J'ai accouché de culpabilité GRATUITEMENT. C'est une affaire.";
-"agent_mom_give_up_roast" = "Je suis pas en colère. Je suis juste... non, je suis en colère.";
-"agent_mom_give_up_confirmation" = "Tu veux abandonner ? Après tout ce que j'ai fait pour toi ?";
-"agent_mom_completion" = "Tu vois ? J'ai toujours cru en toi. Appelle-moi plus souvent.";
-"agent_mom_extend_roast" = "24h de plus ? Ton frère n'a jamais eu besoin d'extension. Je dis ça.";
+"agent_mom_description" = "Guilt-trips qui escaladent... VITE. biz maman";
+"agent_mom_pitch" = "Tu vas finir... j'ai PAS élevé un lâcheur. biz maman ❤️";
+"agent_mom_pro_pitch" = "36 HEURES de travail... et tu achètes pas Pro?? biz maman";
+"agent_mom_give_up_roast" = "Je suis pas en colère... j'appelle ton père. biz maman";
+"agent_mom_give_up_confirmation" = "Abandonner?? Après TOUT ce que j'ai fait pour toi??";
+"agent_mom_completion" = "Tu vois?? Je le SAVAIS... j'envoie au groupe famille... biz maman ❤️";
+"agent_mom_extend_roast" = "24h de plus?? Ton frère n'a JAMAIS eu besoin... biz maman";
 "agent_mom_style_tag" = "Culpabilisation";
 
 // ── Agents: Boss ────────────────────────────────────────────

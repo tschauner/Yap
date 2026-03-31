@@ -45,6 +45,14 @@
 // ── Mission ─────────────────────────────────────────────────
 "mission_hold_to_complete" = "Hold to complete";
 "mission_give_up" = "Give up";
+"notification_action_done" = "Done";
+"notification_action_snooze" = "Shut up for 30min";
+
+// ── Quick Actions ────────────────────────────────────────────
+"quick_action_quit_1" = "Giving up already?";
+"quick_action_quit_2" = "Your agent won't forget this.";
+"quick_action_quit_3" = "Quitting? Classic.";
+"quick_action_quit_4" = "We both know you'll be back.";
 "mission_set_another" = "Set another mission";
 "mission_selection_headline" = "What are you avoiding?\nPick an agent to fix it.";
 "mission_selection_agents" = "Agents";
@@ -166,7 +174,7 @@
 "paywall_feature_agent_memory" = "They remember your past missions";
 "paywall_feature_unlimited_missions" = "Unlimited missions per day";
 "paywall_unlock_pro_price" = "Unlock Pro - %@";
-"paywall_one_time_purchase" = "One-time purchase";
+"paywall_lifetime_subline" = "Lifetime. One-time. No subscription.";
 "paywall_unlock_pro" = "Unlock Pro";
 "paywall_restore_purchase" = "Restore purchase";
 
@@ -219,13 +227,13 @@
 
 // ── Agents: Mom ─────────────────────────────────────────────
 "agent_mom_display_name" = "Mom";
-"agent_mom_description" = "Guilt trips that escalate to emotional devastation";
-"agent_mom_pitch" = "You'll finish it. Because I raised you better than this.";
-"agent_mom_pro_pitch" = "I gave birth to guilt-trips for FREE. This is a bargain.";
-"agent_mom_give_up_roast" = "I'm not angry. I'm just... no, I am angry.";
-"agent_mom_give_up_confirmation" = "You want to give up? After everything I've done for you?";
-"agent_mom_completion" = "See? I always believed in you. Now call me more often.";
-"agent_mom_extend_roast" = "24 more hours? Your brother never needed an extension. Just saying.";
+"agent_mom_description" = "Guilt trips that escalate... FAST. xo mom";
+"agent_mom_pitch" = "You'll finish it... I DIDN'T raise a quitter. xo mom ❤️";
+"agent_mom_pro_pitch" = "36 HOURS of labor... and you won't buy Pro?? xo mom";
+"agent_mom_give_up_roast" = "I'm not angry... I'm calling your father. xo mom";
+"agent_mom_give_up_confirmation" = "Give up?? After EVERYTHING I've done for you??";
+"agent_mom_completion" = "See?? I KNEW it... sending this to the family chat... xo mom ❤️";
+"agent_mom_extend_roast" = "24 more hours?? Your brother NEVER needed one... xo mom";
 "agent_mom_style_tag" = "Guilt Trips";
 
 // ── Agents: Boss ────────────────────────────────────────────

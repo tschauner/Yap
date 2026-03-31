@@ -45,6 +45,14 @@
 // ── Mission ─────────────────────────────────────────────────
 "mission_hold_to_complete" = "Mantén para completar";
 "mission_give_up" = "Rendirse";
+"notification_action_done" = "Hecho";
+"notification_action_snooze" = "Silencio 30 min";
+
+// ── Quick Actions ────────────────────────────────────────────
+"quick_action_quit_1" = "¿Ya te rindes?";
+"quick_action_quit_2" = "Tu agente no olvidará esto.";
+"quick_action_quit_3" = "¿Huyendo? Típico.";
+"quick_action_quit_4" = "Los dos sabemos que volverás.";
 "mission_set_another" = "Nueva misión";
 "mission_selection_headline" = "¿Qué estás evitando?\nElige un agente.";
 "mission_selection_agents" = "Agentes";
@@ -166,7 +174,7 @@
 "paywall_feature_agent_memory" = "Se acuerdan de tus misiones";
 "paywall_feature_unlimited_missions" = "Misiones ilimitadas al día";
 "paywall_unlock_pro_price" = "Desbloquear Pro - %@";
-"paywall_one_time_purchase" = "Pago único";
+"paywall_lifetime_subline" = "Pago único. Sin suscripción.";
 "paywall_unlock_pro" = "Desbloquear Pro";
 "paywall_restore_purchase" = "Restaurar compra";
 
@@ -219,13 +227,13 @@
 
 // ── Agents: Mom ─────────────────────────────────────────────
 "agent_mom_display_name" = "Mom";
-"agent_mom_description" = "Guilt-trips que llegan demasiado lejos";
-"agent_mom_pitch" = "Lo vas a terminar. Porque te eduqué mejor que esto.";
-"agent_mom_pro_pitch" = "Parí culpabilidad GRATIS. Esto es una ganga.";
-"agent_mom_give_up_roast" = "No estoy enfadada. Solo estoy... no, sí estoy enfadada.";
-"agent_mom_give_up_confirmation" = "¿Quieres rendirte? ¿Después de todo lo que hice por ti?";
-"agent_mom_completion" = "¿Ves? Siempre lo supe. Ahora llámame más seguido.";
-"agent_mom_extend_roast" = "¿24 horas más? Tu hermano nunca necesitó una extensión. Solo digo.";
+"agent_mom_description" = "Guilt-trips que escalan... RÁPIDO. bss mamá";
+"agent_mom_pitch" = "Lo vas a terminar... NO te crié para rendirte. bss mamá ❤️";
+"agent_mom_pro_pitch" = "36 HORAS de parto... y no compras Pro?? bss mamá";
+"agent_mom_give_up_roast" = "No estoy enfadada... llamo a tu padre. bss mamá";
+"agent_mom_give_up_confirmation" = "¿Rendirte?? ¿Después de TODO lo que hice por ti??";
+"agent_mom_completion" = "¿Ves?? SIEMPRE lo supe... lo mando al grupo familiar... bss mamá ❤️";
+"agent_mom_extend_roast" = "¿24 horas más?? Tu hermano NUNCA necesitó una... bss mamá";
 "agent_mom_style_tag" = "Culpabilidad";
 
 // ── Agents: Boss ────────────────────────────────────────────
