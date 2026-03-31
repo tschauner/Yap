@@ -18,6 +18,8 @@ protocol MissionProviding: Actor {
     func activate(_ id: UUID, agent: Agent, deadline: Date) async throws -> Mission?
     func completeMission(_ id: UUID) async throws -> Mission?
     func giveUpMission(_ id: UUID) async throws -> Mission?
+    func failMission(_ id: UUID) async throws -> Mission?
+    func snoozeMission(_ id: UUID, minutes: Int) async throws
     func extendMission(_ id: UUID, hours: Int) async throws -> Mission?
     func updateNotificationsScheduled(_ id: UUID, count: Int) async throws
     
@@ -173,6 +175,53 @@ actor MissionService: MissionProviding {
         )
         return updated.first
     }
+
+    func failMission(_ id: UUID) async throws -> Mission? {
+        let existing: [Mission] = try await api.rest(
+            table: table,
+            query: "id=eq.\(id.uuidString)"
+        )
+        guard let mission = existing.first else { return nil }
+        
+        let minutes = Int(mission.deadline.timeIntervalSince(mission.createdAt) / 60)
+        let escalation = mission.peakEscalation.rawValue
+        
+        let updated: [Mission] = try await api.restUpdate(
+            table: table,
+            query: "id=eq.\(id.uuidString)",
+            body: .json([
+                "status": "failed",
+                "given_up_at": ISO8601DateFormatter().string(from: mission.deadline),
+                "time_to_complete_minutes": minutes,
+                "escalation_level_at_completion": escalation
+            ])
+        )
+        return updated.first
+    }
+
+    func snoozeMission(_ id: UUID, minutes: Int) async throws {
+        struct PendingNotification: Decodable {
+            let id: UUID
+            let scheduledAt: Date
+        }
+
+        let pending: [PendingNotification] = try await api.rest(
+            table: "yap_notifications",
+            query: "goal_id=eq.\(id.uuidString)&status=eq.pending&select=id,scheduled_at"
+        )
+
+        let now = Date()
+        let snoozeEnd = now.addingTimeInterval(TimeInterval(minutes * 60))
+
+        // Cancel only notifications scheduled within the next 30 min window
+        for entry in pending where entry.scheduledAt > now && entry.scheduledAt <= snoozeEnd {
+            try await api.restUpdate(
+                table: "yap_notifications",
+                query: "id=eq.\(entry.id.uuidString)",
+                body: .json(["status": "cancelled", "error": "snoozed"])
+            )
+        }
+    }
     
     // MARK: - Extend
     
@@ -213,7 +262,7 @@ actor MissionService: MissionProviding {
     func finishedMissions() async throws -> [Mission] {
         try await api.rest(
             table: table,
-            query: "device_id=eq.\(deviceId)&status=in.(completed,given_up)&order=created_at.desc"
+            query: "device_id=eq.\(deviceId)&status=in.(completed,given_up,failed)&order=created_at.desc"
         )
     }
     

@@ -61,6 +61,7 @@ final class StoreManager: ObservableObject {
             case .success(let verification):
                 let transaction = try checkVerified(verification)
                 isPro = true
+                (UIApplication.shared.delegate as? AppDelegate)?.registerNotificationActions()
                 await transaction.finish()
                 print("✅ Purchase successful: \(transaction.productID)")
                 
@@ -96,6 +97,7 @@ final class StoreManager: ObservableObject {
         for await result in Transaction.updates {
             if let transaction = try? checkVerified(result) {
                 isPro = true
+                (UIApplication.shared.delegate as? AppDelegate)?.registerNotificationActions()
                 await transaction.finish()
             }
         }
@@ -108,11 +110,13 @@ final class StoreManager: ObservableObject {
             if let transaction = try? checkVerified(result),
                transaction.productID == ProductID.lifetime {
                 isPro = true
+                (UIApplication.shared.delegate as? AppDelegate)?.registerNotificationActions()
                 return
             }
         }
         // Kein aktives Entitlement gefunden
         isPro = false
+        (UIApplication.shared.delegate as? AppDelegate)?.registerNotificationActions()
     }
     
     // MARK: - Helpers

@@ -20,15 +20,18 @@ class AppDelegate: NSObject, UIApplicationDelegate, UNUserNotificationCenterDele
         didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]? = nil
     ) -> Bool {
         
-        #if DEBUG
-        completedOnboarding = false
-        #endif
+//        #if DEBUG
+//        completedOnboarding = false
+//        #endif
         
         // Notification Delegate setzen (für Foreground-Anzeige)
         UNUserNotificationCenter.current().delegate = self
         
         // Notification Actions registrieren
         registerNotificationActions()
+
+        // Ensure custom push sounds are available in Library/Sounds
+        installNotificationSoundFilesIfNeeded()
         
         // Register for remote push notifications
         application.registerForRemoteNotifications()
@@ -37,6 +40,43 @@ class AppDelegate: NSObject, UIApplicationDelegate, UNUserNotificationCenterDele
         Task { await DeviceService.shared.syncDeviceMetadata() }
         
         return true
+    }
+
+    private func installNotificationSoundFilesIfNeeded() {
+        let soundNames = [
+            "yap_select_f_1", "yap_select_f_2", "yap_select_f_3", "yap_select_f_4",
+            "yap_select_m_1", "yap_select_m_2", "yap_select_m_3",
+            "yap_fail_f_1", "yap_fail_f_2", "yap_fail_m_1", "yap_fail_m_2",
+            "yap_success_f_1", "yap_success_f_2", "yap_success_m_1", "yap_success_m_2", "yap_success_m_3",
+        ]
+
+        guard let libraryURL = FileManager.default.urls(for: .libraryDirectory, in: .userDomainMask).first else {
+            return
+        }
+
+        let soundsDir = libraryURL.appendingPathComponent("Sounds", isDirectory: true)
+        try? FileManager.default.createDirectory(at: soundsDir, withIntermediateDirectories: true)
+
+        for name in soundNames {
+            let destination = soundsDir.appendingPathComponent("\(name).caf")
+
+            if FileManager.default.fileExists(atPath: destination.path) {
+                continue
+            }
+
+            let source = Bundle.main.url(forResource: name, withExtension: "caf")
+                ?? Bundle.main.url(forResource: name, withExtension: "caf", subdirectory: "Sounds")
+
+            guard let source else {
+                continue
+            }
+
+            do {
+                try FileManager.default.copyItem(at: source, to: destination)
+            } catch {
+                // Keep app launch resilient if copy fails
+            }
+        }
     }
     
     // MARK: - Remote Push Token
@@ -87,9 +127,9 @@ class AppDelegate: NSObject, UIApplicationDelegate, UNUserNotificationCenterDele
             _ = try? await MissionService.shared.completeMission(goalId)
             
         case "SNOOZE_ACTION":
-            // 30 Minuten Ruhe, dann geht's weiter
-            // TODO: Implement snooze (re-schedule mit Offset)
-            break
+            guard ProAccess.isPro else { return }
+            // Shift pending remote notifications by +30 minutes
+            try? await MissionService.shared.snoozeMission(goalId, minutes: 30)
             
         case UNNotificationDefaultActionIdentifier:
             // User hat auf die Notification getippt → App öffnen
@@ -103,26 +143,35 @@ class AppDelegate: NSObject, UIApplicationDelegate, UNUserNotificationCenterDele
     
     // MARK: - Notification Actions
     
-    private func registerNotificationActions() {
+    func registerNotificationActions() {
         let doneAction = UNNotificationAction(
             identifier: "DONE_ACTION",
-            title: "Done",
-            options: [.destructive]
-        )
-        
-        let snoozeAction = UNNotificationAction(
-            identifier: "SNOOZE_ACTION",
-            title: "Shut up for 30min",
+            title: L10n.Mission.notificationDone,
             options: []
         )
         
-        let category = UNNotificationCategory(
-            identifier: "YAP_REMINDER",
-            actions: [doneAction],
-            intentIdentifiers: [],
-            options: []
-        )
-        
-        UNUserNotificationCenter.current().setNotificationCategories([category])
+        if ProAccess.isPro {
+            let snoozeAction = UNNotificationAction(
+                identifier: "SNOOZE_ACTION",
+                title: L10n.Mission.notificationSnooze,
+                options: []
+            )
+            
+            let category = UNNotificationCategory(
+                identifier: "YAP_REMINDER",
+                actions: [doneAction, snoozeAction],
+                intentIdentifiers: [],
+                options: []
+            )
+            UNUserNotificationCenter.current().setNotificationCategories([category])
+        } else {
+            let category = UNNotificationCategory(
+                identifier: "YAP_REMINDER",
+                actions: [doneAction],
+                intentIdentifiers: [],
+                options: []
+            )
+            UNUserNotificationCenter.current().setNotificationCategories([category])
+        }
     }
 }
