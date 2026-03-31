@@ -28,7 +28,20 @@ struct YapApp: App {
             }
             .task {
                 store.prepare()
+                setupQuickActions()
             }
         }
+    }
+    
+    private func setupQuickActions() {
+        UIApplication.shared.shortcutItems = [
+            UIApplicationShortcutItem(
+                type: "com.phitsch.Yap.quit-taunt",
+                localizedTitle: L10n.QuickAction.randomQuote,
+                localizedSubtitle: nil,
+                icon: UIApplicationShortcutIcon(systemImageName: "hand.wave"),
+                userInfo: nil
+            )
+        ]
     }
 }

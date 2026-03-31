@@ -106,6 +106,10 @@ class NotificationService: UNNotificationServiceExtension {
                         }
                     }
                     mutableUpdated.userInfo = mergedInfo
+                    // Preserve original APNs sound (custom .caf), category and thread metadata.
+                    mutableUpdated.sound = content.sound
+                    mutableUpdated.categoryIdentifier = content.categoryIdentifier
+                    mutableUpdated.threadIdentifier = content.threadIdentifier
                     logger.info("NSE success for agent=\(agentKey, privacy: .public)")
                     contentHandler(mutableUpdated)
                 } else {

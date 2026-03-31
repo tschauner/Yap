@@ -53,7 +53,8 @@ enum SystemImage: String {
     case archive = "archivebox"
     case bag = "case"
     case bagFill = "case.fill"
-    case lightBulb = "lightbulb.max"
+    case lightBulbMax = "lightbulb.max"
+    case lightBulb = "lightbulb"
     case popcorn
     case hexagon
     case link
@@ -66,6 +67,8 @@ enum SystemImage: String {
     case arrowRight = "arrow.right"
     case appleLogo = "apple.logo"
     case bolt = "bolt.fill"
+    case arrowUpRight = "arrow.up.right"
+    case bubbleLeftRight = "bubble.left.and.bubble.right"
 }
 
 extension Image {
