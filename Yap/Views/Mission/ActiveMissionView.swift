@@ -25,7 +25,7 @@ private let isDebug = false
     private var quote: String {
         if mission.isCompleted {
             return mission.agent.completionMessage
-        } else if mission.isFailed {
+        } else if mission.isFailed || mission.isGivenUp {
             return mission.agent.giveUpRoast
         } else if let nag = viewModel.currentNagMessage {
             // Once push messages start coming in, show the latest one
@@ -95,19 +95,23 @@ private let isDebug = false
                     .frame(height: 50)
             }
         }
+        .hapticFeedback(trigger: quote)
+        .errorFeedback(trigger: viewModel.showExtendAlert)
         .errorFeedback(trigger: viewModel.showGiveApAlert)
         .animation(.easeInOut(duration: 0.4), value: viewModel.missionReady)
         .animation(.bouncy, value: quote)
         .animation(.spring(), value: mission.isCompleted)
         .onReceive(deadlineTimer) { _ in
-            // Check if deadline has passed
-            if mission.isExpired {
-                viewModel.backToInput()
+            // Mission just expired while user is watching → show fail screen
+            if !mission.isFinished && mission.isExpired {
+                SoundEngine.play(.fail(mission.agent))
+                Task { await viewModel.failExpiredMission(mission) }
             }
         }
         .alert(mission.agent.alert, isPresented: $viewModel.showGiveApAlert) {
             Button(L10n.Mission.giveUp, role: .destructive) {
                 Task {
+                    SoundEngine.play(.fail(mission.agent))
                     await viewModel.giveUp(mission)
                 }
             }

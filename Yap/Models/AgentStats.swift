@@ -34,7 +34,7 @@ extension Array where Element == Mission {
         Agent.allCases.map { agent in
             let missions = self.filter { $0.agent == agent }
             let completed = missions.filter { $0.status == .completed }.count
-            let givenUp = missions.filter { $0.status == .givenUp }.count
+            let givenUp = missions.filter { $0.status == .givenUp || $0.status == .failed }.count
             return AgentStats(agent: agent, completed: completed, givenUp: givenUp)
         }
     }

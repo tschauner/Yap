@@ -32,7 +32,7 @@ struct MissionContentView: View {
                         .font(.system(size: 13, weight: .medium))
                         .frame(width: 20)
                     Text(L10n.Mission.messagesIgnored(mission.estimatedIgnoredMessages))
-                        .foregroundStyle(mission.isFailed ? .red : .secondary)
+                        .foregroundStyle(mission.isFailed || mission.isGivenUp ? .red : .secondary)
                 }
                 
                 Divider()
@@ -40,11 +40,10 @@ struct MissionContentView: View {
                 HStack {
                     Image(icon: .clock)
                         .font(.system(size: 13, weight: .medium))
-                    //                        .foregroundStyle(.primary)
                         .frame(width: 20)
                     if mission.isFinished {
                         Text(mission.durationFormatted)
-                            .foregroundStyle(mission.isFailed ? .red : .secondary)
+                            .foregroundStyle(mission.isFailed || mission.isGivenUp ? .red : .secondary)
                     } else {
                         HStack(spacing: 5) {
                             Text(mission.deadline, style: .relative)
@@ -52,17 +51,19 @@ struct MissionContentView: View {
                             Text(L10n.Mission.left)
                                 .foregroundStyle(.secondary)
                         }
+                        .frame(maxWidth: .infinity, alignment: .leading)
                         
-                        Spacer()
-                        Image(icon: .extend)
-                            .font(.system(size: 14, weight: .medium))
-                            .padding(.vertical, 5)
-                            .padding(.horizontal, 15)
-                            .background(.quinary)
-                            .clipShape(Capsule())
-                            .button {
-                                viewModel.showExtendAlert = true
-                            }
+                        if !mission.extended {
+                            Image(icon: .extend)
+                                .font(.system(size: 14, weight: .medium))
+                                .padding(.vertical, 5)
+                                .padding(.horizontal, 15)
+                                .background(.quinary)
+                                .clipShape(Capsule())
+                                .button {
+                                    viewModel.showExtendAlert = true
+                                }
+                        }
                     }
                 }
             }
@@ -94,6 +95,7 @@ struct MissionContentView: View {
             } else {
                 HoldToCompleteButton {
                     Task {
+                        SoundEngine.play(.success(mission.agent))
                         await viewModel.markMissionDone(mission)
                     }
                 }

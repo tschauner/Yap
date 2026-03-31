@@ -11,6 +11,7 @@ struct MissionUseCaseFacade {
     let createMission: CreateMissionUseCase
     let completeMission: CompleteMissionUseCase
     let giveUpMission: GiveUpMissionUseCase
+    let failMission: FailMissionUseCase
     let removeFromQueue: RemoveFromQueueUseCase
     let extendMission: ExtendMissionUseCase
     let activateMission: ActivateMissionUseCase
@@ -28,6 +29,7 @@ struct MissionUseCaseFacade {
         createMission: CreateMissionUseCase = .init(),
         completeMission: CompleteMissionUseCase = .init(),
         giveUpMission: GiveUpMissionUseCase = .init(),
+        failMission: FailMissionUseCase = .init(),
         removeFromQueue: RemoveFromQueueUseCase = .init(),
         extendMission: ExtendMissionUseCase = .init(),
         activateMission: ActivateMissionUseCase = .init(),
@@ -44,6 +46,7 @@ struct MissionUseCaseFacade {
         self.createMission = createMission
         self.completeMission = completeMission
         self.giveUpMission = giveUpMission
+        self.failMission = failMission
         self.removeFromQueue = removeFromQueue
         self.extendMission = extendMission
         self.activateMission = activateMission

@@ -29,8 +29,7 @@ struct MissionView: View {
             .onChange(of: scenePhase) { _, newPhase in
                 if newPhase == .active {
                     Task {
-                        await viewModel.refreshFromDeliveredNotifications()
-                        await viewModel.checkNotificationPermission()
+                        await viewModel.onAppear()
                     }
                 }
             }
@@ -87,7 +86,7 @@ struct MissionView: View {
         switch viewModel.phase {
         case .loading:
             ProgressView()
-        case .activeMission(let mission), .completed(let mission), .gaveUp(let mission):
+        case .activeMission(let mission), .completed(let mission), .gaveUp(let mission), .failed(let mission):
             ActiveMissionView(mission: mission, cardNamespace: cardNamespace)
         case .selection:
             MissionSelectionView(cardNamespace: cardNamespace)

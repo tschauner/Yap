@@ -24,6 +24,7 @@ enum MissionStatus: String, Codable, Equatable {
     case active
     case completed
     case givenUp = "given_up"
+    case failed
 }
 
 // MARK: - Mission (aktiv / abgeschlossen — volles Objekt)
@@ -51,14 +52,21 @@ struct Mission: Identifiable, Codable, Equatable {
     var isCompleted: Bool { status == .completed }
     var isActive: Bool { status == .active }
     var isGivenUp: Bool { status == .givenUp }
+    var isFailed: Bool { status == .failed }
     var isExpired: Bool { status == .active && deadline < .now }
-    var isFailed: Bool { isGivenUp || isExpired }
-    var isFinished: Bool { isCompleted || isFailed }
+    var isFinished: Bool { isCompleted || isGivenUp || isFailed }
     
     /// Wie lange die Mission aktiv war
     var duration: TimeInterval {
-        let end = completedAt ?? givenUpAt ?? Date()
-        return end.timeIntervalSince(createdAt)
+        if isCompleted {
+            let end = completedAt ?? Date()
+            return end.timeIntervalSince(createdAt)
+        } else if isFailed {
+            // Failed = ran for the full deadline period
+            return deadline.timeIntervalSince(createdAt)
+        } else {
+            return Date().timeIntervalSince(createdAt)
+        }
     }
     
     var estimatedIgnoredMessages: Int {
@@ -77,7 +85,7 @@ struct Mission: Identifiable, Codable, Equatable {
     }
     
     var durationFormatted: String {
-        let totalMinutes = Int(duration / 60)
+        let totalMinutes = Int((duration / 60).rounded())
         let hours = totalMinutes / 60
         let mins = totalMinutes % 60
         return hours > 0 ? "\(hours)h \(mins)min" : "\(mins)min"

@@ -177,6 +177,30 @@ struct GiveUpMissionUseCase: UseCase {
     }
 }
 
+struct FailMissionUseCase: UseCase {
+    private let service: any MissionProviding
+    private let copyService: any CopyProviding
+    
+    init(service: any MissionProviding = MissionService.shared,
+         copyService: any CopyProviding = CopyService.shared) {
+        self.service = service
+        self.copyService = copyService
+    }
+    
+    func execute(_ input: UUID) async -> Mission? {
+        do {
+            let mission = try await service.failMission(input)
+            copyService.deleteCopy(for: input)
+            await DeviceService.shared.cancelPendingNotifications(goalId: input)
+            try? await UNUserNotificationCenter.current().setBadgeCount(0)
+            return mission
+        } catch {
+            print("⚠️ FailMission failed: \(error.localizedDescription)")
+            return nil
+        }
+    }
+}
+
 // MARK: - Extend
 
 struct ExtendMissionUseCase {

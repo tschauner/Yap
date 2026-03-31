@@ -58,6 +58,8 @@ enum L10n {
     enum Mission {
         static let holdToComplete = "mission_hold_to_complete".localized
         static let giveUp = "mission_give_up".localized
+        static let notificationDone = "notification_action_done".localized
+        static let notificationSnooze = "notification_action_snooze".localized
         static let setAnother = "mission_set_another".localized
         static let extendTitle = "mission_extend_title".localized
         static let extendMessage = "mission_extend_message".localized
@@ -203,7 +205,7 @@ enum L10n {
         static let featureAgentMemory = "paywall_feature_agent_memory".localized
         static let featureUnlimitedMissions = "paywall_feature_unlimited_missions".localized
         static func unlockProPrice(_ price: String) -> String { "paywall_unlock_pro_price".localized(with: price) }
-        static let oneTimePurchase = "paywall_one_time_purchase".localized
+        static let lifetimeSubline = "paywall_lifetime_subline".localized
         static let unlockPro = "paywall_unlock_pro".localized
         static let restorePurchase = "paywall_restore_purchase".localized
     }
@@ -259,6 +261,20 @@ enum L10n {
             }
         }
         static let restoreFailed = "store_error_restore_failed".localized
+    }
+    
+    // MARK: - Quick Actions
+    enum QuickAction {
+        static let quittingQuotes: [String] = [
+            "quick_action_quit_1".localized,
+            "quick_action_quit_2".localized,
+            "quick_action_quit_3".localized,
+            "quick_action_quit_4".localized,
+        ]
+        
+        static var randomQuote: String {
+            quittingQuotes.randomElement() ?? quittingQuotes[0]
+        }
     }
 }
 

@@ -14,7 +14,8 @@ final class MissionViewModel: ObservableObject {
         case selection
         case activeMission(Mission)
         case completed(Mission)  // Stats nach Erfolg
-        case gaveUp(Mission)     // Stats nach Aufgeben
+        case gaveUp(Mission)     // User hat aufgegeben
+        case failed(Mission)     // Zeit abgelaufen
     }
     
     @Published var missionText: String = ""
@@ -45,11 +46,10 @@ final class MissionViewModel: ObservableObject {
     @Published var deadlineOffset: TimeInterval = 2 * 60 * 60
     @AppStorage("favorite_agent") var favoriteAgentRaw: String = ""
     @AppStorage("dismissedAgents") var dismissedAgentsRaw: String = ""
-    
-    private let appId = "6761190023"
+    @AppStorage("lastAcknowledgedFailedMissionId") private var lastAcknowledgedFailedMissionId: String = ""
     
     var appURL: URL? {
-        URL(string: "https://apps.apple.com/app/id\(appId)")
+        URL(string: "https://apps.apple.com/app/id6761190023")
     }
     
     var favoriteAgent: Agent? {
@@ -182,20 +182,52 @@ final class MissionViewModel: ObservableObject {
     
     @MainActor
     func onAppear() async {
-        if let active = await useCases.fetchActiveMission.execute(()), 
-           !active.isFailed {
-            // Only show as active if not failed (expired or given up)
-            missionReady = true
-            phase = .activeMission(active)
-            // Restore cached reaction so the quote doesn't reset to pitch
-            if agentReaction == nil {
-                agentReaction = useCases.loadReaction.execute(active.id)
+        if let active = await useCases.fetchActiveMission.execute(()) {
+            if active.isExpired {
+                // Mission expired — tell server, then show fail screen
+                let failed = await useCases.failMission.execute(active.id) ?? active
+                if failed.id.uuidString == lastAcknowledgedFailedMissionId {
+                    phase = .selection
+                    deadlineOffset = 2 * 60 * 60
+                    try? await UNUserNotificationCenter.current().setBadgeCount(0)
+                } else {
+                    missionReady = true
+                    phase = .failed(failed)
+                }
+            } else if active.isGivenUp {
+                // Already marked as given_up on server
+                if active.id.uuidString == lastAcknowledgedFailedMissionId {
+                    phase = .selection
+                    deadlineOffset = 2 * 60 * 60
+                    try? await UNUserNotificationCenter.current().setBadgeCount(0)
+                } else {
+                    missionReady = true
+                    phase = .gaveUp(active)
+                }
+            } else if active.isFailed {
+                // Already marked as failed on server
+                if active.id.uuidString == lastAcknowledgedFailedMissionId {
+                    phase = .selection
+                    deadlineOffset = 2 * 60 * 60
+                    try? await UNUserNotificationCenter.current().setBadgeCount(0)
+                } else {
+                    missionReady = true
+                    phase = .failed(active)
+                }
+            } else {
+                // Active mission still running
+                missionReady = true
+                phase = .activeMission(active)
+                // Restore cached reaction so the quote doesn't reset to pitch
+                if agentReaction == nil {
+                    agentReaction = useCases.loadReaction.execute(active.id)
+                }
+                // Fetch latest sent push from DB
+                await fetchLatestSentMessage(for: active.id)
+                // Observe foreground push arrivals + poll DB every 30s
+                observePushArrivals(for: active.id)
+                startPolling(for: active.id)
             }
-            // Fetch latest sent push from DB
-            await fetchLatestSentMessage(for: active.id)
-            // Observe foreground push arrivals + poll DB every 30s
-            observePushArrivals(for: active.id)
-            startPolling(for: active.id)
         } else {
             phase = .selection
             deadlineOffset = 2 * 60 * 60
@@ -205,6 +237,16 @@ final class MissionViewModel: ObservableObject {
         
         // History für Agent Stats laden
         await refreshMissionHistory()
+
+        // If there is no active mission, keep showing the latest unfinished mission
+        // until the user explicitly acknowledges it.
+        if case .selection = phase,
+           let latest = missionHistory.first,
+           (latest.isGivenUp || latest.isFailed),
+           latest.id.uuidString != lastAcknowledgedFailedMissionId {
+            missionReady = true
+            phase = latest.isFailed ? .failed(latest) : .gaveUp(latest)
+        }
         
         await checkNotificationPermission()
     }
@@ -345,6 +387,7 @@ final class MissionViewModel: ObservableObject {
         defer { missionIsCompleting = false }
         missionIsCompleting = true
         guard let result = await useCases.completeMission.execute(mission.id) else { return }
+        currentNagMessage = nil
         phase = .completed(result)
         await refreshMissionHistory()
         requestReviewIfEligible()
@@ -354,7 +397,17 @@ final class MissionViewModel: ObservableObject {
     @MainActor
     func giveUp(_ mission: Mission) async {
         guard let result = await useCases.giveUpMission.execute(mission.id) else { return }
+        currentNagMessage = nil
         phase = .gaveUp(result)
+        await refreshMissionHistory()
+    }
+    
+    /// Zeit abgelaufen → Failed-Screen.
+    @MainActor
+    func failExpiredMission(_ mission: Mission) async {
+        guard let result = await useCases.failMission.execute(mission.id) else { return }
+        currentNagMessage = nil
+        phase = .failed(result)
         await refreshMissionHistory()
     }
     
@@ -388,7 +441,12 @@ final class MissionViewModel: ObservableObject {
     /// Nach Stats-Screen → nächste Mission aus Queue oder zurück zur Auswahl.
     @MainActor
     func continueAfterResult() {
-        // Queue hat nur MissionItems — User muss erst Agent wählen.
+        switch phase {
+        case .gaveUp(let mission), .failed(let mission):
+            lastAcknowledgedFailedMissionId = mission.id.uuidString
+        default:
+            break
+        }
         deadlineOffset = 2 * 60 * 60
         phase = .selection
     }
@@ -493,6 +551,12 @@ final class MissionViewModel: ObservableObject {
     
     @MainActor
     func backToInput() {
+        switch phase {
+        case .gaveUp(let mission), .failed(let mission):
+            lastAcknowledgedFailedMissionId = mission.id.uuidString
+        default:
+            break
+        }
         missionText = ""
         selectedAgent = nil
         deadlineOffset = 2 * 60 * 60

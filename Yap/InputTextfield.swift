@@ -118,6 +118,7 @@ struct InputTextfield: View {
                 }
             }
         }
+        .errorFeedback(trigger: viewModel.error)
         .errorFeedback(trigger: viewModel.showQuietHoursAlert)
         .animation(.snappy(duration: 0.3), value: missionText.isEmpty)
         .onChange(of: isFocused) { oldValue, newValue in
