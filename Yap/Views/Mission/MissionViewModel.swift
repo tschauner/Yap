@@ -348,7 +348,7 @@ final class MissionViewModel: ObservableObject {
         await refreshMissionHistory()
         
         // Fire-and-forget: Generate full notification copy in background
-        // First push is scheduled at +5 min (see CopyService.requestBody)
+        // First push is scheduled at +1 min (see CopyService.requestBody)
         if ProAccess.canUseAICopy {
             Task { [weak self] in
                 await self?.useCases.generateCopy.execute(mission)

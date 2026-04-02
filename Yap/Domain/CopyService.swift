@@ -106,18 +106,19 @@ final class CopyService: CopyProviding {
     
     private func requestBody(for mission: Mission) async -> [String: Any] {
         let minutesUntilDeadline = max(0, Int(mission.deadline.timeIntervalSinceNow / 60))
-        // +2h extension: deadline is close → pushes start in 5 min (same day).
+        // +2h extension: deadline is close → pushes start in 1 min (same day).
         // +24h extension: deadline is far away (tomorrow 18:00) → pushes start 9 AM next day.
-        // Normal missions: first push at 5 min.
+        // Normal missions: first push at 1 min for instant feedback.
+        // (pg_cron fires every 60s → real delivery ~1-2 min after mission start)
         let firstPushOffset: Int
         if mission.extended && minutesUntilDeadline > 720 {
             // Long extension (24h) — delay first push to 9 AM on deadline day
             let cal = Calendar.current
             let deadlineDay9 = cal.date(bySettingHour: 9, minute: 0, second: 0,
                                         of: mission.deadline) ?? mission.deadline
-            firstPushOffset = max(5, Int(deadlineDay9.timeIntervalSinceNow / 60))
+            firstPushOffset = max(1, Int(deadlineDay9.timeIntervalSinceNow / 60))
         } else {
-            firstPushOffset = 5
+            firstPushOffset = 1
         }
         let rawSchedule = EscalationLevel.buildSchedule(
             profile: mission.agent.escalationProfile,
