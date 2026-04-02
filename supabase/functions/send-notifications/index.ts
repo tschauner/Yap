@@ -147,6 +147,18 @@ async function sendAPNs(
   }
 }
 
+// ── Notification Sound ───────────────────────────────────────
+
+const femaleAgents = new Set(["mom", "therapist", "grandma", "passiveAggressiveColleague", "ex"]);
+
+const selectSoundsFemale = ["yap_select_f_1", "yap_select_f_2", "yap_select_f_3", "yap_select_f_4"];
+const selectSoundsMale   = ["yap_select_m_1", "yap_select_m_2", "yap_select_m_3"];
+
+function randomNotificationSound(agent: string): string {
+  const pool = femaleAgents.has(agent) ? selectSoundsFemale : selectSoundsMale;
+  return pool[Math.floor(Math.random() * pool.length)] + ".caf";
+}
+
 // ── Escalation Sound + Priority ─────────────────────────────
 
 function apnsPayload(
@@ -163,7 +175,7 @@ function apnsPayload(
   return {
     aps: {
       alert: { title, body },
-      sound: isCritical ? "default" : "default",
+      sound: randomNotificationSound(agent),
       badge,
       "mutable-content": 1, // Triggers Notification Service Extension for avatar
       category: "YAP_REMINDER",
