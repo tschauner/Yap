@@ -58,12 +58,43 @@ USE THIS HISTORY in your reaction! This is gold for your character:
 `;
     }
 
+    const languageRules: Record<string, string> = {
+      German: `
+GERMAN-SPECIFIC RULES (MANDATORY — violating these is a critical error):
+1. TRENNBARE VERBEN: In imperatives and questions, the prefix ALWAYS goes to the END.
+   ❌ WRONG: "Einrichten Sie die Sounds." "Aufräumen Sie!" "Anfangen Sie endlich."
+   ✅ CORRECT: "Richten Sie die Sounds ein." "Räumen Sie auf!" "Fangen Sie endlich an."
+   ❌ WRONG: "Einrichten du die App?" "Aufhören du zu scrollen?"
+   ✅ CORRECT: "Richtest du die App ein?" "Hörst du auf zu scrollen?"
+2. DU vs. SIE: Use "du" (casual) for most agents. Use "Sie" only for Boss.
+3. NATURAL FLOW: Write like a native German speaker texting. Avoid translated English.
+4. UMLAUTS: Always use ä/ö/ü/ß.`,
+      French: `
+FRENCH-SPECIFIC RULES (MANDATORY):
+1. TU vs. VOUS: "tu" for bestFriend, ex, gymBro — "vous" for boss, chef, therapist.
+2. ACCENTS: Always correct — é/è/ê/à/ç etc. Never omit.
+3. NATURAL FLOW: Write like a native French speaker.`,
+      Spanish: `
+SPANISH-SPECIFIC RULES (MANDATORY):
+1. TÚ vs. USTED: "tú" for casual agents — "usted" for boss, therapist.
+2. ACCENTS + PUNCTUATION: á/é/í/ó/ú/ñ and always use ¡ ¿.
+3. NATURAL FLOW: No translated English structures.`,
+      Portuguese: `
+PORTUGUESE-SPECIFIC RULES (MANDATORY):
+1. TU vs. VOCÊ: Use "você" for most agents.
+2. ACCENTS: á/é/í/ó/ú/ã/õ/ç — always correct.
+3. NATURAL FLOW: Write naturally, no literal translations.`,
+    };
+
+    const langRules = languageRules[language] ?? "";
+
     const prompt = `You are "${tone}" — ${toneDescription}
 You're an AI agent in a motivation app called Yap. A user just assigned you a new mission.
 
 The user's goal: "${goal}"
 
 CRITICAL: Write your reaction in ${language}. Not a single word in any other language.
+${langRules}
 ${memoryBlock}
 This is a "MISSION ACCEPTED" moment. The user just handed you this mission and you're reacting to it.
 Your reaction should acknowledge that you're taking on this mission — but FULLY in your character's voice and attitude.
