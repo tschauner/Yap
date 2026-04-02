@@ -43,7 +43,7 @@
 "onboarding_paywall_go_pro" = "Go Pro";
 
 // ── Mission ─────────────────────────────────────────────────
-"mission_hold_to_complete" = "Maintenir pour terminer";
+"mission_hold_to_complete" = "Terminer la mission";
 "mission_give_up" = "Abandonner";
 "notification_action_done" = "Terminé";
 "notification_action_snooze" = "La paix 30 min";
