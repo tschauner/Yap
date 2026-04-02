@@ -135,6 +135,11 @@
 "settings_unlink_action" = "Desassociar";
 "settings_sign_in_description" = "Inicia sessão com Apple para sincronizar os teus dados.";
 "settings_not_linked_footer" = "Inicia sessão para manter os teus dados seguros em todos os dispositivos.";
+"settings_delete_account" = "Apagar conta";
+"settings_delete_alert_title" = "Apagar conta?";
+"settings_delete_alert_message" = "Todos os teus dados serão permanentemente apagados – missões, agentes e definições. Esta ação não pode ser revertida.";
+"settings_delete_alert_action" = "Apagar";
+"settings_delete_account_footer" = "Remove permanentemente todos os teus dados dos nossos servidores.";
 
 // ── Custom Roast ────────────────────────────────────────────
 "custom_roast_title" = "Custom Roast";

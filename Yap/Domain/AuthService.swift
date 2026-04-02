@@ -4,6 +4,7 @@
 import Foundation
 import AuthenticationServices
 import Combine
+import UserNotifications
 
 /// Manages Apple Sign-In and device linking.
 @MainActor
@@ -119,6 +120,42 @@ final class AuthService: NSObject, ObservableObject {
         } catch {
             self.error = "Could not unlink: \(error.localizedDescription)"
             isLoading = false
+        }
+    }
+    
+    // MARK: - Delete Account
+    
+    /// Deletes all server-side data and resets local state.
+    func deleteAccount() async throws {
+        isLoading = true
+        
+        do {
+            // 1. Delete all server data via RPC
+            let _: Bool = try await api.rpc(
+                function: "delete_account",
+                params: .json(["p_device_id": APIClient.deviceId])
+            )
+            
+            // 2. Clear local Apple Sign-In state
+            UserDefaults.standard.removeObject(forKey: appleUserKey)
+            isLinked = false
+            
+            // 3. Clear all UserDefaults (keep Keychain/device ID to prevent abuse)
+            if let bundleId = Bundle.main.bundleIdentifier {
+                UserDefaults.standard.removePersistentDomain(forName: bundleId)
+            }
+            
+            // 5. Remove pending notifications
+            UNUserNotificationCenter.current().removeAllPendingNotificationRequests()
+            UNUserNotificationCenter.current().removeAllDeliveredNotifications()
+            
+            isLoading = false
+            print("✅ Account deleted")
+            
+        } catch {
+            self.error = "Could not delete account: \(error.localizedDescription)"
+            isLoading = false
+            throw error
         }
     }
 }

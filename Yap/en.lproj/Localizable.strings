@@ -135,6 +135,11 @@
 "settings_unlink_action" = "Unlink";
 "settings_sign_in_description" = "Sign in with Apple to sync your data across devices.";
 "settings_not_linked_footer" = "Sign in to keep your data safe across devices.";
+"settings_delete_account" = "Delete Account";
+"settings_delete_alert_title" = "Delete Account?";
+"settings_delete_alert_message" = "This will permanently delete all your data including missions, agents, and settings. This cannot be undone.";
+"settings_delete_alert_action" = "Delete";
+"settings_delete_account_footer" = "Permanently removes all your data from our servers.";
 
 // ── Custom Roast ────────────────────────────────────────────
 "custom_roast_title" = "Custom Roast";

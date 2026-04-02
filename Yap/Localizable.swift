@@ -160,6 +160,11 @@ enum L10n {
         static let unlinkAction = "settings_unlink_action".localized
         static let signInDescription = "settings_sign_in_description".localized
         static let notLinkedFooter = "settings_not_linked_footer".localized
+        static let deleteAccount = "settings_delete_account".localized
+        static let deleteAlertTitle = "settings_delete_alert_title".localized
+        static let deleteAlertMessage = "settings_delete_alert_message".localized
+        static let deleteAlertAction = "settings_delete_alert_action".localized
+        static let deleteAccountFooter = "settings_delete_account_footer".localized
     }
     
     // MARK: - Custom Roast

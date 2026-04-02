@@ -135,6 +135,11 @@
 "settings_unlink_action" = "Trennen";
 "settings_sign_in_description" = "Mit Apple anmelden, um Daten geräteübergreifend zu synchronisieren.";
 "settings_not_linked_footer" = "Melde dich an, um deine Daten geräteübergreifend zu sichern.";
+"settings_delete_account" = "Account löschen";
+"settings_delete_alert_title" = "Account löschen?";
+"settings_delete_alert_message" = "Alle deine Daten werden unwiderruflich gelöscht – Missionen, Agenten und Einstellungen. Das kann nicht rückgängig gemacht werden.";
+"settings_delete_alert_action" = "Löschen";
+"settings_delete_account_footer" = "Entfernt alle deine Daten dauerhaft von unseren Servern.";
 
 // ── Custom Roast ────────────────────────────────────────────
 "custom_roast_title" = "Custom Roast";

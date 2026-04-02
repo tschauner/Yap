@@ -12,6 +12,7 @@ struct SettingsView: View {
     @StateObject private var auth = AuthService.shared
     @State private var showPaywall = false
     @State private var webURL: WebURL?
+    @State private var showDeleteAlert = false
     @AppStorage("customRoast") private var customRoast: String = ""
     @AppStorage("hapticFeedbackEnabled") private var isOn: Bool = true
     @Environment(\.requestReview) private var requestReview
@@ -124,6 +125,17 @@ struct SettingsView: View {
                     Text(L10n.Settings.sectionGeneral)
                 }
                 
+                // Delete Account
+                Section {
+                    Button(role: .destructive) {
+                        showDeleteAlert = true
+                    } label: {
+                        Text(L10n.Settings.deleteAccount)
+                    }
+                } footer: {
+                    Text(L10n.Settings.deleteAccountFooter)
+                }
+                
                 // Debug (only in debug builds)
                 #if DEBUG
                 Section {
@@ -153,6 +165,17 @@ struct SettingsView: View {
             }
             .sheet(isPresented: $showPaywall) {
                 PaywallView()
+            }
+            .errorFeedback(trigger: showDeleteAlert)
+            .alert(L10n.Settings.deleteAlertTitle, isPresented: $showDeleteAlert) {
+                Button(L10n.Settings.deleteAlertAction, role: .destructive) {
+                    Task {
+                        try? await auth.deleteAccount()
+                    }
+                }
+                Button(L10n.Common.cancel, role: .cancel) { }
+            } message: {
+                Text(L10n.Settings.deleteAlertMessage)
             }
 
         }
