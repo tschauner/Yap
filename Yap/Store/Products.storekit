@@ -23,46 +23,6 @@
       "productID" : "com.philipptschauner.yap.lifetime",
       "referenceName" : "Yap Pro Lifetime",
       "type" : "NonConsumable"
-    },
-    {
-      "displayPrice" : "2.99",
-      "familyShareable" : false,
-      "internalID" : "B2C3D4E5-F6A7-8901-BCDE-F12345678901",
-      "localizations" : [
-        {
-          "description" : "The Ex, The Theorist & The Colleague",
-          "displayName" : "Chaos Pack",
-          "locale" : "en_US"
-        },
-        {
-          "description" : "Der Ex, Der Theorist & Der Kollege",
-          "displayName" : "Chaos Pack",
-          "locale" : "de"
-        }
-      ],
-      "productID" : "com.philipptschauner.yap.pack.chaos",
-      "referenceName" : "Chaos Pack",
-      "type" : "NonConsumable"
-    },
-    {
-      "displayPrice" : "2.99",
-      "familyShareable" : false,
-      "internalID" : "C3D4E5F6-A7B8-9012-CDEF-123456789012",
-      "localizations" : [
-        {
-          "description" : "The Chef, Disappointed Dad & Gym Bro",
-          "displayName" : "Legends Pack",
-          "locale" : "en_US"
-        },
-        {
-          "description" : "The Chef, Enttäuschter Papa & Gym Bro",
-          "displayName" : "Legends Pack",
-          "locale" : "de"
-        }
-      ],
-      "productID" : "com.philipptschauner.yap.pack.legends",
-      "referenceName" : "Legends Pack",
-      "type" : "NonConsumable"
     }
   ],
   "settings" : {
