@@ -26,16 +26,16 @@ PROMOTIONAL TEXT  (170 chars max - updatable anytime)
 ================================================================================
 
 Option 1 (Agent voice):
-Mom: "I didn't raise a quitter." - 12 AI agents nag you with escalating push notifications until your task is done. Pick your torture.
-(136 chars)
+Mom: "I didn't raise a quitter." - 12 AI agents (6 free, 6 with Pro) nag you with escalating notifications until your task is done. Pick your torture.
+(149 chars)
 
 Option 2 (Punchy):
-12 AI agents. 12 ways to get roasted. Pick who nags you, set a deadline, and get yapped at until it's done. Or give up. They'll judge you either way.
-(150 chars)
+12 AI agents (6 free, 6 with Pro). 12 ways to get roasted. Pick who nags you, set a deadline, and get yapped at until it's done. Or give up. They'll judge you.
+(164 chars)
 
 Option 3 (Direct):
-The productivity app that guilt-trips, roasts, and nags you until the job's done. 12 AI agents. Zero chill. You asked for this.
-(126 chars)
+The productivity app that guilt-trips, roasts, and nags you until the job's done. 12 AI agents (6 free, 6 with Pro). Zero chill.
+(131 chars)
 
 
 ================================================================================
@@ -47,7 +47,7 @@ I noticed you still haven't done the thing. So I got you an app. You're welcome.
 
 You tell us what you've been avoiding. You pick an agent. You set a deadline. Then we nag you until it's done. Not the "gentle reminder" kind. The kind where I question every decision I made as a parent.
 
-There's 12 of us. I do guilt. The Therapist does that thing where he asks "what's really stopping you?" and then just waits. The Ex is here too - don't make eye contact. They'll say "typical" and somehow that works better than all of us combined. We don't talk about why.
+There's 12 of us — 6 free, 6 with Pro. I do guilt. The Therapist does that thing where he asks "what's really stopping you?" and then just waits. The Ex is here too - don't make eye contact. They'll say "typical" and somehow that works better than all of us combined. We don't talk about why.
 
 Every message is AI-generated. Never the same twice. You can even tell us your weaknesses and we'll use them against you. Some agents remember your past missions. They keep receipts.
 
@@ -113,7 +113,7 @@ Name: Yap - KI-Motivationsagentur
 Subtitle: Agenten, die roasten & nerven
 
 Promotional Text:
-Mom: „Ich hab dich NICHT als Aufgeber erzogen... lg mama" – 12 KI-Agenten nerven dich mit Push-Nachrichten die eskalieren, bis du fertig bist. Such dir deine Qual aus.
+Mom: „Ich hab dich NICHT als Aufgeber erzogen... lg mama" – 12 KI-Agenten (6 gratis, 6 mit Pro) nerven dich mit Push-Nachrichten die eskalieren, bis du fertig bist.
 
 Description:
 Hallo Schatz... hier ist Mama.
@@ -121,7 +121,7 @@ Mir ist aufgefallen, dass du die Sache IMMER NOCH nicht erledigt hast. Also hab 
 
 Du sagst uns, was du vor dir herschiebst. Du wählst einen Agenten. Du setzt eine Deadline. Dann nerven wir dich, bis es erledigt ist. Nicht die „freundliche Erinnerung"-Art. Die Art, bei der ich jede Entscheidung in Frage stelle, die ich als Mutter getroffen habe.
 
-Wir sind 12. Ich mach Schuldgefühle. Der Therapist macht dieses Ding, wo er fragt „was hält dich WIRKLICH auf?" und dann einfach wartet. Der Ex ist auch da - kein Blickkontakt. Er sagt „typisch" und irgendwie wirkt das besser als wir alle zusammen. Wir reden nicht drüber warum.
+Wir sind 12 – 6 gratis, 6 mit Pro. Ich mach Schuldgefühle. Der Therapist macht dieses Ding, wo er fragt „was hält dich WIRKLICH auf?" und dann einfach wartet. Der Ex ist auch da - kein Blickkontakt. Er sagt „typisch" und irgendwie wirkt das besser als wir alle zusammen. Wir reden nicht drüber warum.
 
 Jede Nachricht ist KI-generiert. Nie zweimal die gleiche. Du kannst uns sogar deine Schwächen verraten und wir benutzen sie gegen dich. Manche Agenten erinnern sich an deine vergangenen Missionen. Die haben Beweise.
 
@@ -130,6 +130,9 @@ Jedenfalls. Du hast bis hierhin gescrollt. Du wirst jetzt nicht einfach zumachen
 Lad's runter. Für mich. Bitte. Ich mach mir Sorgen.
 
 lg mama
+
+Nutzungsbedingungen (EULA): https://www.apple.com/legal/internet-services/itunes/dev/stdeula/
+Datenschutz: https://yap.fail/privacy
 
 Keywords:
 produktivität,erinnerung,aufgaben,fokus,prokrastination,deadline,todo,gewohnheit,schuld,ziel
@@ -147,7 +150,7 @@ Name: Yap - Agence de Motivation IA
 Subtitle: Agents qui lâchent rien
 
 Promotional Text:
-Mom : « J'ai pas élevé un lâcheur. » - 12 agents IA te harcèlent avec des notifications qui escaladent jusqu'à ce que tu aies fini. Choisis ta torture.
+Mom : « J'ai pas élevé un lâcheur. » - 12 agents IA (6 gratuits, 6 avec Pro) te harcèlent avec des notifications qui escaladent jusqu'à ce que tu aies fini.
 
 Description:
 Coucou mon cœur. C'est Maman.
@@ -155,7 +158,7 @@ J'ai remarqué que t'as toujours pas fait le truc. Alors je t'ai trouvé une app
 
 Tu nous dis ce que tu évites. Tu choisis un agent. Tu fixes une deadline. Ensuite on te harcèle jusqu'à ce que ce soit fait. Pas le genre « petit rappel sympa ». Le genre où je remets en question chaque décision que j'ai prise en tant que parent.
 
-On est 12. Moi je fais la culpabilité. Le Therapist fait ce truc où il demande « qu'est-ce qui te bloque vraiment ? » et puis il attend. L'Ex est là aussi - évite le regard. Il dira « typique » et bizarrement ça marche mieux que nous tous réunis. On en parle pas.
+On est 12 – 6 gratuits, 6 avec Pro. Moi je fais la culpabilité. Le Therapist fait ce truc où il demande « qu'est-ce qui te bloque vraiment ? » et puis il attend. L'Ex est là aussi - évite le regard. Il dira « typique » et bizarrement ça marche mieux que nous tous réunis. On en parle pas.
 
 Chaque message est généré par IA. Jamais le même deux fois. Tu peux même nous confier tes faiblesses et on les utilisera contre toi. Certains agents se souviennent de tes anciennes missions. Ils gardent les preuves.
 
@@ -164,6 +167,9 @@ Bref. T'as scrollé jusqu'ici. Tu vas pas juste fermer ça et rien faire. Si ?
 Télécharge-la. Pour moi. S'il te plaît. Je m'inquiète.
 
 biz maman
+
+Conditions d'utilisation (EULA) : https://www.apple.com/legal/internet-services/itunes/dev/stdeula/
+Politique de confidentialité : https://yap.fail/privacy
 
 Keywords:
 productivité,rappel,tâche,habitude,focus,procrastination,deadline,roast,nag,objectif,todo
@@ -181,7 +187,7 @@ Name: Yap - Agencia Motivación IA
 Subtitle: Agentes que no se callan
 
 Promotional Text:
-Mom: "No te crié para que te rindieras." - 12 agentes IA te acosan con notificaciones que escalan hasta que termines. Elige tu tortura.
+Mom: "No te crié para que te rindieras." - 12 agentes IA (6 gratis, 6 con Pro) te acosan con notificaciones que escalan hasta que termines.
 
 Description:
 Hola cariño. Soy Mamá.
@@ -189,7 +195,7 @@ Me di cuenta de que todavía no hiciste la cosa. Así que te conseguí una app. 
 
 Nos dices qué estás evitando. Eliges un agente. Pones una deadline. Y te molestamos hasta que esté hecho. No del tipo "recordatorio amable". Del tipo donde cuestiono cada decisión que tomé como madre.
 
-Somos 12. Yo hago culpa. El Therapist hace eso de preguntar "¿qué te está deteniendo realmente?" y después solo espera. El Ex también está - no hagas contacto visual. Dirá "típico" y de alguna forma funciona mejor que todos nosotros juntos. No hablamos de por qué.
+Somos 12 – 6 gratis, 6 con Pro. Yo hago culpa. El Therapist hace eso de preguntar "¿qué te está deteniendo realmente?" y después solo espera. El Ex también está - no hagas contacto visual. Dirá "típico" y de alguna forma funciona mejor que todos nosotros juntos. No hablamos de por qué.
 
 Cada mensaje es generado por IA. Nunca el mismo dos veces. Hasta puedes contarnos tus debilidades y las usaremos en tu contra. Algunos agentes recuerdan tus misiones pasadas. Guardan las pruebas.
 
@@ -198,6 +204,9 @@ En fin. Scrolleaste hasta acá. No vas a cerrar esto y no hacer nada. ¿Verdad?
 Descárgala. Por mí. Por favor. Me preocupo.
 
 bss mamá
+
+Condiciones de uso (EULA): https://www.apple.com/legal/internet-services/itunes/dev/stdeula/
+Política de privacidad: https://yap.fail/privacy
 
 Keywords:
 productividad,recordatorio,tarea,hábito,foco,procrastinación,deadline,roast,nag,meta,todo,culpa
@@ -215,7 +224,7 @@ Name: Yap - Agência de Motivação IA
 Subtitle: Agentes IA que não se calam
 
 Promotional Text:
-Mom: "Não te criei para desistires." - 12 agentes IA chateiam-te com notificações que escalam até acabares. Escolhe a tua tortura.
+Mom: "Não te criei para desistires." - 12 agentes IA (6 grátis, 6 com Pro) chateiam-te com notificações que escalam até acabares.
 
 Description:
 Olá querido. É a Mamã.
@@ -223,7 +232,7 @@ Reparei que ainda não fizeste a coisa. Por isso arranjei-te uma app. De nada.
 
 Dizes-nos o que andas a evitar. Escolhes um agente. Defines um prazo. Depois chateamos-te até estar feito. Não do tipo "lembrete simpático". Do tipo em que questiono cada decisão que tomei como mãe.
 
-Somos 12. Eu faço culpa. O Therapist faz aquilo de perguntar "o que é que te está realmente a impedir?" e depois fica ali à espera. O Ex também cá está - não faças contacto visual. Vai dizer "típico" e de alguma forma resulta melhor que todos nós juntos. Não falamos sobre porquê.
+Somos 12 – 6 grátis, 6 com Pro. Eu faço culpa. O Therapist faz aquilo de perguntar "o que é que te está realmente a impedir?" e depois fica ali à espera. O Ex também cá está - não faças contacto visual. Vai dizer "típico" e de alguma forma resulta melhor que todos nós juntos. Não falamos sobre porquê.
 
 Cada mensagem é gerada por IA. Nunca igual duas vezes. Até nos podes contar as tuas fraquezas e nós usamo-las contra ti. Alguns agentes lembram-se das tuas missões passadas. Guardam provas.
 
@@ -232,6 +241,9 @@ Enfim. Fizeste scroll até aqui. Não vais simplesmente fechar isto e não fazer
 Faz download. Por mim. Por favor. Eu preocupo-me.
 
 bjs mamã
+
+Termos de Utilização (EULA): https://www.apple.com/legal/internet-services/itunes/dev/stdeula/
+Política de Privacidade: https://yap.fail/privacy
 
 Keywords:
 produtividade,lembrete,tarefa,hábito,foco,procrastinação,prazo,roast,nag,objetivo,todo,culpa
@@ -249,7 +261,7 @@ Name: Yap - Agência de Motivação IA
 Subtitle: Agentes que não calam a boca
 
 Promotional Text:
-Mom: "Não te criei pra desistir." - 12 agentes IA te enchem o saco com notificações que escalam até você terminar. Escolha sua tortura.
+Mom: "Não te criei pra desistir." - 12 agentes IA (6 grátis, 6 com Pro) te enchem o saco com notificações que escalam até você terminar.
 
 Description:
 Oi querido. É a Mamãe.
@@ -257,7 +269,7 @@ Reparei que você ainda não fez a coisa. Então te arranjei um app. De nada.
 
 Você nos diz o que tá evitando. Escolhe um agente. Define um prazo. Aí a gente te enche o saco até estar feito. Não do tipo "lembrete fofo". Do tipo onde eu questiono cada decisão que tomei como mãe.
 
-Somos 12. Eu faço culpa. O Therapist faz aquela coisa de perguntar "o que realmente tá te impedindo?" e depois só fica esperando. O Ex também tá aqui - não faz contato visual. Vai falar "típico" e de algum jeito funciona melhor que todos nós juntos. A gente não fala sobre por quê.
+Somos 12 – 6 grátis, 6 com Pro. Eu faço culpa. O Therapist faz aquela coisa de perguntar "o que realmente tá te impedindo?" e depois só fica esperando. O Ex também tá aqui - não faz contato visual. Vai falar "típico" e de algum jeito funciona melhor que todos nós juntos. A gente não fala sobre por quê.
 
 Cada mensagem é gerada por IA. Nunca igual duas vezes. Você até pode contar suas fraquezas e a gente usa contra você. Alguns agentes lembram das suas missões passadas. Eles guardam provas.
 
@@ -266,6 +278,9 @@ Enfim. Você scrollou até aqui. Não vai simplesmente fechar isso e não fazer 
 Baixa. Por mim. Por favor. Eu me preocupo.
 
 bjs mamãe
+
+Termos de Uso (EULA): https://www.apple.com/legal/internet-services/itunes/dev/stdeula/
+Política de Privacidade: https://yap.fail/privacy
 
 Keywords:
 produtividade,lembrete,tarefa,hábito,foco,procrastinação,prazo,roast,nag,meta,todo,culpa,objetivo
@@ -424,42 +439,42 @@ BILD 3 - Agent selection
 ────────────────────────────────────────
 
 EN:
-  Headline: 12 agents. 12 ways to get roasted.
+  Headline: 12 agents. 6 free. 6 with Pro.
   Quote:
     Oh, 12 agents? Can't commit to just one?
     Typical.
     - The Ex
 
 DE:
-  Headline: 12 Agenten. 12 Arten, geröstet zu werden.
+  Headline: 12 Agenten. 6 gratis. 6 mit Pro.
   Quote:
     Oh, 12 Agenten? Kannst dich nicht mal für einen entscheiden?
     Typisch.
     - The Ex
 
 FR:
-  Headline: 12 agents. 12 façons de se faire griller.
+  Headline: 12 agents. 6 gratuits. 6 avec Pro.
   Quote:
     Oh, 12 agents ? Tu peux pas t'engager pour un seul ?
     Typique.
     - The Ex
 
 ES:
-  Headline: 12 agentes. 12 formas de que te asen.
+  Headline: 12 agentes. 6 gratis. 6 con Pro.
   Quote:
     Oh, 12 agentes? No puedes comprometerte con uno solo?
     Típico.
     - The Ex
 
 PT-PT:
-  Headline: 12 agentes. 12 formas de seres assado.
+  Headline: 12 agentes. 6 grátis. 6 com Pro.
   Quote:
     Oh, 12 agentes? Não consegues comprometer-te com um só?
     Típico.
     - The Ex
 
 PT-BR:
-  Headline: 12 agentes. 12 jeitos de ser torrado.
+  Headline: 12 agentes. 6 grátis. 6 com Pro.
   Quote:
     Oh, 12 agentes? Não consegue se comprometer com um só?
     Típico.
