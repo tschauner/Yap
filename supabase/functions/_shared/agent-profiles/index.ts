@@ -1,0 +1,122 @@
+// Shared agent profiles & language utilities for generate-reaction and generate-copy.
+// Import from edge functions via: import { getAgentProfile, resolveLanguage, getLanguageRules } from "../_shared/agent-profiles/index.ts";
+
+import { AGENT_PROFILES_EN } from "./en.ts";
+import { AGENT_PROFILES_DE } from "./de.ts";
+import { AGENT_PROFILES_FR } from "./fr.ts";
+import { AGENT_PROFILES_ES } from "./es.ts";
+import { AGENT_PROFILES_PT_BR } from "./pt-br.ts";
+import { AGENT_PROFILES_PT_PT } from "./pt-pt.ts";
+
+// ── Language Map ────────────────────────────────────────────
+export const LANG_MAP: Record<string, string> = {
+  en: "English",
+  de: "German",
+  fr: "French",
+  es: "Spanish",
+  pt: "Portuguese",
+  "pt-br": "Brazilian Portuguese",
+  "pt-pt": "European Portuguese",
+};
+
+export function resolveLanguage(lang: string): string {
+  return LANG_MAP[lang?.toLowerCase()] ?? lang ?? "English";
+}
+
+// ── Profile Lookup ──────────────────────────────────────────
+const ALL_PROFILES: Record<string, Record<string, string>> = {
+  English: AGENT_PROFILES_EN,
+  German: AGENT_PROFILES_DE,
+  French: AGENT_PROFILES_FR,
+  Spanish: AGENT_PROFILES_ES,
+  "Brazilian Portuguese": AGENT_PROFILES_PT_BR,
+  "European Portuguese": AGENT_PROFILES_PT_PT,
+  Portuguese: AGENT_PROFILES_PT_BR, // fallback for generic "pt"
+};
+
+/**
+ * Returns the agent profile for a given displayName + resolved language.
+ * Falls back to English if no profile exists for the requested language.
+ */
+export function getAgentProfile(displayName: string, language: string): string {
+  return ALL_PROFILES[language]?.[displayName] || AGENT_PROFILES_EN[displayName] || "";
+}
+
+// ── Language-Specific Grammar / Style Rules ─────────────────
+const LANGUAGE_RULES: Record<string, string> = {
+  German: `
+GERMAN-SPECIFIC RULES (MANDATORY — violating these is a critical error):
+1. TRENNBARE VERBEN: In imperatives and questions, the prefix ALWAYS goes to the END.
+   ❌ WRONG: "Einrichten Sie die Sounds." "Aufräumen Sie!" "Anfangen Sie endlich."
+   ✅ CORRECT: "Richten Sie die Sounds ein." "Räumen Sie auf!" "Fangen Sie endlich an."
+   ❌ WRONG: "Einrichten du die App?" "Aufhören du zu scrollen?"
+   ✅ CORRECT: "Richtest du die App ein?" "Hörst du auf zu scrollen?"
+   More examples: einschalten→schalte...ein, aufstehen→steh...auf, abgeben→gib...ab, anfangen→fang...an, aufmachen→mach...auf, zumachen→mach...zu, anziehen→zieh...an
+2. DU vs. SIE: Use "du" (casual) for agents that are friends/peers/informal. Use "Sie" only for Boss.
+3. NATURAL FLOW — THIS IS CRITICAL:
+   Write like a REAL native German speaker texting. Not like a translation.
+   ❌ UNNATURAL (translated/stilted): "fantastisch gewachsen", "wunderbar entwickelt", "das ist großartig zu hören", "lass uns das angehen", "das klingt nach einem Plan", "Es ist Zeit für dich anzufangen."
+   ✅ NATURAL (how Germans actually text): "alter echt jetzt", "ja klar als ob", "mach halt", "na dann viel Spaß", "joa... läuft bei dir", "ach komm", "is nich dein Ernst oder", "läuft", "Fang endlich an."
+   The test: Would a real German person text this to a friend? If it sounds like Google Translate or a corporate email, it's WRONG.
+   Avoid overly formal or poetic phrasing. Germans text bluntly, casually, with slang and contractions.
+   Common natural patterns: "halt", "eben", "mal", "schon", "ja", "doch", "eigentlich", "irgendwie"
+4. UMLAUTS: Always use ä/ö/ü/ß — never ae/oe/ue/ss.
+5. WORD ORDER: German word order in casual speech is flexible. Don't force English sentence structure.
+   ❌ "Du hast nicht gestartet noch?" (English order)
+   ✅ "Hast du immer noch nicht angefangen?" (natural German)`,
+
+  French: `
+FRENCH-SPECIFIC RULES (MANDATORY):
+1. TU vs. VOUS: "tu" for bestFriend, ex, gymBro — "vous" for boss, chef, therapist.
+2. ACCENTS: Always correct — é/è/ê/ë/à/â/ç/ù/î/ô. Never omit or substitute.
+3. NATURAL FLOW: Write like a native French speaker. Avoid anglicisms.
+4. CONTRACTIONS: Use natural French contractions — "t'as" instead of "tu as", "c'est" not "ce est".
+5. NEVER mix in English or German words. Every word must be French.`,
+
+  Spanish: `
+SPANISH-SPECIFIC RULES (MANDATORY):
+1. TÚ vs. USTED: "tú" for casual agents (bestFriend, ex, gymBro) — "usted" for boss, therapist.
+2. ACCENTS: Always correct — á/é/í/ó/ú/ñ/ü. Always use ¡ and ¿ for exclamations and questions.
+3. NATURAL FLOW: Write like a native Spanish speaker. No translated English structures.
+4. NEVER mix in English or German words. Every word must be Spanish.`,
+
+  Portuguese: `
+PORTUGUESE-SPECIFIC RULES (MANDATORY):
+1. TU vs. VOCÊ: Use "você" by default.
+2. ACCENTS: á/é/í/ó/ú/ã/õ/ç — always correct.
+3. NATURAL FLOW: Write naturally, no literal translations.
+4. NEVER mix in English or German words. Every word must be Portuguese.`,
+
+  "Brazilian Portuguese": `
+BRAZILIAN PORTUGUESE (PT-BR) RULES (MANDATORY):
+1. VOCÊ: Always use "você" — never "tu" (except for extreme informal agents like Best Friend where "tu" can appear colloquially).
+2. ACCENTS: á/é/í/ó/ú/ã/õ/ç — always correct.
+3. NATURAL FLOW: Write like a real Brazilian texting. Casual, warm, direct.
+   ❌ UNNATURAL: "Eu gostaria de informar que" / "Isto é deveras interessante"
+   ✅ NATURAL: "Mano" / "Cara" / "Tá ligado" / "Tipo assim" / "Né" / "Tô" / "Pô"
+4. CONTRACTIONS: Use Brazilian contractions — "tá" not "está", "tô" not "estou", "cê" for informal "você", "pra" not "para".
+5. VOCABULARY: Use Brazilian words — "ônibus" not "autocarro", "celular" not "telemóvel", "academia" not "ginásio", "legal" not "fixe", "cara/mano" not "pá/mano".
+6. Sign-offs for Mom: "bjs mamãe" — NOT "bjs mamã".
+7. NEVER mix in English or German words. Every word must be Brazilian Portuguese.`,
+
+  "European Portuguese": `
+EUROPEAN PORTUGUESE (PT-PT) RULES (MANDATORY):
+1. TU: Use "tu" conjugations — "tu fazes", "tu queres". "Você" is formal/distant in PT-PT.
+2. ACCENTS: á/é/í/ó/ú/ã/õ/ç — always correct.
+3. NATURAL FLOW: Write like a real Portuguese person texting. Direct, slightly sardonic.
+   ❌ UNNATURAL: "Eu gostaria de informar" / Using Brazilian slang
+   ✅ NATURAL: "Pá" / "Fogo" / "Bué" / "Fixe" / "Epá" / "Tipo" / "Ya"
+4. CONTRACTIONS: Use European contractions — "tás" for "estás", "p'ra" for "para".
+5. VOCABULARY: Use European words — "autocarro" not "ônibus", "telemóvel" not "celular", "ginásio" not "academia", "fixe" not "legal", "pequeno-almoço" not "café da manhã".
+6. GERUND vs. INFINITIVE: Use "estar a + infinitive" — "estou a fazer" NOT "estou fazendo".
+7. Sign-offs for Mom: "bjs mamã" — NOT "bjs mamãe".
+8. NEVER mix in English or German words. Every word must be European Portuguese.`,
+};
+
+/**
+ * Returns language-specific grammar/style rules for the prompt.
+ * Empty string if no special rules exist for the language.
+ */
+export function getLanguageRules(language: string): string {
+  return LANGUAGE_RULES[language] ?? "";
+}

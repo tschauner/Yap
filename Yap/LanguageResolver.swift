@@ -8,7 +8,8 @@
 import Foundation
 
 enum LanguageResolver {
-    /// Alle im App-Bundle vorhandenen Localizations (ohne "Base"), normalisiert (z.B. "de", "en")
+    /// Alle im App-Bundle vorhandenen Localizations (ohne "Base"), normalisiert
+    /// Portugiesisch behält die Region (pt-br, pt-pt), alle anderen werden auf Sprachcode gekürzt.
     static func appLocalizations() -> [String] {
         Bundle.main.localizations
             .filter { $0.lowercased() != "base" }
@@ -27,7 +28,7 @@ enum LanguageResolver {
     }
 
     /// Liefert die Sprache, die auch vom Backend unterstützt wird (Fallback auf first allowed)
-    static func currentBackendLang(allowed: Set<String> = ["en", "de", "fr", "es"]) -> String {
+    static func currentBackendLang(allowed: Set<String> = ["en", "de", "fr", "es", "pt-br", "pt-pt"]) -> String {
         let pref = preferredAppLang
         if allowed.contains(pref) { return pref }
 
@@ -40,7 +41,11 @@ enum LanguageResolver {
     }
 
     /// "de-DE" -> "de", "en-GB" -> "en"
+    /// Sonderfall: Portugiesisch behält Region → "pt-BR" -> "pt-br", "pt-PT" -> "pt-pt"
     private static func normalize(_ code: String) -> String {
-        code.split(separator: "-").first?.lowercased() ?? code.lowercased()
+        let lower = code.lowercased()
+        // Keep region for Portuguese (pt-BR vs pt-PT are very different)
+        if lower.hasPrefix("pt-") { return lower }
+        return lower.split(separator: "-").first.map(String.init) ?? lower
     }
 }

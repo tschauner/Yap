@@ -56,7 +56,7 @@ actor MissionService: MissionProviding {
         let body: [String: Any] = [
             "device_id": deviceId,
             "title": title,
-            "language": Locale.current.language.languageCode?.identifier ?? "en",
+            "language": LanguageResolver.currentBackendLang(),
             "status": MissionStatus.queued.rawValue
         ]
         
@@ -95,7 +95,7 @@ actor MissionService: MissionProviding {
             "device_id": deviceId,
             "title": title,
             "agent": agent.rawValue,
-            "language": Locale.current.language.languageCode?.identifier ?? "en",
+            "language": LanguageResolver.currentBackendLang(),
             "status": MissionStatus.active.rawValue,
             "deadline": ISO8601DateFormatter().string(from: deadline),
             "is_pro": ProAccess.isPro,
