@@ -22,12 +22,17 @@ struct AgentQuoteView: View {
                     .italic()
                     .multilineTextAlignment(.leading)
                     .minimumScaleFactor(0.7)
+                    .fixedSize(horizontal: false, vertical: true)
+                    .id(quote)
             } else {
                 Text(quote)
                     .font(.system(size: isBig ? 26 : 19, weight: .semibold))
                     .multilineTextAlignment(.center)
+                    .fixedSize(horizontal: false, vertical: true)
+                    .id(quote)
             }
         }
+        .animation(.easeInOut(duration: 0.3), value: quote)
     }
 }
 

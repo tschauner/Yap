@@ -47,17 +47,28 @@ struct CustomRoastView: View {
                 Text(L10n.CustomRoast.sectionFooter)
             }
             
-            if !customRoast.isEmpty {
-                Section {
-                    Button(L10n.CustomRoast.clear, role: .destructive) {
-                        customRoast = ""
-                    }
-                }
-            }
+//            if !customRoast.isEmpty {
+//                Section {
+//                    Button(L10n.CustomRoast.clear, role: .destructive) {
+//                        customRoast = ""
+//                    }
+//                }
+//            }
         }
         .navigationTitle(L10n.CustomRoast.title)
         .navigationBarTitleDisplayMode(.inline)
         .onAppear { isFocused = true }
+        .toolbar {
+            ToolbarItem(placement: .confirmationAction) {
+                if !customRoast.isEmpty {
+                    Image(icon: .trash)
+                        .foregroundStyle(.red)
+                        .button {
+                            customRoast = ""
+                        }
+                }
+            }
+        }
     }
 }
 

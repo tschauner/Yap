@@ -18,6 +18,7 @@ enum SystemImage: String {
     case agent = "person.wave.2"
     case wave = "wave.3.forward"
     case trophy
+    case trash
     
     // Navigation
     case chevronRight = "chevron.right"

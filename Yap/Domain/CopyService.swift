@@ -58,7 +58,7 @@ final class CopyService: CopyProviding {
             )
             let reaction = response.reaction
             // Cache it with the copy if it exists
-            if var copy = loadCopy(for: mission.id) {
+            if let copy = loadCopy(for: mission.id) {
                 let updated = GeneratedCopy(missionId: copy.missionId, messages: copy.messages, reaction: reaction, generatedAt: copy.generatedAt)
                 saveCopy(updated)
             } else {

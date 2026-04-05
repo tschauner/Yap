@@ -247,10 +247,17 @@ GERMAN-SPECIFIC RULES (MANDATORY — violating these is a critical error):
    ✅ CORRECT: "Richtest du die App ein?" "Hörst du auf zu scrollen?"
    More examples: einschalten→schalte...ein, aufstehen→steh...auf, abgeben→gib...ab, anfangen→fang...an, aufmachen→mach...auf, zumachen→mach...zu, anziehen→zieh...an
 2. DU vs. SIE: Use "du" (casual) for agents that are friends/peers/informal. Use "Sie" only for Boss.
-3. NATURAL FLOW: Write like a native German speaker texting. Avoid stiff/translated-sounding phrases.
-   ❌ "Es ist Zeit für dich anzufangen." (translated English)
-   ✅ "Fang endlich an." (natural German)
-4. UMLAUTS: Always use ä/ö/ü/ß — never ae/oe/ue/ss.`,
+3. NATURAL FLOW — THIS IS CRITICAL:
+   Write like a REAL native German speaker texting. Not like a translation.
+   ❌ UNNATURAL (translated/stilted): "fantastisch gewachsen", "wunderbar entwickelt", "das ist großartig zu hören", "lass uns das angehen", "das klingt nach einem Plan", "Es ist Zeit für dich anzufangen."
+   ✅ NATURAL (how Germans actually text): "alter echt jetzt", "ja klar als ob", "mach halt", "na dann viel Spaß", "joa... läuft bei dir", "ach komm", "is nich dein Ernst oder", "läuft", "Fang endlich an."
+   The test: Would a real German person text this to a friend? If it sounds like Google Translate or a corporate email, it's WRONG.
+   Avoid overly formal or poetic phrasing. Germans text bluntly, casually, with slang and contractions.
+   Common natural patterns: "halt", "eben", "mal", "schon", "ja", "doch", "eigentlich", "irgendwie"
+4. UMLAUTS: Always use ä/ö/ü/ß — never ae/oe/ue/ss.
+5. WORD ORDER: German word order in casual speech is flexible. Don't force English sentence structure.
+   ❌ "Du hast nicht gestartet noch?" (English order)
+   ✅ "Hast du immer noch nicht angefangen?" (natural German)`,
 
       French: `
 FRENCH-SPECIFIC RULES (MANDATORY):
