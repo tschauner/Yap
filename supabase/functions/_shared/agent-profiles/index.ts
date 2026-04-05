@@ -69,7 +69,15 @@ GERMAN-SPECIFIC RULES (MANDATORY — violating these is a critical error):
    ✅ CORRECT: "Deine Slides sind immer noch leer."
    Germans naturally use English tech/work terms in everyday speech. Translating them sounds robotic and unnatural.
    Rule: Mirror the user's own wording. If they wrote it in English, keep it in English.
-6. WORD ORDER: German word order in casual speech is flexible. Don't force English sentence structure.
+6. ARTICLES & PREPOSITIONS — GET THEM RIGHT:
+   German articles MUST match the noun's gender. Common mistakes GPT makes:
+   ❌ WRONG: "vom Couch" (Couch is FEMININE → die Couch)
+   ✅ CORRECT: "von der Couch"
+   ❌ WRONG: "auf dem Couch" → ✅ "auf der Couch"
+   ❌ WRONG: "das Küche" → ✅ "die Küche"
+   ❌ WRONG: "dem Aufgabe" → ✅ "der Aufgabe"
+   If you're unsure about a noun's gender, think carefully before writing. Wrong articles instantly break immersion for native speakers.
+7. WORD ORDER: German word order in casual speech is flexible. Don't force English sentence structure.
    ❌ "Du hast nicht gestartet noch?" (English order)
    ✅ "Hast du immer noch nicht angefangen?" (natural German)`,
 
