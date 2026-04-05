@@ -60,6 +60,9 @@ ${agentProfile}
 ═══════════════════════════════════════
 ${language !== "English" ? `⚠️ The character profile above is written in ${language}. Stay in this voice and write ENTIRELY in ${language}. Not a single word in any other language.` : ""}` : ""}
 
+CRITICAL — RESPECT THE USER'S WORDING:
+If the goal contains English words or terms (e.g. "screens", "slides", "workout", "meeting"), keep those EXACT words. Do NOT translate them. The user chose those words deliberately — mirror their language.
+
 BEFORE writing ANY message, you MUST first analyze the goal internally:
 1. SETTING: Where does this task happen? (home, office, gym, outside, kitchen, desk...)
 2. SUB-TASKS: Break down the goal into 5-8 concrete physical actions involved.

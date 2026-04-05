@@ -61,7 +61,15 @@ GERMAN-SPECIFIC RULES (MANDATORY — violating these is a critical error):
    Avoid overly formal or poetic phrasing. Germans text bluntly, casually, with slang and contractions.
    Common natural patterns: "halt", "eben", "mal", "schon", "ja", "doch", "eigentlich", "irgendwie"
 4. UMLAUTS: Always use ä/ö/ü/ß — never ae/oe/ue/ss.
-5. WORD ORDER: German word order in casual speech is flexible. Don't force English sentence structure.
+5. ENGLISH LOANWORDS IN THE GOAL — THIS IS CRITICAL:
+   If the user's goal contains English words (like "Screens", "Slides", "Meeting", "Setup", "Build", "Workout", "Design", "Update"), keep those EXACT words. Do NOT translate them into German.
+   ❌ WRONG: "Hast du schon mal andere Bildschirme angesehen?" ("screens" → "Bildschirme")
+   ✅ CORRECT: "Hast du dir schon mal andere Screens angeschaut?"
+   ❌ WRONG: "Deine Folien sind immer noch leer." ("slides" → "Folien")
+   ✅ CORRECT: "Deine Slides sind immer noch leer."
+   Germans naturally use English tech/work terms in everyday speech. Translating them sounds robotic and unnatural.
+   Rule: Mirror the user's own wording. If they wrote it in English, keep it in English.
+6. WORD ORDER: German word order in casual speech is flexible. Don't force English sentence structure.
    ❌ "Du hast nicht gestartet noch?" (English order)
    ✅ "Hast du immer noch nicht angefangen?" (natural German)`,
 

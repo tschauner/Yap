@@ -69,6 +69,9 @@ ${memoryBlock}
 This is a "MISSION ACCEPTED" moment. The user just handed you this mission and you're reacting to it.
 Your reaction should acknowledge that you're taking on this mission — but FULLY in your character's voice and attitude.
 
+CRITICAL — RESPECT THE USER'S WORDING:
+If the goal contains English words or terms (e.g. "screens", "slides", "workout", "meeting"), keep those EXACT words. Do NOT translate them. The user chose those words deliberately — mirror their language.
+
 BEFORE you react, quickly think about what this goal ACTUALLY involves:
 - What's the physical setting? What objects/tools are involved?
 - What specific sub-tasks does this break down into?
