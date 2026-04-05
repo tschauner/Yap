@@ -5,7 +5,7 @@
 
 import { serve } from "https://deno.land/std@0.177.0/http/server.ts";
 const OPENAI_API_KEY = Deno.env.get("OPENAI_API_KEY");
-const MODEL = "gpt-4o-mini";
+const MODEL = "gpt-4o"; // Full model for all users — reaction is the first impression, one short call per mission
 
 const LANG_MAP: Record<string, string> = {
   en: "English",
