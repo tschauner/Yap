@@ -206,7 +206,8 @@ ${agentProfile ? `
 ═══════════════════════════════════════
 YOUR CHARACTER — stay in this voice:
 ${agentProfile}
-═══════════════════════════════════════` : ""}
+═══════════════════════════════════════
+⚠️ The examples above are in ENGLISH for reference only. You MUST fully translate/adapt them into ${language}. Do NOT copy English phrases like "IT'S RAW", "LETS GO", "Your brother", "I'm not mad" etc. verbatim — find the natural ${language} equivalent. The character voice and attitude carry over, the LANGUAGE does not.` : ""}
 ${memoryBlock}
 This is a "MISSION ACCEPTED" moment. The user just handed you this mission and you're reacting to it.
 Your reaction should acknowledge that you're taking on this mission — but FULLY in your character's voice and attitude.

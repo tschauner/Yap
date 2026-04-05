@@ -294,7 +294,8 @@ ${langRules}
 ${agentProfile ? `═══════════════════════════════════════
 YOUR CHARACTER — stay in this voice for EVERY message:
 ${agentProfile}
-═══════════════════════════════════════` : ""}
+═══════════════════════════════════════
+⚠️ The examples above are in ENGLISH for reference only. You MUST fully translate/adapt them into ${language}. Do NOT copy English phrases verbatim — find the natural ${language} equivalent. The character voice and attitude carry over, the LANGUAGE does not.` : ""}
 
 BEFORE writing ANY message, you MUST first analyze the goal internally:
 1. SETTING: Where does this task happen? (home, office, gym, outside, kitchen, desk...)
