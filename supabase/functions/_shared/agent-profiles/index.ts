@@ -6,7 +6,6 @@ import { AGENT_PROFILES_DE } from "./de.ts";
 import { AGENT_PROFILES_FR } from "./fr.ts";
 import { AGENT_PROFILES_ES } from "./es.ts";
 import { AGENT_PROFILES_PT_BR } from "./pt-br.ts";
-import { AGENT_PROFILES_PT_PT } from "./pt-pt.ts";
 
 // ── Language Map ────────────────────────────────────────────
 export const LANG_MAP: Record<string, string> = {
@@ -15,8 +14,8 @@ export const LANG_MAP: Record<string, string> = {
   fr: "French",
   es: "Spanish",
   pt: "Portuguese",
-  "pt-br": "Brazilian Portuguese",
-  "pt-pt": "European Portuguese",
+  "pt-br": "Portuguese",
+  "pt-pt": "Portuguese",  // PT-PT users get PT-BR profiles (mutually intelligible)
 };
 
 export function resolveLanguage(lang: string): string {
@@ -29,9 +28,7 @@ const ALL_PROFILES: Record<string, Record<string, string>> = {
   German: AGENT_PROFILES_DE,
   French: AGENT_PROFILES_FR,
   Spanish: AGENT_PROFILES_ES,
-  "Brazilian Portuguese": AGENT_PROFILES_PT_BR,
-  "European Portuguese": AGENT_PROFILES_PT_PT,
-  Portuguese: AGENT_PROFILES_PT_BR, // fallback for generic "pt"
+  Portuguese: AGENT_PROFILES_PT_BR,
 };
 
 /**
@@ -97,14 +94,7 @@ SPANISH-SPECIFIC RULES (MANDATORY):
 4. NEVER mix in English or German words. Every word must be Spanish.`,
 
   Portuguese: `
-PORTUGUESE-SPECIFIC RULES (MANDATORY):
-1. TU vs. VOCÊ: Use "você" by default.
-2. ACCENTS: á/é/í/ó/ú/ã/õ/ç — always correct.
-3. NATURAL FLOW: Write naturally, no literal translations.
-4. NEVER mix in English or German words. Every word must be Portuguese.`,
-
-  "Brazilian Portuguese": `
-BRAZILIAN PORTUGUESE (PT-BR) RULES (MANDATORY):
+PORTUGUESE (BRAZILIAN) RULES (MANDATORY):
 1. VOCÊ: Always use "você" — never "tu" (except for extreme informal agents like Best Friend where "tu" can appear colloquially).
 2. ACCENTS: á/é/í/ó/ú/ã/õ/ç — always correct.
 3. NATURAL FLOW: Write like a real Brazilian texting. Casual, warm, direct.
@@ -113,20 +103,7 @@ BRAZILIAN PORTUGUESE (PT-BR) RULES (MANDATORY):
 4. CONTRACTIONS: Use Brazilian contractions — "tá" not "está", "tô" not "estou", "cê" for informal "você", "pra" not "para".
 5. VOCABULARY: Use Brazilian words — "ônibus" not "autocarro", "celular" not "telemóvel", "academia" not "ginásio", "legal" not "fixe", "cara/mano" not "pá/mano".
 6. Sign-offs for Mom: "bjs mamãe" — NOT "bjs mamã".
-7. NEVER mix in English or German words. Every word must be Brazilian Portuguese.`,
-
-  "European Portuguese": `
-EUROPEAN PORTUGUESE (PT-PT) RULES (MANDATORY):
-1. TU: Use "tu" conjugations — "tu fazes", "tu queres". "Você" is formal/distant in PT-PT.
-2. ACCENTS: á/é/í/ó/ú/ã/õ/ç — always correct.
-3. NATURAL FLOW: Write like a real Portuguese person texting. Direct, slightly sardonic.
-   ❌ UNNATURAL: "Eu gostaria de informar" / Using Brazilian slang
-   ✅ NATURAL: "Pá" / "Fogo" / "Bué" / "Fixe" / "Epá" / "Tipo" / "Ya"
-4. CONTRACTIONS: Use European contractions — "tás" for "estás", "p'ra" for "para".
-5. VOCABULARY: Use European words — "autocarro" not "ônibus", "telemóvel" not "celular", "ginásio" not "academia", "fixe" not "legal", "pequeno-almoço" not "café da manhã".
-6. GERUND vs. INFINITIVE: Use "estar a + infinitive" — "estou a fazer" NOT "estou fazendo".
-7. Sign-offs for Mom: "bjs mamã" — NOT "bjs mamãe".
-8. NEVER mix in English or German words. Every word must be European Portuguese.`,
+7. NEVER mix in English or German words. Every word must be Portuguese.`,
 };
 
 /**

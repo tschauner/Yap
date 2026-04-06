@@ -46,14 +46,6 @@ struct CustomRoastView: View {
             } footer: {
                 Text(L10n.CustomRoast.sectionFooter)
             }
-            
-//            if !customRoast.isEmpty {
-//                Section {
-//                    Button(L10n.CustomRoast.clear, role: .destructive) {
-//                        customRoast = ""
-//                    }
-//                }
-//            }
         }
         .navigationTitle(L10n.CustomRoast.title)
         .navigationBarTitleDisplayMode(.inline)

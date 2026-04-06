@@ -217,43 +217,6 @@ Tus agentes están listos. Elige uno. Lanza una misión. Intenta no decepcionarl
 
 
 ================================================================================
-PORTUGUÊS - PORTUGAL (PT-PT)
-================================================================================
-
-Name: Yap - Agência de Motivação IA
-Subtitle: Agentes IA que não se calam
-
-Promotional Text:
-Mom: "Não te criei para desistires." - 12 agentes IA (6 grátis, 6 com Pro) chateiam-te com notificações que escalam até acabares.
-
-Description:
-Olá querido. É a Mamã.
-Reparei que ainda não fizeste a coisa. Por isso arranjei-te uma app. De nada.
-
-Dizes-nos o que andas a evitar. Escolhes um agente. Defines um prazo. Depois chateamos-te até estar feito. Não do tipo "lembrete simpático". Do tipo em que questiono cada decisão que tomei como mãe.
-
-Somos 12 – 6 grátis, 6 com Pro. Eu faço culpa. O Therapist faz aquilo de perguntar "o que é que te está realmente a impedir?" e depois fica ali à espera. O Ex também cá está - não faças contacto visual. Vai dizer "típico" e de alguma forma resulta melhor que todos nós juntos. Não falamos sobre porquê.
-
-Cada mensagem é gerada por IA. Nunca igual duas vezes. Até nos podes contar as tuas fraquezas e nós usamo-las contra ti. Alguns agentes lembram-se das tuas missões passadas. Guardam provas.
-
-Enfim. Fizeste scroll até aqui. Não vais simplesmente fechar isto e não fazer nada. Pois não?
-
-Faz download. Por mim. Por favor. Eu preocupo-me.
-
-bjs mamã
-
-Termos de Utilização (EULA): https://www.apple.com/legal/internet-services/itunes/dev/stdeula/
-Política de Privacidade: https://yap.fail/privacy
-
-Keywords:
-produtividade,lembrete,tarefa,hábito,foco,procrastinação,prazo,roast,nag,objetivo,todo,culpa
-(92 chars ✅)
-
-What's New:
-Os teus agentes estão prontos. Escolhe um. Lança uma missão. Tenta não os desiludir.
-
-
-================================================================================
 PORTUGUÊS - BRASIL (PT-BR)
 ================================================================================
 
@@ -356,15 +319,6 @@ ES:
     El hecho de que estés aquí significa que ya sabes que necesitas ayuda.
     - Therapist
 
-PT-PT:
-  Headline:
-    A app #1
-    get-your-
-    sh*t-done.
-  Subline:
-    O facto de estares aqui mostra que já sabes que precisas de ajuda.
-    - Therapist
-
 PT-BR:
   Headline:
     O app #1
@@ -415,15 +369,6 @@ ES:
     - Best Friend
   Task: Terminar informe Q2
 
-PT-PT:
-  Headline: Define uma tarefa. Escolhe um prazo. Nós tratamos do resto.
-  Quote:
-    Mano meteste um prazo?
-    Estou a fazer screenshot disto
-    para quando falhares.
-    - Best Friend
-  Task: Acabar relatório Q2
-
 PT-BR:
   Headline: Defina uma tarefa. Escolha um prazo. A gente cuida do resto.
   Quote:
@@ -466,13 +411,6 @@ ES:
     Típico.
     - The Ex
 
-PT-PT:
-  Headline: 12 agentes. 6 grátis. 6 com Pro.
-  Quote:
-    Oh, 12 agentes? Não consegues comprometer-te com um só?
-    Típico.
-    - The Ex
-
 PT-BR:
   Headline: 12 agentes. 6 grátis. 6 com Pro.
   Quote:
@@ -512,13 +450,6 @@ ES:
     Sobreviví una guerra y tú no sobrevives una ensalada? Anotado.
     - Grandma
   User input: Ceno cereales y llevo 3 meses sin pisar el gym
-
-PT-PT:
-  Headline: Conta-nos as tuas fraquezas. Vamos usá-las contra ti.
-  Quote:
-    Sobrevivi a uma guerra e tu não aguentas uma salada? Anotado.
-    - Grandma
-  User input: Janto cereais e não vou ao ginásio há 3 meses
 
 PT-BR:
   Headline: Conta suas fraquezas. A gente usa contra você.
@@ -567,15 +498,6 @@ ES:
     2. "La hija de la Sra. García tiene DOS trabajos Y un piso limpio... lo vi en Facebook... bss mamá"
     3. "36 HORAS de parto... sin epidural... y tú no puedes ni... bueno. Bss Mamá"
     4. "Estoy en el coche. Papá conduce. Lejía Y vergüenza. bss mamá"
-
-PT-PT:
-  Headline: Eles não param. Tu também não devias.
-  Agent: Mom | Task: Limpar o apartamento
-  Notifications (escalando):
-    1. "Querido... está tudo bem aí?? estava a pensar em ti... bjs mamã ❤️"
-    2. "A filha da D. Santos tem DOIS empregos E uma casa limpa... vi no Facebook... bjs mamã"
-    3. "36 HORAS de trabalho de parto... sem epidural... e tu não consegues nem... pronto. Bjs Mamã"
-    4. "Estou no carro. O pai conduz. Lixívia E vergonha. bjs mamã"
 
 PT-BR:
   Headline: Eles não param. Você também não deveria.

@@ -1,6 +1,9 @@
 //
 //  SoundEngine.swift
 //  Yap
+//
+//  Created by Philipp Tschauner on 17.03.26.
+//
 
 import AVFoundation
 
