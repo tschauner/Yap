@@ -13,13 +13,21 @@ serve(async (req) => {
     return new Response(null, {
       headers: {
         "Access-Control-Allow-Origin": "*",
-        "Access-Control-Allow-Headers": "authorization, x-client-info, apikey, content-type",
+        "Access-Control-Allow-Headers": "authorization, x-client-info, apikey, content-type, x-device-id",
       },
     });
   }
 
   try {
-    const { goal, tone, toneDescription, language: rawLang, agentMemory, userName } = await req.json();
+    const raw = await req.json();
+
+    // ── Input Sanitization ──
+    const goal = String(raw.goal || "").slice(0, 500);
+    const tone = String(raw.tone || "");
+    const toneDescription = String(raw.toneDescription || "");
+    const rawLang = raw.language;
+    const agentMemory = Array.isArray(raw.agentMemory) ? raw.agentMemory.slice(0, 10) : [];
+    const userName = String(raw.userName || "").slice(0, 50);
     const language = resolveLanguage(rawLang);
 
     if (!goal || !tone) {

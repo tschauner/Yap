@@ -187,6 +187,15 @@ struct APIClient: Sendable {
         return try await request(path: "/rest/v1/rpc/\(function)", method: .POST, body: params, timeout: timeout)
     }
     
+    /// Fire-and-forget RPC for void-returning functions (e.g. sync_pro_status).
+    func rpc(
+        function: String,
+        params: RequestBody = .none,
+        timeout: TimeInterval = 10
+    ) async throws {
+        let _ = try await rawRequest(path: "/rest/v1/rpc/\(function)", method: .POST, body: params, timeout: timeout)
+    }
+    
     // MARK: - Private
     
     private func request<T: Decodable>(

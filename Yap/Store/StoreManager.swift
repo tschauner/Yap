@@ -66,6 +66,7 @@ final class StoreManager: ObservableObject {
                 isPro = true
                 (UIApplication.shared.delegate as? AppDelegate)?.registerNotificationActions()
                 await transaction.finish()
+                await syncProStatus(true)
                 print("✅ Purchase successful: \(transaction.productID)")
                 
             case .userCancelled:
@@ -92,6 +93,7 @@ final class StoreManager: ObservableObject {
         
         try? await AppStore.sync()
         await updatePurchaseStatus()
+        await syncProStatus(isPro)
     }
     
     // MARK: - Transaction Listener
@@ -102,6 +104,7 @@ final class StoreManager: ObservableObject {
                 isPro = true
                 (UIApplication.shared.delegate as? AppDelegate)?.registerNotificationActions()
                 await transaction.finish()
+                await syncProStatus(true)
             }
         }
     }
@@ -114,12 +117,14 @@ final class StoreManager: ObservableObject {
                transaction.productID == ProductID.lifetime {
                 isPro = true
                 (UIApplication.shared.delegate as? AppDelegate)?.registerNotificationActions()
+                await syncProStatus(true)
                 return
             }
         }
         // Kein aktives Entitlement gefunden
         isPro = false
         (UIApplication.shared.delegate as? AppDelegate)?.registerNotificationActions()
+        await syncProStatus(isPro)
     }
     
     // MARK: - Helpers
@@ -130,6 +135,21 @@ final class StoreManager: ObservableObject {
             return safe
         case .unverified:
             throw StoreError.unverified
+        }
+    }
+    
+    // MARK: - Pro Status Sync
+    
+    /// Syncs the Pro status to the server so edge functions can verify it.
+    private func syncProStatus(_ isPro: Bool) async {
+        do {
+            try await APIClient().rpc(
+                function: "sync_pro_status",
+                params: .json(["p_is_pro": isPro])
+            )
+            print("✅ Pro status synced to server: \(isPro)")
+        } catch {
+            print("⚠️ Pro status sync failed: \(error.localizedDescription)")
         }
     }
     

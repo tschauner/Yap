@@ -11,6 +11,7 @@ const SUPABASE_URL = Deno.env.get("SUPABASE_URL")!;
 const SUPABASE_SERVICE_KEY = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!;
 const MODEL_FREE = "gpt-4o-mini";
 const MODEL_PRO = "gpt-4o";
+const FREE_DAILY_LIMIT = 3; // Client enforces 1/day, server is generous buffer
 
 serve(async (req) => {
   // CORS
@@ -18,20 +19,33 @@ serve(async (req) => {
     return new Response(null, {
       headers: {
         "Access-Control-Allow-Origin": "*",
-        "Access-Control-Allow-Headers": "authorization, x-client-info, apikey, content-type",
+        "Access-Control-Allow-Headers": "authorization, x-client-info, apikey, content-type, x-device-id",
       },
     });
   }
 
   try {
-    const {
-      goal, tone, toneDescription, language: rawLang, messageCount, levels, userContext, agentMemory,
-      isPro, extended, userName,
-      // Remote push fields (optional — sent when iOS has registered for push)
-      goalId, deviceId, agent: agentKey, scheduleOffsets,
-    } = await req.json();
-    const model = isPro ? MODEL_PRO : MODEL_FREE;
+    const raw = await req.json();
+
+    // ── Input Sanitization ──
+    const goal = String(raw.goal || "").slice(0, 500);
+    const tone = String(raw.tone || "");
+    const toneDescription = String(raw.toneDescription || "");
+    const rawLang = raw.language;
+    const messageCount = Math.min(Math.max(Number(raw.messageCount) || 0, 1), 30);
+    const levels = String(raw.levels || "");
+    const userContext = String(raw.userContext || "").slice(0, 500);
+    const agentMemory = Array.isArray(raw.agentMemory) ? raw.agentMemory.slice(0, 10) : [];
+    const extended = Boolean(raw.extended);
+    const userName = String(raw.userName || "").slice(0, 50);
+    const goalId = raw.goalId;
+    const deviceId = raw.deviceId;
+    const agentKey = raw.agent;
+    const scheduleOffsets = raw.scheduleOffsets;
     const language = resolveLanguage(rawLang);
+
+    // ── Device ID from header ──
+    const headerDeviceId = req.headers.get("x-device-id") || "";
 
     if (!goal || !tone || !messageCount) {
       return new Response(JSON.stringify({ error: "Missing required fields" }), {
@@ -39,6 +53,26 @@ serve(async (req) => {
         headers: { "Content-Type": "application/json" },
       });
     }
+
+    // ── Server-side Pro check + Rate Limiting ──
+    const supabase = createClient(SUPABASE_URL, SUPABASE_SERVICE_KEY);
+    let serverIsPro = false;
+
+    if (headerDeviceId) {
+      const { data: rateData } = await supabase.rpc("check_rate_limit", { p_device_id: headerDeviceId });
+      const row = Array.isArray(rateData) ? rateData[0] : rateData;
+      serverIsPro = row?.is_pro ?? false;
+      const missionsToday = row?.missions_today ?? 0;
+
+      if (!serverIsPro && missionsToday > FREE_DAILY_LIMIT) {
+        return new Response(JSON.stringify({ error: "Daily limit exceeded" }), {
+          status: 429,
+          headers: { "Content-Type": "application/json" },
+        });
+      }
+    }
+
+    const model = serverIsPro ? MODEL_PRO : MODEL_FREE;
 
     const agentProfile = getAgentProfile(tone, language);
 
@@ -233,7 +267,6 @@ The "level" field is the escalation level number (0=gentle, 1=nudge, 2=push, 3=u
     // ── Remote Push: write notifications to DB if push fields provided ──
     if (goalId && deviceId && scheduleOffsets && Array.isArray(scheduleOffsets)) {
       try {
-        const supabase = createClient(SUPABASE_URL, SUPABASE_SERVICE_KEY);
         const now = new Date();
 
         const rows = sanitized.map((msg, i) => {

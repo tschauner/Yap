@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 77;
+	objectVersion = 100;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -38,14 +38,12 @@
 /* Begin PBXCopyFilesBuildPhase section */
 		13FE92792F6731E6000B46CC /* Embed Foundation Extensions */ = {
 			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
 			dstPath = "";
-			dstSubfolderSpec = 13;
+			dstSubfolder = PlugIns;
 			files = (
 				13FE92742F6731E6000B46CC /* YapNotificationService.appex in Embed Foundation Extensions */,
 			);
 			name = "Embed Foundation Extensions";
-			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXCopyFilesBuildPhase section */
 
@@ -114,32 +112,24 @@
 /* Begin PBXFrameworksBuildPhase section */
 		134837AE2F56EF9F005A9F3A /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
 			files = (
 			);
-			runOnlyForDeploymentPostprocessing = 0;
 		};
 		134837BB2F56EFA0005A9F3A /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
 			files = (
 			);
-			runOnlyForDeploymentPostprocessing = 0;
 		};
 		134837C52F56EFA0005A9F3A /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
 			files = (
 			);
-			runOnlyForDeploymentPostprocessing = 0;
 		};
 		13FE926A2F6731E6000B46CC /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
 			files = (
 				13FE92832F6735B8000B46CC /* Intents.framework in Frameworks */,
 			);
-			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
@@ -196,8 +186,6 @@
 				134837B32F56EF9F005A9F3A /* Yap */,
 			);
 			name = Yap;
-			packageProductDependencies = (
-			);
 			productName = Yap;
 			productReference = 134837B12F56EF9F005A9F3A /* Yap.app */;
 			productType = "com.apple.product-type.application";
@@ -219,8 +207,6 @@
 				134837C12F56EFA0005A9F3A /* YapTests */,
 			);
 			name = YapTests;
-			packageProductDependencies = (
-			);
 			productName = YapTests;
 			productReference = 134837BE2F56EFA0005A9F3A /* YapTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
@@ -242,8 +228,6 @@
 				134837CB2F56EFA0005A9F3A /* YapUITests */,
 			);
 			name = YapUITests;
-			packageProductDependencies = (
-			);
 			productName = YapUITests;
 			productReference = 134837C82F56EFA0005A9F3A /* YapUITests.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
@@ -258,14 +242,10 @@
 			);
 			buildRules = (
 			);
-			dependencies = (
-			);
 			fileSystemSynchronizedGroups = (
 				13FE926E2F6731E6000B46CC /* YapNotificationService */,
 			);
 			name = YapNotificationService;
-			packageProductDependencies = (
-			);
 			productName = YapNotificationService;
 			productReference = 13FE926D2F6731E6000B46CC /* YapNotificationService.appex */;
 			productType = "com.apple.product-type.app-extension";
@@ -310,7 +290,7 @@
 			);
 			mainGroup = 134837A82F56EF9F005A9F3A;
 			minimizedProjectReferenceProxies = 1;
-			preferredProjectObjectVersion = 77;
+			preferredProjectObjectVersion = 100;
 			productRefGroup = 134837B22F56EF9F005A9F3A /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -326,62 +306,46 @@
 /* Begin PBXResourcesBuildPhase section */
 		134837AF2F56EF9F005A9F3A /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
 			files = (
 			);
-			runOnlyForDeploymentPostprocessing = 0;
 		};
 		134837BC2F56EFA0005A9F3A /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
 			files = (
 			);
-			runOnlyForDeploymentPostprocessing = 0;
 		};
 		134837C62F56EFA0005A9F3A /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
 			files = (
 			);
-			runOnlyForDeploymentPostprocessing = 0;
 		};
 		13FE926B2F6731E6000B46CC /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
 			files = (
 			);
-			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		134837AD2F56EF9F005A9F3A /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
 			files = (
 			);
-			runOnlyForDeploymentPostprocessing = 0;
 		};
 		134837BA2F56EFA0005A9F3A /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
 			files = (
 			);
-			runOnlyForDeploymentPostprocessing = 0;
 		};
 		134837C42F56EFA0005A9F3A /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
 			files = (
 			);
-			runOnlyForDeploymentPostprocessing = 0;
 		};
 		13FE92692F6731E6000B46CC /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
 			files = (
 			);
-			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
@@ -404,7 +368,7 @@
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
-		134837D02F56EFA0005A9F3A /* Debug */ = {
+		134837D02F56EFA0005A9F3A /* Debug configuration for PBXProject "Yap" */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -468,7 +432,7 @@
 			};
 			name = Debug;
 		};
-		134837D12F56EFA0005A9F3A /* Release */ = {
+		134837D12F56EFA0005A9F3A /* Release configuration for PBXProject "Yap" */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -524,14 +488,14 @@
 			};
 			name = Release;
 		};
-		134837D32F56EFA0005A9F3A /* Debug */ = {
+		134837D32F56EFA0005A9F3A /* Debug configuration for PBXNativeTarget "Yap" */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = Yap/Yap.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 8;
+				CURRENT_PROJECT_VERSION = 9;
 				DEVELOPMENT_TEAM = 98QF3H5LV4;
 				ENABLE_APP_SANDBOX = YES;
 				ENABLE_HARDENED_RUNTIME = YES;
@@ -571,14 +535,14 @@
 			};
 			name = Debug;
 		};
-		134837D42F56EFA0005A9F3A /* Release */ = {
+		134837D42F56EFA0005A9F3A /* Release configuration for PBXNativeTarget "Yap" */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = Yap/Yap.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 8;
+				CURRENT_PROJECT_VERSION = 9;
 				DEVELOPMENT_TEAM = 98QF3H5LV4;
 				ENABLE_APP_SANDBOX = YES;
 				ENABLE_HARDENED_RUNTIME = YES;
@@ -618,7 +582,7 @@
 			};
 			name = Release;
 		};
-		134837D62F56EFA0005A9F3A /* Debug */ = {
+		134837D62F56EFA0005A9F3A /* Debug configuration for PBXNativeTarget "YapTests" */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -643,7 +607,7 @@
 			};
 			name = Debug;
 		};
-		134837D72F56EFA0005A9F3A /* Release */ = {
+		134837D72F56EFA0005A9F3A /* Release configuration for PBXNativeTarget "YapTests" */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -668,7 +632,7 @@
 			};
 			name = Release;
 		};
-		134837D92F56EFA0005A9F3A /* Debug */ = {
+		134837D92F56EFA0005A9F3A /* Debug configuration for PBXNativeTarget "YapUITests" */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
@@ -692,7 +656,7 @@
 			};
 			name = Debug;
 		};
-		134837DA2F56EFA0005A9F3A /* Release */ = {
+		134837DA2F56EFA0005A9F3A /* Release configuration for PBXNativeTarget "YapUITests" */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
@@ -716,7 +680,7 @@
 			};
 			name = Release;
 		};
-		13FE92762F6731E6000B46CC /* Debug */ = {
+		13FE92762F6731E6000B46CC /* Debug configuration for PBXNativeTarget "YapNotificationService" */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
@@ -746,7 +710,7 @@
 			};
 			name = Debug;
 		};
-		13FE92772F6731E6000B46CC /* Release */ = {
+		13FE92772F6731E6000B46CC /* Release configuration for PBXNativeTarget "YapNotificationService" */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
@@ -783,46 +747,41 @@
 		134837AC2F56EF9F005A9F3A /* Build configuration list for PBXProject "Yap" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				134837D02F56EFA0005A9F3A /* Debug */,
-				134837D12F56EFA0005A9F3A /* Release */,
+				134837D02F56EFA0005A9F3A /* Debug configuration for PBXProject "Yap" */,
+				134837D12F56EFA0005A9F3A /* Release configuration for PBXProject "Yap" */,
 			);
-			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
 		134837D22F56EFA0005A9F3A /* Build configuration list for PBXNativeTarget "Yap" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				134837D32F56EFA0005A9F3A /* Debug */,
-				134837D42F56EFA0005A9F3A /* Release */,
+				134837D32F56EFA0005A9F3A /* Debug configuration for PBXNativeTarget "Yap" */,
+				134837D42F56EFA0005A9F3A /* Release configuration for PBXNativeTarget "Yap" */,
 			);
-			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
 		134837D52F56EFA0005A9F3A /* Build configuration list for PBXNativeTarget "YapTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				134837D62F56EFA0005A9F3A /* Debug */,
-				134837D72F56EFA0005A9F3A /* Release */,
+				134837D62F56EFA0005A9F3A /* Debug configuration for PBXNativeTarget "YapTests" */,
+				134837D72F56EFA0005A9F3A /* Release configuration for PBXNativeTarget "YapTests" */,
 			);
-			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
 		134837D82F56EFA0005A9F3A /* Build configuration list for PBXNativeTarget "YapUITests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				134837D92F56EFA0005A9F3A /* Debug */,
-				134837DA2F56EFA0005A9F3A /* Release */,
+				134837D92F56EFA0005A9F3A /* Debug configuration for PBXNativeTarget "YapUITests" */,
+				134837DA2F56EFA0005A9F3A /* Release configuration for PBXNativeTarget "YapUITests" */,
 			);
-			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
 		13FE92752F6731E6000B46CC /* Build configuration list for PBXNativeTarget "YapNotificationService" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				13FE92762F6731E6000B46CC /* Debug */,
-				13FE92772F6731E6000B46CC /* Release */,
+				13FE92762F6731E6000B46CC /* Debug configuration for PBXNativeTarget "YapNotificationService" */,
+				13FE92772F6731E6000B46CC /* Release configuration for PBXNativeTarget "YapNotificationService" */,
 			);
-			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
