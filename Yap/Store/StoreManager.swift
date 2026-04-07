@@ -92,8 +92,7 @@ final class StoreManager: ObservableObject {
         defer { isLoading = false }
         
         try? await AppStore.sync()
-        await updatePurchaseStatus()
-        await syncProStatus(isPro)
+        await updatePurchaseStatus() // already calls syncProStatus internally
     }
     
     // MARK: - Transaction Listener
