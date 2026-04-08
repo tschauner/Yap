@@ -15,7 +15,9 @@ TIMING:
 REIHENFOLGE:
 1. r/productivityApps — Start (kleineres Sub, weniger strenge Mods, guter Test)
 2. r/SideProject — 2-3 Tage später (Dev-Community, tech-Stack interessant)
-3. r/getdisciplined — nächste Woche (1M+, Leute die stuck sind, Therapist-Angle)
+3. r/getdisciplined — nächste Woche (1M+, Therapist-Angle)
+   ⚠️ STRENGE REGELN: Keine Links, kein AI-Content, min 200 Karma + 30 Tage Account
+   → Post muss 100% organisch wirken, App-Name nur erwähnen, Leute suchen selbst
 4. r/ADHD — nur wenn r/getdisciplined gut lief (strenge Mods, kein plumper Promo)
 5. r/iphone + r/mildlyinfuriating — optional, danach
 
@@ -24,7 +26,8 @@ BANNED: r/productivity (gebannt April 2026)
 REGELN:
 - In jedem Sub 1-2 Tage vor dem Post etwas kommentieren (nicht fresh Account)
 - Titel ist alles — muss sich lesen wie ein normaler User-Post, nicht wie Werbung
-- KEIN App Store Link im Body bei r/productivity oder r/ADHD
+- KEIN Link bei r/getdisciplined (Regel 4: komplett verboten, sofort Permaban)
+- KEIN App Store Link im Body bei r/ADHD
   → "Link in comments" und dann als erster Kommentar posten
 - Bei r/productivityApps und r/SideProject ist Link im Body OK
 - Auf JEDEN Kommentar antworten (boosted Algorithmus)
@@ -110,11 +113,9 @@ There are louder agents too. Mom does guilt. The Ex does passive-aggression. The
 
 It's not a to-do list. It's one mission at a time. One deadline. One agent who won't let you pretend you forgot.
 
-Free: 6 agents, 1 mission/day. Pro ($9.99 once): all 12, unlimited.
+6 agents are free. It's called Yap if anyone wants to look it up.
 
-iOS: [link]
-
-(If anyone wants a promo code, tell me which agent you'd pick. The Therapist is the sleeper hit but The Ex is the most popular. Make of that what you will.)
+(If you try it, the Therapist is the sleeper hit. But The Ex is the most popular. Make of that what you will.)
 
 
 r/ADHD
