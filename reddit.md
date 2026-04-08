@@ -15,9 +15,11 @@ TIMING:
 REIHENFOLGE:
 1. r/productivityApps — Start (kleineres Sub, weniger strenge Mods, guter Test)
 2. r/SideProject — 2-3 Tage später (Dev-Community, tech-Stack interessant)
-3. r/productivity — nächste Woche (größtes Sub, 3.5M, höchstes Risiko)
-4. r/ADHD — nur wenn r/productivity gut lief (strenge Mods, kein plumper Promo)
+3. r/getdisciplined — nächste Woche (1M+, Leute die stuck sind, Therapist-Angle)
+4. r/ADHD — nur wenn r/getdisciplined gut lief (strenge Mods, kein plumper Promo)
 5. r/iphone + r/mildlyinfuriating — optional, danach
+
+BANNED: r/productivity (gebannt April 2026)
 
 REGELN:
 - In jedem Sub 1-2 Tage vor dem Post etwas kommentieren (nicht fresh Account)
@@ -32,7 +34,7 @@ REGELN:
 
 ERFOLGSMESSUNG:
 - Guter Post auf r/productivityApps: 20-50 Upvotes, 10+ Kommentare
-- Guter Post auf r/productivity: 100-500 Upvotes, 50+ Downloads
+- Guter Post auf r/getdisciplined: 100-500 Upvotes, 50+ Downloads
 - Viraler Post: 1000+ Upvotes, hunderte Downloads, HN/Twitter pickup
 
 PRIORITÄT:
@@ -78,30 +80,41 @@ Is it healthy? Probably not. Does it work? Unfortunately, yes.
 (If anyone wants a promo code, drop a comment and tell me which agent you'd pick. The Ex is the most popular and I find that deeply concerning.)
 
 
-r/productivity
+r/getdisciplined
 ────────────────────────────────────────
 
 Title:
-I stopped using to-do lists and started using emotional manipulation instead. Here's what happened.
+I built a productivity app with a Therapist agent that just asks "what's really stopping you?" and then waits. It's uncomfortably effective.
 
 Body:
-Quick backstory: I'm a developer. I've tried every productivity system that exists. GTD, Eisenhower matrix, time blocking, journaling, accountability partners, body doubling, the "eat the frog" thing. They all worked for about 5 days.
+I've been in this sub long enough to know the cycle. You write a plan. You feel motivated. You start strong. By Wednesday you're back on the couch wondering what happened.
 
-You know what actually works? My mom calling and asking why I haven't done the thing yet. The problem is she doesn't call every 30 minutes. And even if she did, I'd stop answering.
+I'm a developer and I have the same problem. I've tried everything — systems, trackers, habit apps, accountability partners. They all worked for about 5 days.
 
-So I automated her.
+Here's what I noticed: the only thing that consistently gets me moving is the feeling that someone is watching. Not judging exactly, just... noticing. Like when a therapist asks a simple question and then just sits there. And the silence is worse than anything they could say.
 
-I built Yap — a productivity app with 12 AI agents that send you escalating push notifications until you either finish the task or give up (and they judge you for giving up too).
+So I built that into an app.
 
-The agents are characters: Mom, The Ex, Drill Sergeant, Grandma, Therapist, Conspiracy Theorist, Boss, Best Friend, and more. Each one has a completely different voice and escalation style. Mom does guilt. The Ex does passive-aggression. The Drill Sergeant is… loud.
+Yap has 12 AI agents that send you push notifications when you're avoiding a task. You set a mission, pick an agent, set a deadline. The messages escalate the longer you wait.
 
-It's not a to-do list. It's one mission at a time. One deadline. One agent breathing down your neck. No overwhelm, no 47 subtasks you'll never look at again.
+The Therapist is the quiet one. She doesn't yell. She doesn't guilt-trip. She asks:
 
-The weird part: it actually works. Not because the AI is smart (it is, but that's not why). It works because ignoring a push notification from "Mom" feels different than ignoring one from "Reminders."
+"What would it feel like to just start?"
+"You've been avoiding this for a reason. Want to talk about it?"
+"..."
+"I'm still here."
+
+That last one — just "I'm still here" — that's the one that gets people. Something about being gently held accountable by a notification that doesn't go away.
+
+There are louder agents too. Mom does guilt. The Ex does passive-aggression. The Drill Sergeant does ALL CAPS. But the Therapist is the one people don't expect to work. And she does.
+
+It's not a to-do list. It's one mission at a time. One deadline. One agent who won't let you pretend you forgot.
 
 Free: 6 agents, 1 mission/day. Pro ($9.99 once): all 12, unlimited.
 
 iOS: [link]
+
+(If anyone wants a promo code, tell me which agent you'd pick. The Therapist is the sleeper hit but The Ex is the most popular. Make of that what you will.)
 
 
 r/ADHD
