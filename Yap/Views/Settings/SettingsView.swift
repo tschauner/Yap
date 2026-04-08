@@ -2,7 +2,6 @@
 // Yap
 
 import SwiftUI
-import StoreKit
 import Combine
 import AuthenticationServices
 
@@ -15,7 +14,6 @@ struct SettingsView: View {
     @State private var showDeleteAlert = false
     @AppStorage("customRoast") private var customRoast: String = ""
     @AppStorage("hapticFeedbackEnabled") private var isOn: Bool = true
-    @Environment(\.requestReview) private var requestReview
     
     private let appURL = URL(string: "https://apps.apple.com/app/id6761190023")!
     
@@ -98,7 +96,9 @@ struct SettingsView: View {
                     }
                     
                     Button {
-                        requestReview()
+                        if let url = URL(string: "https://apps.apple.com/app/id6761190023?action=write-review") {
+                            UIApplication.shared.open(url)
+                        }
                     } label: {
                         Text(L10n.Settings.reviewYap)
                     }
