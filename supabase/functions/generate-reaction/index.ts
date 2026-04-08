@@ -21,7 +21,7 @@ serve(async (req) => {
   try {
     const raw = await req.json();
 
-    // ── Input Sanitization ──
+    // -- Input Sanitization --
     const goal = String(raw.goal || "").slice(0, 500);
     const tone = String(raw.tone || "");
     const toneDescription = String(raw.toneDescription || "");
@@ -150,8 +150,8 @@ Respond with ONLY the reaction text. No quotes, no JSON, no explanation.`;
     }
 
     const data = await openAIResponse.json();
-    const raw = data.choices?.[0]?.message?.content ?? "";
-    const reaction = raw.replace(/^["']|["']$/g, "").trim().slice(0, 150);
+    const rawReaction = data.choices?.[0]?.message?.content ?? "";
+    const reaction = rawReaction.replace(/^["']|["']$/g, "").trim().slice(0, 150);
 
     return new Response(JSON.stringify({ reaction }), {
       headers: { "Content-Type": "application/json" },

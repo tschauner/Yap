@@ -13,6 +13,9 @@ const MODEL_FREE = "gpt-4o-mini";
 const MODEL_PRO = "gpt-4o";
 const FREE_DAILY_LIMIT = 3; // Client enforces 1/day, server is generous buffer
 
+// 🚀 Launch promo: everyone gets 4o — revert by setting to false
+const LAUNCH_PROMO = true;
+
 serve(async (req) => {
   // CORS
   if (req.method === "OPTIONS") {
@@ -72,7 +75,7 @@ serve(async (req) => {
       }
     }
 
-    const model = serverIsPro ? MODEL_PRO : MODEL_FREE;
+    const model = (serverIsPro || LAUNCH_PROMO) ? MODEL_PRO : MODEL_FREE;
 
     const agentProfile = getAgentProfile(tone, language);
 
