@@ -302,7 +302,9 @@ final class MissionViewModel: ObservableObject {
     @MainActor
     func selectAgent(_ agent: Agent, title: String) async {
         let title = title.trimmingCharacters(in: .whitespacesAndNewlines)
-        // Daily limit check: Free users get 1 mission/day
+        
+        // Ensure push token is valid — runs in parallel, doesn't block mission creation
+        Task { await DeviceService.shared.ensurePushEnabled() }
         
         // Daily limit check: Free users get 1 mission/day
         if !ProAccess.canCreateMissionToday(missionsCreatedToday: missionsCreatedToday) {

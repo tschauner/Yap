@@ -22,13 +22,11 @@ final class DeviceService: @unchecked Sendable {
     /// Called from AppDelegate when APNs returns a device token.
     func didRegisterForRemoteNotifications(deviceToken: Data) {
         let token = deviceToken.map { String(format: "%02x", $0) }.joined()
-        let previousToken = UserDefaults.standard.string(forKey: tokenKey)
         UserDefaults.standard.set(token, forKey: tokenKey)
         
-        // Only sync if token changed or never synced
-        if token != previousToken {
-            Task { await registerDevice(apnsToken: token) }
-        }
+        // Always sync token to server — ensures push_enabled is re-set to true
+        // even if the server disabled it due to a BadDeviceToken error.
+        Task { await registerDevice(apnsToken: token) }
     }
     
     /// Current APNs token (hex string), or nil if not yet registered.
@@ -89,6 +87,37 @@ final class DeviceService: @unchecked Sendable {
             )
         } catch {
             print("⚠️ Disable push failed: \(error.localizedDescription)")
+        }
+    }
+    
+    /// Check if push is enabled on the server. If not, force re-register.
+    /// Call this before creating a mission to ensure notifications will be delivered.
+    func ensurePushEnabled() async {
+        do {
+            struct DeviceRow: Decodable {
+                let pushEnabled: Bool
+            }
+            let rows: [DeviceRow] = try await api.rest(
+                table: "yap_devices",
+                query: "device_id=eq.\(APIClient.deviceId)&select=push_enabled"
+            )
+            if let row = rows.first, !row.pushEnabled {
+                print("⚠️ Push was disabled server-side (BadDeviceToken?) — re-registering...")
+                await forceReRegister()
+            }
+        } catch {
+            print("⚠️ Push health check failed: \(error.localizedDescription)")
+        }
+    }
+    
+    /// Force re-register for remote notifications and upload token.
+    func forceReRegister() async {
+        await MainActor.run {
+            UIApplication.shared.registerForRemoteNotifications()
+        }
+        // Also re-upload current token immediately with push_enabled: true
+        if let token = apnsToken {
+            await registerDevice(apnsToken: token)
         }
     }
     

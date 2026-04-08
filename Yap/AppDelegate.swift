@@ -79,6 +79,15 @@ class AppDelegate: NSObject, UIApplicationDelegate, UNUserNotificationCenterDele
         }
     }
     
+    // MARK: - Foreground Re-Registration
+    
+    func applicationWillEnterForeground(_ application: UIApplication) {
+        // Re-register APNs token every time the app comes to foreground.
+        // This ensures the server always has a fresh token and push_enabled = true,
+        // even if the server disabled push due to a BadDeviceToken error.
+        application.registerForRemoteNotifications()
+    }
+    
     // MARK: - Remote Push Token
     
     func application(
