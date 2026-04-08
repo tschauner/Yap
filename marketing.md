@@ -30,24 +30,64 @@ REDDIT
 ================================================================================
 
 ────────────────────────────────────────
+r/productivityApps (MAIN POST)
+────────────────────────────────────────
+
+Title:
+I built my ex into an app because todo lists weren't making me feel bad enough
+
+Body:
+I've been through every productivity app. Todoist. Habitica. The one with the forest. The one with the Pomodoro. The one where you check boxes and a little animation plays and you feel nothing.
+
+They all have the same problem: they're polite. And I can ignore polite. I can swipe away "Friendly Reminder: Clean the kitchen ✨" faster than I can read it. My brain has developed immunity to gentle nudges.
+
+So I asked myself: what actually makes me do things? Not motivation. Not habit tracking. Not gamification.
+
+Guilt. Social pressure. The feeling that someone is watching and they are not impressed.
+
+I built Yap. You tell it what you're avoiding. You pick one of 12 AI agents. You set a deadline. Then the push notifications start — and they escalate.
+
+Mom starts with "the apartment won't clean itself, sweetie" and ends with "I TOLD EVERYONE AT BOOK CLUB ABOUT YOUR SITUATION."
+
+The Ex just says "typical" and somehow that's more effective than everything else combined. I don't want to talk about why.
+
+The Drill Sergeant writes in all caps exclusively. The Therapist asks "what's really stopping you?" and then just… waits. Grandma brings up the war. The Conspiracy Theorist thinks the government doesn't want you to finish your presentation.
+
+Every message is AI-generated, never repeats, and gets worse over time. You can share your weaknesses — the agents use them against you. There's a leaderboard that ranks agents by completion rate, not users. When you fail, the narrative isn't "you gave up," it's "your agent didn't deliver."
+
+Is it healthy? Probably not. Does it work? Unfortunately, yes.
+
+6 agents free. 6 more with Pro (one-time $9.99). iOS only for now.
+
+[App Store link]
+
+(If anyone wants a promo code, drop a comment and tell me which agent you'd pick. The Ex is the most popular and I find that deeply concerning.)
+
+---
+
+────────────────────────────────────────
 r/productivity
 ────────────────────────────────────────
 
 Title:
-I replaced every productivity app on my phone with one that guilt-trips me. It works.
+I stopped using to-do lists and started using emotional manipulation instead. Here's what happened.
 
 Body:
-I've tried everything. Todoist, Habitica, Reminders, Focus timers, journaling. They all stopped working after a week because they're all the same: set a task, get a polite nudge, ignore it, feel nothing.
+Quick backstory: I'm a developer. I've tried every productivity system that exists. GTD, Eisenhower matrix, time blocking, journaling, accountability partners, body doubling, the "eat the frog" thing. They all worked for about 5 days.
 
-So I built Yap. You pick one of 12 AI agents - Mom, The Ex, Drill Sergeant, Grandma, etc. You set a task and a deadline. The agent sends you push notifications that escalate the longer you wait. Not "friendly reminders." Actual psychological pressure.
+You know what actually works? My mom calling and asking why I haven't done the thing yet. The problem is she doesn't call every 30 minutes. And even if she did, I'd stop answering.
 
-Mom starts with "the apartment won't clean itself" and ends with "I'm coming over. Unannounced. Right now."
+So I automated her.
 
-The Ex just says "typical" and somehow that hurts more than everything else combined.
+I built Yap — a productivity app with 12 AI agents that send you escalating push notifications until you either finish the task or give up (and they judge you for giving up too).
 
-Every message is AI-generated, never repeats. You can tell the agents your weaknesses and they'll use them against you. There's a global leaderboard that ranks agents by completion rate - when you fail, the story isn't "you gave up," it's "your agent didn't deliver."
+The agents are characters: Mom, The Ex, Drill Sergeant, Grandma, Therapist, Conspiracy Theorist, Boss, Best Friend, and more. Each one has a completely different voice and escalation style. Mom does guilt. The Ex does passive-aggression. The Drill Sergeant is… loud.
 
-Free: 6 agents + 1 mission/day. Pro ($9.99 once): all 12 agents, unlimited missions, agent memory.
+It's not a to-do list. It's one mission at a time. One deadline. One agent breathing down your neck. No overwhelm, no 47 subtasks you'll never look at again.
+
+The weird part: it actually works. Not because the AI is smart (it is, but that's not why). It works because ignoring a push notification from "Mom" feels different than ignoring one from "Reminders."
+
+Free: 6 agents, 1 mission/day. Pro ($9.99 once): all 12, unlimited.
 
 iOS: [link]
 
@@ -58,20 +98,26 @@ r/ADHD
 ────────────────────────────────────────
 
 Title:
-Built a productivity app for "I know what I need to do but I physically cannot start"
+Built a productivity app for "I know exactly what I need to do but I physically cannot start"
 
 Body:
-Gentle reminders don't work. We both know that. The "you got this!" notification at 9am gets swiped away before your brain even registers it.
+You don't need another list. You have lists. You have lists of lists. You have a note on your phone that says "IMPORTANT" from 3 weeks ago and you're afraid to open it.
 
-What works: someone waiting. Social pressure. The feeling that ignoring it has consequences.
+The problem isn't knowing what to do. The problem is starting. And the gap between "I should do this" and "I am doing this" is a canyon that no cute app with streak counters can bridge.
 
-Yap does that with AI. You pick an agent (Mom, Drill Sergeant, The Ex, Grandma, etc.), set a deadline, and the notifications escalate. They get personal. You can feed it your actual weaknesses and it uses them.
+What actually bridges it: the feeling that someone is waiting. Someone is watching. Someone will notice if you don't.
 
-Not a cure. Not therapy. Just the closest thing to an accountability partner that lives in your lock screen.
+That's what Yap does. You pick an AI agent — Mom, Drill Sergeant, The Ex, Grandma, Therapist, and 7 more. You tell it what you're avoiding. You set a deadline. Then the push notifications start, and they escalate.
+
+Level 1: "Hey, just checking in on that thing."
+Level 3: "Interesting that you haven't started. Classic."
+Level 5: "I'M CALLING YOUR MOTHER. OH WAIT. I AM YOUR MOTHER."
+
+Not a cure. Not a replacement for anything that actually helps. Just the closest thing to an external brain poke that lives on your lock screen.
+
+I built it because I needed it. I still use The Ex daily. Uncomfortably effective.
 
 iOS: [link]
-
-(I built it. I also use it daily. The Ex is terrifyingly effective.)
 
 ---
 
@@ -80,18 +126,20 @@ r/iphone
 ────────────────────────────────────────
 
 Title:
-This app sends you AI-generated push notifications from 12 characters including your mom, your ex, and a drill sergeant
+This app turns your lock screen into a guilt trip — 12 AI agents send you escalating notifications until you do the thing
 
 Body:
-Yap is a productivity app where the notifications ARE the product. You set a task, pick an agent, set a deadline. The agent nags you with escalating AI-generated messages until you finish or give up.
+Yap is a productivity app where you never need to open the app. The entire product is push notifications.
 
-The lock screen does all the work. You don't even have to open the app to feel the pressure.
+You set a task, pick an agent (Mom, The Ex, Drill Sergeant, Grandma, Therapist, Conspiracy Theorist, etc.), and set a deadline. Then AI-generated messages start hitting your lock screen. They escalate. They never repeat.
 
-Agents include Mom (guilt), The Ex (passive-aggression), Drill Sergeant (yelling), Grandma (disappointment), Therapist ("what's really stopping you?"), and 7 more.
+Your lock screen does all the work. You just have to sit there and feel something.
 
-Every message is unique. You can share your weaknesses and agents weaponize them.
+What makes it different from reminders: personality. A notification from "Reminders" saying "Clean kitchen" means nothing. A notification from "Mom" saying "Mrs. Henderson's kitchen is SPOTLESS by the way. Just an observation." — that makes you get up.
 
-Free with 6 agents. Pro unlocks all 12. [App Store link]
+12 agents, 6 free. Each with a different voice and way of making you uncomfortable.
+
+iOS: [App Store link]
 
 ---
 
@@ -100,10 +148,10 @@ r/mildlyinfuriating
 ────────────────────────────────────────
 
 Title:
-Added an AI ex to my productivity app. She comments on every missed deadline. My friends say it's "too real."
+I put an AI ex into my productivity app. These are the notifications she sends when you miss a deadline.
 
 Body:
-Examples of what she says when you're late:
+Some highlights:
 
 "Typical. You could never commit to a deadline."
 
@@ -111,13 +159,135 @@ Examples of what she says when you're late:
 
 "I just think it's interesting you couldn't do this when we were together."
 
-She also says "wow" a lot. Just "wow."
+"Remember when you said you'd 'definitely' call back? Same energy."
 
-The app is called Yap. There are 11 other agents who are also somewhat unhinged. [link in comments]
+"Wow."
+
+She also remembers your past failures and brings them up unprompted. Like an actual ex.
+
+The app has 11 other agents who are also unhinged. Mom does guilt escalation. The Drill Sergeant writes exclusively in caps. Grandma brings up the war. The Conspiracy Theorist thinks the government doesn't want you to finish your essay.
+
+It's called Yap. Link in comments.
+
+---
+
+────────────────────────────────────────
+r/SideProject
+────────────────────────────────────────
+
+Title:
+I built my ex into an app because todo lists weren't making me feel bad enough
+
+Body:
+Indie dev here. Shipped my second app last week. It's called Yap.
+
+The pitch: you set a task, pick one of 12 AI agents, set a deadline. The agents send you push notifications that escalate the longer you ignore them. Every message is generated fresh by GPT-4o, never repeats.
+
+The agents are characters with real voices:
+- Mom (guilt that escalates to emotional devastation)
+- The Ex (passive-aggression, weaponized history)
+- Drill Sergeant (all caps, no mercy)
+- Therapist (asks hard questions, then waits)
+- Conspiracy Theorist ("they don't WANT you to finish that essay")
+- + 7 more
+
+Tech stack: Swift/SwiftUI iOS native, Supabase backend, GPT-4o for all copy generation, APNs for push. Edge Functions handle notification scheduling and copy generation. ~2-3s response time for agent reactions.
+
+The thing I'm most proud of: the leaderboard ranks agents, not users. When you fail, it's your agent's fault. Removes the shame spiral, replaces it with "my agent sucks" energy.
+
+Free: 6 agents, 1 mission/day. Pro ($9.99 one-time): all 12, unlimited, agent memory (they remember your past failures and bring them up).
+
+If anyone wants to try it, drop a comment with which agent you'd pick and I'll send a promo code.
+
+iOS: [link]
 
 
 ================================================================================
-LINKEDIN
+PRODUCT HUNT
+================================================================================
+
+────────────────────────────────────────
+TAGLINE (60 chars max)
+────────────────────────────────────────
+
+12 AI agents that guilt-trip you into being productive (56 chars)
+
+Alt options:
+- Your mom, your ex, and 10 more agents vs. your to-do list (58)
+- The productivity app that roasts you until the job is done (58)
+- AI agents that nag you with escalating push notifications (57)
+
+────────────────────────────────────────
+DESCRIPTION (260 chars max for the card)
+────────────────────────────────────────
+
+Yap replaces gentle reminders with 12 AI characters — Mom, The Ex, Drill Sergeant, Grandma, and more. Set a task and deadline. They send escalating push notifications until you finish. Every message is AI-generated, never repeats, and gets worse. You've been warned.
+
+────────────────────────────────────────
+FIRST COMMENT (Maker Comment)
+────────────────────────────────────────
+
+Hey Product Hunt 👋
+
+I built Yap because I realized I don't respond to productivity apps. I respond to guilt.
+
+Every to-do app I've tried did the same thing: set a task, get a polite reminder, ignore it, feel nothing. The tree in Forest died. My Todoist has 23 overdue tasks. The Pomodoro timer is still "paused" from last Tuesday.
+
+What actually makes me do things: my mom calling. The feeling that someone noticed I haven't started. Social pressure from someone who has opinions about my life choices.
+
+So I built that into an app.
+
+Yap has 12 AI agents. You pick one, set a task, set a deadline. They send push notifications that escalate the longer you wait. Every message is generated fresh by GPT-4o, never the same twice.
+
+The agents:
+🫵 Mom — guilt that escalates to book-club-level gossip
+💔 The Ex — "typical" (somehow the most effective word in the English language)
+🪖 Drill Sergeant — ALL CAPS. NO MERCY. YOUR LAUNDRY IS A WARZONE.
+👵 Grandma — survived a war, can't believe you can't clean a kitchen
+🛋️ Therapist — "what's really stopping you?" ...then waits
+🛸 Conspiracy Theorist — "they don't WANT you to finish that essay"
+👔 Boss — corporate passive-aggression in notification form
+🫶 Best Friend — hypes you up, then roasts you when you slack
+😊 The Colleague — "no no, go ahead, I'LL handle it. Again."
+...and 3 more unhinged options
+
+The thing I'm most proud of: the leaderboard doesn't rank users. It ranks agents. When you fail, it's not "you gave up" — it's "your agent didn't deliver." Removes the shame, keeps the motivation.
+
+Some agents remember your past missions. They keep receipts. If you gave up on "morning jog" last week, The Ex will mention it. Zero mercy.
+
+Free: 6 agents + 1 mission/day. Pro ($9.99 once): all 12, unlimited missions, agent memory.
+
+iOS only for now. Built with SwiftUI + Supabase + GPT-4o.
+
+Happy to answer any questions. And if you want a promo code — tell me which agent you'd pick. If you say "The Ex" I will judge you silently.
+
+────────────────────────────────────────
+TOPICS / TAGS
+────────────────────────────────────────
+
+Productivity, Artificial Intelligence, iOS, Tech
+
+────────────────────────────────────────
+GALLERY / MEDIA
+────────────────────────────────────────
+
+1. Hero image: Lock screen filled with escalating agent notifications  
+2. Agent selection screen showing all 12 characters  
+3. Side-by-side: "gentle reminder" vs Mom's level 5 meltdown  
+4. The Ex notification compilation (the viral angle)  
+5. Leaderboard showing agent completion rates  
+
+────────────────────────────────────────
+LAUNCH STRATEGY
+────────────────────────────────────────
+
+- Launch 00:01 PST (PH resets at midnight PST)
+- Post maker comment immediately
+- Share PH link on Twitter (@yapAgency), LinkedIn, Reddit
+- Respond to every comment in agent voice where appropriate
+- Prepare 5-10 promo codes for top commenters
+- Ask friends/network to upvote early (first 2 hours critical)
+- Cross-post to Indie Hackers, Hacker News (Show HN)
 ================================================================================
 
 Kontext: Letzter Post war hey-Launch "I'm 41 and I still need my mom.
