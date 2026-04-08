@@ -218,3 +218,125 @@ Free: 6 agents, 1 mission/day. Pro ($9.99 one-time): all 12, unlimited, agent me
 If anyone wants to try it, drop a comment with which agent you'd pick and I'll send a promo code.
 
 iOS: [link]
+
+
+================================================================================
+MEME POSTS (Screenshot + Title only)
+================================================================================
+
+Format: Image Post. Nur Titel + Screenshot vom Lock Screen.
+Kein Body-Text, kein "I built an app", keine Erklärung.
+Wenn Leute fragen "what app is this" → in Comments antworten.
+
+
+r/meirl (6M+)
+────────────────────────────────────────
+
+Title: meirl
+Screenshot: The Ex — "Typical."
+Aufgabe: "Reply to that text"
+
+Title: meirl
+Screenshot: Mom — "I can SEE your screen time report. We need to talk."
+Aufgabe: "Go to bed before midnight"
+
+Title: meirl
+Screenshot: The Ex — "The trash taking itself out. Ironic."
+Aufgabe: "Take out the trash"
+
+
+r/suspiciouslyspecific (1.5M+)
+────────────────────────────────────────
+
+Title: This notification just ended me
+Screenshot: Mom — "You've eaten cereal for dinner three times this week. Don't think I don't know."
+Aufgabe: "Go grocery shopping"
+
+Title: Why is this app reading my mind
+Screenshot: The Ex — "Starting fresh? That's familiar."
+Aufgabe: "Update your resume"
+
+Title: I feel personally attacked by my phone
+Screenshot: Best Friend — "bestie you've had 4 coffees and zero water. i'm worried but also disappointed."
+Aufgabe: "Drink water"
+
+
+r/OldPeopleFacebook (2M+)
+────────────────────────────────────────
+
+Title: My grandma learned how to send push notifications
+Screenshot: Grandma — "I survived a WAR and you can't handle a few PLATES."
+Aufgabe: "Do the dishes"
+
+Title: I think my grandma hacked my phone
+Screenshot: Grandma — "In my time if you bought something you KEPT it. And you were GRATEFUL."
+Aufgabe: "Return that Amazon package"
+
+Title: My grandma got an iPhone
+Screenshot: Grandma — "In my day we didn't AVOID the dentist. We didn't HAVE dentists."
+Aufgabe: "Book the dentist appointment"
+
+
+r/JustBootThings (600k+)
+────────────────────────────────────────
+
+Title: My phone has started yelling at me in boot
+Screenshot: Drill Sergeant — "YOUR LEGS AREN'T DECORATIVE, SOLDIER. MOVE."
+Aufgabe: "Go to the gym"
+
+Title: Even my notifications want me to fold my laundry
+Screenshot: Drill Sergeant — "THAT PILE HAS BEEN ON THE CHAIR SINCE TUESDAY. THE CHAIR IS NOT A CLOSET."
+Aufgabe: "Fold the laundry"
+
+Title: My phone just told me to meditate. Aggressively.
+Screenshot: Drill Sergeant — "SILENCE IS NOT OPTIONAL. SIT. BREATHE. NOW."
+Aufgabe: "Meditate for 10 minutes"
+
+
+r/antiwork (3M+)
+────────────────────────────────────────
+
+Title: My phone is sending me passive-aggressive work emails now
+Screenshot: Boss — "Just circling back. Again. For the fourth time. No rush though :)"
+Aufgabe: "Reply to that email"
+
+Title: "Please advise." About my Netflix subscription.
+Screenshot: Boss — "Per my last reminder, re: the subscription you said you'd cancel in January. Regards."
+Aufgabe: "Cancel that subscription"
+
+
+r/2meirl4meirl (1.5M+)
+────────────────────────────────────────
+
+Title: 2meirl4meirl
+Screenshot: The Ex — "Funny how you can't even call back the people who actually care."
+Aufgabe: "Call mom back"
+
+Title: 2meirl4meirl
+Screenshot: Therapist — "What's really stopping you? ... I'm still here."
+Aufgabe: "Start the essay"
+
+
+r/ProgrammerHumor (3M+)
+────────────────────────────────────────
+
+Title: My AI productivity app just became self-aware
+Screenshot: Conspiracy Theorist — "47 unnamed screenshots. That's not chaos. That's a PATTERN they want you to ignore."
+Aufgabe: "Organize your desktop"
+
+Title: I asked AI to remind me about my tasks. It chose violence.
+Screenshot: The Ex — "Of course you're giving up. Some things never change."
+Aufgabe: "Finish the side project"
+
+
+────────────────────────────────────────
+MEME POST REGELN
+────────────────────────────────────────
+
+- NIE den App-Namen im Titel
+- Screenshot muss aussehen wie ein echtes Lock Screen (kein App Store Badge etc.)
+- Wenn Leute fragen "what app is this": casual antworten, nicht pitchen
+  → "it's called Yap, it has like 12 agents that do this. the ex is the worst one."
+- Verschiedene Accounts oder zeitlich verteilt posten (nicht 5 Subs am selben Tag)
+- Kann parallel zu den "echten" Posts laufen (andere Subs, anderer Vibe)
+- Ziel: virales Potenzial, Leute googlen den App-Namen selbst
