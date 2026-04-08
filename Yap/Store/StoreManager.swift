@@ -29,6 +29,12 @@ final class StoreManager: ObservableObject {
         Task { await loadProducts() }
         Task { await updatePurchaseStatus() }
         Task { await listenForTransactions() }
+        
+        // Delayed re-check: promo code transactions may not be available immediately at launch
+        Task {
+            try? await Task.sleep(for: .seconds(2))
+            if !isPro { await updatePurchaseStatus() }
+        }
     }
     
     // MARK: - Load Products

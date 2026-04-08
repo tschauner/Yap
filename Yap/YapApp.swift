@@ -30,6 +30,9 @@ struct YapApp: App {
                 store.prepare()
                 setupQuickActions()
             }
+            .onReceive(NotificationCenter.default.publisher(for: UIApplication.willEnterForegroundNotification)) { _ in
+                Task { await store.updatePurchaseStatus() }
+            }
         }
     }
     
