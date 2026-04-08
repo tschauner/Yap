@@ -203,6 +203,49 @@ iOS: [link]
 
 
 ================================================================================
+REDDIT — POSTING STRATEGY & RULES
+================================================================================
+
+TIMING:
+- Post Dienstag–Donnerstag, 8–10 Uhr EST (14–16 Uhr deutscher Zeit)
+- NIE am gleichen Tag in mehreren Subreddits posten
+- 2–3 Tage Abstand zwischen Posts
+
+REIHENFOLGE:
+1. r/productivityApps — Start (kleineres Sub, weniger strenge Mods, guter Test)
+2. r/SideProject — 2-3 Tage später (Dev-Community, tech-Stack interessant)
+3. r/productivity — nächste Woche (größtes Sub, 3.5M, höchstes Risiko)
+4. r/ADHD — nur wenn r/productivity gut lief (strenge Mods, kein plumper Promo)
+5. r/iphone + r/mildlyinfuriating — optional, danach
+
+REGELN:
+- In jedem Sub 1-2 Tage vor dem Post etwas kommentieren (nicht fresh Account)
+- Titel ist alles — muss sich lesen wie ein normaler User-Post, nicht wie Werbung
+- KEIN App Store Link im Body bei r/productivity oder r/ADHD
+  → "Link in comments" und dann als erster Kommentar posten
+- Bei r/productivityApps und r/SideProject ist Link im Body OK
+- Auf JEDEN Kommentar antworten (boosted Algorithmus)
+- Promo-Codes anbieten = mehr Kommentare = mehr Sichtbarkeit
+- Authentisch bleiben: "I built this" > "We're launching"
+- Nie den App-Namen im Titel, außer der Post geht viral und Leute fragen
+
+ERFOLGSMESSUNG:
+- Guter Post auf r/productivityApps: 20-50 Upvotes, 10+ Kommentare
+- Guter Post auf r/productivity: 100-500 Upvotes, 50+ Downloads
+- Viraler Post: 1000+ Upvotes, hunderte Downloads, HN/Twitter pickup
+
+PRODUCT HUNT IST SEKUNDÄR:
+- PH ohne Netzwerk bringt wenig Launch-Day-Traffic
+- Der dauerhafte Wert ist SEO: PH-Seite rankt auf Google für "Yap app" etc.
+- Einfach launchen, Maker Comment posten, auf jeden Kommentar antworten
+- Selbst Platz 15-20 bringt Badge + SEO-Wert
+- 1 viraler Reddit-Post > #1 auf Product Hunt
+
+PRIORITÄT:
+Reddit > TikTok/Reels > Twitter Bot > Product Hunt > LinkedIn
+
+
+================================================================================
 PRODUCT HUNT
 ================================================================================
 
