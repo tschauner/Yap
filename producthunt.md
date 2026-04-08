@@ -6,10 +6,10 @@ YAP - PRODUCT HUNT
 TAGLINE (60 chars max)
 ────────────────────────────────────────
 
-12 AI agents that guilt-trip you into being productive (56 chars)
+Your mom, your ex, and 10 more vs. your to-do list (52 chars) ← MAIN
 
 Alt options:
-- Your mom, your ex, and 10 more agents vs. your to-do list (58)
+- 12 AI agents that guilt-trip you into being productive (56)
 - The productivity app that roasts you until the job is done (58)
 - AI agents that nag you with escalating push notifications (57)
 
