@@ -23,6 +23,9 @@ struct NameDetailView: View {
                 isFocused = true
             }
         }
+        .onDisappear {
+            userName = userName.trimmingCharacters(in: .whitespaces)
+        }
     }
 }
 
