@@ -52,6 +52,7 @@ final class DeviceService: @unchecked Sendable {
                     "timezone": TimeZone.current.identifier,
                     "language": LanguageResolver.currentBackendLang(),
                     "push_enabled": true,
+                    "is_simulator": AnalyticsService.isSimulator,
                 ])
             )
             print("✅ Device registered for push (token: \(apnsToken.prefix(8))…)")
@@ -60,7 +61,7 @@ final class DeviceService: @unchecked Sendable {
         }
     }
     
-    /// Sync timezone & language (call on app launch or settings change).
+    /// Sync timezone, language & last_seen_at (call on app launch or settings change).
     func syncDeviceMetadata() async {
         guard isRegistered else { return }
         do {
@@ -70,10 +71,40 @@ final class DeviceService: @unchecked Sendable {
                 body: .json([
                     "timezone": TimeZone.current.identifier,
                     "language": LanguageResolver.currentBackendLang(),
+                    "last_seen_at": ISO8601DateFormatter().string(from: Date()),
                 ])
             )
         } catch {
             print("⚠️ Device metadata sync failed: \(error.localizedDescription)")
+        }
+    }
+    
+    /// Save which agent the user picked during onboarding.
+    func saveOnboardingAgent(_ agent: String) async {
+        do {
+            try await api.restUpdate(
+                table: "yap_devices",
+                query: "device_id=eq.\(APIClient.deviceId)",
+                body: .json(["onboarding_agent": agent])
+            )
+            print("✅ Onboarding agent saved: \(agent)")
+        } catch {
+            print("⚠️ Save onboarding agent failed: \(error.localizedDescription)")
+        }
+    }
+    
+    /// Lightweight touch — updates only last_seen_at (call on every foreground).
+    func touchLastSeen() async {
+        do {
+            try await api.restUpdate(
+                table: "yap_devices",
+                query: "device_id=eq.\(APIClient.deviceId)",
+                body: .json([
+                    "last_seen_at": ISO8601DateFormatter().string(from: Date()),
+                ])
+            )
+        } catch {
+            print("⚠️ Touch last_seen failed: \(error.localizedDescription)")
         }
     }
     

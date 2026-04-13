@@ -3,21 +3,62 @@
 
 import Foundation
 
-/// Trackt Goal-Lifecycle-Events in der yap_goals-Tabelle auf Supabase.
+/// Trackt Goal-Lifecycle-Events in der yap_goals-Tabelle auf Supabase
+/// und leichtgewichtige Funnel-Events in yap_events.
 /// Rein asynchron, fire-and-forget — Fehler werden geloggt, blockieren aber nichts.
 final class AnalyticsService {
     
     static let shared = AnalyticsService()
+    private let api = APIClient()
     private init() {}
     
-    private var deviceId: String {
-        // Persistent Device ID (bleibt auch nach App-Reinstall gleich, solange Keychain existiert)
-        if let existing = UserDefaults.standard.string(forKey: "yap_device_id") {
-            return existing
+    /// Uses the canonical Keychain-backed device ID (same as all other services).
+    private var deviceId: String { APIClient.deviceId }
+    
+    /// Whether this process runs inside the iOS Simulator.
+    static let isSimulator: Bool = {
+        #if targetEnvironment(simulator)
+        return true
+        #else
+        return false
+        #endif
+    }()
+    
+    // MARK: - Event Names
+    
+    enum Event: String {
+        // App lifecycle
+        case appOpened              = "app_opened"
+        
+        // Onboarding funnel
+        case onboardingWelcome      = "onboarding_welcome"
+        case onboardingAgents       = "onboarding_agents"
+        case onboardingDeadline     = "onboarding_deadline"
+        case onboardingName         = "onboarding_name"
+        case onboardingNotifications = "onboarding_notifications"
+        case onboardingPaywallShown = "onboarding_paywall_shown"
+        case onboardingPaywallSkipped = "onboarding_paywall_skipped"
+        case onboardingPaywallPurchased = "onboarding_paywall_purchased"
+        case onboardingCompleted    = "onboarding_completed"
+        
+        // Mission lifecycle
+        case missionCreated         = "mission_created"
+        case missionCompleted       = "mission_completed"
+        case missionGivenUp         = "mission_given_up"
+    }
+    
+    // MARK: - Event Tracking (yap_events)
+    
+    /// Track a named event with optional metadata. Fire-and-forget.
+    func track(_ event: Event, metadata: [String: Any]? = nil) {
+        var body: [String: Any] = [
+            "device_id": deviceId,
+            "event": event.rawValue
+        ]
+        if let metadata, !metadata.isEmpty {
+            body["metadata"] = metadata
         }
-        let new = UUID().uuidString
-        UserDefaults.standard.set(new, forKey: "yap_device_id")
-        return new
+        fire("yap_events", method: "POST", body: body)
     }
     
     // MARK: - Track Goal Created
@@ -34,6 +75,9 @@ final class AnalyticsService {
             "used_ai_copy": usedAICopy
         ]
         fire("yap_goals", method: "POST", body: body)
+        
+        // Also track as event for funnel
+        track(.missionCreated, metadata: ["agent": mission.agent.rawValue])
     }
     
     // MARK: - Track Goal Completed
@@ -51,6 +95,8 @@ final class AnalyticsService {
         
         // PATCH via filter
         fire("yap_goals?id=eq.\(mission.id.uuidString)", method: "PATCH", body: body as [String: Any])
+        
+        track(.missionCompleted, metadata: ["agent": mission.agent.rawValue])
     }
     
     // MARK: - Track Goal Given Up
@@ -60,6 +106,8 @@ final class AnalyticsService {
             "given_up_at": ISO8601DateFormatter().string(from: Date())
         ]
         fire("yap_goals?id=eq.\(goalId.uuidString)", method: "PATCH", body: body)
+        
+        track(.missionGivenUp)
     }
     
     // MARK: - Fire & Forget

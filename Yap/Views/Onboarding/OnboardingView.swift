@@ -175,9 +175,8 @@ struct OnboardingView: View {
                     if currentPage == .paywall {
                         Image(icon: .close)
                             .button {
-                                withAnimation {
-                                    completedOnboarding = true
-                                }
+                                AnalyticsService.shared.track(.onboardingPaywallSkipped)
+                                completeOnboarding(skippedPaywall: true)
                             }
                     }
                 }
@@ -186,21 +185,30 @@ struct OnboardingView: View {
     }
     
     private func handleNext() {
+        let analytics = AnalyticsService.shared
         switch currentPage {
         case .welcome:
+            analytics.track(.onboardingWelcome)
             withAnimation(.easeInOut(duration: 0.3)) { currentPage = .agents }
         case .agents:
             withAnimation(.easeInOut(duration: 0.3)) { currentPage = .deadline }
         case .deadline:
+            analytics.track(.onboardingDeadline)
             withAnimation(.easeInOut(duration: 0.3)) { currentPage = .name }
         case .name:
+            analytics.track(.onboardingName, metadata: ["has_name": !userName.isEmpty])
             withAnimation(.easeInOut(duration: 0.3)) { currentPage = .notifiation }
         case .notifiation:
             if notificationsEnabled || notificationsDenied {
+                analytics.track(.onboardingNotifications, metadata: [
+                    "granted": notificationsEnabled,
+                    "denied": notificationsDenied
+                ])
                 withAnimation(.easeInOut(duration: 0.3)) {
                     if isPro {
-                        completedOnboarding = true
+                        completeOnboarding(skippedPaywall: true)
                     } else {
+                        analytics.track(.onboardingPaywallShown)
                         currentPage = .paywall
                     }
                 }
@@ -223,9 +231,23 @@ struct OnboardingView: View {
             }
             
         case .paywall:
-            withAnimation {
-                completedOnboarding = true
-            }
+            completeOnboarding(skippedPaywall: false)
+        }
+    }
+    
+    // MARK: - Complete Onboarding
+    
+    @MainActor
+    private func completeOnboarding(skippedPaywall: Bool) {
+        AnalyticsService.shared.track(.onboardingCompleted, metadata: [
+            "skipped_paywall": skippedPaywall,
+            "agent": selectedAgent?.rawValue ?? "none"
+        ])
+        if let agent = selectedAgent {
+            Task { await DeviceService.shared.saveOnboardingAgent(agent.rawValue) }
+        }
+        withAnimation {
+            completedOnboarding = true
         }
     }
     
@@ -268,7 +290,12 @@ struct OnboardingView: View {
         .clipShape(RoundedRectangle(cornerRadius: 14))
         .padding(.horizontal, 24)
         .button {
-            Task { await store.purchase() }
+            Task {
+                await store.purchase()
+                if isPro {
+                    AnalyticsService.shared.track(.onboardingPaywallPurchased)
+                }
+            }
         }
         .disabled(store.isLoading || store.product == nil)
     }

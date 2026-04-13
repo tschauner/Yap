@@ -39,6 +39,9 @@ class AppDelegate: NSObject, UIApplicationDelegate, UNUserNotificationCenterDele
         // Sync device metadata (timezone, language) on every launch
         Task { await DeviceService.shared.syncDeviceMetadata() }
         
+        // Track app open event (for funnel analytics)
+        AnalyticsService.shared.track(.appOpened)
+        
         return true
     }
 
@@ -86,6 +89,9 @@ class AppDelegate: NSObject, UIApplicationDelegate, UNUserNotificationCenterDele
         // This ensures the server always has a fresh token and push_enabled = true,
         // even if the server disabled push due to a BadDeviceToken error.
         application.registerForRemoteNotifications()
+        
+        // Update last_seen_at for engagement tracking
+        Task { await DeviceService.shared.touchLastSeen() }
     }
     
     // MARK: - Remote Push Token

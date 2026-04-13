@@ -1,5 +1,24 @@
 # Changelog
 
+## 1.0.2
+
+### English (en)
+Improved app stability and smoother onboarding experience. Your agents are sharper than ever.
+
+### Deutsch (de)
+Verbesserte App-Stabilität und flüssigeres Onboarding. Deine Agenten sind schärfer als je zuvor.
+
+### Français (fr)
+Stabilité améliorée et onboarding plus fluide. Tes agents sont plus affûtés que jamais.
+
+### Español (es)
+Mayor estabilidad y onboarding más fluido. Tus agentes están más afilados que nunca.
+
+### Português Brasileiro (pt-BR)
+Estabilidade melhorada e onboarding mais fluido. Seus agentes estão mais afiados do que nunca.
+
+---
+
 ## 1.0.1
 
 ### English (en)
