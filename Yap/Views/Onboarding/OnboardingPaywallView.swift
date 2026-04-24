@@ -65,7 +65,14 @@ struct OnboardingPaywallView: View {
         }
         .hapticFeedback(trigger: selectedAgent)
         .onChange(of: store.isPro) { _, isPro in
-            if isPro { completedOnboarding = true }
+            if isPro {
+                Task {
+                    // Request notification permission before completing onboarding
+                    // This handles reinstalls where the paywall is shown but notifications were never asked
+                    _ = await NagService.shared.requestPermission()
+                    await MainActor.run { completedOnboarding = true }
+                }
+            }
         }
         .task { await store.loadProducts() }
     }
