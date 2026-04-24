@@ -212,7 +212,7 @@ serve(async (req) => {
       .from("yap_notifications")
       .select(`
         id, goal_id, device_id, agent, title, body,
-        escalation_level, sequence_index, scheduled_at,
+        escalation_level, sequence_index, scheduled_at, retry_count,
         yap_goals!inner ( status, deadline, notifications_sent )
       `)
       .eq("status", "pending")
@@ -262,7 +262,7 @@ serve(async (req) => {
     const deviceIds = [...new Set(notifications.map((n) => n.device_id))];
     const { data: devices, error: deviceError } = await supabase
       .from("yap_devices")
-      .select("device_id, apns_token, push_enabled")
+      .select("device_id, apns_token, apns_environment, push_enabled")
       .in("device_id", deviceIds);
 
     if (deviceError) {
@@ -276,10 +276,14 @@ serve(async (req) => {
     const deviceMap = new Map(devices?.map((d) => [d.device_id, d]) ?? []);
 
     // 3. Process each notification
+    const MAX_RETRIES = 3;
+    const RETRY_DELAY_MS = 2 * 60 * 1000; // 2 minutes
+
     let sent = 0;
     let skipped = 0;
     let failed = 0;
-    const updates: { id: string; status: string; sent_at?: string; apns_id?: string; error?: string }[] = [];
+    let retried = 0;
+    const updates: { id: string; status: string; sent_at?: string; apns_id?: string; error?: string; retry_count?: number; scheduled_at?: string }[] = [];
     const disabledDevices: string[] = [];
     const goalSentCounts = new Map<string, number>();
 
@@ -312,7 +316,9 @@ serve(async (req) => {
         notif.agent
       );
 
-      const result = await sendAPNs(device.apns_token, payload, APNS_ENVIRONMENT);
+      // Use per-device environment (sandbox for debug builds, production for App Store)
+      const environment = device.apns_environment || APNS_ENVIRONMENT;
+      const result = await sendAPNs(device.apns_token, payload, environment);
 
       if (result.success) {
         updates.push({
@@ -326,10 +332,24 @@ serve(async (req) => {
         // Track sent count per goal
         goalSentCounts.set(notif.goal_id, (goalSentCounts.get(notif.goal_id) ?? 0) + 1);
       } else if (result.statusCode === 410 || result.reason === "Unregistered") {
-        // Token expired/invalid — disable device
+        // Token permanently invalid — disable device
         updates.push({ id: notif.id, status: "failed", error: "token_invalid" });
         disabledDevices.push(notif.device_id);
         failed++;
+      } else if (result.reason === "BadDeviceToken" && (notif.retry_count ?? 0) < MAX_RETRIES) {
+        // Token might be stale (race condition: app sent new token but DB not yet updated)
+        // Reschedule for retry — next cron run will use the fresh token
+        const retryAt = new Date(Date.now() + RETRY_DELAY_MS).toISOString();
+        const newRetryCount = (notif.retry_count ?? 0) + 1;
+        updates.push({
+          id: notif.id,
+          status: "pending",
+          scheduled_at: retryAt,
+          retry_count: newRetryCount,
+          error: `BadDeviceToken_retry_${newRetryCount}`,
+        });
+        retried++;
+        console.log(`🔄 BadDeviceToken — retry ${newRetryCount}/${MAX_RETRIES} for ${notif.id} at ${retryAt}`);
       } else {
         updates.push({
           id: notif.id,
@@ -349,6 +369,8 @@ serve(async (req) => {
           ...(update.sent_at && { sent_at: update.sent_at }),
           ...(update.apns_id && { apns_id: update.apns_id }),
           ...(update.error && { error: update.error }),
+          ...(update.retry_count !== undefined && { retry_count: update.retry_count }),
+          ...(update.scheduled_at && { scheduled_at: update.scheduled_at }),
         })
         .eq("id", update.id);
     }
@@ -370,10 +392,10 @@ serve(async (req) => {
     }
 
     const elapsed = Date.now() - startTime;
-    console.log(`📬 Sent: ${sent}, Skipped: ${skipped}, Failed: ${failed} (${elapsed}ms)`);
+    console.log(`📬 Sent: ${sent}, Skipped: ${skipped}, Failed: ${failed}, Retried: ${retried} (${elapsed}ms)`);
 
     return new Response(
-      JSON.stringify({ sent, skipped, failed, elapsed_ms: elapsed }),
+      JSON.stringify({ sent, skipped, failed, retried, elapsed_ms: elapsed }),
       { headers: { "Content-Type": "application/json" } }
     );
   } catch (error) {

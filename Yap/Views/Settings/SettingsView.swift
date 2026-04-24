@@ -14,8 +14,10 @@ struct SettingsView: View {
     @State private var showDeleteAlert = false
     @AppStorage("customRoast") private var customRoast: String = ""
     @AppStorage("hapticFeedbackEnabled") private var isOn: Bool = true
+    @AppStorage("user_display_name") private var userName: String = ""
     
     private let appURL = URL(string: "https://apps.apple.com/app/id6761190023")!
+    private let reviewURL = URL(string: "https://apps.apple.com/app/id6761190023?action=write-review")
     
     var body: some View {
         NavigationStack {
@@ -31,9 +33,7 @@ struct SettingsView: View {
                         HStack {
                             Text(L10n.Settings.name)
                             Spacer()
-                            Text(UserDefaults.standard.string(forKey: "user_display_name")?.isEmpty == false
-                                 ? UserDefaults.standard.string(forKey: "user_display_name")!
-                                 : L10n.Settings.nameNotSet)
+                            Text(userName.isEmpty ? L10n.Settings.nameNotSet : userName)
                                 .foregroundStyle(.secondary)
                                 .font(.system(size: 14))
                         }
@@ -96,8 +96,8 @@ struct SettingsView: View {
                     }
                     
                     Button {
-                        if let url = URL(string: "https://apps.apple.com/app/id6761190023?action=write-review") {
-                            UIApplication.shared.open(url)
+                        if let reviewURL {
+                            UIApplication.shared.open(reviewURL)
                         }
                     } label: {
                         Text(L10n.Settings.reviewYap)

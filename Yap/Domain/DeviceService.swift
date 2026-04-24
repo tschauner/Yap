@@ -43,19 +43,27 @@ final class DeviceService: @unchecked Sendable {
     
     /// Upsert device record in yap_devices.
     func registerDevice(apnsToken: String) async {
+        // Debug builds use APNs sandbox, Release builds use production
+        #if DEBUG
+        let apnsEnvironment = "sandbox"
+        #else
+        let apnsEnvironment = "production"
+        #endif
+        
         do {
             try await api.restUpsert(
                 table: "yap_devices",
                 body: .json([
                     "device_id": APIClient.deviceId,
                     "apns_token": apnsToken,
+                    "apns_environment": apnsEnvironment,
                     "timezone": TimeZone.current.identifier,
                     "language": LanguageResolver.currentBackendLang(),
                     "push_enabled": true,
                     "is_simulator": AnalyticsService.isSimulator,
                 ])
             )
-            print("✅ Device registered for push (token: \(apnsToken.prefix(8))…)")
+            print("✅ Device registered for push (token: \(apnsToken.prefix(8))…, env: \(apnsEnvironment))")
         } catch {
             print("⚠️ Device registration failed: \(error.localizedDescription)")
         }

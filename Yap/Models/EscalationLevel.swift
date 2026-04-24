@@ -52,6 +52,7 @@ enum EscalationLevel: Int, CaseIterable {
             : 1.0
         
         let minInterval = 5 // minimum 5 minutes between pushes
+        let deadlineBuffer = 5 // last push must be at least 5 min before deadline
         var currentMinute = startOffsetMinutes
         
         // Erste Notification sofort: Agent meldet sich direkt nach Mission-Start
@@ -62,13 +63,13 @@ enum EscalationLevel: Int, CaseIterable {
             let interval = max(minInterval, Int(Double(profile.interval(for: level)) * compression))
             for _ in 0..<count {
                 currentMinute += interval
-                // Stop if we'd exceed the deadline
-                if let available = availableMinutes, currentMinute >= available {
+                // Stop if we'd exceed the deadline buffer
+                if let available = availableMinutes, currentMinute >= available - deadlineBuffer {
                     break
                 }
                 schedule.append((currentMinute, level))
             }
-            if let available = availableMinutes, currentMinute >= available {
+            if let available = availableMinutes, currentMinute >= available - deadlineBuffer {
                 break
             }
         }
@@ -77,7 +78,7 @@ enum EscalationLevel: Int, CaseIterable {
         let minimumMessages = 6
         if let available = availableMinutes, schedule.count < minimumMessages, schedule.count > 0 {
             let lastMinute = schedule.last?.minuteOffset ?? startOffsetMinutes
-            let remainingTime = available - lastMinute
+            let remainingTime = (available - deadlineBuffer) - lastMinute
             let needed = minimumMessages - schedule.count
             
             if remainingTime > needed * minInterval {
@@ -86,7 +87,7 @@ enum EscalationLevel: Int, CaseIterable {
                 
                 for i in 0..<needed {
                     cursor += fillInterval
-                    if cursor >= available { break }
+                    if cursor >= available - deadlineBuffer { break }
                     let level: EscalationLevel = i < needed / 2 ? .urgent : .meltdown
                     schedule.append((cursor, level))
                 }
