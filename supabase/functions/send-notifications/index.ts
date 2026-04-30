@@ -206,32 +206,8 @@ serve(async (req) => {
   try {
     const supabase = createClient(SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY);
 
-    // 1. First: expire any active missions whose deadline has passed
-    //    This MUST happen before fetching notifications to avoid race conditions
-    const { data: expiredGoals } = await supabase
-      .from("yap_goals")
-      .update({
-        status: "given_up",
-        given_up_at: new Date().toISOString(),
-      })
-      .eq("status", "active")
-      .lt("deadline", new Date().toISOString())
-      .select("id");
-
-    if (expiredGoals && expiredGoals.length > 0) {
-      const expiredIds = expiredGoals.map((g: { id: string }) => g.id);
-      console.log(`⏰ Expired ${expiredIds.length} missions: ${expiredIds.join(", ")}`);
-
-      // Cancel their pending notifications
-      await supabase
-        .from("yap_notifications")
-        .update({ status: "cancelled", error: "mission_expired" })
-        .in("goal_id", expiredIds)
-        .eq("status", "pending");
-    }
-
-    // 2. Fetch pending notifications that are due — only for active goals
-    //    (prevents sending after mission is completed/given up/expired)
+    // 1. Fetch pending notifications that are due — only for active goals
+    //    (prevents sending after mission is completed/given up)
     const { data: notifications, error: fetchError } = await supabase
       .from("yap_notifications")
       .select(`
@@ -259,7 +235,30 @@ serve(async (req) => {
       });
     }
 
-    // 3. Get unique device IDs and fetch their tokens + settings
+    // 1b. Mark expired active missions as given_up
+    const { data: expiredGoals } = await supabase
+      .from("yap_goals")
+      .update({
+        status: "given_up",
+        given_up_at: new Date().toISOString(),
+      })
+      .eq("status", "active")
+      .lt("deadline", new Date().toISOString())
+      .select("id");
+
+    if (expiredGoals && expiredGoals.length > 0) {
+      const expiredIds = expiredGoals.map((g: { id: string }) => g.id);
+      console.log(`⏰ Expired ${expiredIds.length} missions: ${expiredIds.join(", ")}`);
+
+      // Cancel their pending notifications
+      await supabase
+        .from("yap_notifications")
+        .update({ status: "cancelled", error: "mission_expired" })
+        .in("goal_id", expiredIds)
+        .eq("status", "pending");
+    }
+
+    // 2. Get unique device IDs and fetch their tokens + settings
     const deviceIds = [...new Set(notifications.map((n) => n.device_id))];
     const { data: devices, error: deviceError } = await supabase
       .from("yap_devices")
@@ -276,7 +275,7 @@ serve(async (req) => {
 
     const deviceMap = new Map(devices?.map((d) => [d.device_id, d]) ?? []);
 
-    // 4. Process each notification
+    // 3. Process each notification
     const MAX_RETRIES = 3;
     const RETRY_DELAY_MS = 2 * 60 * 1000; // 2 minutes
 
