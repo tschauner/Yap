@@ -303,6 +303,13 @@ final class MissionViewModel: ObservableObject {
     func selectAgent(_ agent: Agent, title: String) async {
         let title = title.trimmingCharacters(in: .whitespacesAndNewlines)
         
+        // Reset state from previous mission so old messages don't show
+        currentNagMessage = nil
+        agentReaction = nil
+        stopPolling()
+        pushObserver?.cancel()
+        pushObserver = nil
+        
         // Ensure push token is valid — runs in parallel, doesn't block mission creation
         Task { await DeviceService.shared.ensurePushEnabled() }
         
